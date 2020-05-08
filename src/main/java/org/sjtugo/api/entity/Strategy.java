@@ -3,7 +3,9 @@ package org.sjtugo.api.entity;
 
 import lombok.Data;
 
+import javax.validation.constraints.AssertTrue;
 import java.time.Duration;
+import java.util.List;
 
 @Data
 public class Strategy {
@@ -13,7 +15,7 @@ public class Strategy {
 
     private String arrive;
 
-    private String[] pass;
+    private List<String> pass;
 
     private Duration travelTime;
 
@@ -21,7 +23,17 @@ public class Strategy {
 
     private int cost;
 
-    private String[] preference;
+    private List<String> preference;
 
-    private Route[] routeplan;
+    private List<Route> routeplan;
+
+    public void merge(Strategy nextStrategy){
+        // pre-condition: self.arrive == nextStrategy.depart, nextStrategy.pass = {}
+        pass.add(arrive);
+        arrive = nextStrategy.getArrive();
+        travelTime = travelTime.plus(nextStrategy.travelTime);
+        distance += nextStrategy.distance;
+        cost += nextStrategy.cost;
+        routeplan.addAll(nextStrategy.routeplan);
+    }
 }
