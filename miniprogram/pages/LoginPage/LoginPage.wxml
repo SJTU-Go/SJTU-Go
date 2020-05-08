@@ -1,0 +1,17 @@
+<view class="title">SJTU-GO
+</view>
+<view class="block">
+</view>
+<view class="containerbutton">
+  <button class='btn1' bindtap='checkUserInfo'>
+    <image class='btnImg' src='../../images/wechat.png'></image>
+    <view>微信账号登录</view>
+
+  </button>
+
+</view>
+<view class="containerbutton">
+  <button class='btn2' bindtap='jumpaccountLogin'>
+    <view>用户密码登录</view>
+    </button>
+    </view>

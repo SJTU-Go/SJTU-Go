@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class='block'>
+  <view class ='blockleft'>
+    <open-data type="userAvatarUrl"></open-data>
+  </view>
+  <view class ='smallblock'></view>
+  <view class = 'verticaltool'>
+    <view class ='tool'>
+      <view class ='blocklleft'>用户名：</view>
+      <view class ='blockright'>
+        <open-data type="userNickName"></open-data>
+      </view>
+    </view>
+    <view class ='tool'>
+      <view class ='blocklleft'>手机号：</view>
+      <view class ='blockright'>
+        未绑定
+      </view>
+    </view>
+    <view class ='tool'>
+      <view class ='blocklleft'>邮箱：</view>
+      <view class ='blockright'>未绑定</view>
+    </view>
+
+  </view>
+</view>
+<view class="divLine"></view>
+<view class='blocksystem'>
+  <view class ='blockleft'>系统设置</view>
+  <view class ='smallblock'></view>
+  <view class = 'verticaltool'>
+    <view class ='tool'>
+      <view class ='extendblock'bindtap="preferenceNavigate">个人偏好></view>
+    </view>
+    <view class ='tool'>
+      <view class ='extendblock'bindtap="scheduleNavigate">日程查看></view>
+    </view>
+    <view class ='tool'>
+      <view class ='extendblock'bindtap="historyNavigate">历史记录></view>
+    </view>
+
+  </view>
+</view>

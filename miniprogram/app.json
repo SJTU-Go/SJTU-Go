@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/LoginPage/LoginPage",
+    "pages/userInfoPage/userInfoPage",
+
+    "pages/preferencePage/preferencePage",
+    "pages/schedulePage/schedulePage",
+    "pages/HistoryPage/HistoryPage",
+    "pages/registrationPage/registrationPage",
+    "pages/accountLoginPage/accountLoginPage",
+    "pages/index/index",
+    "pages/trafficPage/trafficPage"
+  ],
+
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "SJTU-Go",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {  
+    "color": "#a9b7b7",  
+    "selectedColor": "#11cd6e",  
+     "borderStyle": "black" ,
+     "list": [{  
+       "pagePath": "pages/index/index",  
+        "text": "车辆"  ,
+        "selectedIconPath": "images/bicycle2.png",
+        "iconPath": "images/bicycle1.png"
+      },
+      {  
+        "pagePath": "pages/trafficPage/trafficPage",  
+         "text": "交通"  ,
+         "selectedIconPath": "images/traffic02.png",
+         "iconPath": "images/traffic01.png"
+       },
+       {   
+        "pagePath": "pages/userInfoPage/userInfoPage",  
+         "text":"用户" ,
+         "selectedIconPath": "images/user2.png",
+         "iconPath": "images/user1.png"
+       }
+]
+    },
+
+"sitemapLocation": "sitemap.json",
+"style": "v2"
+}

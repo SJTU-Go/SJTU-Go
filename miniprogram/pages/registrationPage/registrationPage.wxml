@@ -1,0 +1,27 @@
+<view class="block">
+  <view class ='blockleft'>用户名</view>
+  <view class ='right'>
+    <input class="input" text-align="center" name="userName" placeholder="输入用户名"
+    bindinput="userNameInput"/>
+  </view>
+</view>
+<view class="block">
+  <view class ='blockleft'>密码</view>
+  <view class ='right'>
+    <input class="input" text-align="center" name="userName" password placeholder="输入密码"
+    bindinput="passwordInput"/>
+  </view>
+</view>
+<view class="block">
+  <view class ='blockleft'>+86</view>
+  <view class ='right'>
+    <input class="input" text-align="center" name="userName" placeholder="请输入手机号"
+    bindinput="phonenumberInput"/>
+  </view>
+</view>
+
+<view class="containerbutton">
+  <button class='btn2' bindtap='register'>
+    <view>完成注册</view>
+    </button>
+</view>
