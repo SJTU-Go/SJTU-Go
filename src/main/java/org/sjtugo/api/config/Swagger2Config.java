@@ -1,6 +1,10 @@
 package org.sjtugo.api.config;
 
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.vividsolutions.jts.geom.LineString;
+import org.sjtugo.api.entity.Strategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.client.LinkDiscoverer;
@@ -20,6 +24,7 @@ import springfox.documentation.spring.web.paths.RelativePathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +66,9 @@ public class Swagger2Config implements WebMvcConfigurer {
                         return "/";
                     }
                 })
-                .apiInfo(apiInfo());
+                .apiInfo(apiInfo())
+                .directModelSubstitute(Duration.class, int.class)
+                .directModelSubstitute(LineString.class, ArrayList.class);
     }
 
     public ApiInfo apiInfo() {
