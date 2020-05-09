@@ -1,27 +1,26 @@
 package org.sjtugo.api.controller;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 import lombok.Data;
+import org.sjtugo.api.DAO.BusStop;
+import org.sjtugo.api.DAO.BusStopRepository;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
-import org.sjtugo.api.service.BusPlanner;
-import org.springframework.hateoas.EntityModel;
+import org.sjtugo.api.service.planner.BusPlanner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.hateoas.CollectionModel;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Api(value="Navigate System")
 @RestController
 @RequestMapping("/navigate")
 public class NavigateControl {
+    @Autowired
+    private BusStopRepository busStopRepository;
+
 
     @ApiOperation(value = "Bus Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回校园巴士出行方案")
@@ -32,6 +31,16 @@ public class NavigateControl {
         return planner.planAll(navigateRequest.getBeginPlace(),
                 navigateRequest.getPassPlaces().toArray(passPlaces),
                 navigateRequest.getArrivePlace());
+    }
+
+    @PostMapping(path="/bus/addRecord")
+    public @ResponseBody String addNewBusStop (@RequestParam String stopName
+            , @RequestParam String stopLoc) throws ParseException {
+        BusStop n = new BusStop();
+        n.setStopName(stopName);
+        n.setLocation((Point) new WKTReader().read(stopLoc));
+        busStopRepository.save(n);
+        return "Saved";
     }
 
     @ApiModel(value = "导航输入数据")

@@ -1,4 +1,4 @@
-package org.sjtugo.api.service;
+package org.sjtugo.api.service.planner;
 
 import org.sjtugo.api.entity.Strategy;
 
