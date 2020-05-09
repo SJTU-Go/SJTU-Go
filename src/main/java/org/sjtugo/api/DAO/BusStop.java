@@ -20,9 +20,6 @@ import java.time.format.DateTimeParseException;
 public class BusStop {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "stopIdGenerator")
-//    @GenericGenerator(name = "stopIdGenerator",
-//            strategy = "org.sjtugo.api.DAO.stopIdGenerator")
     private Integer stopId;
 
     private boolean isClock;
