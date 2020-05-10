@@ -1,0 +1,28 @@
+
+<view>目前的偏好优先级为：</view>
+<view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
+  <view wx:if="{{i < preference.length}}">
+    <view class = 'block'>
+      <view class = 'blockleft'>{{preference[i]}}</view>
+      <view class="containerbutton">
+        <button class='btn2' bindtap='addbanned' data-id="{{i}}"><view>设为禁止</view></button>
+      </view>
+    </view>
+  </view>
+</view>
+<view>目前的禁止的出行方式有：</view>
+<view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
+  <view wx:if="{{i < banned.length}}">
+    <view class = 'block'>
+      <view class = 'blockleft'>{{banned[i]}}</view>
+      <view class="containerbutton">
+        <button class='btn2' bindtap='removebanned' data-id="{{i}}"><view>设为允许</view></button>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="containerbutton">
+  <button class='btn2' bindtap='setPreference'>
+    <view>修改偏好</view>
+    </button>
+    </view>

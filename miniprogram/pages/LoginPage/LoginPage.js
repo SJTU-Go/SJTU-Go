@@ -10,7 +10,13 @@ Page({
   jumpaccountLogin:function(){wx.navigateTo({url: '../accountLoginPage/accountLoginPage', })
   },
   checkUserInfo: function()
-  {if(wx.canIUse('button.open-type.getUserInfo')){wx.switchTab({url: '../index/index', })}},
+  {wx.request({
+    url: 'https://api.ltzhou.com/hello',
+    success (res) {
+      console.log(res.data)
+    }
+  })
+    if(wx.canIUse('button.open-type.getUserInfo')){wx.switchTab({url: '../index/index', })}},
   onLoad: function() {
     // 查看是否授权
     wx.getSetting({
