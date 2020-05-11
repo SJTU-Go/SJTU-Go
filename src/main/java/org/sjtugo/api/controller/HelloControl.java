@@ -14,7 +14,7 @@ public class HelloControl {
 
     @ApiOperation(value = "Hello World",
             notes = "A simple example")
-    @GetMapping("/hello")
+    @GetMapping(value = "/hello", produces="text/plain;charset=UTF-8")
     public String greeting() {
         return "Welcome, This is SJTU-Go Public API, 交大共享出行导航服务";
     }
