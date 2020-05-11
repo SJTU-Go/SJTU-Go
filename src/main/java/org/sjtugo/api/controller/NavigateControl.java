@@ -8,11 +8,14 @@ import com.vividsolutions.jts.io.WKTReader;
 import lombok.Data;
 import org.sjtugo.api.DAO.BusStop;
 import org.sjtugo.api.DAO.BusStopRepository;
+import org.sjtugo.api.DAO.DestinationRepository;
+import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
 import org.sjtugo.api.service.planner.BusPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @Api(value="Navigate System")
 @RestController
@@ -20,17 +23,36 @@ import org.springframework.web.bind.annotation.*;
 public class NavigateControl {
     @Autowired
     private BusStopRepository busStopRepository;
+    @Autowired
+    private MapVertexInfoRepository mapVertexInfoRepository;
+    @Autowired
+    private DestinationRepository destinationRepository;
+    @Autowired
+    private RestTemplate restTemplate;
+
+
+
 
 
     @ApiOperation(value = "Bus Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回校园巴士出行方案")
     @PostMapping("/bus")
     public Strategy navigateBus(@RequestBody NavigateRequest navigateRequest) {
-        BusPlanner planner = new BusPlanner();
+        BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
+                restTemplate);
         String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
         return planner.planAll(navigateRequest.getBeginPlace(),
                 navigateRequest.getPassPlaces().toArray(passPlaces),
                 navigateRequest.getArrivePlace());
+    }
+
+    @ApiOperation(value = "Parse Place",
+            notes = "给定校园内地点ID或经纬度，返回地点信息")
+    @PostMapping(value = "/parsePlace", produces="text/plain;charset=UTF-8")
+    public String parsePlace(@RequestBody NavigateRequest navigateRequest) {
+        BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
+                restTemplate);
+        return planner.parsePlace(navigateRequest.getBeginPlace()).toString();
     }
 
     @PostMapping(path="/bus/addRecord")

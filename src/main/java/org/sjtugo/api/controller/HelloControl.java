@@ -16,7 +16,7 @@ public class HelloControl {
             notes = "A simple example")
     @GetMapping("/hello")
     public String greeting() {
-        return "Welcome, This is SJTU-Go Public API";
+        return "Welcome, This is SJTU-Go Public API, 交大共享出行导航服务";
     }
 
 }
