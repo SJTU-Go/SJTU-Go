@@ -13,7 +13,6 @@ import java.util.Map;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-//@JsonRootName("data")
 public class PlaceResponse {
     private String title;
 
@@ -22,10 +21,15 @@ public class PlaceResponse {
     @SuppressWarnings("unchecked")
     @JsonProperty("data")
     private void unpackNested(Map<String,Object>[] data) {
-        this.title = (String) data[0].get("title");
-        Map<String,Double> point = (Map<String,Double>) data[0].get("location");
-        this.location = new GeometryFactory().createPoint(
-                new Coordinate(point.get("lng"),point.get("lat")));
+        if (data.length == 0) {
+            throw new PlaceNotFoundException();
+        }
+        else {
+            this.title = (String) data[0].get("title");
+            Map<String,Double> point = (Map<String,Double>) data[0].get("location");
+            this.location = new GeometryFactory().createPoint(
+                    new Coordinate(point.get("lng"),point.get("lat")));
+        }
     }
 }
 

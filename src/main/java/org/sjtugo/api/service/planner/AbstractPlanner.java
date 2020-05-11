@@ -30,9 +30,9 @@ import java.util.regex.Pattern;
  */
 public abstract class AbstractPlanner {
 
-    private final MapVertexInfoRepository mapVertexInfoRepository;
-    private final DestinationRepository destinationRepository;
-    private final RestTemplate restTemplate;
+    protected final MapVertexInfoRepository mapVertexInfoRepository;
+    protected final DestinationRepository destinationRepository;
+    protected final RestTemplate restTemplate;
 
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
@@ -66,10 +66,10 @@ public abstract class AbstractPlanner {
         int i;
         Strategy resultStrategy = planOne(currentPlace,nextPlace);
         for (i=0; i<passPlaces.length; i++) {
+            currentPlace = nextPlace;
+            nextPlace = i+1<passPlaces.length ? passPlaces[i+1] : endPlace;
             Strategy currentStrategy = planOne(currentPlace,nextPlace);
             resultStrategy.merge(currentStrategy);
-            currentPlace = passPlaces[i];
-            nextPlace = i+1<passPlaces.length ? passPlaces[i+1] : endPlace;
         }
         return resultStrategy;
     }
@@ -86,7 +86,7 @@ public abstract class AbstractPlanner {
         Matcher PKmatcher = PKpattern.matcher(place);
         Matcher DTmatcher = DTpattern.matcher(place);
         if (PKmatcher.find()){
-            place = PKmatcher.group(1);
+            place = PKmatcher.group(2);
             Optional<MapVertexInfo> vtx_record = mapVertexInfoRepository
                     .findById(Integer.parseInt(place));
             if (vtx_record.isPresent()) { // input is a parkingPlace
@@ -97,7 +97,7 @@ public abstract class AbstractPlanner {
             }
         }
         if (DTmatcher.find()){
-            place = DTmatcher.group(1);
+            place = DTmatcher.group(2);
             Optional<Destination> dst_record = destinationRepository
                     .findById(Integer.parseInt(place));
             if (dst_record.isPresent()){ // input is a destination

@@ -12,17 +12,17 @@ import com.vividsolutions.jts.geom.LineString;
 public abstract class Route {
     @ApiModelProperty(value = "路段用时，秒为单位",
             example = "70")
-    private int routeTime;
+    protected int routeTime;
     @ApiModelProperty(value = "出发点名称",
             example = "上院215")
-    private String departName;
+    protected String departName;
     @ApiModelProperty(value = "到达点名称",
             example = "上院东侧停车点")
-    private String arriveName;
+    protected String arriveName;
 
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     @ApiModelProperty(value = "路线",
-            example = "[121.23567,31.45678,121.32123,31.45789]")
-    private LineString routePath;
+            example = "[[121.23567,31.45678],[121.32123,31.45789]]")
+    protected LineString routePath;
 }
