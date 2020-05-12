@@ -1,3 +1,4 @@
 {  "navigationBarTitleText": "日程信息",
-  "usingComponents": {}
+  "usingComponents": {  
+    "weekCalendar": "../../components/weekCalendar/weekCalendar"}
 }
