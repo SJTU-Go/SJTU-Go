@@ -41,7 +41,9 @@ public class Strategy {
 
     public void merge(Strategy nextStrategy){
         // pre-condition: self.arrive == nextStrategy.depart, nextStrategy.pass = {}
-        pass.add(arrive);
+        System.out.println(nextStrategy);
+        System.out.println(this);
+        pass.add(this.arrive);
         arrive = nextStrategy.getArrive();
         travelTime = travelTime.plus(nextStrategy.travelTime);
         distance += nextStrategy.distance;

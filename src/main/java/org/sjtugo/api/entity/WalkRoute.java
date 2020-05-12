@@ -8,7 +8,7 @@ import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 
 @Data
-public class WalkRoute {
+public class WalkRoute extends Route{
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Point departLocation;
