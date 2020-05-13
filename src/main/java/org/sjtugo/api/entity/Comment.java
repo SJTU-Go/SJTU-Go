@@ -10,16 +10,12 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Entity
-@TypeDef({@TypeDef(name = "int-array", typeClass = IntArrayType.class)})
 @ApiModel(value = "评论详情")
 public class Comment {
 
@@ -41,19 +37,19 @@ public class Comment {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime commentTime;
 
-    @Type(type = "int-array")
+    @ElementCollection
     @ApiModelProperty(value = "点赞用户ID", example = "[2,3]")
-    private Integer[] approveUsers;
+    private List<Integer> approveUsers;
 
     @ApiModelProperty(value = "评论地点")
     private Point location;
 
+    @ElementCollection
     @ApiModelProperty(value = "评论相关地点ID", example = "[1,2,3]")
-    private Integer[] relatedPlace;
+    private List<Integer> relatedPlace;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ElementCollection
     @ApiModelProperty(value = "评论下方的子评论ID", example = "[2,3]")
-    private Integer[] subComment;
+    private List<Integer> subComment;
 
 }

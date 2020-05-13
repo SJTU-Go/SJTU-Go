@@ -23,14 +23,14 @@ public class CommentControl {
     private CommentRepository commentRepository;
 
     @ApiOperation(value = "Comment Service", notes = "给定地点ID，返回该处用户的评论")
-    @PostMapping("/comment")
+    @GetMapping("/place")
     public @ResponseBody List<Comment> getCommentList(@RequestParam Integer placeID) {
         CommentService commentser = new CommentService();
         return commentser.getCommentList(placeID);
     }
 
     @ApiOperation(value = "Comment Service", notes = "给定地点经纬度，返回该处用户的评论")
-    @PostMapping("/comment")
+    @PostMapping("/loc")
     public @ResponseBody List<Comment> getCommentList(@RequestParam Point location) {
             CommentService commentser = new CommentService();
         return commentser.getCommentList(location);
@@ -50,6 +50,7 @@ public class CommentControl {
         newComment.setSubComment(commentInfo.getSubComment());
         newComment.setTitle(commentInfo.getTitle());
         newComment.setUserID(commentInfo.getUserID());
+        commentRepository.save(newComment);
         return (int) (commentRepository.count()); //+1?
     }
 
