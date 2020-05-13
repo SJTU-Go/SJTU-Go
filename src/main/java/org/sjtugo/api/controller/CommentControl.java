@@ -7,8 +7,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import org.sjtugo.api.DAO.CommentRepository;
 import org.sjtugo.api.entity.Comment;
 import org.sjtugo.api.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,24 +19,38 @@ import java.util.List;
 @RestController
 @RequestMapping("/comments")
 public class CommentControl {
+    @Autowired
+    private CommentRepository commentRepository;
 
-    @ApiOperation(value = "Comment Service", notes = "给定地点经纬度，返回该处用户的评论")
+    @ApiOperation(value = "Comment Service", notes = "给定地点ID，返回该处用户的评论")
     @PostMapping("/comment")
-    public List<Comment> getCommentList(@RequestParam Integer placeID) {
+    public @ResponseBody List<Comment> getCommentList(@RequestParam Integer placeID) {
         CommentService commentser = new CommentService();
         return commentser.getCommentList(placeID);
     }
 
-    @PostMapping("comments/addcomment")
-    public int addComment(@RequestBody CommentRequest commentInfo) {
-        CommentService commentser = new CommentService();
-        return commentser.addComment(commentInfo.getCommentInfo());
+    @ApiOperation(value = "Comment Service", notes = "给定地点经纬度，返回该处用户的评论")
+    @PostMapping("/comment")
+    public @ResponseBody List<Comment> getCommentList(@RequestParam Point location) {
+            CommentService commentser = new CommentService();
+        return commentser.getCommentList(location);
     }
 
-    @ApiModel(value = "添加评论输入数据")
-    @Data
-    static class CommentRequest {
-        @ApiModelProperty(value = "")
-        private Comment commentInfo;
+    @PostMapping("/addcomment")
+    public int addComment(@RequestBody Comment commentInfo) {
+        //CommentService commentser = new CommentService();
+        //return commentser.addComment(commentInfo.getCommentInfo());
+        Comment newComment = new Comment();
+        newComment.setApproveUsers(commentInfo.getApproveUsers());
+        newComment.setCommentID(commentInfo.getCommentID());
+        newComment.setCommentTime(commentInfo.getCommentTime());
+        newComment.setContents(commentInfo.getContents());
+        newComment.setLocation(commentInfo.getLocation());
+        newComment.setRelatedPlace(commentInfo.getRelatedPlace());
+        newComment.setSubComment(commentInfo.getSubComment());
+        newComment.setTitle(commentInfo.getTitle());
+        newComment.setUserID(commentInfo.getUserID());
+        return (int) (commentRepository.count()); //+1?
     }
+
 }

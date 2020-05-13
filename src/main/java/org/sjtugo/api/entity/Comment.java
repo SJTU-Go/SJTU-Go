@@ -6,8 +6,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@Entity
+@TypeDef({@TypeDef(name = "int-array", typeClass = IntArrayType.class)})
 @ApiModel(value = "评论详情")
 public class Comment {
 
@@ -36,6 +41,7 @@ public class Comment {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime commentTime;
 
+    @Type(type = "int-array")
     @ApiModelProperty(value = "点赞用户ID", example = "[2,3]")
     private Integer[] approveUsers;
 

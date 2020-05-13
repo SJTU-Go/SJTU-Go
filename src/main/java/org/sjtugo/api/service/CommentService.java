@@ -11,11 +11,17 @@ public class CommentService {
         Point currentLocation = location;
         return null;}
 
-    public List<Comment> getCommentList(Integer placeID){ return null;}
+    public List<Comment> getCommentList(Integer placeID){
+        List<Comment> comments;
+
+        return null;}
 
     //public List<Comment> getCommentList(String parkingID){ return null;}
 
-    public int addComment(Comment commentInfo) {return 0;}
+    public int addComment(Comment commentInfo) {
+        int number = commentInfo.getCommentID();
+        return number;
+    }
 
     public int likeComment(String userID, String commentID) {return 0;}
 }
