@@ -6,20 +6,15 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     this.setData({
        orderList:[{
-        order_id:1,
-        order_no:'SA02201703052988',
-        money:"xxx",
-        imgs:['/assets/testimages/timg1.jpg','/assets/testimages/timg1.jpg','/assets/testimages/timg1.jpg'],
-        customer_name:'xxx',
-        order_status:'8:00'
+        arrive:'菁菁堂',
+        depart:'D24宿舍楼',
+        passPlaces:'第四餐饮大楼',
+        routetime:'20min',
        },{
-        order_id:2,
-        order_no:'SA02201703052988',
-        create_time:'2017.03.05 18:30',
-        imgs:['/assets/testimages/timg1.jpg','/assets/testimages/timg1.jpg','/assets/testimages/timg1.jpg'],
-        customer_name:'xxx',
-        money:"xxx",
-        order_status:'7：20'
+        arrive:'霍英东体育馆',
+        depart:'上院',
+        passPlaces:'无',
+        routetime:'13min',
        }]
     })
   },

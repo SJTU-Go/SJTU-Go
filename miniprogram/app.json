@@ -1,12 +1,10 @@
 {
   "pages": [
     "pages/LoginPage/LoginPage",
-    "pages/HistoryPage/HistoryPage",
     "pages/schedulePage/schedulePage",
+    "pages/HistoryPage/HistoryPage",
 
-
-
-    "pages/preferencePage/preferencePage",
+   "pages/preferencePage/preferencePage",
 
     "pages/userInfoPage/userInfoPage",
 

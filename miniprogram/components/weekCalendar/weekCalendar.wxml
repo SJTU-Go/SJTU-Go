@@ -17,7 +17,8 @@
     <view  wx:for="0123456" data-index="{{index}}" class='{{index==timeBean.selectDay?"select-column":"column"}}' bindtap='itemClick'>
       <view class='weekType'>{{timeBean.weekDayList[index].week}}</view>
       <view class='dateType'>{{timeBean.weekDayList[index].day}}</view>
-      <text class='iconfont icon-mifan' style='color:#fff'></text>
+      <!--<text class='iconfont icon-mifan' style='color:#fff'></text>
+    --->
     </view>
 </view>
  

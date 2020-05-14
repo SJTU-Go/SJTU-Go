@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: row;
 }
-
+.emptyrow{
+  height: 100rpx;
+}
 .btn1{
   height: 200rpx;
   margin-top: 20rpx;
@@ -41,9 +43,11 @@
   justify-content: center;
 }
 .dbtnblock{
-  height: 200rpx;
   width: 45%;
   }
+.ibtnblock{
+    height: 200rpx;
+    width: 45%;}
 .select_box{
   width:100%;
   height:20%;
@@ -94,4 +98,45 @@
   border-top: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
   padding: 10rpx;
+}
+.block
+{width:100%;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textdiv{
+  margin-top:30rpx;
+  color: blue;
+  font-size: 20;
+}
+.massge{
+  overflow: hidden;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: 20rpx;
+  position: relative;
+  line-height: 1;
+}
+
+.massge-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.massge-hd{
+  padding:20rpx 0rpx 30rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.massge-bd,.massge-ft{
+  padding:0rpx 0rpx 30rpx 40rpx;
+}
+.massge-bd{
+  display: flex;
+  flex-direction: column;
 }

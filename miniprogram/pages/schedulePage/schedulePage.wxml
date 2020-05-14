@@ -1,9 +1,22 @@
 <weekCalendar timeBean="{{timeBean}}" bind:lastWeek="lastWeek" bind:nextWeek="nextWeek" bind:dayClick="dayClick"></weekCalendar>
 
-
-<view class='imgg'>
+<view wx:if="{{empty}}">
+  <view class='imgg'>
   <image class='ImgBox' style="opacity:{{0.3}}" src='../../images/calendar.png'></image> 暂无日程
-</view>
+  </view>
+    </view>
+<view wx:else>
+          <view class="massge" wx:for="{{showlist}}"  wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/calendar.png"></image><view>{{list.schedulename}}</view></view>
+      <view class="massge-bd font-color-666">
+        <text>日程时间：<text class="font-color-c24e4e font-size-15">{{list.timehour}}</text>:<text class="font-color-c24e4e font-size-15">{{list.timeminute}}</text></text>
+        <text style="margin-top:22rpx;"><text>日程地点：<text class="font-color-c24e4e font-size-15">{{list.place}}</text></text></text>
+        <view class='textdiv'>
+          <text style="font-size-20" bindtap="searchPage">查询路线></text>
+        </view>
+       </view>
+    </view>
+  </view>  
 <view class =  'btnblock'>
  <button class='btn1' >
     <image class='btnImg' src='../../images/add.png 'bindtap='addschedule'></image>
@@ -11,31 +24,36 @@
 </view>
 <view class =  'btnblock'>
   <modal title='新增日程'cancel-text='取消'confirm-text='确定'hidden="{{mHidden}}" bindconfirm = 'changeModal' bindcancel ='modalcancelled' >
-  <view class =  'btnblock'>
-  <view class =  'dbtnblock'>
-    <view class='select_box'>
-      <view class='select' catchtap='selectTap'>
-        <text class='select_text'>{{selectData[index]}}</text>
-        <image class='select_img {{selectShow&&"select_img_rotate"}}' src='../../images/b2.png'  background-size="contain"></image> 
+    <view class =  'btnblock'>
+      <view class =  'dbtnblock'>
+        <view class='select_box'>
+          <view class='select' catchtap='selectTap'>
+           <text class='select_text'>{{selectData[index]}}</text>
+           <image class='select_img {{selectShow&&"select_img_rotate"}}' src='../../images/b2.png'  background-size="contain"></image> 
+          </view>
+          <view class='option_box' style='height:{{selectShow?(selectData.length>5?325:selectData.length*50):0}}rpx;'>
+          <text class='option' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+          </view>
+        </view>
       </view>
-      <view class='option_box' style='height:{{selectShow?(selectData.length>5?325:selectData.length*50):0}}rpx;'>
-        <text class='option' wx:for='{{selectData}}' wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+      <view class =  'dbtnblock'>
+        <view class='select_box'>
+          <view class='select' catchtap='selectTap2'>
+            <text class='select_text'>{{selectData2[index2]}}</text>
+            <image class='select_img {{selectShow2&&"select_img_rotate"}}' src='../../images/b2.png'  background-size="contain"></image> 
+          </view>
+          <view class='option_box' style='height:{{selectShow2?(selectData2.length>5?325:selectData2.length*50):0}}rpx;'>
+          <text class='option' wx:for='{{selectData2}}' wx:key='this' data-index='{{index}}' catchtap='optionTap2'>{{item}}</text>
+          </view>
+        </view>
       </view>
     </view>
-
-  </view>
-  <view class =  'dbtnblock'>
-    <view class='select_box'>
-      <view class='select' catchtap='selectTap2'>
-        <text class='select_text'>{{selectData2[index2]}}</text>
-        <image class='select_img {{selectShow2&&"select_img_rotate"}}' src='../../images/b2.png'  background-size="contain"></image> 
-      </view>
-      <view class='option_box' style='height:{{selectShow2?(selectData2.length>5?325:selectData2.length*50):0}}rpx;'>
-        <text class='option' wx:for='{{selectData2}}' wx:key='this' data-index='{{index}}' catchtap='optionTap2'>{{item}}</text>
-      </view>
+    <view class = 'emptyrow'></view>
+    <view class = 'ibtnblock'>
+      <input name="userName" placeholder="请输入日程名称" bindinput="scheduleNameInput"/>
     </view>
-
-  </view>
-  </view>
+    <view class = 'ibtnblock'>
+      <input name="userName" placeholder="请输入日程地点" bindinput="placeInput"/>
+    </view>
   </modal>
 </view>

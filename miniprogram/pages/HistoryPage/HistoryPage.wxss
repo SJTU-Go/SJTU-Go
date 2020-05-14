@@ -4,6 +4,11 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+.textdiv{
+  margin-top:30rpx;
+  color: blue;
+  font-size: 20;
+}
 .massge{
   overflow: hidden;
   width: 100%;
