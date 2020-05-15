@@ -5,7 +5,6 @@ import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.entity.Route;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
@@ -23,8 +22,8 @@ public class WalkPlanner extends AbstractPlanner {
 
     @Override
     public Strategy planOne(String beginPlace, String endPlace){
-        navigatePlace start = parsePlace(beginPlace);
-        navigatePlace end = parsePlace(endPlace);
+        NavigatePlace start = parsePlace(beginPlace);
+        NavigatePlace end = parsePlace(endPlace);
         WalkRoute walkRoute = planWalkTencent(start,end);
         Strategy result = new Strategy();
         result.setType("步行");

@@ -40,10 +40,10 @@ public class BusStop {
     }
 
     public Duration getDiff(){
-        return Duration.ofSeconds(diff);
+        return Duration.ofMinutes(diff);
     }
 
     public void setDiff(Duration t){
-        this.diff = t.getSeconds();
+        this.diff = t.getSeconds()/60;
     }
 }
