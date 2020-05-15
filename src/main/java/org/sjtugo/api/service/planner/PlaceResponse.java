@@ -18,6 +18,10 @@ public class PlaceResponse {
 
     private Point location;
 
+    private Integer status;
+
+    private String message;
+
     @SuppressWarnings("unchecked")
     @JsonProperty("data")
     private void unpackNested(Map<String,Object>[] data) {

@@ -4,11 +4,9 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 import lombok.Data;
-import org.sjtugo.api.DAO.Destination;
-import org.sjtugo.api.DAO.DestinationRepository;
-import org.sjtugo.api.DAO.MapVertexInfo;
-import org.sjtugo.api.DAO.MapVertexInfoRepository;
+import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.entity.Strategy;
+import org.sjtugo.api.entity.WalkRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -33,16 +31,24 @@ public abstract class AbstractPlanner {
     protected final MapVertexInfoRepository mapVertexInfoRepository;
     protected final DestinationRepository destinationRepository;
     protected final RestTemplate restTemplate;
-
+    protected final BusTimeVacationRepository busTimeVacationRepository;
+    protected final BusTimeWeekdayRepository busTimeWeekdayRepository;
+    protected final BusStopRepository busStopRepository;
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
      */
     public AbstractPlanner(MapVertexInfoRepository mapVertexInfoRepository,
                            DestinationRepository destinationRepository,
-                           RestTemplate restTemplate){
+                           RestTemplate restTemplate,
+                           BusTimeVacationRepository busTimeVacationRepository,
+                           BusTimeWeekdayRepository busTimeWeekdayRepository,
+                           BusStopRepository busStopRepository){
         this.mapVertexInfoRepository = mapVertexInfoRepository;
         this.destinationRepository = destinationRepository;
         this.restTemplate = restTemplate;
+        this.busTimeVacationRepository = busTimeVacationRepository;
+        this.busTimeWeekdayRepository = busTimeWeekdayRepository;
+        this.busStopRepository = busStopRepository;
     }
 
     /**
@@ -68,6 +74,8 @@ public abstract class AbstractPlanner {
         for (i=0; i<passPlaces.length; i++) {
             currentPlace = nextPlace;
             nextPlace = i+1<passPlaces.length ? passPlaces[i+1] : endPlace;
+//            System.out.print(currentPlace);
+//            System.out.println(nextPlace);
             Strategy currentStrategy = planOne(currentPlace,nextPlace);
             resultStrategy.merge(currentStrategy);
         }
@@ -119,17 +127,60 @@ public abstract class AbstractPlanner {
             params.put("boundary","rectangle(31.016309,121.423743,31.033088,121.449057)");
             params.put("key","I6IBZ-BCZRI-FHYGG-523D4-3W3C7-X6BRS");
             params.put("page_index","1");
-            params.put("page_size","1");
-            ResponseEntity<PlaceResponse> tencentResponse =
+            params.put("page_size","10");
+            ResponseEntity<PlaceResponse> tencentResponse;
+            tencentResponse =
                     restTemplate.getForEntity("https://apis.map.qq.com/ws/place/v1/search?keyword={keyword}" +
                                     "&boundary={boundary}&key={key}&page_index={page_index}&page_size={page_size}",
                             PlaceResponse.class,params);
-            // TODO: error code + NULL?
-            result.setLocation(Objects.requireNonNull(tencentResponse.getBody()).getLocation());
-            result.setPlaceName(Objects.requireNonNull(tencentResponse.getBody()).getTitle());
+            System.out.println("-----Finding Place------");
+            System.out.println(params);
+            System.out.println(tencentResponse);
+            result.setLocation(Objects.requireNonNull(Objects.requireNonNull(tencentResponse.getBody(),
+                    "Search Place Result Not Found").getLocation(),
+                    "Place Location Not Found"));
+            result.setPlaceName(Objects.requireNonNull(tencentResponse.getBody(),
+                    "Place Name Not Found").getTitle());
             result.setPlaceType(navigatePlace.PlaceType.point);
+
+//            System.out.println(result);
             return result;
         }
     }
+
+
+    /**
+     * 调用腾讯地图，规划步行路径，用于纯步行方案和校园巴士方案
+     * @param start 出发点的地名、坐标、类型
+     * @param end 到达点的地名、坐标、类型
+     * @return 一条WalkRoute
+     */
+    protected WalkRoute planWalkTencent (navigatePlace start, navigatePlace end){
+        Map<String,String> params=new HashMap<>();
+        params.put("from", start.getLocation().getCoordinate().y
+                +","+ start.getLocation().getCoordinate().x);
+        params.put("key","I6IBZ-BCZRI-FHYGG-523D4-3W3C7-X6BRS");
+        params.put("to", end.getLocation().getCoordinate().y
+                +","+ end.getLocation().getCoordinate().x);
+//        System.out.println(params);
+        ResponseEntity<WalkResponse> tencentResponse =
+                restTemplate.getForEntity("https://apis.map.qq.com/ws/direction/v1/walking/?from={from}&" +
+                        "to={to}&key={key}", WalkResponse.class,params);
+//        System.out.print(tencentResponse.getStatusCode());
+//        System.out.println(tencentResponse.getHeaders());
+        WalkRoute walkRoute = new WalkRoute();
+        walkRoute.setArriveLocation(end.getLocation());
+        walkRoute.setArriveName(end.getPlaceName());
+        walkRoute.setDepartName(start.getPlaceName());
+        walkRoute.setDepartLocation(start.getLocation());
+        walkRoute.setDistance(Objects.requireNonNull(tencentResponse.getBody(),
+                "Walk Route Response not fetched")
+                .getDistance()); // TODO: PARALLEL CONSTRAINT OF 5 QUERIES
+        walkRoute.setRouteTime((int) Objects.requireNonNull(tencentResponse.getBody().getTime(),"Route time not fetched")
+                .toSeconds());
+        walkRoute.setRoutePath(Objects.requireNonNull(tencentResponse.getBody(),"Route not fetched").getRoute());
+        return walkRoute;
+    }
+
 }
 

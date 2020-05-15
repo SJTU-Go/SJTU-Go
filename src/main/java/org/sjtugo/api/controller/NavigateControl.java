@@ -6,10 +6,7 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 import lombok.Data;
-import org.sjtugo.api.DAO.BusStop;
-import org.sjtugo.api.DAO.BusStopRepository;
-import org.sjtugo.api.DAO.DestinationRepository;
-import org.sjtugo.api.DAO.MapVertexInfoRepository;
+import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
 import org.sjtugo.api.service.planner.BusPlanner;
@@ -23,13 +20,17 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/navigate")
 public class NavigateControl {
     @Autowired
-    private BusStopRepository busStopRepository;
-    @Autowired
     private MapVertexInfoRepository mapVertexInfoRepository;
     @Autowired
     private DestinationRepository destinationRepository;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private BusTimeVacationRepository busTimeVacationRepository;
+    @Autowired
+    private BusTimeWeekdayRepository busTimeWeekdayRepository;
+    @Autowired
+    private BusStopRepository busStopRepository;
 
 
     @ApiOperation(value = "Walk Navigate Service",
@@ -49,7 +50,7 @@ public class NavigateControl {
     @PostMapping("/bus")
     public Strategy navigateBus(@RequestBody NavigateRequest navigateRequest) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate);
+                restTemplate,busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
         String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
         return planner.planAll(navigateRequest.getBeginPlace(),
                 navigateRequest.getPassPlaces().toArray(passPlaces),
@@ -63,7 +64,7 @@ public class NavigateControl {
     @PostMapping(value = "/parsePlace", produces="text/plain;charset=UTF-8")
     public String parsePlace(@RequestBody String place) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate);
+                restTemplate,busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
         return planner.parsePlace(place).toString();
     }
 

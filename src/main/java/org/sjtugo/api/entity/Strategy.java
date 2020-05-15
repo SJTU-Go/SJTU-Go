@@ -39,10 +39,14 @@ public class Strategy {
     @ApiModelProperty(value = "路线方案详情")
     private List<Route> routeplan;
 
+    /**
+     * 拼接另一个Strategy到当前Strategy
+     * @param nextStrategy 另一个Strategy，要求该Strategy不存在途经点，且出发点与当前实例的到达点一致，允许包含多条Route。
+     */
     public void merge(Strategy nextStrategy){
         // pre-condition: self.arrive == nextStrategy.depart, nextStrategy.pass = {}
-        System.out.println(nextStrategy);
-        System.out.println(this);
+//        System.out.println(nextStrategy);
+//        System.out.println(this);
         pass.add(this.arrive);
         arrive = nextStrategy.getArrive();
         travelTime = travelTime.plus(nextStrategy.travelTime);
