@@ -20,6 +20,10 @@ public class WalkResponse {
 
     private LineString route;
 
+    private Integer status;
+
+    private String message;
+
     @SuppressWarnings("unchecked")
     @JsonProperty("result")
     private void unpackNested(Map<String,Object> result) {

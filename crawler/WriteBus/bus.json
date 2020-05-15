@@ -1,0 +1,2996 @@
+
+{
+    "type": "FeatureCollection",
+    "generator": "JOSM",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "材料学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42865115027,
+                    31.02509650818
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "文治大道",
+                "name:en": "Wenzhi Avenue",
+                "oneway": "yes"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44507005027,
+                        31.02790466224
+                    ],
+                    [
+                        121.44510745027,
+                        31.02781626368
+                    ],
+                    [
+                        121.44523435027,
+                        31.02751666858
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "南大门",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44620105027,
+                    31.02674458122
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "华联校园生活中心",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43089315027,
+                    31.02826455635
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43950735027,
+                    31.02459521638
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "菁菁堂广场",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43094515027,
+                    31.02213665660
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "南大门",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44622395027,
+                    31.02669298206
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44865225027,
+                    31.02961233430
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "maxspeed": "30"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.42759105027,
+                        31.02794346160
+                    ],
+                    [
+                        121.42764375027,
+                        31.02796036132
+                    ],
+                    [
+                        121.42834445027,
+                        31.02818485765
+                    ],
+                    [
+                        121.42836665027,
+                        31.02819225753
+                    ],
+                    [
+                        121.42849205027,
+                        31.02823245687
+                    ],
+                    [
+                        121.42902675027,
+                        31.02841125395
+                    ],
+                    [
+                        121.42976255027,
+                        31.02865175001
+                    ],
+                    [
+                        121.43057425027,
+                        31.02891794566
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bicycle": "yes",
+                "foot": "yes",
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋南路",
+                "name:en": "South Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44847395027,
+                        31.02741017033
+                    ],
+                    [
+                        121.44622395027,
+                        31.02669298206
+                    ],
+                    [
+                        121.44597505027,
+                        31.02661368336
+                    ],
+                    [
+                        121.44583755027,
+                        31.02657358401
+                    ],
+                    [
+                        121.44578245027,
+                        31.02655608430
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43173835027,
+                    31.02246485123
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bicycle": "yes",
+                "foot": "yes",
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋南路",
+                "name:en": "South Nanyang Road",
+                "name:zh": "南洋南路",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43958745027,
+                        31.02461901599
+                    ],
+                    [
+                        121.43950735027,
+                        31.02459521638
+                    ],
+                    [
+                        121.43849055027,
+                        31.02427582160
+                    ],
+                    [
+                        121.43735195027,
+                        31.02393442719
+                    ],
+                    [
+                        121.43693155027,
+                        31.02380842925
+                    ],
+                    [
+                        121.43648605027,
+                        31.02368653125
+                    ],
+                    [
+                        121.43546975027,
+                        31.02338023626
+                    ],
+                    [
+                        121.43523705027,
+                        31.02331833727
+                    ],
+                    [
+                        121.43500535027,
+                        31.02326713811
+                    ],
+                    [
+                        121.43378975027,
+                        31.02302514206
+                    ],
+                    [
+                        121.43365145027,
+                        31.02299764251
+                    ],
+                    [
+                        121.43328315027,
+                        31.02291064394
+                    ],
+                    [
+                        121.43282715027,
+                        31.02280494567
+                    ],
+                    [
+                        121.43247845027,
+                        31.02272214702
+                    ],
+                    [
+                        121.43224085027,
+                        31.02267244783
+                    ],
+                    [
+                        121.43203715027,
+                        31.02260114900
+                    ],
+                    [
+                        121.43173835027,
+                        31.02246485123
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "文治大道",
+                "name:en": "Wenzhi Avenue",
+                "oneway": "yes"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44578245027,
+                        31.02655608430
+                    ],
+                    [
+                        121.44570905027,
+                        31.02672578152
+                    ],
+                    [
+                        121.44545695027,
+                        31.02730897198
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "bus_stop",
+                "name": "船建学院",
+                "name:en": "School of Naval Architecture, Ocean & Civil Engineering",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44535785027,
+                    31.03408226115
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43949015027,
+                    31.02934763863
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44430635027,
+                    31.03436555652
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "思源南路",
+                "name:en": "South Siyuan Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44518115027,
+                        31.02794686154
+                    ],
+                    [
+                        121.44511965027,
+                        31.02792096197
+                    ],
+                    [
+                        121.44507005027,
+                        31.02790466224
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "文选医学楼",
+                "name:en": "Wenxuan Building of Medicine",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44270675027,
+                    31.03434315688
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44597505027,
+                    31.02661368336
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44343295027,
+                    31.03444885515
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1",
+                "name": "南洋北路",
+                "name:en": "North Nanyang Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43809205027,
+                        31.03300617876
+                    ],
+                    [
+                        121.43836715027,
+                        31.03309347733
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43857235027,
+                    31.03315937626
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "材料学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42856685027,
+                    31.02506900863
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43954405027,
+                    31.02471981434
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "东上院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43925825027,
+                    31.02512920764
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42958855027,
+                    31.03027482346
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "包玉刚图书馆",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43150165027,
+                    31.02629348860
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "新行政楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44086545027,
+                    31.02986953009
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "学生服务中心",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43363525027,
+                    31.03157990210
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bicycle": "yes",
+                "foot": "yes",
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋南路",
+                "name:en": "South Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44578245027,
+                        31.02655608430
+                    ],
+                    [
+                        121.44565795027,
+                        31.02651628495
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44510745027,
+                    31.02781626368
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "电信学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44278905027,
+                    31.02880934743
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "西区学生宿舍",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42989945027,
+                    31.03032502263
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "东中院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43855465027,
+                    31.02701877673
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "思源西路",
+                "name:en": "Siyuan Road West"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43149905027,
+                        31.02655728428
+                    ],
+                    [
+                        121.43148945027,
+                        31.02665268272
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "机动学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44855575027,
+                    31.02983813060
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42698695027,
+                    31.02935123857
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44765895027,
+                    31.03189139700
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "东大门",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44727895027,
+                    31.03233848969
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1",
+                "name": "宣怀大道",
+                "name:en": "Xuanhuai Avenue"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43968455027,
+                        31.02941183758
+                    ],
+                    [
+                        121.44009285027,
+                        31.02954653537
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44229295027,
+                    31.03025642376
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bicycle": "yes",
+                "foot": "yes",
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋南路",
+                "name:en": "South Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43173835027,
+                        31.02246485123
+                    ],
+                    [
+                        121.43162215027,
+                        31.02238415255
+                    ],
+                    [
+                        121.43146385027,
+                        31.02230375387
+                    ],
+                    [
+                        121.43116975027,
+                        31.02220735544
+                    ],
+                    [
+                        121.43113385027,
+                        31.02219605563
+                    ],
+                    [
+                        121.43099155027,
+                        31.02215125636
+                    ],
+                    [
+                        121.43094515027,
+                        31.02213665660
+                    ],
+                    [
+                        121.43089865027,
+                        31.02212205684
+                    ],
+                    [
+                        121.43036315027,
+                        31.02196455941
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "图书信息楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43867245027,
+                    31.02918574127
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44553155027,
+                    31.03393286360
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bicycle": "yes",
+                "foot": "yes",
+                "highway": "residential",
+                "name": "思源西路",
+                "name:en": "Siyuan Road West",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43158545027,
+                        31.02635668756
+                    ],
+                    [
+                        121.43156835027,
+                        31.02643638626
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "思源南路",
+                "name:en": "South Siyuan Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44507005027,
+                        31.02790466224
+                    ],
+                    [
+                        121.44503565027,
+                        31.02789336242
+                    ],
+                    [
+                        121.44494865027,
+                        31.02786486289
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "南洋东路",
+                "name:en": "East Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44777335027,
+                        31.03162980128
+                    ],
+                    [
+                        121.44801305027,
+                        31.03108041027
+                    ],
+                    [
+                        121.44830555027,
+                        31.03041242120
+                    ],
+                    [
+                        121.44833345027,
+                        31.03034882224
+                    ],
+                    [
+                        121.44851275027,
+                        31.02993922895
+                    ],
+                    [
+                        121.44855575027,
+                        31.02983813060
+                    ],
+                    [
+                        121.44865225027,
+                        31.02961233430
+                    ],
+                    [
+                        121.44869155027,
+                        31.02952463573
+                    ],
+                    [
+                        121.44872405027,
+                        31.02944683700
+                    ],
+                    [
+                        121.44890365027,
+                        31.02903974366
+                    ],
+                    [
+                        121.44909085027,
+                        31.02861185066
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43641975027,
+                    31.03247228750
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "highway": "bus_stop",
+                "name": "闵行校区校车站",
+                "network": "上海交大教工班车",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43004455027,
+                    31.02227745430
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43490165027,
+                    31.03198769543
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43902195027,
+                    31.02593309449
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "西区学生宿舍",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42996115027,
+                    31.03050881963
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44570905027,
+                    31.02672578152
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "校医院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43380235027,
+                    31.02298144278
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44522395027,
+                    31.02784786316
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "材料学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42869805027,
+                    31.02511090794
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44445195027,
+                    31.02788346258
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "图书信息楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "no"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43872475027,
+                    31.02904554357
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "文治大道",
+                "name:en": "Wenzhi Avenue",
+                "oneway": "yes"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44533835027,
+                        31.02727117260
+                    ],
+                    [
+                        121.44558635027,
+                        31.02668548218
+                    ],
+                    [
+                        121.44565795027,
+                        31.02651628495
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44558635027,
+                    31.02668548218
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "南大门",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44626005027,
+                    31.02662278321
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "第四餐饮大楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42734525027,
+                    31.02869874924
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "第四餐饮大楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42729655027,
+                    31.02862995037
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "思源西路",
+                "name:en": "Siyuan Road West"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43148945027,
+                        31.02665268272
+                    ],
+                    [
+                        121.43133805027,
+                        31.02698727724
+                    ],
+                    [
+                        121.43128775027,
+                        31.02709257552
+                    ],
+                    [
+                        121.43115555027,
+                        31.02736917100
+                    ],
+                    [
+                        121.43110865027,
+                        31.02746786938
+                    ],
+                    [
+                        121.43107705027,
+                        31.02753356831
+                    ],
+                    [
+                        121.43092235027,
+                        31.02785756301
+                    ],
+                    [
+                        121.43099475027,
+                        31.02796316128
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44872405027,
+                    31.02944683700
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "图书信息楼",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43870675027,
+                    31.02909834270
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "cycleway:left": "shared_lane",
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋西路",
+                "name:en": "West Nanyang Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.42759105027,
+                        31.02794346160
+                    ],
+                    [
+                        121.42745915027,
+                        31.02825075657
+                    ],
+                    [
+                        121.42729655027,
+                        31.02862995037
+                    ],
+                    [
+                        121.42713385027,
+                        31.02900904417
+                    ],
+                    [
+                        121.42698695027,
+                        31.02935123857
+                    ],
+                    [
+                        121.42695505027,
+                        31.02942553735
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "文选医学楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44269375027,
+                    31.03443065545
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "宣怀大道",
+                "name:en": "Xuanhuai Avenue"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43777075027,
+                        31.02880204755
+                    ],
+                    [
+                        121.43785185027,
+                        31.02882764713
+                    ],
+                    [
+                        121.43870675027,
+                        31.02909834270
+                    ],
+                    [
+                        121.43931835027,
+                        31.02929203954
+                    ],
+                    [
+                        121.43939755027,
+                        31.02931713913
+                    ],
+                    [
+                        121.43949015027,
+                        31.02934763863
+                    ],
+                    [
+                        121.43968455027,
+                        31.02941183758
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋北路",
+                "name:en": "North Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.42695505027,
+                        31.02942553735
+                    ],
+                    [
+                        121.42704765027,
+                        31.02945533686
+                    ],
+                    [
+                        121.42768815027,
+                        31.02965903353
+                    ],
+                    [
+                        121.42952385027,
+                        31.03025392380
+                    ],
+                    [
+                        121.42958855027,
+                        31.03027482346
+                    ],
+                    [
+                        121.42993055027,
+                        31.03038512165
+                    ],
+                    [
+                        121.43077045027,
+                        31.03065601722
+                    ],
+                    [
+                        121.43330935027,
+                        31.03147480382
+                    ],
+                    [
+                        121.43340785027,
+                        31.03150660330
+                    ],
+                    [
+                        121.43347605027,
+                        31.03152860294
+                    ],
+                    [
+                        121.43363525027,
+                        31.03157990210
+                    ],
+                    [
+                        121.43472935027,
+                        31.03193269633
+                    ],
+                    [
+                        121.43490165027,
+                        31.03198769543
+                    ],
+                    [
+                        121.43501055027,
+                        31.03202249486
+                    ],
+                    [
+                        121.43509305027,
+                        31.03204879443
+                    ],
+                    [
+                        121.43641975027,
+                        31.03247228750
+                    ],
+                    [
+                        121.43663665027,
+                        31.03254158636
+                    ],
+                    [
+                        121.43683085027,
+                        31.03260358535
+                    ],
+                    [
+                        121.43790575027,
+                        31.03294667974
+                    ],
+                    [
+                        121.43809205027,
+                        31.03300617876
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "access": "destination",
+                "highway": "residential",
+                "name": "元培路",
+                "name:en": "Yuanpei Road",
+                "name:zh": "元培路"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43958745027,
+                        31.02461901599
+                    ],
+                    [
+                        121.43954405027,
+                        31.02471981434
+                    ],
+                    [
+                        121.43942535027,
+                        31.02499560983
+                    ],
+                    [
+                        121.43935385027,
+                        31.02516170711
+                    ],
+                    [
+                        121.43905445027,
+                        31.02585739573
+                    ],
+                    [
+                        121.43902195027,
+                        31.02593309449
+                    ],
+                    [
+                        121.43865775027,
+                        31.02677928065
+                    ],
+                    [
+                        121.43855465027,
+                        31.02701877673
+                    ],
+                    [
+                        121.43833505027,
+                        31.02752896838
+                    ],
+                    [
+                        121.43793525027,
+                        31.02845795318
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44009285027,
+                    31.02954653537
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "船建学院",
+                "name:en": "School of Naval Architecture, Ocean & Civil Engineering",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44513465027,
+                    31.03395776319
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1",
+                "name": "文治大道",
+                "name:en": "Wenzhi Avenue",
+                "oneway": "yes"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44545695027,
+                        31.02730897198
+                    ],
+                    [
+                        121.44535645027,
+                        31.02754146818
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "文选医学楼",
+                "name:en": "Wenxuan Building of Medicine",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44269435027,
+                    31.03445745501
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43780415027,
+                    31.02872504881
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "南洋东路",
+                "name:en": "East Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44231945027,
+                        31.03436385654
+                    ],
+                    [
+                        121.44242375027,
+                        31.03439455604
+                    ],
+                    [
+                        121.44255915027,
+                        31.03442055562
+                    ],
+                    [
+                        121.44269375027,
+                        31.03443065545
+                    ],
+                    [
+                        121.44317715027,
+                        31.03445895499
+                    ],
+                    [
+                        121.44343295027,
+                        31.03444885515
+                    ],
+                    [
+                        121.44350915027,
+                        31.03444905515
+                    ],
+                    [
+                        121.44398135027,
+                        31.03443665535
+                    ],
+                    [
+                        121.44430635027,
+                        31.03436555652
+                    ],
+                    [
+                        121.44458455027,
+                        31.03429285771
+                    ],
+                    [
+                        121.44497645027,
+                        31.03414926006
+                    ],
+                    [
+                        121.44510985027,
+                        31.03410796073
+                    ],
+                    [
+                        121.44525605027,
+                        31.03404936169
+                    ],
+                    [
+                        121.44540225027,
+                        31.03399066265
+                    ],
+                    [
+                        121.44547655027,
+                        31.03395746320
+                    ],
+                    [
+                        121.44553155027,
+                        31.03393286360
+                    ],
+                    [
+                        121.44574585027,
+                        31.03382896530
+                    ],
+                    [
+                        121.44587125027,
+                        31.03375046658
+                    ],
+                    [
+                        121.44637035027,
+                        31.03343827169
+                    ],
+                    [
+                        121.44680265027,
+                        31.03306507780
+                    ],
+                    [
+                        121.44689145027,
+                        31.03298847905
+                    ],
+                    [
+                        121.44729765027,
+                        31.03249928706
+                    ],
+                    [
+                        121.44737375027,
+                        31.03238448894
+                    ],
+                    [
+                        121.44749035027,
+                        31.03220869181
+                    ],
+                    [
+                        121.44753875027,
+                        31.03212299321
+                    ],
+                    [
+                        121.44762805027,
+                        31.03196249584
+                    ],
+                    [
+                        121.44765895027,
+                        31.03189139700
+                    ],
+                    [
+                        121.44767265027,
+                        31.03186039751
+                    ],
+                    [
+                        121.44777335027,
+                        31.03162980128
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44220705027,
+                    31.03432775714
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43905445027,
+                    31.02585739573
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43330935027,
+                    31.03147480382
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "highway": "bus_stop",
+                "name": "菁菁堂广场",
+                "network": "上海交大校园巴士",
+                "shelter": "no"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43092095027,
+                    31.02218095587
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "新行政楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44088855027,
+                    31.02980383116
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43365145027,
+                    31.02299764251
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "包玉刚图书馆",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43149355027,
+                    31.02632438809
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "电信学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44272735027,
+                    31.02871744894
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "学生服务中心",
+                "name:en": "Student Service Center",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43365225027,
+                    31.03154750263
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "校医院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43378975027,
+                    31.02302514206
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "机动学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "no"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44861935027,
+                    31.02987203005
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "机动学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "no"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44847715027,
+                    31.02979083137
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44242115027,
+                        31.03029772308
+                    ],
+                    [
+                        121.44241105027,
+                        31.03021112450
+                    ],
+                    [
+                        121.44240395027,
+                        31.03015002550
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44240395027,
+                        31.03015002550
+                    ],
+                    [
+                        121.44237845027,
+                        31.02990462951
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44241105027,
+                    31.03021112450
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "南洋东路",
+                "name:en": "East Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44915595027,
+                        31.02826705631
+                    ],
+                    [
+                        121.44913685027,
+                        31.02805035985
+                    ],
+                    [
+                        121.44907165027,
+                        31.02785996297
+                    ],
+                    [
+                        121.44892605027,
+                        31.02768266587
+                    ],
+                    [
+                        121.44870005027,
+                        31.02751846855
+                    ],
+                    [
+                        121.44847395027,
+                        31.02741017033
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "南洋西路",
+                "name:en": "West Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.42852115027,
+                        31.02532240448
+                    ],
+                    [
+                        121.42865115027,
+                        31.02509650818
+                    ],
+                    [
+                        121.42889495027,
+                        31.02467281511
+                    ],
+                    [
+                        121.42899645027,
+                        31.02451501769
+                    ],
+                    [
+                        121.42922865027,
+                        31.02415392360
+                    ],
+                    [
+                        121.42934095027,
+                        31.02397922646
+                    ],
+                    [
+                        121.42965515027,
+                        31.02349073445
+                    ],
+                    [
+                        121.42976175027,
+                        31.02329403767
+                    ],
+                    [
+                        121.42986765027,
+                        31.02309854086
+                    ],
+                    [
+                        121.42993405027,
+                        31.02297594287
+                    ],
+                    [
+                        121.43010035027,
+                        31.02258394928
+                    ],
+                    [
+                        121.43017985027,
+                        31.02236245291
+                    ],
+                    [
+                        121.43032335027,
+                        31.02205835788
+                    ],
+                    [
+                        121.43036315027,
+                        31.02196455941
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "文治大道",
+                "name:en": "Wenzhi Avenue",
+                "oneway": "yes"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44535645027,
+                        31.02754146818
+                    ],
+                    [
+                        121.44522395027,
+                        31.02784786316
+                    ],
+                    [
+                        121.44518115027,
+                        31.02794686154
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43931835027,
+                    31.02929203954
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "东中院",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43849915027,
+                    31.02699337714
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44237845027,
+                        31.02990462951
+                    ],
+                    [
+                        121.44240965027,
+                        31.02947153660
+                    ],
+                    [
+                        121.44252045027,
+                        31.02912924220
+                    ],
+                    [
+                        121.44271955027,
+                        31.02878144789
+                    ],
+                    [
+                        121.44282465027,
+                        31.02865704993
+                    ],
+                    [
+                        121.44309355027,
+                        31.02841595387
+                    ],
+                    [
+                        121.44352905027,
+                        31.02813125853
+                    ],
+                    [
+                        121.44382395027,
+                        31.02799596074
+                    ],
+                    [
+                        121.44415745027,
+                        31.02790386225
+                    ],
+                    [
+                        121.44445195027,
+                        31.02788346258
+                    ],
+                    [
+                        121.44494865027,
+                        31.02786486289
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43683085027,
+                    31.03260358535
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43509305027,
+                    31.03204879443
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "华联校园生活中心",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43080085027,
+                    31.02824155672
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "东上院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43951035027,
+                    31.02508740833
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "华联校园生活中心",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43086465027,
+                    31.02825865644
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "bus_stop",
+                "name": "学生服务中心",
+                "name:en": "Student Service Center",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43361115027,
+                    31.03164790099
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43247845027,
+                    31.02272214702
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "东大门",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44746005027,
+                    31.03242318830
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1",
+                "name": "文治大道",
+                "name:en": "Wenzhi Avenue",
+                "oneway": "yes"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44523435027,
+                        31.02751666858
+                    ],
+                    [
+                        121.44533835027,
+                        31.02727117260
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "西区学生宿舍",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42993055027,
+                    31.03038512165
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "新行政楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "no"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44092925027,
+                    31.02974683209
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "bus": "yes",
+                "highway": "bus_stop",
+                "name": "第四餐饮大楼",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "platform",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42725275027,
+                    31.02857575126
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1",
+                "name": "思源西路",
+                "name:en": "Siyuan Road West"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43156835027,
+                        31.02643638626
+                    ],
+                    [
+                        121.43149905027,
+                        31.02655728428
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "东上院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43935385027,
+                    31.02516170711
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "东大门",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44737375027,
+                    31.03238448894
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "宣怀大道",
+                "name:en": "Xuanhuai Avenue",
+                "surface": "asphalt"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44009285027,
+                        31.02954653537
+                    ],
+                    [
+                        121.44019035027,
+                        31.02957873484
+                    ],
+                    [
+                        121.44030435027,
+                        31.02961553424
+                    ],
+                    [
+                        121.44067645027,
+                        31.02973543228
+                    ],
+                    [
+                        121.44088855027,
+                        31.02980383116
+                    ],
+                    [
+                        121.44104085027,
+                        31.02985293036
+                    ],
+                    [
+                        121.44107345027,
+                        31.02986343019
+                    ],
+                    [
+                        121.44198015027,
+                        31.03015562541
+                    ],
+                    [
+                        121.44229295027,
+                        31.03025642376
+                    ],
+                    [
+                        121.44242115027,
+                        31.03029772308
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43099475027,
+                        31.02796316128
+                    ],
+                    [
+                        121.43086465027,
+                        31.02825865644
+                    ],
+                    [
+                        121.43074405027,
+                        31.02853245196
+                    ],
+                    [
+                        121.43057425027,
+                        31.02891794566
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44830555027,
+                    31.03041242120
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44753875027,
+                    31.03212299321
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "船建学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44525605027,
+                    31.03404936169
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "元培路",
+                "name:en": "Yuanpei Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43781605027,
+                        31.02869764926
+                    ],
+                    [
+                        121.43780415027,
+                        31.02872504881
+                    ],
+                    [
+                        121.43777075027,
+                        31.02880204755
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44107345027,
+                    31.02986343019
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "maxspeed": "30",
+                "name": "光宪路",
+                "name:en": "Guangxian Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.42852115027,
+                        31.02532240448
+                    ],
+                    [
+                        121.42862335027,
+                        31.02540730309
+                    ],
+                    [
+                        121.42879135027,
+                        31.02546100222
+                    ],
+                    [
+                        121.42964305027,
+                        31.02573419775
+                    ],
+                    [
+                        121.42984945027,
+                        31.02579909668
+                    ],
+                    [
+                        121.43047295027,
+                        31.02599829343
+                    ],
+                    [
+                        121.43107705027,
+                        31.02619129027
+                    ],
+                    [
+                        121.43149355027,
+                        31.02632438809
+                    ],
+                    [
+                        121.43158545027,
+                        31.02635668756
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bus": "yes",
+                "name": "电信学院",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "public_transport": "stop_position"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44271955027,
+                    31.02878144789
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44030435027,
+                    31.02961553424
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1",
+                "name": "元培路",
+                "name:en": "Yuanpei Road"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43793525027,
+                        31.02845795318
+                    ],
+                    [
+                        121.43781605027,
+                        31.02869764926
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43785185027,
+                    31.02882764713
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bridge": "yes",
+                "highway": "residential",
+                "layer": "1"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.44909085027,
+                        31.02861185066
+                    ],
+                    [
+                        121.44913295027,
+                        31.02845755319
+                    ],
+                    [
+                        121.44915595027,
+                        31.02826705631
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.44242375027,
+                    31.03439455604
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "residential",
+                "name": "南洋北路",
+                "name:en": "North Nanyang Road",
+                "oneway": "no"
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        121.43836715027,
+                        31.03309347733
+                    ],
+                    [
+                        121.43850245027,
+                        31.03313697662
+                    ],
+                    [
+                        121.43857235027,
+                        31.03315937626
+                    ],
+                    [
+                        121.44099445027,
+                        31.03393796351
+                    ],
+                    [
+                        121.44220705027,
+                        31.03432775714
+                    ],
+                    [
+                        121.44231945027,
+                        31.03436385654
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43347605027,
+                    31.03152860294
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43942535027,
+                    31.02499560983
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "highway": "crossing"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.42704765027,
+                    31.02945533686
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "no",
+                "highway": "bus_stop",
+                "name": "包玉刚图书馆",
+                "network": "上海交大校园巴士",
+                "operator": "上海交通大学",
+                "shelter": "no"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43150165027,
+                    31.02638578709
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bench": "yes",
+                "highway": "bus_stop",
+                "name": "东中院",
+                "shelter": "yes"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    121.43871665027,
+                    31.02694017802
+                ]
+            }
+        }
+    ]
+}

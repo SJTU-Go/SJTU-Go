@@ -8,72 +8,42 @@ import io.swagger.models.auth.In;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 @Data
 @Entity
+@Table(name = "bus_stop")
 public class BusStop {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "stopid")
     private Integer stopId;
 
-    private boolean isClock;
+    @Column(name = "location_platform")
+    private Point locationPlatform;
 
-    private int stopNo;
+    @Column(name = "location_stop")
+    private Point locationStop;
 
-    private LocalTime nextBus;
-
-    private Point location;
-
+    @Column(name = "stop_name")
     private String stopName;
 
+    @Column(name = "next_route")
     private LineString nextRoute;
 
+    @Column(name = "diff")
+    private Long diff;
+
     public BusStop() {
-
     }
 
-    public BusStop(boolean isClock, int stopNo,
-                   String nextBus, String location, String stopName,
-                   String nextRoute){
-        this.isClock = isClock;
-        try {
-            this.location = (Point) new WKTReader().read(location); //TODO:conversion
-            this.nextRoute = (LineString) new WKTReader().read(nextRoute);
-        } catch (ParseException e) {
-            throw new IdSyntaxException("busID"); //TODO:error!
-        }
-        this.stopNo = stopNo;
-        try {
-            this.nextBus = LocalTime.parse(nextBus);
-        } catch (DateTimeParseException e) {
-            throw new IdSyntaxException("busID"); //TODO:error!
-        }
-        this.stopName = stopName;
+    public Duration getDiff(){
+        return Duration.ofSeconds(diff);
     }
 
-    public BusStop(Integer stopId, boolean isClock, int stopNo,
-                   String nextBus, String location, String stopName,
-                   String nextRoute){
-        this.isClock = isClock;
-        try {
-            this.location = (Point) new WKTReader().read(location); //TODO:conversion
-            this.nextRoute = (LineString) new WKTReader().read(nextRoute);
-        } catch (ParseException e) {
-            throw new IdSyntaxException("busID"); //TODO:error!
-        }
-        this.stopId = stopId;
-        this.stopNo = stopNo;
-        try {
-            this.nextBus = LocalTime.parse(nextBus);
-        } catch (DateTimeParseException e) {
-            throw new IdSyntaxException("busID"); //TODO:error!
-        }
-        this.stopName = stopName;
+    public void setDiff(Duration t){
+        this.diff = t.getSeconds();
     }
 }

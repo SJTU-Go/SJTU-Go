@@ -1,0 +1,86 @@
+{
+    "startTime": {
+        "direct1": [7, 30, 7, 45, 8, 0, 8, 15, 8, 25, 8, 40, 9, 0, 9, 20, 9, 40, 10, 0, 10, 20, 10, 40, 11, 0, 11, 20, 11, 40, 12, 0, 13, 0, 13, 20, 13, 40, 14, 0, 14, 20, 14, 40, 15, 0, 15, 20, 15, 40, 16, 0, 16, 20, 16, 30, 17, 0, 17, 15, 17, 30, 17, 50, 18, 0, 19, 0, 20, 10],
+        "direct2": [8, 30, 8, 50, 9, 10, 9, 30, 10, 0, 10, 30, 11, 0, 11, 30, 12, 30, 13, 30, 14, 0, 14, 30, 15, 0, 15, 30, 16, 0, 16, 30],
+        "festival_direct1": [8, 15, 9, 30, 10, 30, 11, 30, 15, 0, 16, 30, 18, 0],
+        "festival_direct2": [8, 45, 10, 0, 11, 0, 12, 0, 14, 0, 16, 0, 17, 15]
+    },
+    "stopTime":{
+        "菁菁堂": {
+            "direct1_diff": 18,
+            "direct2_diff": 18
+        },
+        "校医院": {
+            "direct1_diff": 0,
+            "direct2_diff": 17
+        },
+        "东上院": {
+            "direct1_diff": 2,
+            "direct2_diff": 15
+        },
+        "东中院": {
+            "direct1_diff": 3,
+            "direct2_diff": 15
+        },
+        "新图书馆": {
+            "direct1_diff": 4,
+            "direct2_diff": 13
+        },
+        "行政B楼":{
+            "direct1_diff": 5,
+            "direct2_diff": 13
+        },
+        "电信学院": {
+            "direct1_diff": 6,
+            "direct2_diff": 12
+        },
+        "凯旋门": {
+            "direct1_diff": 7,
+            "direct2_diff": 11
+        },
+        "机动学院": {
+            "direct1_diff": 8,
+            "direct2_diff": 10
+        },
+        "庙门": {
+            "direct1_diff": 9,
+            "direct2_diff": 9
+        },
+        "船建学院": {
+            "direct1_diff": 10,
+            "direct2_diff": 8
+        },
+        "文选医学楼":{
+            "direct1_diff": 11,
+            "direct2_diff": 7
+        },
+        "学生服务中心": {
+            "direct1_diff": 12,
+            "direct2_diff": 6
+        },
+        "西区学生公寓": {
+            "direct1_diff": 13,
+            "direct2_diff": 5
+        },
+        "第四餐饮大楼":{
+            "direct1_diff": 14,
+            "direct2_diff": 4
+         },
+        "玉兰苑": {
+            "direct1_diff": 15,
+            "direct2_diff": 3
+        },
+        "包玉刚图书馆": {
+            "direct1_diff": 16,
+            "direct2_diff": 2
+        },
+        "材料学院": {
+            "direct1_diff": 17,
+            "direct2_diff": 1
+        },
+        "菁菁堂2": {
+          "direct1_diff": 18,
+          "direct2_diff": 18
+      }
+    }
+}
