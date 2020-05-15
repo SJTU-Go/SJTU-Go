@@ -46,10 +46,11 @@ public class Comment {
 
     @ElementCollection
     @ApiModelProperty(value = "评论相关地点ID", example = "[1,2,3]")
-    private List<Integer> relatedPlace;
+    private List<Integer> relatedPlace; //parking???
 
     @ElementCollection
     @ApiModelProperty(value = "评论下方的子评论ID", example = "[2,3]")
     private List<Integer> subComment;
 
+    public Comment() {}
 }
