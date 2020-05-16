@@ -9,6 +9,7 @@ import org.sjtugo.api.entity.WalkRoute;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -27,8 +28,7 @@ public abstract class AbstractPlanner {
     protected final MapVertexInfoRepository mapVertexInfoRepository;
     protected final DestinationRepository destinationRepository;
     protected final RestTemplate restTemplate;
-    protected final BusTimeVacationRepository busTimeVacationRepository;
-    protected final BusTimeWeekdayRepository busTimeWeekdayRepository;
+    protected final BusTimeRepository busTimeRepository;
     protected final BusStopRepository busStopRepository;
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
@@ -36,23 +36,22 @@ public abstract class AbstractPlanner {
     public AbstractPlanner(MapVertexInfoRepository mapVertexInfoRepository,
                            DestinationRepository destinationRepository,
                            RestTemplate restTemplate,
-                           BusTimeVacationRepository busTimeVacationRepository,
-                           BusTimeWeekdayRepository busTimeWeekdayRepository,
+                           BusTimeRepository busTimeRepository,
                            BusStopRepository busStopRepository){
         this.mapVertexInfoRepository = mapVertexInfoRepository;
         this.destinationRepository = destinationRepository;
         this.restTemplate = restTemplate;
-        this.busTimeVacationRepository = busTimeVacationRepository;
-        this.busTimeWeekdayRepository = busTimeWeekdayRepository;
+        this.busTimeRepository = busTimeRepository;
         this.busStopRepository = busStopRepository;
     }
 
     /**
      * @param beginPlace 出发地点的名称/经纬度/地点ID
      * @param endPlace 到达地点的名称/经纬度/地点ID
+     * @param departTime 预设出发时间
      * @return planner对应的方案
      */
-    public abstract Strategy planOne(String beginPlace, String endPlace);
+    public abstract Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime);
 
 
     /**
@@ -60,19 +59,22 @@ public abstract class AbstractPlanner {
      * @param beginPlace 出发地点的名称/经纬度/地点ID
      * @param passPlaces 途径地点的名称/经纬度/地点ID的list
      * @param endPlace 到达地点的名称/经纬度/地点ID
+     * @param departTime 预设出发时间
      * @return planner对应的方案
      */
-    public Strategy planAll(String beginPlace, String[] passPlaces, String endPlace){
+    public Strategy planAll(String beginPlace, String[] passPlaces,
+                            String endPlace, LocalDateTime departTime){
         String currentPlace = beginPlace;
         String nextPlace = passPlaces.length>0 ? passPlaces[0] : endPlace;
         int i;
-        Strategy resultStrategy = planOne(currentPlace,nextPlace);
+        Strategy resultStrategy = planOne(currentPlace,nextPlace,departTime);
         for (i=0; i<passPlaces.length; i++) {
             currentPlace = nextPlace;
             nextPlace = i+1<passPlaces.length ? passPlaces[i+1] : endPlace;
 //            System.out.print(currentPlace);
 //            System.out.println(nextPlace);
-            Strategy currentStrategy = planOne(currentPlace,nextPlace);
+            Strategy currentStrategy = planOne(currentPlace,nextPlace,
+                                               departTime.plus(resultStrategy.getTravelTime()));
             resultStrategy.merge(currentStrategy);
         }
         return resultStrategy;
@@ -129,9 +131,9 @@ public abstract class AbstractPlanner {
                     restTemplate.getForEntity("https://apis.map.qq.com/ws/place/v1/search?keyword={keyword}" +
                                     "&boundary={boundary}&key={key}&page_index={page_index}&page_size={page_size}",
                             PlaceResponse.class,params);
-            System.out.println("-----Finding Place------");
-            System.out.println(params);
-            System.out.println(tencentResponse);
+//            System.out.println("-----Finding Place------");
+//            System.out.println(params);
+//            System.out.println(tencentResponse);
             result.setLocation(Objects.requireNonNull(Objects.requireNonNull(tencentResponse.getBody(),
                     "Search Place Result Not Found").getLocation(),
                     "Place Location Not Found"));

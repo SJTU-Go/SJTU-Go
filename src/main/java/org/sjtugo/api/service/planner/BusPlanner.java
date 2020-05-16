@@ -1,9 +1,7 @@
 package org.sjtugo.api.service.planner;
 
 import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.operation.linemerge.LineMerger;
-import org.apache.tomcat.jni.Local;
 import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.entity.BusRoute;
 import org.sjtugo.api.entity.Route;
@@ -13,10 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class BusPlanner extends AbstractPlanner {
@@ -24,15 +23,15 @@ public class BusPlanner extends AbstractPlanner {
     public BusPlanner(MapVertexInfoRepository mapVertexInfoRepository,
                       DestinationRepository destinationRepository,
                       RestTemplate restTemplate,
-                      BusTimeVacationRepository busTimeVacationRepository,
-                      BusTimeWeekdayRepository busTimeWeekdayRepository,
+                      BusTimeRepository busTimeRepository,
                       BusStopRepository busStopRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
+                busTimeRepository,busStopRepository);
     }
 
     @Override
-    public Strategy planOne(String beginPlace, String endPlace){
+    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
+        // 匹配公交站
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
         List<BusStop> busStops = busStopRepository.getAllCounterStartBus(); // 2~19
@@ -43,11 +42,17 @@ public class BusPlanner extends AbstractPlanner {
             startBus = busStopRepository.findById( - startBus.getStopId()).orElse(null);
             endBus = busStopRepository.findById( - endBus.getStopId()).orElse(null);
         }
+
+
+        // 计算导航
+        assert startBus != null;
+        assert endBus != null;
+
         WalkRoute toBus = planWalkTencent(start,new NavigatePlace(startBus));
         BusRoute busRoute = planBus(startBus,endBus,
-                LocalTime.now().plus(Duration.ofSeconds(toBus.getRouteTime())));
+                departTime.plus(Duration.ofSeconds(toBus.getRouteTime())));
         WalkRoute fromBus = planWalkTencent(new NavigatePlace(endBus),end);
-
+        if (busRoute == null) {return null;}
         Strategy result = new Strategy();
         result.setType("校园巴士");
         result.setArrive(end.getPlaceName());
@@ -67,28 +72,27 @@ public class BusPlanner extends AbstractPlanner {
         return result;
     }
 
-    private BusRoute planBus(BusStop startBus, BusStop endBus, LocalTime departTime) {
+    private BusRoute planBus(BusStop startBus, BusStop endBus, LocalDateTime departTime) {
         BusRoute busRoute = new BusRoute();
-        if (isWeekday()) {
-            List<LocalTime> getOnTimes;
-            LocalTime getOnTime;
-            if (isVacation()){
-                getOnTimes = StreamSupport
-                        .stream(busTimeVacationRepository.findAll().spliterator(),false)
-                        .map(timeElem -> timeElem.getBusTime().plus(startBus.getDiff()))
-                        .filter(timeElem -> timeElem.isAfter(departTime))
-                        .collect(Collectors.toList());
-                getOnTime = getOnTimes.get(0);
-                if (getOnTime == null) { return null; }
-            } else {
-                getOnTimes = StreamSupport
-                        .stream(busTimeWeekdayRepository.findAll().spliterator(),false)
-                        .map(timeElem -> timeElem.getBusTime().plus(startBus.getDiff()))
-                        .filter(timeElem -> timeElem.isAfter(departTime)) // TODO DATETIME
-                        .collect(Collectors.toList());
-                getOnTime = getOnTimes.get(0);
-                if (getOnTime == null) { return null; }
-            }
+//        System.out.println((busTimeRepository.findAllByBusTypeEquals(
+//                ((startBus.getStopId() > 0) ? 1 : -1  *
+//                        (isWeekday(departTime) ? ( (isVacation(departTime) ? 2 : 1) ) : 0)))));
+//        System.out.println( (busTimeRepository.findAllByBusTypeEquals(
+//                ((startBus.getStopId() > 0) ? 1 : -1  *
+//                        (isWeekday(departTime) ? ( (isVacation(departTime) ? 2 : 1) ) : 0))))
+//                .stream()
+//                .map(timeElem -> timeElem.getBusTime().plus(startBus.getDiff())));
+        List<LocalTime> getOnTimes = (busTimeRepository.findAllByBusTypeEquals(
+                ((startBus.getStopId() > 0) ? 1 : -1  *
+                        (isWeekday(departTime) ? ( (isVacation(departTime) ? 2 : 1) ) : 0))))
+                .stream()
+                .map(timeElem -> timeElem.getBusTime().plus(startBus.getDiff()))
+                .filter(timeElem -> timeElem.isAfter(LocalTime.from(departTime)))
+                .collect(Collectors.toList());
+        if (!getOnTimes.isEmpty())
+        {
+            LocalTime getOnTime = getOnTimes.get(0);
+//            System.out.println(getOnTime);
             LocalTime getOffTime = getOnTime.plus(endBus.getDiff()).minus(startBus.getDiff());
             busRoute.setArriveID("BUS" + endBus.getStopId());
             busRoute.setArriveTime(getOffTime);
@@ -128,33 +132,42 @@ public class BusPlanner extends AbstractPlanner {
                 restTemplate.getForEntity("http://apis.map.qq.com/ws/distance/v1/matrix?from={from}&" +
                         "to={to}&key={key}&mode=walking", NearBusResponse.class,params);
 
-        System.out.println("-----Finding BusStop------");
-        System.out.println(params);
-        System.out.println(tencentResponse);
-        return busStops.get(Objects.requireNonNull(tencentResponse.getBody())
-                            .getNearestBus() - 1);
+//        System.out.println("-----Finding BusStop------");
+//        System.out.println(params);
+//        System.out.println(tencentResponse);
+        int busStopNum = Objects.requireNonNull(tencentResponse.getBody())
+                .getNearestBus() - 1;
+        return busStops.get(busStopNum < 0 ? busStops.size()-1 : busStopNum);
     }
 
-    private Boolean isWeekday() {
+    private Boolean isWeekday(LocalDateTime now) {
+        Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
         Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         return ! (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                 || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY);
     }
 
-    private Boolean isVacation() {
+    private Boolean isVacation(LocalDateTime now) {
         Calendar summberBegin = Calendar.getInstance();
         summberBegin.clear();
-        summberBegin.set(2020,7,26);
+        summberBegin.set(2020,Calendar.JULY,26);
+//        System.out.println(summberBegin);
         Calendar summerEnd = Calendar.getInstance();
         summerEnd.clear();
-        summerEnd.set(2020,9,6);
+        summerEnd.set(2020, Calendar.SEPTEMBER,6);
         Calendar winterBegin = Calendar.getInstance();
         winterBegin.clear();
-        winterBegin.set(2021,1,11);
+        winterBegin.set(2021, Calendar.JANUARY,11);
         Calendar winterEnd = Calendar.getInstance();
         winterEnd.clear();
-        winterEnd.set(2020,2,22);
+        winterEnd.set(2020, Calendar.FEBRUARY,22);
+        Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
         Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+//        System.out.println(cal);
+//        System.out.println(cal.before(summerEnd));
+//        System.out.println(cal.after(summberBegin));
         return (cal.before(summerEnd) && cal.after(summberBegin))
                 || (cal.before(winterEnd) && cal.after(winterBegin));
     }

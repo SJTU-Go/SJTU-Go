@@ -1,8 +1,10 @@
 from xml.etree import ElementTree as ET
-
+import requests
+import math
 def parseLineString(vlis):
 	result = "LINESTRING ("
 	for v in vlis:
+		v = transform(v)
 		result += v[1]
 		result += " "
 		result += v[0]
@@ -11,7 +13,22 @@ def parseLineString(vlis):
 	return result
 
 def parsePoint(v):
+	v = transform(v)
 	return "POINT (" + v[1] + " " + v[0]+")"
+
+from coord_convert.transform import wgs2gcj
+
+def transform(v):
+	gcj_lat, gcj_lon = wgs2gcj(float(v[0]), float(v[1]))
+	return (str(gcj_lat),str(gcj_lon))
+
+# def transform(v):
+# 	print ('https://apis.map.qq.com/ws/coord/v1/translate?type=1&key=WNKBZ-XTW3W-DAKRJ-OCPIH-ZQWNO-RRFB2&&locations={0},{1}'.format(v[0],v[1]))
+# 	req = requests.get('https://apis.map.qq.com/ws/coord/v1/translate?type=1&key=WNKBZ-XTW3W-DAKRJ-OCPIH-ZQWNO-RRFB2&&locations={0},{1}'.format(v[0],v[1]))
+# 	data = json.loads(req.text)['locations'][0]
+# 	return (str(data['lng']),str(data['lat']))
+
+
 
 
 # 收集逆时针bus路线

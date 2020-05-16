@@ -13,9 +13,9 @@ public class BusRoute extends Route {
 
     private String arriveID;
 
-    @JsonFormat(pattern="HH:mm:ss")
+    @JsonFormat(pattern="HH:mm:ss", timezone="GMT+8")
     private LocalTime departTime;
 
-    @JsonFormat(pattern="HH:mm:ss")
+    @JsonFormat(pattern="HH:mm:ss", timezone="GMT+8")
     private LocalTime arriveTime;
 }

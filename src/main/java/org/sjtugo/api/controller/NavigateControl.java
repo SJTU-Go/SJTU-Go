@@ -1,10 +1,11 @@
 package org.sjtugo.api.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.entity.Strategy;
@@ -12,6 +13,7 @@ import io.swagger.annotations.*;
 import org.sjtugo.api.service.planner.BusPlanner;
 import org.sjtugo.api.service.planner.WalkPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,9 +28,7 @@ public class NavigateControl {
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
-    private BusTimeVacationRepository busTimeVacationRepository;
-    @Autowired
-    private BusTimeWeekdayRepository busTimeWeekdayRepository;
+    private BusTimeRepository busTimeRepository;
     @Autowired
     private BusStopRepository busStopRepository;
 
@@ -42,7 +42,8 @@ public class NavigateControl {
         String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
         return planner.planAll(navigateRequest.getBeginPlace(),
                 navigateRequest.getPassPlaces().toArray(passPlaces),
-                navigateRequest.getArrivePlace());
+                navigateRequest.getArrivePlace(),
+                navigateRequest.getDepartTime());
     }
 
     @ApiOperation(value = "Bus Navigate Service",
@@ -50,11 +51,12 @@ public class NavigateControl {
     @PostMapping("/bus")
     public Strategy navigateBus(@RequestBody NavigateRequest navigateRequest) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate,busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
+                restTemplate, busTimeRepository,busStopRepository);
         String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
         return planner.planAll(navigateRequest.getBeginPlace(),
                 navigateRequest.getPassPlaces().toArray(passPlaces),
-                navigateRequest.getArrivePlace());
+                navigateRequest.getArrivePlace(),
+                navigateRequest.getDepartTime());
     }
 
     @ApiOperation(value = "Parse Place",
@@ -64,7 +66,7 @@ public class NavigateControl {
     @PostMapping(value = "/parsePlace", produces="text/plain;charset=UTF-8")
     public String parsePlace(@RequestBody String place) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate,busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
+                restTemplate, busTimeRepository,busStopRepository);
         return planner.parsePlace(place).toString();
     }
 
@@ -90,5 +92,12 @@ public class NavigateControl {
         @ApiModelProperty(value = "途径点ID或经纬度",
                 example = "[\"第三餐饮大楼\", \"POINT (121.435624 31.234566)\"]")
         private List<String> passPlaces;
+
+
+        @ApiModelProperty(value = "出发时间", example = "2020/05/11 12:05:12")
+        @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy/MM/dd HH:mm:ss", timezone="GMT+8")
+        @JsonSerialize(using = LocalDateTimeSerializer.class)
+        private LocalDateTime departTime = LocalDateTime.now();
     }
 }
