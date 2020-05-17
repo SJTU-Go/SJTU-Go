@@ -21,26 +21,26 @@ import java.util.List;
 @RequestMapping("/comments")
 public class CommentControl {
 
-    @ApiOperation(value = "get comment list by place ID", notes = "给定地点ID，返回该处用户的评论")
+    @ApiOperation(value = "get comments by place ID", notes = "给定地点ID，返回该处用户的评论")
     @GetMapping("/place={placeID}")
     public @ResponseBody List<Comment> getCommentList(@PathVariable Integer placeID) {
         CommentService commentser = new CommentService();
         return commentser.getCommentList(placeID);
     }
 
-    @ApiOperation(value = "get comment list by place location", notes = "给定地点经纬度，返回该处用户的评论")
+    @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度，返回该处用户的评论")
     @PostMapping("/loc")
     public @ResponseBody List<Comment> getCommentList(@RequestParam Point location) {
             CommentService commentser = new CommentService();
         return commentser.getCommentList(location);
     }
 
-    @PostMapping("/addcomment")
+    @PostMapping(value = "/addcomment")
     @ExceptionHandler(AddCommentException.class)
     @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)  //
-    public Comment addComment(@RequestBody Comment commentInfo) {
+    public Comment addComment(@RequestParam String contents) {
         CommentService commentser = new CommentService();
-        return commentser.addComment(commentInfo);
+        return commentser.addComment(contents);
     }
 
     @ApiOperation(value = "用户点赞功能")
