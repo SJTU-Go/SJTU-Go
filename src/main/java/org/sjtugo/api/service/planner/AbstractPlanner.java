@@ -3,16 +3,12 @@ package org.sjtugo.api.service.planner;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-import lombok.Data;
 import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -87,8 +83,8 @@ public abstract class AbstractPlanner {
      * @param place 一个地点的名称/经纬度/地点ID，即API接受的输入值
      * @return 一个navigatePlace实例，包含名称、经纬度、地点类型，方便内部计算时调用
      */
-    public navigatePlace parsePlace(String place){
-        navigatePlace result = new navigatePlace();
+    public NavigatePlace parsePlace(String place){
+        NavigatePlace result = new NavigatePlace();
         Pattern PKpattern = Pattern.compile("(PK)([0-9]*)"); // regexp匹配数字ID
         Pattern DTpattern = Pattern.compile("(DT)([0-9]*)"); // regexp匹配数字ID
         Matcher PKmatcher = PKpattern.matcher(place);
@@ -100,7 +96,7 @@ public abstract class AbstractPlanner {
             if (vtx_record.isPresent()) { // input is a parkingPlace
                 result.setLocation(vtx_record.get().getLocation());
                 result.setPlaceName(vtx_record.get().getVertexName());
-                result.setPlaceType(navigatePlace.PlaceType.parking);
+                result.setPlaceType(NavigatePlace.PlaceType.parking);
                 return result;
             }
         }
@@ -111,7 +107,7 @@ public abstract class AbstractPlanner {
             if (dst_record.isPresent()){ // input is a destination
                 result.setLocation(dst_record.get().getLocation());
                 result.setPlaceName(dst_record.get().getPlaceName());
-                result.setPlaceType(navigatePlace.PlaceType.destination);
+                result.setPlaceType(NavigatePlace.PlaceType.destination);
                 return result;
             }
         }
@@ -119,7 +115,7 @@ public abstract class AbstractPlanner {
             Point loc = (Point) new WKTReader().read(place);
             result.setLocation(loc);
             result.setPlaceName(loc.toString()+"附近的位置");
-            result.setPlaceType(navigatePlace.PlaceType.point);
+            result.setPlaceType(NavigatePlace.PlaceType.point);
             return result;
         } catch (ParseException e) { // 调用外部地图API定位
             Map<String,String> params=new HashMap<>();
@@ -141,7 +137,7 @@ public abstract class AbstractPlanner {
                     "Place Location Not Found"));
             result.setPlaceName(Objects.requireNonNull(tencentResponse.getBody(),
                     "Place Name Not Found").getTitle());
-            result.setPlaceType(navigatePlace.PlaceType.point);
+            result.setPlaceType(NavigatePlace.PlaceType.point);
 
 //            System.out.println(result);
             return result;
@@ -155,7 +151,7 @@ public abstract class AbstractPlanner {
      * @param end 到达点的地名、坐标、类型
      * @return 一条WalkRoute
      */
-    protected WalkRoute planWalkTencent (navigatePlace start, navigatePlace end){
+    protected WalkRoute planWalkTencent (NavigatePlace start, NavigatePlace end){
         Map<String,String> params=new HashMap<>();
         params.put("from", start.getLocation().getCoordinate().y
                 +","+ start.getLocation().getCoordinate().x);

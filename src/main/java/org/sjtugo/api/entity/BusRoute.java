@@ -18,6 +18,4 @@ public class BusRoute extends Route {
 
     @JsonFormat(pattern="HH:mm:ss")
     private LocalTime arriveTime;
-
-    private int distance;
 }
