@@ -1,13 +1,11 @@
 package org.sjtugo.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vividsolutions.jts.geom.Point;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -34,7 +32,8 @@ public class Comment {
     private String contents;
 
     @ApiModelProperty(value = "评论时间", example = "2020/05/11 12:05")
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")  //表示传入的参数格式 好像没必要
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")  //输出参数格式化
     private LocalDateTime commentTime;
 
     @ElementCollection
