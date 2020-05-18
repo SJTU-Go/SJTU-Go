@@ -1,6 +1,7 @@
 package org.sjtugo.api.controller;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -91,7 +92,7 @@ public class NavigateControl {
         private String arrivePlace;
         @ApiModelProperty(value = "途径点ID或经纬度",
                 example = "[\"学生服务中心\"]")
-        private List<String> passPlaces;
+        private List<String> passPlaces = Collections.emptyList();
 
 
         @ApiModelProperty(value = "出发时间（必须严格按照格式，不足位用0补齐），可不设该字段，默认为当前时间",

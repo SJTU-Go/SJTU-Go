@@ -43,7 +43,7 @@ public class WalkResponse {
         }
         Coordinate[] coordinates = new Coordinate[coors.size()/2];
         for (var i = 0; i < coors.size()/2 ; i++){
-            coordinates[i] = new Coordinate((Double) coors.get(2 * i), (Double) coors.get(2 * i + 1));
+            coordinates[i] = new Coordinate((Double) coors.get(2 * i + 1), (Double) coors.get(2 * i));
         }
         this.route = new GeometryFactory().createLineString(coordinates);
 
