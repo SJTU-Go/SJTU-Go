@@ -1,5 +1,10 @@
 {
   "pages": [
+    "pages/searchresultPage/searchresultPage",
+    "pages/dragtest/dragtest",
+    "pages/index/index",
+
+
     "pages/LoginPage/LoginPage",
     "pages/schedulePage/schedulePage",
     "pages/HistoryPage/HistoryPage",
@@ -12,7 +17,7 @@
 
     "pages/registrationPage/registrationPage",
     "pages/accountLoginPage/accountLoginPage",
-    "pages/index/index",
+ 
     "pages/trafficPage/trafficPage"
   ],
 

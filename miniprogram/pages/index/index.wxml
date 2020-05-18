@@ -6,11 +6,11 @@
             <!-- 搜索框 -->
                 <view class="search-bar__box">
                     <icon class="icon-search_in-box" type="search" size="17"></icon>
-                    <input type="text" class="search-bar__input" placeholder="请输入搜索内容"/>
+                    <input type="text" class="search-bar__input"  bindinput="searchInput" placeholder="请输入搜索内容"/>
                 </view>
             </view>
             <!-- 搜索按钮,调用搜索查询方法 -->
-            <view class="search-bar__cancel-btn" bindtap='方法名a'>搜索</view>
+            <view class="search-bar__cancel-btn" bindtap='search'>搜索</view>
         </view>
     </view>
 </view>

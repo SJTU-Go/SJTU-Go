@@ -1,5 +1,6 @@
 //app.js
 App({
+  globalData:{search:''},
   onLaunch: function () {
     
     if (!wx.cloud) {
