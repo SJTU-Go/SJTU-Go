@@ -1,9 +1,6 @@
 package org.sjtugo.api.controller;
 
-
-import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
 import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,22 +30,14 @@ public class CommentControl {
         return commentser.getCommentList(placeID);
     }
 
-    @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度，返回该处用户的评论")
+    @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度，返回附近用户的评论")
     @PostMapping("/loc")
-    public @ResponseBody List<Comment> getCommentList(@RequestParam String loc) throws ParseException {
+    public @ResponseBody List<Comment> getCommentList(@RequestParam double x, @RequestParam double y) throws ParseException {
             CommentService commentser = new CommentService(commentRepositoryJpa);
-            Point location = (Point) new WKTReader().read(loc); //记得处理location
-        return commentser.getCommentList(location);
+        return commentser.getCommentList(x, y);
     }
 
-    @PostMapping(value = "/addcomment1")  //没有title
-    @ExceptionHandler(AddCommentException.class)
-    @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
-    public Comment addComment(@RequestParam String contents, @RequestParam Integer userID) {
-        CommentService commentser = new CommentService(commentRepositoryJpa);
-        return commentser.addComment(contents,userID);
-    }
-    @PostMapping(value = "/addcomment") //有title及location
+    @PostMapping(value = "/addcomment")
     @ExceptionHandler(AddCommentException.class)
     @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
     public Comment addComment(@RequestBody CommentRequest commentRequest) throws ParseException {
@@ -56,7 +45,9 @@ public class CommentControl {
         return commentser.addComment(commentRequest.getTitle(),
                 commentRequest.getContents(),
                 commentRequest.getUserID(),
-                commentRequest.getLocation());
+                commentRequest.getLocation(),
+                commentRequest.getRelatedPlace(),
+                commentRequest.getFatherID());
     }
 
     @ApiOperation(value = "用户点赞功能")
@@ -72,6 +63,7 @@ public class CommentControl {
         private String title;
         private Integer userID;
         private String location;  //前端传
-        //private List<Integer> relatedPlace;   //前端传？？？
+        private List<Integer> relatedPlace;   //前端传
+        private Integer fatherID; //=0表示是父评论
     }
 }
