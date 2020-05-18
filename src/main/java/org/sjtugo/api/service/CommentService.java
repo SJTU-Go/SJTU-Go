@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,18 +30,12 @@ public class CommentService {
         return commentRepositoryJpa.findAllByRelatedPlaceContains(placeID);
     }
 
-    public Comment addComment(Comment commentInfo) { //要不要写这么多？？？
+    public Comment addComment(String contents) {
         Comment newComment = new Comment();
-        newComment.setApproveUsers(commentInfo.getApproveUsers());
-        newComment.setCommentID(commentInfo.getCommentID());
-        newComment.setCommentTime(commentInfo.getCommentTime());
-        newComment.setContents(commentInfo.getContents());
-        //newComment.setLocation(commentInfo.getLocation());
-        newComment.setRelatedPlace(commentInfo.getRelatedPlace());
-        newComment.setSubComment(commentInfo.getSubComment());
-        newComment.setTitle(commentInfo.getTitle());
-        newComment.setUserID(commentInfo.getUserID());
-        commentRepository.save(newComment); //直接save(commentInfo)???
+        newComment.setContents(contents);
+        //newComment.setUserID(userid);
+        //newComment.setCommentTime(LocalDateTime.now());
+        commentRepository.save(newComment);
         return newComment;
     }
 
