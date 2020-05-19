@@ -38,13 +38,17 @@ public class WalkResponse {
         this.time = Duration.ofMinutes((int) route.get("duration"));
         ArrayList<Object> coors = (ArrayList<Object>) route.get("polyline");
 
+        System.out.println(coors);
+
         for (var i = 2; i < coors.size() ; i++){
-            coors.set(i, (Double) coors.get(i - 2) + ((Integer) coors.get(i)) / 1000000);
+            coors.set(i, (double) coors.get(i - 2) + (((double) ((int) coors.get(i)))) / 1000000);
         }
+        System.out.println(coors);
         Coordinate[] coordinates = new Coordinate[coors.size()/2];
         for (var i = 0; i < coors.size()/2 ; i++){
             coordinates[i] = new Coordinate((Double) coors.get(2 * i + 1), (Double) coors.get(2 * i));
         }
+        System.out.println(Arrays.toString(coordinates));
         this.route = new GeometryFactory().createLineString(coordinates);
 
     }

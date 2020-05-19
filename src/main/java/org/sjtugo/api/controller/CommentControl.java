@@ -12,7 +12,6 @@ import org.sjtugo.api.DAO.CommentRepository;
 import org.sjtugo.api.entity.Comment;
 import org.sjtugo.api.service.CommentService;
 import org.sjtugo.api.service.planner.AddCommentException;
-import org.sjtugo.api.service.planner.navigatePlace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
