@@ -102,7 +102,7 @@ public class BusPlanner extends AbstractPlanner {
             busRoute.setArriveName(endBus.getStopName());
             busRoute.setRouteTime((int) Duration.between(getOnTime,getOffTime).toSeconds());
             List<LineString> routePaths = busStopRepository.
-                            findByStopIdBetween(endBus.getStopId(),startBus.getStopId()-1)
+                            findByStopIdBetween(endBus.getStopId()+1,startBus.getStopId())
                             .stream()
                             .map(BusStop::getNextRoute)
                             .collect(Collectors.toList());
@@ -136,7 +136,7 @@ public class BusPlanner extends AbstractPlanner {
 //        System.out.println(params);
 //        System.out.println(tencentResponse);
         int busStopNum = Objects.requireNonNull(tencentResponse.getBody())
-                .getNearestBus() - 1;
+                .getNearestBus() ;
         return busStops.get(busStopNum < 0 ? busStops.size()-1 : busStopNum);
     }
 
