@@ -17,10 +17,15 @@ def parsePoint(v):
 	return "POINT (" + v[1] + " " + v[0]+")"
 
 from coord_convert.transform import wgs2gcj
+from coordTransform.coordTransform_utils import wgs84_to_gcj02
+
 
 def transform(v):
-	gcj_lat, gcj_lon = wgs2gcj(float(v[0]), float(v[1]))
-	return (str(gcj_lat),str(gcj_lon))
+	gcj_lon, gcj_lat = wgs84_to_gcj02(float(v[1]),float(v[0]))
+	# gcj_lat, gcj_lon = wgs2gcj(float(v[0]), float(v[1]))
+	return (str(gcj_lat-31.025940+31.024322),str(gcj_lon-121.449652+121.444577))
+	# return (str(gcj_lon-121.445124+121.444566),str(gcj_lat-31.027884+31.024322))
+	# return v
 
 # def transform(v):
 # 	print ('https://apis.map.qq.com/ws/coord/v1/translate?type=1&key=WNKBZ-XTW3W-DAKRJ-OCPIH-ZQWNO-RRFB2&&locations={0},{1}'.format(v[0],v[1]))
