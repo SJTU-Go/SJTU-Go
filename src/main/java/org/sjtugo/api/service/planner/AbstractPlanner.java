@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +27,7 @@ public abstract class AbstractPlanner {
     protected final RestTemplate restTemplate;
     protected final BusTimeRepository busTimeRepository;
     protected final BusStopRepository busStopRepository;
+    protected final TokenPool tokenPool;
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
      */
@@ -43,6 +41,7 @@ public abstract class AbstractPlanner {
         this.restTemplate = restTemplate;
         this.busTimeRepository = busTimeRepository;
         this.busStopRepository = busStopRepository;
+        this.tokenPool = new TokenPool();
     }
 
     /**
@@ -123,7 +122,7 @@ public abstract class AbstractPlanner {
             Map<String,String> params=new HashMap<>();
             params.put("keyword",place);
             params.put("boundary","rectangle(31.016309,121.423743,31.033088,121.449057)");
-            params.put("key","I6IBZ-BCZRI-FHYGG-523D4-3W3C7-X6BRS");
+            params.put("key",tokenPool.getToken());
             params.put("page_index","1");
             params.put("page_size","10");
             ResponseEntity<PlaceResponse> tencentResponse;
@@ -157,7 +156,7 @@ public abstract class AbstractPlanner {
         Map<String,String> params=new HashMap<>();
         params.put("from", start.getLocation().getCoordinate().y
                 +","+ start.getLocation().getCoordinate().x);
-        params.put("key","I6IBZ-BCZRI-FHYGG-523D4-3W3C7-X6BRS");
+        params.put("key",tokenPool.getToken());
         params.put("to", end.getLocation().getCoordinate().y
                 +","+ end.getLocation().getCoordinate().x);
 //        System.out.println(params);
@@ -166,6 +165,7 @@ public abstract class AbstractPlanner {
                         "to={to}&key={key}", WalkResponse.class,params);
 //        System.out.print(tencentResponse.getStatusCode());
 //        System.out.println(tencentResponse.getHeaders());
+        System.out.println(tencentResponse);
         WalkRoute walkRoute = new WalkRoute();
         walkRoute.setArriveLocation(end.getLocation());
         walkRoute.setArriveName(end.getPlaceName());
