@@ -165,7 +165,7 @@ public abstract class AbstractPlanner {
                         "to={to}&key={key}", WalkResponse.class,params);
 //        System.out.print(tencentResponse.getStatusCode());
 //        System.out.println(tencentResponse.getHeaders());
-        System.out.println(tencentResponse);
+//        System.out.println(tencentResponse);
         WalkRoute walkRoute = new WalkRoute();
         walkRoute.setArriveLocation(end.getLocation());
         walkRoute.setArriveName(end.getPlaceName());
