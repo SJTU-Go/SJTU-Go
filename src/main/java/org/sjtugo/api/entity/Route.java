@@ -10,6 +10,9 @@ import com.vividsolutions.jts.geom.LineString;
 
 @Data
 public abstract class Route {
+    @ApiModelProperty(value = "路段交通方式")
+    protected RouteType type;
+
     @ApiModelProperty(value = "路段用时，秒为单位",
             example = "70")
     protected int routeTime;
@@ -25,4 +28,15 @@ public abstract class Route {
     @ApiModelProperty(value = "路线",
             example = "[[121.23567,31.45678],[121.32123,31.45789]]")
     protected LineString routePath;
+
+    enum RouteType {
+        WALK,
+        BUS,
+        HELLOBIKE,
+        MOBIKE,
+        E100,
+        CLOUDMOTOR,
+        FIND,
+        PARK
+    }
 }

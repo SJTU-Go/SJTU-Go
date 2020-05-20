@@ -9,6 +9,10 @@ import java.time.*;
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class BusRoute extends Route {
+    public BusRoute(){
+        this.type = RouteType.BUS;
+    }
+
     private String departID;
 
     private String arriveID;
