@@ -52,7 +52,6 @@ public class BusPlanner extends AbstractPlanner {
         BusRoute busRoute = planBus(startBus,endBus,
                 departTime.plus(Duration.ofSeconds(toBus.getRouteTime())));
         WalkRoute fromBus = planWalkTencent(new NavigatePlace(endBus),end);
-        if (busRoute == null) {return null;}
         Strategy result = new Strategy();
         result.setType("校园巴士");
         result.setArrive(end.getPlaceName());
@@ -117,8 +116,9 @@ public class BusPlanner extends AbstractPlanner {
             Collection<LineString> collection = merger.getMergedLineStrings();
             busRoute.setRoutePath(collection.iterator().next());
             return busRoute;
+
         } else {
-            return null;
+            throw new StrategyNotFoundException("Bus Strategy Not Found");
         }
     }
 

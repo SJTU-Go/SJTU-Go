@@ -4,6 +4,8 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.controller.NavigateControl;
+import org.sjtugo.api.controller.NavigateRequest;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
 import org.springframework.http.ResponseEntity;
@@ -55,15 +57,15 @@ public abstract class AbstractPlanner {
 
     /**
      * Planner类的对外接口，函数内部调用planOne方法获取单出发点、到达点的方案，将途经点拼接起来
-     * @param beginPlace 出发地点的名称/经纬度/地点ID
-     * @param passPlaces 途径地点的名称/经纬度/地点ID的list
-     * @param endPlace 到达地点的名称/经纬度/地点ID
-     * @param departTime 预设出发时间
+     * @param navigateRequest 请求体
      * @return planner对应的方案
      */
-    public Strategy planAll(String beginPlace, String[] passPlaces,
-                            String endPlace, LocalDateTime departTime){
-        String currentPlace = beginPlace;
+    public Strategy planAll(NavigateRequest navigateRequest){
+        String currentPlace = navigateRequest.getBeginPlace();
+        String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
+        passPlaces = navigateRequest.getPassPlaces().toArray(passPlaces);
+        LocalDateTime departTime = navigateRequest.getDepartTime();
+        String endPlace = navigateRequest.getBeginPlace();
         String nextPlace = passPlaces.length>0 ? passPlaces[0] : endPlace;
         int i;
         Strategy resultStrategy = planOne(currentPlace,nextPlace,departTime);
@@ -173,7 +175,7 @@ public abstract class AbstractPlanner {
         walkRoute.setDepartLocation(start.getLocation());
         walkRoute.setDistance(Objects.requireNonNull(tencentResponse.getBody(),
                 "Walk Route Response not fetched")
-                .getDistance()); // TODO: PARALLEL CONSTRAINT OF 5 QUERIES
+                .getDistance());
         walkRoute.setRouteTime((int) Objects.requireNonNull(tencentResponse.getBody().getTime(),"Route time not fetched")
                 .toSeconds());
         walkRoute.setRoutePath(Objects.requireNonNull(tencentResponse.getBody(),"Route not fetched").getRoute());
