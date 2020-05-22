@@ -55,9 +55,10 @@ public class MapInfoService {
     }
 
     public List<HelloBikeInfo> nearbyBikes (double lng,double lat){
-        return helloBikeRepository.findAllByLngBetweenAndLatBetweenAndTimeAfter
-                (lng-0.002, lng+0.002,
-                lat -0.002, lat+0.002, LocalDateTime.now().minusMinutes(2));
+        return helloBikeRepository.findNearbyBikes(lng,lat);
+        //        return helloBikeRepository.findAllByLngBetweenAndLatBetweenAndTimeAfter
+//                (lng-0.002, lng+0.002,
+//                lat -0.002, lat+0.002, LocalDateTime.now().minusMinutes(2));
     }
 
 

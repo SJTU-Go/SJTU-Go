@@ -17,18 +17,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name="helloBikeInfo")
+@Table(name="hello_bike_info")
 public class HelloBikeInfo {
     @Id
-    @Column(name = "BikeID")
-    @ApiModelProperty(value = "bikeID", example = "")
+    @Column(name = "bike_id")
+    @ApiModelProperty(value = "bikeID", example = "2100003686")
     private String bikeID;
 
     @Column(name="time")
     @JsonFormat(pattern="HH:mm:ss", timezone="GMT+8")
+    @ApiModelProperty(value = "爬取时间", example = "18:56:34")
     private LocalDateTime time;
 
     @Column(name="cluster_point")
+    @ApiModelProperty(value = "停车点ID，若为0表示不在任何停车点附近", example = "175196")
     private String clusterPoint;
 
 //    @Transient
@@ -36,8 +38,9 @@ public class HelloBikeInfo {
 //    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
 //    private Point location;
 
-    @Column(name="bikeType")
-    private int bikeType;
+    @Column(name="bike_type")
+    @ApiModelProperty(value = "biketype", example= "2")
+    private int biketype;
 
     @Column(name="longitude")
     private double lng;
