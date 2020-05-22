@@ -3,15 +3,18 @@ package org.sjtugo.api.controller;
 import com.vividsolutions.jts.io.ParseException;
 import io.swagger.annotations.Api;
 
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.Data;
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
 import org.sjtugo.api.entity.Comment;
+import org.sjtugo.api.entity.ErrorResponse;
 import org.sjtugo.api.service.AddCommentException;
 import org.sjtugo.api.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,8 +42,7 @@ public class CommentControl {
 
     @PostMapping(value = "/addcomment")
     @ExceptionHandler(AddCommentException.class)
-    @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
-    public Comment addComment(@RequestBody CommentRequest commentRequest) throws ParseException {
+    public ResponseEntity<?> addComment(@RequestBody CommentRequest commentRequest){
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.addComment(commentRequest.getTitle(),
                 commentRequest.getContents(),
@@ -52,18 +54,25 @@ public class CommentControl {
 
     @ApiOperation(value = "用户点赞功能")
     @PostMapping("/like")
-    public void likeComment(@RequestParam Integer userID, @RequestParam Integer commentID){
+    public ResponseEntity<ErrorResponse> likeComment(@RequestParam Integer userID, @RequestParam Integer commentID){
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        commentser.likeComment(userID, commentID);
+        return commentser.likeComment(userID, commentID);
     }
 
     @Data
     static class CommentRequest {
+        @ApiModelProperty(value = "评论内容")
         private String contents;
+        @ApiModelProperty(value = "评论名", example="评论一")
         private String title;
+        @ApiModelProperty(value = "用户ID", example = "3")
         private Integer userID;
+        @ApiModelProperty(value = "坐标位置",
+                example = "POINT (121.437689 31.025735)")
         private String location;  //前端传
-        private List<Integer> relatedPlace;   //前端传
+        @ApiModelProperty(value = "评论相关停车点ID", example = "134234")
+        private Integer relatedPlace;   //前端传
+        @ApiModelProperty(value = "父评论ID，若填0表示新评论", example = "34")
         private Integer fatherID; //=0表示是父评论
     }
 }

@@ -10,6 +10,9 @@ import com.vividsolutions.jts.io.WKTReader;
 
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
 import org.sjtugo.api.entity.Comment;
+import org.sjtugo.api.entity.ErrorResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -59,30 +62,34 @@ public class CommentService {
      * @param relatedPlace 评论相关位置ID
      * @param fatherID 父评论ID
      * @return 本次添加的新评论
-     * @throws ParseException String类转Point
      */
-    public Comment addComment(String title, String contents, Integer userID,
-                              String location, List<Integer> relatedPlace,
-                              Integer fatherID) throws ParseException {
+    public ResponseEntity<?> addComment(String title, String contents, Integer userID,
+                                             String location, Integer relatedPlace,
+                                             Integer fatherID) {
         Comment newComment = new Comment();
         newComment.setTitle(title);
         newComment.setContents(contents);
         newComment.setUserID(userID);
         newComment.setCommentTime(LocalDateTime.now());
-        Point loc = (Point) new WKTReader().read(location);
+        Point loc;
+        try {
+            loc = (Point) new WKTReader().read(location);
+        } catch (ParseException e){
+            return new ResponseEntity<>(new ErrorResponse
+                    (5, "Invalid Location"), HttpStatus.BAD_REQUEST);
+        }
         newComment.setLocation(loc);
         newComment.setRelatedPlace(relatedPlace);
         commentRepositoryJpa.save(newComment);
 
-        if (fatherID!=0) {
-            Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);  //找到父评论
-            assert fatherComment != null;
+        Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
+        if (fatherComment !=null) {
             List<Integer> subComments = fatherComment.getSubComment();  //得到子评论
             subComments.add(newComment.getCommentID());
             fatherComment.setSubComment(subComments);
             commentRepositoryJpa.save(fatherComment);
         }
-        return newComment;
+        return new ResponseEntity<>(newComment, HttpStatus.OK);
     }
 
     /**
@@ -90,13 +97,13 @@ public class CommentService {
      * @param userID 点赞者ID
      * @param commentID 被点赞评论ID
      */
-    public void likeComment(Integer userID, Integer commentID) {
+    public ResponseEntity<ErrorResponse> likeComment(Integer userID, Integer commentID) {
          Comment likedComment = commentRepositoryJpa.findById(commentID).orElse(null);  //get返回实体对象 获取被点赞的评论
          assert likedComment != null;
          List<Integer> approveUsers = likedComment.getApproveUsers();  //之前点赞的用户ID
          approveUsers.add(userID);  //添当前点赞用户ID
          likedComment.setApproveUsers(approveUsers);
          commentRepositoryJpa.save(likedComment);
-         System.out.println("点赞+1");
+         return new ResponseEntity<>(new ErrorResponse(0,"点赞+1"),HttpStatus.OK);
     }
 }
