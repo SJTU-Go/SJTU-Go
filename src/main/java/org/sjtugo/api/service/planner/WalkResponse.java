@@ -31,7 +31,7 @@ public class WalkResponse {
         try {
             routes = (ArrayList<Map<String, Object>>) result.get("routes");
         } catch (Exception e) {
-            throw new StrategyNotFoundException();
+            throw new StrategyNotFoundException("Walk Planner Service deprecated");
         }
         Map<String,Object> route = routes.get(0);
         this.distance = (int) route.get("distance");

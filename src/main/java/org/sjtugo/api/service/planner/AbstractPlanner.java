@@ -4,16 +4,15 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.controller.NavigateControl;
+import org.sjtugo.api.controller.NavigateRequest;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +29,7 @@ public abstract class AbstractPlanner {
     protected final RestTemplate restTemplate;
     protected final BusTimeRepository busTimeRepository;
     protected final BusStopRepository busStopRepository;
+    protected final TokenPool tokenPool;
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
      */
@@ -43,6 +43,7 @@ public abstract class AbstractPlanner {
         this.restTemplate = restTemplate;
         this.busTimeRepository = busTimeRepository;
         this.busStopRepository = busStopRepository;
+        this.tokenPool = new TokenPool();
     }
 
     /**
@@ -56,15 +57,15 @@ public abstract class AbstractPlanner {
 
     /**
      * Planner类的对外接口，函数内部调用planOne方法获取单出发点、到达点的方案，将途经点拼接起来
-     * @param beginPlace 出发地点的名称/经纬度/地点ID
-     * @param passPlaces 途径地点的名称/经纬度/地点ID的list
-     * @param endPlace 到达地点的名称/经纬度/地点ID
-     * @param departTime 预设出发时间
+     * @param navigateRequest 请求体
      * @return planner对应的方案
      */
-    public Strategy planAll(String beginPlace, String[] passPlaces,
-                            String endPlace, LocalDateTime departTime){
-        String currentPlace = beginPlace;
+    public Strategy planAll(NavigateRequest navigateRequest){
+        String currentPlace = navigateRequest.getBeginPlace();
+        String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
+        passPlaces = navigateRequest.getPassPlaces().toArray(passPlaces);
+        LocalDateTime departTime = navigateRequest.getDepartTime();
+        String endPlace = navigateRequest.getBeginPlace();
         String nextPlace = passPlaces.length>0 ? passPlaces[0] : endPlace;
         int i;
         Strategy resultStrategy = planOne(currentPlace,nextPlace,departTime);
@@ -123,7 +124,7 @@ public abstract class AbstractPlanner {
             Map<String,String> params=new HashMap<>();
             params.put("keyword",place);
             params.put("boundary","rectangle(31.016309,121.423743,31.033088,121.449057)");
-            params.put("key","I6IBZ-BCZRI-FHYGG-523D4-3W3C7-X6BRS");
+            params.put("key",tokenPool.getToken());
             params.put("page_index","1");
             params.put("page_size","10");
             ResponseEntity<PlaceResponse> tencentResponse;
@@ -157,7 +158,7 @@ public abstract class AbstractPlanner {
         Map<String,String> params=new HashMap<>();
         params.put("from", start.getLocation().getCoordinate().y
                 +","+ start.getLocation().getCoordinate().x);
-        params.put("key","I6IBZ-BCZRI-FHYGG-523D4-3W3C7-X6BRS");
+        params.put("key",tokenPool.getToken());
         params.put("to", end.getLocation().getCoordinate().y
                 +","+ end.getLocation().getCoordinate().x);
 //        System.out.println(params);
@@ -166,6 +167,7 @@ public abstract class AbstractPlanner {
                         "to={to}&key={key}", WalkResponse.class,params);
 //        System.out.print(tencentResponse.getStatusCode());
 //        System.out.println(tencentResponse.getHeaders());
+//        System.out.println(tencentResponse);
         WalkRoute walkRoute = new WalkRoute();
         walkRoute.setArriveLocation(end.getLocation());
         walkRoute.setArriveName(end.getPlaceName());
@@ -173,7 +175,7 @@ public abstract class AbstractPlanner {
         walkRoute.setDepartLocation(start.getLocation());
         walkRoute.setDistance(Objects.requireNonNull(tencentResponse.getBody(),
                 "Walk Route Response not fetched")
-                .getDistance()); // TODO: PARALLEL CONSTRAINT OF 5 QUERIES
+                .getDistance());
         walkRoute.setRouteTime((int) Objects.requireNonNull(tencentResponse.getBody().getTime(),"Route time not fetched")
                 .toSeconds());
         walkRoute.setRoutePath(Objects.requireNonNull(tencentResponse.getBody(),"Route not fetched").getRoute());

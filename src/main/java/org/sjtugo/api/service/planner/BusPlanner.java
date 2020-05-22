@@ -52,7 +52,6 @@ public class BusPlanner extends AbstractPlanner {
         BusRoute busRoute = planBus(startBus,endBus,
                 departTime.plus(Duration.ofSeconds(toBus.getRouteTime())));
         WalkRoute fromBus = planWalkTencent(new NavigatePlace(endBus),end);
-        if (busRoute == null) {return null;}
         Strategy result = new Strategy();
         result.setType("校园巴士");
         result.setArrive(end.getPlaceName());
@@ -98,8 +97,12 @@ public class BusPlanner extends AbstractPlanner {
             busRoute.setArriveTime(getOffTime);
             busRoute.setDepartID("BUS" + startBus.getStopId());
             busRoute.setDepartTime(getOnTime);
-            busRoute.setDepartName(startBus.getStopName()); // TODO 标方向
-            busRoute.setArriveName(endBus.getStopName());
+            busRoute.setDepartName(startBus.getStopName() +
+                            (startBus.getStopId() > 0 ?
+                                    "（逆时针方向）":"（顺时针方向）"));
+            busRoute.setArriveName(endBus.getStopName() +
+                            (endBus.getStopId() > 0 ?
+                                    "（逆时针方向）":"（顺时针方向）"));
             busRoute.setRouteTime((int) Duration.between(getOnTime,getOffTime).toSeconds());
             List<LineString> routePaths = busStopRepository.
                             findByStopIdBetween(endBus.getStopId()+1,startBus.getStopId())
@@ -113,8 +116,9 @@ public class BusPlanner extends AbstractPlanner {
             Collection<LineString> collection = merger.getMergedLineStrings();
             busRoute.setRoutePath(collection.iterator().next());
             return busRoute;
+
         } else {
-            return null;
+            throw new StrategyNotFoundException("Bus Strategy Not Found");
         }
     }
 
