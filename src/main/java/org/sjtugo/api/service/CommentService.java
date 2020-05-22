@@ -1,43 +1,64 @@
 package org.sjtugo.api.service;
 
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
+
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
 import org.sjtugo.api.entity.Comment;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommentService {
 
     private final CommentRepositoryJpa commentRepositoryJpa;
+    private final GeometryFactory geometryFactory = new GeometryFactory();
+    static double r = 2;
 
     public CommentService(CommentRepositoryJpa commentRepositoryJpa) {
         this.commentRepositoryJpa = commentRepositoryJpa;
     }
 
     /**
-     * 通过location查看评论
-     * @param x 经度
-     * @param y 纬度
-     * @return location周围的评论列表
+     *
+     * @param location:地点，前端传入，格式POINT(x y)
+     * @return (x-r y+r)~(x+r y-r)范围内的评论列表
+     * @throws ParseException String转Point
      */
-    public List<Comment> getCommentList(double x, double y) {
-        List<Comment> comments = new ArrayList<>();
-
+    public List<Comment> getCommentList(String location) throws ParseException {
+/*        List<Comment> comments = new ArrayList<>();
+        Point loc = (Point) new WKTReader().read(location);
+        double x = loc.getX();
+        double y = loc.getY();
         for(Comment com : commentRepositoryJpa.findAll()){
-            Point loc = com.getLocation();
-            if(loc!=null) {
-                double x1 = loc.getX();
-                double y1 = loc.getY();
-                if (x-1<x1 && x1<x+1 && y-1<y1 && y1<y+1)
-                    comments.add(com);
+            Point loc1 = com.getLocation();
+            if(loc1!=null) {
+               double x1 = loc1.getX();
+                double y1 = loc1.getY();
+                if (x-r<x1 && x1<x+r && y-r<y1 && y1<y+r)
+                   comments.add(com);
             }
         }
         return comments;
+ */
+        Point loc = (Point) new WKTReader().read(location);
+        double x = loc.getX();
+        double y = loc.getY();
+        double x1 = x-r;
+        double x2 = x+r;
+        double y1 = y-r;
+        double y2 = y+r;
+        String polygon = "POLYGON(("
+                + x1 + " " + y1 + "," + x2 + " " + y1 + "," + x1 + " " + y2 + "," + x2 + " " + y2 + "," + x1 + " " + y1
+                +"))";
+        System.out.println(polygon);
+        Polygon square = (Polygon) new WKTReader().read(polygon);
+        return commentRepositoryJpa.findByLocationWithin(square);
     }
 
     public List<Comment> getCommentList(Integer placeID){
