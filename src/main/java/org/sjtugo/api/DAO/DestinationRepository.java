@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface DestinationRepository extends JpaRepository<Destination,Integer> {
-    List<Object> findByPlaceNameLike(String kw);
+    List<Destination> findByPlaceNameLike(String kw);
 }

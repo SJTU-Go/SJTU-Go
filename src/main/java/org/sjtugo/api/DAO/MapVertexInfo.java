@@ -30,12 +30,6 @@ public class MapVertexInfo {
             example = "{type: Point, coordinates: [121.437689, 31.025735]}")
     private Point location;
 
-    @Column(name="bike_count")
-    private int bikeCount;
-
-    @Column(name="motor_count")
-    private int motorCount;
-
     @Column(name="park_info")
     private String parkInfo;
 
