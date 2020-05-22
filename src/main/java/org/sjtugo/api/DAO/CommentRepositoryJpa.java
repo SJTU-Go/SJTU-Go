@@ -16,5 +16,7 @@ public interface CommentRepositoryJpa extends JpaRepository<Comment, Integer> {
     @Query(value = "SELECT * FROM comment where mbrwithin(location,:window)",
     nativeQuery = true)
     List<Comment> findByLocationWithin(@Param("window") Polygon square);
-    List<Comment> findByRelatedPlaceContains(Integer PlaceID);
+
+
+    List<Comment> findByRelatedPlace(Integer PlaceID);
 }

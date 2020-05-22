@@ -28,7 +28,7 @@ public class CommentControl {
 
     @ApiOperation(value = "get comments by place ID", notes = "给定地点ID，返回该处用户的评论")
     @GetMapping("/place={placeID}")
-    public @ResponseBody List<Comment> getCommentList(@PathVariable Integer placeID) {
+    public @ResponseBody List<Comment> getCommentByID(@PathVariable("placeID") Integer placeID) {
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.getCommentList(placeID);
     }

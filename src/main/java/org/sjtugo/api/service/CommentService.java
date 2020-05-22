@@ -50,7 +50,7 @@ public class CommentService {
     }
 
     public List<Comment> getCommentList(Integer placeID){
-        return commentRepositoryJpa.findByRelatedPlaceContains(placeID);
+        return commentRepositoryJpa.findByRelatedPlace(placeID);
     }
 
     /**
