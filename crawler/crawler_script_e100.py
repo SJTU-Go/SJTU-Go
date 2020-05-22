@@ -48,6 +48,8 @@ if __name__=="__main__":
                         db = 'playground',
                         charset = 'utf8')
     cursor = conn.cursor()
+    
+    requests.packages.urllib3.disable_warnings()
 
     interval = 60
     run(interval)

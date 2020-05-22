@@ -50,12 +50,14 @@ def crawler_hello():
     lon_block = 15
     x_lat = (br_lat - bl_lat) / lat_block
     x_lon = (br_lon - bl_lon) / lon_block
-
+    cnt = 0
     for i in range(lat_block):
         for j in range(lon_block):
             data = hello_nearby(bl_lat + i*x_lat, bl_lon + j*x_lon)
+            cnt += len(data)
             for bike in data:
                 write_db_hello(bike)
+    print_ts(cnt)
 
 if __name__ == '__main__':
     conn = pymysql.connect( host='ltzhou.com',
@@ -65,7 +67,6 @@ if __name__ == '__main__':
                         db = 'playground',
                         charset = 'utf8')
     cursor = conn.cursor()
-
     bl_lat = 31.0163088100
     bl_lon = 121.4278078100
     br_lat = 31.045899000

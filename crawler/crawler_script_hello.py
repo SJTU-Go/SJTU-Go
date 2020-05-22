@@ -43,6 +43,7 @@ if __name__=="__main__":
                         charset = 'utf8')
     cursor = conn.cursor()
 
+    requests.packages.urllib3.disable_warnings()
     interval = 240
     run(interval)
 
