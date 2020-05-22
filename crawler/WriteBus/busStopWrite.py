@@ -1,17 +1,36 @@
 from xml.etree import ElementTree as ET
-
+import requests
+import math
 def parseLineString(vlis):
 	result = "LINESTRING ("
 	for v in vlis:
-		result += v[1]
+		v = transform(float(v[1]),float(v[0]))
+		result += str(v[0])
 		result += " "
-		result += v[0]
+		result += str(v[1])
 		result += ","
 	result = result[:-1] + ")"
 	return result
 
 def parsePoint(v):
-	return "POINT (" + v[1] + " " + v[0]+")"
+	v = transform(float(v[1]),float(v[0]))
+	return "POINT (" + str(v[0]) + " " + str(v[1])+")"
+
+# from coord_convert.transform import wgs2gcj
+from coordTransform.coordTransform_utils import wgs84_to_gcj02
+
+
+def transform(lon,lat):
+	gcj_lon, gcj_lat = wgs84_to_gcj02(lon,lat)
+	return (gcj_lon-121.449652+121.444577,gcj_lat-31.025940+31.024322)
+
+# def transform(v):
+# 	print ('https://apis.map.qq.com/ws/coord/v1/translate?type=1&key=WNKBZ-XTW3W-DAKRJ-OCPIH-ZQWNO-RRFB2&&locations={0},{1}'.format(v[0],v[1]))
+# 	req = requests.get('https://apis.map.qq.com/ws/coord/v1/translate?type=1&key=WNKBZ-XTW3W-DAKRJ-OCPIH-ZQWNO-RRFB2&&locations={0},{1}'.format(v[0],v[1]))
+# 	data = json.loads(req.text)['locations'][0]
+# 	return (str(data['lng']),str(data['lat']))
+
+
 
 
 # 收集逆时针bus路线

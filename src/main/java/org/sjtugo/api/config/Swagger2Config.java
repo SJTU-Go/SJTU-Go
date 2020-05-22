@@ -4,6 +4,7 @@ package org.sjtugo.api.config;
 import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
 import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.Point;
 import org.sjtugo.api.entity.Strategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -68,7 +69,8 @@ public class Swagger2Config implements WebMvcConfigurer {
                 })
                 .apiInfo(apiInfo())
                 .directModelSubstitute(Duration.class, int.class)
-                .directModelSubstitute(LineString.class, ArrayList.class);
+                .directModelSubstitute(LineString.class, ArrayList.class)
+                .directModelSubstitute(Point.class, String.class);
     }
 
     public ApiInfo apiInfo() {

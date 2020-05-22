@@ -1,6 +1,11 @@
 package org.sjtugo.api.DAO;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Point;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,7 +23,11 @@ public class MapVertexInfo {
     @Column(name = "vertex_name")
     private String vertexName;
 
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     @Column(name = "location")
+    @ApiModelProperty(value = "坐标位置",
+            example = "{type: Point, coordinates: [121.437689, 31.025735]}")
     private Point location;
 
     @Column(name="bike_count")

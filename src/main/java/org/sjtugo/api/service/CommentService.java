@@ -31,21 +31,6 @@ public class CommentService {
      * @throws ParseException String转Point
      */
     public List<Comment> getCommentList(String location) throws ParseException {
-/*        List<Comment> comments = new ArrayList<>();
-        Point loc = (Point) new WKTReader().read(location);
-        double x = loc.getX();
-        double y = loc.getY();
-        for(Comment com : commentRepositoryJpa.findAll()){
-            Point loc1 = com.getLocation();
-            if(loc1!=null) {
-               double x1 = loc1.getX();
-                double y1 = loc1.getY();
-                if (x-r<x1 && x1<x+r && y-r<y1 && y1<y+r)
-                   comments.add(com);
-            }
-        }
-        return comments;
- */
         Point loc = (Point) new WKTReader().read(location);
         double x = loc.getX();
         double y = loc.getY();

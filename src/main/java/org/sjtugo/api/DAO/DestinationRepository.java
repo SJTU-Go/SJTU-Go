@@ -1,6 +1,10 @@
 package org.sjtugo.api.DAO;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-public interface DestinationRepository extends CrudRepository<Destination,Integer> {
+import java.util.List;
+
+public interface DestinationRepository extends JpaRepository<Destination,Integer> {
+    List<Object> findByPlaceNameLike(String kw);
 }

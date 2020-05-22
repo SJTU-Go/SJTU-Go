@@ -10,11 +10,14 @@ import java.time.LocalTime;
 
 @Data
 @Entity
-@Table(name = "bus_time_vacation")
-public class BusTimeVacation {
+@Table(name = "bus_time")
+public class BusTime {
     @Id
     private Integer busid;
 
     @Column(name = "bus_time")
     private LocalTime busTime;
+
+    @Column(name = "bus_type")
+    private Integer busType;
 }

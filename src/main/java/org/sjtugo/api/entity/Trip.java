@@ -36,7 +36,6 @@ public class Trip {
     private String arrive;
 
     @Transient
-    //@ElementCollection
     @ApiModelProperty(value = "途径点", example = "[光彪楼, balabala]")
     private List<String> pass;
 
@@ -47,7 +46,7 @@ public class Trip {
     @ApiModelProperty(value = "方案总花费，单位为分", example = "150")
     private int cost;
 
-    @ElementCollection
+    @Transient
     @ApiModelProperty(value = "用户查询时提交的个性化选项", example = "[避开拥堵, 允许禁停区]")
     private List<String> preference;
 

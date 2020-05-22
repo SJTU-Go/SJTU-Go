@@ -31,7 +31,7 @@ public class WalkResponse {
         try {
             routes = (ArrayList<Map<String, Object>>) result.get("routes");
         } catch (Exception e) {
-            throw new StrategyNotFoundException();
+            throw new StrategyNotFoundException("Walk Planner Service deprecated");
         }
         Map<String,Object> route = routes.get(0);
         this.distance = (int) route.get("distance");
@@ -39,11 +39,11 @@ public class WalkResponse {
         ArrayList<Object> coors = (ArrayList<Object>) route.get("polyline");
 
         for (var i = 2; i < coors.size() ; i++){
-            coors.set(i, (Double) coors.get(i - 2) + ((Integer) coors.get(i)) / 1000000);
+            coors.set(i, (Double) coors.get(i - 2) + ((double) (int) coors.get(i)) / 1000000);
         }
         Coordinate[] coordinates = new Coordinate[coors.size()/2];
         for (var i = 0; i < coors.size()/2 ; i++){
-            coordinates[i] = new Coordinate((Double) coors.get(2 * i), (Double) coors.get(2 * i + 1));
+            coordinates[i] = new Coordinate((Double) coors.get(2 * i + 1), (Double) coors.get(2 * i));
         }
         this.route = new GeometryFactory().createLineString(coordinates);
 

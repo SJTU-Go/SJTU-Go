@@ -1,17 +1,26 @@
 package org.sjtugo.api.controller;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.entity.ErrorResponse;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
 import org.sjtugo.api.service.planner.BusPlanner;
+import org.sjtugo.api.service.planner.PlaceNotFoundException;
+import org.sjtugo.api.service.planner.StrategyNotFoundException;
 import org.sjtugo.api.service.planner.WalkPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,9 +35,7 @@ public class NavigateControl {
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
-    private BusTimeVacationRepository busTimeVacationRepository;
-    @Autowired
-    private BusTimeWeekdayRepository busTimeWeekdayRepository;
+    private BusTimeRepository busTimeRepository;
     @Autowired
     private BusStopRepository busStopRepository;
 
@@ -36,25 +43,40 @@ public class NavigateControl {
     @ApiOperation(value = "Walk Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回步行方案")
     @PostMapping("/walk")
-    public Strategy navigateWalk(@RequestBody NavigateRequest navigateRequest) {
+    public ResponseEntity<?> navigateWalk(@RequestBody NavigateRequest navigateRequest) {
         WalkPlanner planner = new WalkPlanner(mapVertexInfoRepository,destinationRepository,
                 restTemplate);
-        String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
-        return planner.planAll(navigateRequest.getBeginPlace(),
-                navigateRequest.getPassPlaces().toArray(passPlaces),
-                navigateRequest.getArrivePlace());
+        try {
+            return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
+        } catch (StrategyNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(4,"Walk Strategy Not Supported"),
+                    HttpStatus.NOT_FOUND);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @ApiOperation(value = "Bus Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回校园巴士出行方案")
     @PostMapping("/bus")
-    public Strategy navigateBus(@RequestBody NavigateRequest navigateRequest) {
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Strategy.class),
+            @ApiResponse(code = 404, message = "[5]No need to take Bus", response = ErrorResponse.class)
+        })
+    public ResponseEntity<?> navigateBus(@RequestBody NavigateRequest navigateRequest) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate,busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
-        String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
-        return planner.planAll(navigateRequest.getBeginPlace(),
-                navigateRequest.getPassPlaces().toArray(passPlaces),
-                navigateRequest.getArrivePlace());
+                restTemplate, busTimeRepository,busStopRepository);
+        try {
+            return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(new ErrorResponse(5,"No need to take Bus"),
+                    HttpStatus.NOT_FOUND);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ApiOperation(value = "Parse Place",
@@ -62,10 +84,19 @@ public class NavigateControl {
                     "”POINT(经度 纬度)“，若不满足以上格式，将会被当做搜索关键词，通过腾讯地图API在交大校园" +
                     "内搜索相关地点，匹配地名、经纬度。")
     @PostMapping(value = "/parsePlace", produces="text/plain;charset=UTF-8")
-    public String parsePlace(@RequestBody String place) {
-        BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate,busTimeVacationRepository,busTimeWeekdayRepository,busStopRepository);
-        return planner.parsePlace(place).toString();
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> processPlace(@RequestBody String place) {
+        BusPlanner planner = new BusPlanner(mapVertexInfoRepository, destinationRepository,
+                restTemplate, busTimeRepository, busStopRepository);
+        try {
+            return new ResponseEntity<>(planner.parsePlace(place).toString(),HttpStatus.OK);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3, "Place Not Found"),
+                    HttpStatus.NOT_FOUND);
+        }
     }
 
 //    @PostMapping(path="/bus/addRecord")
@@ -77,18 +108,5 @@ public class NavigateControl {
 //        busStopRepository.save(n);
 //        return "Saved";
 //    }
-
-    @ApiModel(value = "导航输入数据")
-    @Data
-    static class NavigateRequest {
-        @ApiModelProperty(value = "出发点ID或经纬度", required = true,
-                example = "DT000341")
-        private String beginPlace;
-        @ApiModelProperty(value = "到达点ID或经纬度", required = true,
-                example = "POINT (121.435624 31.234566)")
-        private String arrivePlace;
-        @ApiModelProperty(value = "途径点ID或经纬度",
-                example = "[\"第三餐饮大楼\", \"POINT (121.435624 31.234566)\"]")
-        private List<String> passPlaces;
-    }
 }
+

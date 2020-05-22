@@ -12,8 +12,9 @@ import java.util.List;
 
 public interface CommentRepositoryJpa extends JpaRepository<Comment, Integer> {
 
-    @Query(value = "SELECT * FROM comment where intersects(location, GeomFromText(:square))",
+
+    @Query(value = "SELECT * FROM comment where mbrwithin(location,:window)",
     nativeQuery = true)
-    List<Comment> findByLocationWithin(@Param("square") Polygon square);
+    List<Comment> findByLocationWithin(@Param("window") Polygon square);
     List<Comment> findByRelatedPlaceContains(Integer PlaceID);
 }

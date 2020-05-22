@@ -8,6 +8,7 @@ import org.sjtugo.api.entity.WalkRoute;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class WalkPlanner extends AbstractPlanner {
@@ -16,12 +17,12 @@ public class WalkPlanner extends AbstractPlanner {
                        DestinationRepository destinationRepository,
                        RestTemplate restTemplate){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                null,null,null);
+                null,null);
     }
 
 
     @Override
-    public Strategy planOne(String beginPlace, String endPlace){
+    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
         WalkRoute walkRoute = planWalkTencent(start,end);
