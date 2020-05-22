@@ -6,12 +6,15 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import io.swagger.annotations.ApiParam;
 import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.entity.HelloBikeInfo;
 import org.sjtugo.api.service.map.MapVertexResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,11 +47,18 @@ public class MapInfoService {
     }
 
     public int getCurrentBike(int parkID){
-        return helloBikeRepository.countAllByClusterPointEquals(String.valueOf(parkID));
+        return helloBikeRepository.findBikeCounts(String.valueOf(parkID));
     }
 
     public int getCurrentMotor(int parkID){
         return 0; // TODO
+    }
+
+    public List<HelloBikeInfo> nearbyBikes (double lng,double lat){
+        return helloBikeRepository.findNearbyBikes(lng,lat);
+        //        return helloBikeRepository.findAllByLngBetweenAndLatBetweenAndTimeAfter
+//                (lng-0.002, lng+0.002,
+//                lat -0.002, lat+0.002, LocalDateTime.now().minusMinutes(2));
     }
 
 

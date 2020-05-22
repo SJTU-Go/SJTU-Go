@@ -49,9 +49,8 @@ public class Comment {
     @ApiModelProperty(value = "评论地点")
     private Point location;
 
-    @ElementCollection
-    @ApiModelProperty(value = "评论相关地点ID", example = "[1,2,3]")
-    private List<Integer> relatedPlace;
+    @ApiModelProperty(value = "评论相关停车点ID", example = "134234")
+    private Integer relatedPlace;
 
     @ElementCollection
     @ApiModelProperty(value = "评论下方的子评论ID", example = "[2,3]")

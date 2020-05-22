@@ -96,21 +96,21 @@ public class MapInfoControl {
 
 
 
-//    @ApiOperation(value = "附近的车辆信息（pending）",
-//            notes = "给定经纬度，查询校园内实时车辆，一般用于主页地图")
-//    @GetMapping("/search/parking")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "OK", response = HelloBikeInfo[].class)
-//    })
-//    public ResponseEntity<List<HelloBikeInfo>> nearbyBikes(@ApiParam(value = "经度", example = "121.438324171")
-//                                                               @RequestParam double lng,
-//                                                           @ApiParam(value = "纬度", example = "31.020556617")
-//                                                               @RequestParam double lat) {
-//        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-//                destinationRepository,helloBikeRepository);
-//        return new ResponseEntity<>(
-//                mapInfoService.nearbyParking
-//                        (new GeometryFactory().createPoint(new Coordinate(lng,lat))),
-//                HttpStatus.OK);
-//    }
+    @ApiOperation(value = "附近的车辆信息",
+            notes = "给定经纬度，查询校园内实时车辆，用于主页地图")
+    @GetMapping("/nearby/bikes")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = HelloBikeInfo[].class)
+    })
+    public ResponseEntity<List<HelloBikeInfo>> nearbyBikes(@ApiParam(value = "经度", example = "121.438324171")
+                                                               @RequestParam double lng,
+                                                           @ApiParam(value = "纬度", example = "31.020556617")
+                                                               @RequestParam double lat) {
+        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
+                destinationRepository,helloBikeRepository);
+//        System.out.println(mapInfoService.nearbyBikes(lng,lat));
+        return new ResponseEntity<>(
+                mapInfoService.nearbyBikes(lng,lat),
+                HttpStatus.OK);
+    }
 }
