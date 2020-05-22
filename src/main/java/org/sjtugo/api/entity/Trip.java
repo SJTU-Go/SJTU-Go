@@ -35,7 +35,8 @@ public class Trip {
     @ApiModelProperty(value = "到达地点", example = "上院")
     private String arrive;
 
-    @ElementCollection
+    @Transient
+    //@ElementCollection
     @ApiModelProperty(value = "途径点", example = "[光彪楼, balabala]")
     private List<String> pass;
 
