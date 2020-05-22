@@ -47,7 +47,7 @@ if __name__=="__main__":
                         charset = 'utf8')
     cursor = conn.cursor()
 
-    interval = 10
+    interval = 60
     run(interval)
 
 

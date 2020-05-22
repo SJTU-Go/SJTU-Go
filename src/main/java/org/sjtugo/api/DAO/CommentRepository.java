@@ -7,4 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 // CRUD refers Create, Read, Update, Delete
 
 public interface CommentRepository extends CrudRepository<Comment, Integer> {
+//    public void save(Comment comment){
+//        String sql = "INSERT INTO comment (contents, location, comment_id) VALUES (?,?,?)";
+//
+//    }
 }

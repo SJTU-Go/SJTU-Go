@@ -9,7 +9,7 @@ conn = pymysql.connect( host='ltzhou.com',
 
 cursor = conn.cursor()
 
-# # 创建table: E100Info
+# 创建table: E100Info
 # cursor.execute('CREATE TABLE `E100Info`(\
 #                 `CarID` VARCHAR(10) NOT NULL,\
 #                 `CarPlate` VARCHAR(30) NOT NULL,\
@@ -46,5 +46,21 @@ cursor = conn.cursor()
 #                 INDEX `ID` USING BTREE (`BikeID`))\
 #                 ENGINE = InnoDB,\
 #                 DEFAULT CHARACTER SET = utf8mb4')
+
+# 创建table: helloBikeInfo
+cursor.execute('CREATE TABLE `feedback`(\
+                `feedbackID` VARCHAR(30) NOT NULL,\
+                `userID` VARCHAR(30) NOT NULL,\
+                `tripID` VARCHAR(30) NOT NULL,\
+                `reviewerID` VARCHAR(30),\
+                `pickupFB` INT,\
+                `trafficFB` INT,\
+                `parkFB` INT,\
+                `serviceFB` INT,\
+                `contents` VARCHAR(15),\
+                PRIMARY KEY (`feedbackID`),\
+                INDEX `ID` USING BTREE (`feedbackID`))\
+                DEFAULT CHARACTER SET = utf8mb4')
+
 
 conn.commit()

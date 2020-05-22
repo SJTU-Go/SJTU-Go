@@ -31,7 +31,7 @@ for node in map_data:
                 PointID = node.getAttribute('id')
                 lat = node.getAttribute('lat')
                 lon = node.getAttribute('lon')
-                lon,lat = transform(lon,lat)
+                lon,lat = transform(float(lon),float(lat))
                 Name = tag.getAttribute('v')
                 cursor.execute("INSERT INTO parkingSpot (PointID,parkingSpotName,latitude,longitude) \
                         VALUES (%s, %s, %s, %s)",(PointID,Name,lat,lon))
