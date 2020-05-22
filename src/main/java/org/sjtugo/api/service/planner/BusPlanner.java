@@ -34,6 +34,8 @@ public class BusPlanner extends AbstractPlanner {
         // 匹配公交站
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
+        System.out.println(start);
+        System.out.println(end);
         List<BusStop> busStops = busStopRepository.getAllCounterStartBus(); // 2~19
         BusStop startBus = findNearest(busStops,start);
         busStops = busStopRepository.getAllCounterArriveBus(); // 1~18

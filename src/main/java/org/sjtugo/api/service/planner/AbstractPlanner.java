@@ -65,7 +65,7 @@ public abstract class AbstractPlanner {
         String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
         passPlaces = navigateRequest.getPassPlaces().toArray(passPlaces);
         LocalDateTime departTime = navigateRequest.getDepartTime();
-        String endPlace = navigateRequest.getBeginPlace();
+        String endPlace = navigateRequest.getArrivePlace();
         String nextPlace = passPlaces.length>0 ? passPlaces[0] : endPlace;
         int i;
         Strategy resultStrategy = planOne(currentPlace,nextPlace,departTime);

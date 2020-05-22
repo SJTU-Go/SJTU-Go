@@ -1,13 +1,15 @@
 package org.sjtugo.api.entity;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Point;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -34,19 +36,22 @@ public class Comment {
     private String contents;
 
     @ApiModelProperty(value = "评论时间", example = "2020/05/11 12:05")
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")  //传入的参数格式
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")  //输出参数格式化
     private LocalDateTime commentTime;
 
     @ElementCollection
     @ApiModelProperty(value = "点赞用户ID", example = "[2,3]")
     private List<Integer> approveUsers;
 
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     @ApiModelProperty(value = "评论地点")
     private Point location;
 
     @ElementCollection
     @ApiModelProperty(value = "评论相关地点ID", example = "[1,2,3]")
-    private List<Integer> relatedPlace; //parking???
+    private List<Integer> relatedPlace;
 
     @ElementCollection
     @ApiModelProperty(value = "评论下方的子评论ID", example = "[2,3]")
