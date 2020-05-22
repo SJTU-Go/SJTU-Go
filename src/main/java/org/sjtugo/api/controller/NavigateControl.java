@@ -14,6 +14,7 @@ import org.sjtugo.api.entity.ErrorResponse;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
 import org.sjtugo.api.service.planner.BusPlanner;
+import org.sjtugo.api.service.planner.PlaceNotFoundException;
 import org.sjtugo.api.service.planner.StrategyNotFoundException;
 import org.sjtugo.api.service.planner.WalkPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,9 @@ public class NavigateControl {
         } catch (StrategyNotFoundException e) {
             return new ResponseEntity<>(new ErrorResponse(4,"Walk Strategy Not Supported"),
                     HttpStatus.NOT_FOUND);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -69,6 +73,9 @@ public class NavigateControl {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(new ErrorResponse(5,"No need to take Bus"),
                     HttpStatus.NOT_FOUND);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -77,10 +84,19 @@ public class NavigateControl {
                     "”POINT(经度 纬度)“，若不满足以上格式，将会被当做搜索关键词，通过腾讯地图API在交大校园" +
                     "内搜索相关地点，匹配地名、经纬度。")
     @PostMapping(value = "/parsePlace", produces="text/plain;charset=UTF-8")
-    public String processPlace(@RequestBody String place) {
-        BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate, busTimeRepository,busStopRepository);
-        return planner.parsePlace(place).toString();
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = String.class),
+            @ApiResponse(code = 404, message = "Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> processPlace(@RequestBody String place) {
+        BusPlanner planner = new BusPlanner(mapVertexInfoRepository, destinationRepository,
+                restTemplate, busTimeRepository, busStopRepository);
+        try {
+            return new ResponseEntity<>(planner.parsePlace(place).toString(),HttpStatus.OK);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3, "Place Not Found"),
+                    HttpStatus.NOT_FOUND);
+        }
     }
 
 //    @PostMapping(path="/bus/addRecord")
