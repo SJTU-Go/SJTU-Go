@@ -8,7 +8,7 @@ import requests
 import pymysql
 
 from crawler_e100 import crawler_e100,write_db_e100
-from crawler_hello import 
+from crawler_hello import crawler_hello
 
 
 def print_ts(message):
@@ -27,15 +27,11 @@ def run(interval):
         # execute the command
         print_ts("Starting crawler.")
         try:
-            data = crawler_e100()
-            print_ts("Number of E100 vehicles: %s" % (len(data)))
-            write_db_e100(data)
-            # crawler_hello()
+            crawler_hello()
         except:
-            print_ts("e100 crawler error")
-        # status = os.system(command)
+            print_ts("hello crawler error")
+
         print_ts("-"*100)
-        # print_ts("Command status = %s."%status)
 
 
 if __name__=="__main__":
@@ -47,7 +43,7 @@ if __name__=="__main__":
                         charset = 'utf8')
     cursor = conn.cursor()
 
-    interval = 60
+    interval = 240
     run(interval)
 
 

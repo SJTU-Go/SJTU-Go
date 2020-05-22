@@ -26,6 +26,13 @@ def crawler_e100():
     return json.loads(req.text)
 
 def write_db_e100(data):
+    conn = pymysql.connect( host='ltzhou.com',
+                    port=3306,
+                    user='pguser',
+                    passwd='pguser',
+                    db = 'playground',
+                    charset = 'utf8')
+    cursor = conn.cursor()
     clusters = dict()
 
     for car in data:

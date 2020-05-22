@@ -26,6 +26,13 @@ def hello_nearby(lat,lon):
 
 
 def write_db_hello(bike):
+    conn = pymysql.connect( host='ltzhou.com',
+                    port=3306,
+                    user='pguser',
+                    passwd='pguser',
+                    db = 'playground',
+                    charset = 'utf8')
+    cursor = conn.cursor()
     lat = bike['lat']
     lon = bike['lng']
     cluster_point = calculate_cluster(lat,lon)
