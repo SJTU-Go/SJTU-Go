@@ -7,6 +7,9 @@ import pymysql
 
 from calculate_cluster import calculate_cluster
 
+def print_ts(message):
+    print("[%s] %s"%(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), message))
+  
 def hello_nearby(lat,lon):
     url = 'https://bike.hellobike.com/api?user.ride.nearBikes'
     headers = {
@@ -36,7 +39,7 @@ def write_db_hello(bike):
     lat = bike['lat']
     lon = bike['lng']
     cluster_point = calculate_cluster(lat,lon)
-    cursor.execute("REPLACE INTO helloBikeInfo (BikeID,latitude,longitude,bikeType,bikeColor,cluster_point) \
+    cursor.execute("REPLACE INTO hello_bike_info (BikeID,latitude,longitude,bikeType,bikeColor,cluster_point) \
                     VALUES (%s, %s, %s, %s, %s, %s)",(bike['bikeNo'],lat,lon,bike['bikeType'],bike['bikeColor'],cluster_point))
     conn.commit()
     return 1
@@ -82,7 +85,7 @@ if __name__ == '__main__':
             for bike in data:
                 write_db_hello(bike)
 
-    cluster_sql = 'SELECT cluster_point,count(*) num FROM helloBikeInfo GROUP BY cluster_point'
+    cluster_sql = 'SELECT cluster_point,count(*) num FROM hello_bike_info GROUP BY cluster_point'
     cursor.execute(cluster_sql)
     result = cursor.fetchall()
     print(result)

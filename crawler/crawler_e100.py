@@ -41,7 +41,7 @@ def write_db_e100(data):
         lon = car["vehicles"][0]["lon"]
         CarID = title[1:9]
         cluster_point = calculate_cluster(lat,lon)
-        cursor.execute("REPLACE INTO E100Info (CarID,CarPlate,latitude,longitude,cluster_point) \
+        cursor.execute("REPLACE INTO e100_info (CarID,CarPlate,latitude,longitude,cluster_point) \
                         VALUES (%s, %s, %s, %s, %s)",(CarID,title,lat,lon,cluster_point))
         conn.commit()
     
@@ -61,7 +61,7 @@ if __name__=="__main__":
     data = crawler_e100()
     write_db_e100(data)
 
-    cluster_sql = 'SELECT cluster_point,count(*) num FROM E100Info GROUP BY cluster_point'
+    cluster_sql = 'SELECT cluster_point,count(*) num FROM e100_info GROUP BY cluster_point'
     cursor.execute(cluster_sql)
     result = cursor.fetchall()
     print(result)
