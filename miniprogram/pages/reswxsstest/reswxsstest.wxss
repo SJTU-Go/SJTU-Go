@@ -1,11 +1,119 @@
-/**index.wxss**/
-
 page {
   background: #f6f6f6;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
+
+.textdiv{
+  margin-top:30rpx;
+  color: rgb(255, 255, 255);
+  text-decoration-line: underline;
+  font-size: 33rpx;
+}
+.massge{
+  overflow: hidden;
+  width: 90%;
+  border-radius: 15rpx;
+  color: white;
+  background-color: rgba(42, 46, 47);
+  margin-top: 20rpx;
+  position: relative;
+  line-height: 1;
+}
+.rightt
+{width: 100%;
+
+
+}
+.textclass
+{text-align: right;
+  justify-content: right;
+}
+
+.massge-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+
+}
+
+.massge-hd{
+  padding:20rpx 0rpx 30rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.massge-bd,.massge-ft{
+  padding:0rpx 0rpx 30rpx 40rpx;
+}
+.massge-bd{
+  display: flex;
+  flex-direction: column;
+}
+.tab {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+ 
+.topTabSwiper {
+  width: 90%;
+  justify-content: center;
+  display: flex;
+  margin-left: 5%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  zoom: 1;
+}
+
+
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+ 
+.tabBorer {
+  border-bottom: 1px solid rgb(0, 4, 255);
+  color: rgb(0, 4, 255);
+}
+ 
+.swiper {
+  width: 100%;
+}
+ 
+.swiper_con {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 80rpx 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .outsideblock
 {  display: flex;
@@ -103,9 +211,10 @@ flex-direction: row;
 
 }
 .divLine{
-  background:rgba(0, 0, 0, 0.05);
-  width: 140%;
+  background:rgb(255, 250, 250,0.05);
+  width: 100%;
   height: 2rpx;
+  margin-bottom: 30rpx;
  }
  .verticalline1{
 margin-top: 25rpx;
@@ -137,11 +246,7 @@ font-family: 'Times New Roman', Times, serif;
 .left
 {width: 15%;
 }
-.right
-{
 
-
-}
 .downblock
 { margin-top: 40rpx;
   display: flex;
@@ -172,3 +277,23 @@ font-family: 'Times New Roman', Times, serif;
   align-items: center;
   justify-content: center;
 }
+.walkbutton{  
+  height: 30rpx;
+  width: 20%;
+  background-color: rgba(64, 151, 157, 0.53);
+  color: white;
+  border-radius: 3rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;}
+  .busbutton{  
+    height: 30rpx;
+    width: 40%;
+    background-color: rgba(194, 69, 194, 0.53);
+    color: white;
+    border-radius: 3rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;}

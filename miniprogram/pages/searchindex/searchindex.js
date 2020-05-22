@@ -41,9 +41,17 @@ Page({
       })
     },
     indexback: function(e)
-    {this.setData({step:0})
+    {wx.switchTab({
+      url: '../index/index',})
     },
     formSubmit: function (e) {
+      if (!this.data.depart|!this.data.arrive){        wx.showToast({ 
+        title: '输入错误', 
+        icon: 'loading', 
+        duration: 2000 
+        }) }
+      else
+      {
       var depart=String( this.data.depart)
       var arrive=String( this.data.arrive)
       var pass=this.data.pass
@@ -121,11 +129,9 @@ Page({
 
             }}
               )             
-    }})},
+    }})}},
   navigatePage:function()
-  {   wx.navigateTo({
-    url: '../searchindex/searchindex',
-  })
+  {    this.setData({step:1})
   },
   searchInput:function(e)
   {    app.globalData.search =e.detail.value

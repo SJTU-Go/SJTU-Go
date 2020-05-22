@@ -1,0 +1,23 @@
+<!--pages/search/search.wxml-->
+<scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="16" polyline="{{polyline}}" style="width: 100%; height: 65vh;"></map></scroll-view>
+
+
+
+<scroll-view scroll-y style="display: flex; height: 215px;">
+<view class='routeplan' wx:for="{{routeplan}}" wx:for-item="itema" wx:key="strategy" wx:for-index="idx">
+  <view class='route'>
+    <view class='routedetail'>
+      <view style='font-weight:bold;' width="300rpx">方案{{itema.strategy}}：   </view>
+      <view style='font-weight:bold;' width="300rpx" data-index="{{idx}}" bindtap='isOpen'>
+        <text>所需时间：{{itema.routeTime}}s</text>
+      </view>
+    </view>
+    <view hidden="{{itema.hiddena}}" class='routeInfo'>
+      <view class='nr'>出发地：{{itema.departName}}</view>       
+      <view class='nr'>目的地：{{itema.arriveName}}</view>
+      <switch data-index="{{idx}}" bindchange="switchChange"/>
+    </view>
+  </view>  
+</view>
+</scroll-view>
+

@@ -1,64 +1,54 @@
-<!--index.wxml-->
-<view>
-     <view>
-        <view class="search-bar">
-            <view class="search-bar__form">
-            <!-- 搜索框 -->
-                <view class="search-bar__box">
-                    <icon class="icon-search_in-box" type="search" size="17"></icon>
-                    <input type="text" class="search-bar__input" placeholder="请输入搜索内容"/>
-                </view>
-            </view>
-            <!-- 搜索按钮,调用搜索查询方法 -->
-            <view class="search-bar__cancel-btn" bindtap='方法名a'>搜索</view>
-        </view>
+<scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="16" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
+<scroll-view scroll-y style="display: flex; height: 415px;  ">
+<view  class='title'>
+  <text>
+  从{{begin}}到{{arrive}}
+  </text>
+</view>
+<view  class='subtitle'>
+  <text>
+校园巴士方案 · 用时{{time/60|int}}分钟 · 免费
+  </text>
+</view>
+<view class='routeplan' wx:for="{{routeplan}}" wx:for-item="itema" wx:key="strategy" wx:for-index="idx">
+  <view class='route'>
+    <view class = 'leftpart'>
+      <view class = 'upper'>
+        <view wx:if='{{itema.departID}}'style='font-weight:bold;' width="300rpx"><image class="massge-img" src="../images/bus2.png"></image></view>
+        <view wx:else style='font-weight:bold;' width="300rpx"><image class="massge-img" src="../images/feet1.png"></image></view>
     </view>
+    <view class="verticalline2">  </view>
+
+    </view>
+    <view class ='rightpart'>
+      <view hidden="{{itema.hiddena}}">
+        <view style='fontsize=20rpx; color=grey'>13:00({{itema.routeTime/60|int}}min)</view>
+        <view class = 'flexblock'>
+          <view class = 'block'>  
+            <view class='routeInfo'>
+              <view wx:if='{{itema.departID}}' width="300rpx">校园巴士{{itema.departID}}前往 {{itema.arriveName}}</view>
+              <view wx:else width="300rpx">步行{{itema.distance}}米前往 {{itema.arriveName}}</view>
+            </view> 
+
+        </view> 
+      </view>     
+    </view>
+  </view>
+</view>  
+  <view class = 'emptyblock'></view>
 </view>
 
-主页显示地图组件……
-搜索按钮需要绑定方法a
-按钮绑定
-<view>
-  <button class="next" size="mini" type="default" bindtap="navigatePage">开始导航</button>
+<view class = 'downblock'>
+  <view class = 'btnblk'>
+    <button class='btn2' bindtap='starttirp'>
+      <view>开始行程</view>
+      </button>
+  </view>
+  <view class = 'btnblk2'>
+    <button class='btn1' bindtap='viewcomment'>
+      <view>查看评论</view>
+    </button>
+  </view>
 </view>
-<!--
-<view class="container">
-  <view class="userinfo">
-    <button 
-      open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo"
-      class="userinfo-avatar"
-      style="background-image: url({{avatarUrl}})"
-      size="default"
-    ></button>
-    <view class="userinfo-nickname-wrapper">
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
-    </view>
-  </view>
-  <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text>上传图片</text>
-    </view>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
-    </view>
-  </view>
 
-  <view class="uploader">
-    <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
-      <text>前端操作数据库</text>
-    </navigator>
-  </view>
-
-  <view class="uploader">
-    <navigator url="../im/im" open-type="navigate" class="uploader-text">
-      <text>即时通信 Demo</text>
-    </navigator>
-  </view>
-
-  <view class="uploader">
-    <navigator url="../openapi/openapi" open-type="navigate" class="uploader-text">
-      <text>云调用</text>
-    </navigator>
-
-
+</scroll-view>

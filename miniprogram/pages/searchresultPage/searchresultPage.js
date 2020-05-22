@@ -11,6 +11,7 @@ Page({
     preferencelist: new Array()
   },
   onLoad:function(options){
+
     // 页面初始化 options为页面跳转所带来的参数
     var that =this;
     var tem;
@@ -61,12 +62,11 @@ wx.request({
       that.setData({value:valuetem})
       console.log(that.data.value)
       console.log("1")
-   
-   for(j=0;j<that.data.preference.length;j++){
-   for (i=0;i<that.data.value.length;i++){
-   if(that.data.value[i].type==that.data.preference[j]){
-   pre.push(i)}}}
-   for (i=0;i<pre.length;i++){
+      for(j=0;j<that.data.preference.length;j++){
+      for (i=0;i<that.data.value.length;i++){
+      if(that.data.value[i].type==that.data.preference[j]){
+      pre.push(i)}}}
+     for (i=0;i<pre.length;i++){
    preres.push(that.data.value[pre[i]])
    
    }

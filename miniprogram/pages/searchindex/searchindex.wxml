@@ -1,0 +1,62 @@
+<!--index.wxml-->
+
+
+
+
+<view class = 'outsideblock'>
+<view class = 'marginn'>
+  <view class = 'left'>
+      <view class="verticalline1"></view>
+      <view class="verticalline2"></view>
+      <view class="verticalline1"></view>
+      <view class="verticalline2"></view>
+      <view class="verticalline1"></view>
+  </view>
+  <view class = 'right'>
+  <form class="form" bindsubmit="formSubmit">
+    <view class="section1">
+      <view class = "sectionleft">
+        <view class = 'emptyblock'></view>
+        <view class = 'upsection'>From</view>
+        <view class = 'downsection'>
+         <input bindinput="depart"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="当前位置" />
+        </view>
+      </view> 
+    </view>  
+
+    <view class="section">
+      <view class = 'emptyblock'></view>
+      <view class = 'upsection'>Pass</view>
+      <view class = 'downsection'>
+        <input bindinput="pass"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="点击输入..." />
+      </view>
+    </view>  
+    <view class="divLine"></view>
+    <view class="section">
+      <view class = 'emptyblock'></view>
+      <view class = 'upsection'>To</view>
+      <view class = 'downsection'>
+        <input bindinput="arrive"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="点击输入..." />
+      </view>
+    </view>  
+    <view class="divLine"></view>
+
+  </form>
+
+  </view>
+
+</view>
+
+</view>
+<view class = 'downblock'>
+  <button class='btn2' bindtap='formSubmit'>
+    <view>开始搜索</view>
+    </button>
+  <button class='btn1' bindtap='indexback'>
+    <view>回到主页</view>
+    </button>
+</view>
+  <view style="display: flex;align-items: center;justify-content: center;  ">
+    <map longitude="121.429846" latitude="31.021807" scale="16"  style="width: 90%; height: 100vh;"></map>
+  </view>
+

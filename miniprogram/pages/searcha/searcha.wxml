@@ -1,0 +1,120 @@
+<view class = 'outsideblock'>
+<view class = 'marginn'>
+  <view class = 'left'>
+      <view class="verticalline1"></view>
+      <view class="verticalline2"></view>
+      <view class="verticalline1"></view>
+      <view class="verticalline2"></view>
+      <view class="verticalline1"></view>
+  </view>
+  <view class = 'right'>
+  <form class="form" bindsubmit="formSubmit">
+    <view class="section1">
+      <view class = "sectionleft">
+        <view class = 'emptyblock'></view>
+        <view class = 'upsection'>From</view>
+        <view class = 'downsection'>
+         <input bindinput="depart"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="{{depart}}"/>
+        </view>
+      </view> 
+    </view>  
+
+    <view class="section">
+      <view class = 'emptyblock'></view>
+      <view class = 'upsection'>Pass</view>
+      <view class = 'downsection'>
+        <input bindinput="pass"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="{{pass}}" />
+      </view>
+    </view>  
+    <view class="divLine"></view>
+    <view class="section">
+      <view class = 'emptyblock'></view>
+      <view class = 'upsection'>To</view>
+      <view class = 'downsection'>
+        <input bindinput="arrive"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="{{arrive}}" />
+      </view>
+    </view>  
+    <view class="divLine"></view>
+
+  </form>
+
+  </view>
+
+</view>
+</view>
+<view class = 'downblock'>
+  <button class='btn2' bindtap='formSubmit'>
+    <view>重新搜索</view>
+    </button>
+  <button class='btn1' bindtap='indexback'>
+    <view>回到主页</view>
+    </button>
+</view>
+
+
+<view class='topTabSwiper'>
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>按偏好显示</view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>按时间长短显示</view>
+</view>
+
+<view wx:if="{{currentData==0}}">
+  <view class="container">
+    <view class="massge" wx:for="{{preferencelist}}"  wx:for-item="list">
+      <view class="massge-hd">
+        <view wx:if="{{list.type==method[0]}}"><image class="massge-img" src="../../images/foot.png"></image>
+        </view>
+        <view wx:elif="{{list.type==method[1]}}"><image class="massge-img" src="../../images/bus1.png"></image></view>
+        <view wx:if="{{list.type==method[0]}}"  class='walkbutton'>{{list.type}}</view>
+        <view wx:if="{{list.type==method[1]}}"  class='busbutton'>{{list.type}}</view>
+        <view class = 'rightt'><view class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view></view>
+      </view>
+      <view class='divLine'></view>
+      <view class="massge-bd font-color-666">
+       <view wx:if="{{list.type==method[0]}}"> 
+        <text>需要步行<text class="font-color-c24e4e font-size-15">{{list.distance}}米，预计花费{{list.travelTime/60|Int}} min。</text></text></view>
+       <view wx:if="{{list.type==method[1]}}"> 
+        <text>需要步行<text class="font-color-c24e4e font-size-15">{{list.distance}}米，预计花费{{list.travelTime/60|Int}} min。</text></text></view>
+      <view wx:if="{{list.type==method[1]}}">   <view class='textdiv'><text bindtap="searchPagebus">路径详情></text></view></view>
+      <view wx:if="{{list.type==method[0]}}">   <view class='textdiv'><text bindtap="searchPagewalk">路径详情></text></view></view>
+      </view>
+
+    </view>
+  </view>
+</view>
+<view wx:if="{{currentData==1}}">
+  <view class="container">
+    <view class="massge" wx:for="{{value}}"  wx:for-item="list">
+      <view wx:if="{{list.type}}">
+      <view class="massge-hd">
+        <view wx:if="{{list.type==method[0]}}"><image class="massge-img" src="../../images/foot.png"></image>
+        </view>
+        <view wx:elif="{{list.type==method[1]}}"><image class="massge-img" src="../../images/bus1.png"></image></view>
+        <view wx:if="{{list.type==method[0]}}"  class='walkbutton'>{{list.type}}</view>
+        <view wx:if="{{list.type==method[1]}}"  class='busbutton'>{{list.type}}</view>
+        <view class = 'rightt'><view class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view></view>
+      </view>
+      <view class='divLine'></view>
+      <view class="massge-bd font-color-666">
+       <view wx:if="{{list.type==method[0]}}"> 
+        <text>需要步行<text class="font-color-c24e4e font-size-15">{{list.distance}}米，预计花费{{list.travelTime/60|Int}} min。</text></text></view>
+       <view wx:if="{{list.type==method[1]}}"> 
+        <text>需要步行<text class="font-color-c24e4e font-size-15">{{list.distance}}米，预计花费{{list.travelTime/60|Int}} min。</text></text></view>
+      <view wx:if="{{list.type==method[1]}}">   <view class='textdiv'><text bindtap="searchPagebus">路径详情></text></view></view>
+      <view wx:if="{{list.type==method[0]}}">   <view class='textdiv'><text bindtap="searchPagewalk">路径详情></text></view></view>
+      </view>
+    </view>
+    </view>
+  </view>
+</view>
+
+<!--
+    <view class="massge">
+      <view class="massge-hd"><image class="massge-img" src="../../images/bus.png"></image><view>{{bus.type}}</view></view>
+      <view class="massge-bd font-color-666">
+        <text>路线用时：<text class="font-color-c24e4e font-size-15">{{bus.travelTime}}</text><text style="margin-left:40rpx;">路线距离:</text> {{bus.distance}}</text>
+        <view class='textdiv'>
+          <text style="font-size-20" bindtap="searchPage">路径详情></text>
+        </view>
+       </view>
+    </view>-->
+

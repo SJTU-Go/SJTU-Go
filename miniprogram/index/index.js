@@ -3,41 +3,36 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: ''
+    step : 0,
+  routeplan:new Array(),
+  arrive:"上院",
+  begin: "东下院",
+  time:1200,
   },
   navigatePage:function()
   {wx.navigateTo({url: '../SearchPage/SearchPage', })},
 
 
   onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
+    var tem;
+    var that = this;
+    wx.request({
+      url: 'https://api.ltzhou.com/navigate/bus',
+      method:'POST',
+      header: {
+      'content-type': 'application/json'
+      },
+      data:{
+      "arrivePlace": "交通大学闵行校区上院",
+      "beginPlace": "交通大学闵行校区东下院",
+      "departTime": "2020/05/11 12:05:12",
+      "passPlaces": [],},
 
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
-      }
-    })
-  },
+      success (res) {
+        tem = res.data
+        that.setData({routeplan:tem.routeplan})
+        console.log(tem.routeplan)
+  }})},
 
   onGetUserInfo: function(e) {
     if (!this.data.logged && e.detail.userInfo) {

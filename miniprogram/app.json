@@ -1,8 +1,16 @@
 {
   "pages": [
+    "pages/index/index",
+    "index/index",
+
+   
+    "pages/searchindex/searchindex",
+    "pages/search/search",
+    "pages/searcha/searcha",
+
     "pages/searchresultPage/searchresultPage",
     "pages/dragtest/dragtest",
-    "pages/index/index",
+   
 
 
     "pages/LoginPage/LoginPage",

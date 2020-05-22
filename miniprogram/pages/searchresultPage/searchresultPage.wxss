@@ -71,3 +71,7 @@ page {
   height: 100%;
   padding: 80rpx 0;
 }
+
+
+/*以下是来自index 的组件*/
+
