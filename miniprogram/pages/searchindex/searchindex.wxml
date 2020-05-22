@@ -56,7 +56,5 @@
     <view>回到主页</view>
     </button>
 </view>
-  <view style="display: flex;align-items: center;justify-content: center;  ">
-    <map longitude="121.429846" latitude="31.021807" scale="16"  style="width: 90%; height: 100vh;"></map>
-  </view>
+
 

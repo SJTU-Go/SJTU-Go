@@ -31,6 +31,7 @@ Page({
       })
     },
     depart:function(e){
+
       this.setData({
         depart: e.detail.value,
       })
@@ -56,8 +57,7 @@ Page({
       var arrive=String( this.data.arrive)
       var pass=this.data.pass
       var passlist=[];
-      if(pass){
-      passlist.push(pass)};
+
       var that =this;
       var tem;
       var valuetem=new Array();
@@ -65,6 +65,46 @@ Page({
       var i;
       var j = 0;
       var preres = new Array();
+
+      wx.request({
+        url: 'https://api.ltzhou.com/map/search/destination',
+        method:'GET',
+        header: {
+        'content-type': 'application/json'
+        },
+        data:{
+        "keyword":arrive},
+        success (res) {arrive = 'DT'+res.data[0].placeID}
+      })
+
+      wx.request({
+        url: 'https://api.ltzhou.com/map/search/destination',
+        method:'GET',
+        header: {
+        'content-type': 'application/json'
+        },
+        data:{
+        "keyword":depart},
+        success (res) {depart = 'DT'+res.data[0].placeID}
+      })
+        if (pass){
+      wx.request({
+        url: 'https://api.ltzhou.com/map/search/destination',
+        method:'GET',
+        header: {
+        'content-type': 'application/json'
+        },
+        data:{
+        "keyword":pass},
+        success (res) {pass = 'DT'+res.data[0].placeID}
+      })}
+
+      if(pass){
+        passlist.push(pass)};
+
+
+
+
       console.log({
         "arrivePlace": arrive,
         "beginPlace": depart,

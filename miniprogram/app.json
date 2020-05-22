@@ -1,31 +1,24 @@
+
 {
   "pages": [
+    "pages/searchindex/searchindex",
+    "pages/depart/depart",
     "pages/index/index",
     "index/index",
 
-   
-    "pages/searchindex/searchindex",
+
     "pages/search/search",
     "pages/searcha/searcha",
-
     "pages/searchresultPage/searchresultPage",
     "pages/dragtest/dragtest",
-   
-
-
     "pages/LoginPage/LoginPage",
     "pages/schedulePage/schedulePage",
     "pages/HistoryPage/HistoryPage",
-
-   "pages/preferencePage/preferencePage",
-
+    "pages/preferencePage/preferencePage",
     "pages/userInfoPage/userInfoPage",
-
     "pages/setPreferencePage/setPreferencePage",
-
     "pages/registrationPage/registrationPage",
     "pages/accountLoginPage/accountLoginPage",
- 
     "pages/trafficPage/trafficPage"
   ],
 
