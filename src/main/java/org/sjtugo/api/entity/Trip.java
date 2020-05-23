@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import net.sf.json.JSONObject;
 
 @Data
 @Entity
@@ -23,10 +23,11 @@ public class Trip {
     @ApiModelProperty(value = "出行者ID", example = "1")
     private Integer userID;
 
-//    @ApiModelProperty()
- //   private Strategy strategy;
+    @ApiModelProperty(value = "trip详细信息")
+    private String strategy;  //Json
+    //JSONObject json = JSONObject.fromObject(strategy);
 
-    @ApiModelProperty(value = "交通方式", example = "哈罗单车")
+/*    @ApiModelProperty(value = "交通方式", example = "哈罗单车")
     private String type;
 
     @ApiModelProperty(value = "出发点名称", example = "三餐")
@@ -51,7 +52,7 @@ public class Trip {
     private List<String> preference;
 
 
- /*   @OneToMany(targetEntity = Route.class,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Route.class,fetch = FetchType.LAZY)
     @ApiModelProperty(value = "行程详细方案列表")
     private List<Route> routs;
 */
