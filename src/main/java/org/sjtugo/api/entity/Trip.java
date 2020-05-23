@@ -23,7 +23,7 @@ public class Trip {
     @ApiModelProperty(value = "出行者ID", example = "1")
     private Integer userID;
 
-    @ApiModelProperty(value = "trip详细信息")
+    @ApiModelProperty(value = "trip详细信息",notes = "json格式的String")
     private String strategy;  //Json
     //JSONObject json = JSONObject.fromObject(strategy);
 

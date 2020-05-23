@@ -29,7 +29,7 @@ public class TripService {
         trip.setPreference(strategy.getPreference());
         trip.setRouts(strategy.getRouteplan());
  */
-        String stra = strategy.toString();
+        String stra = json.toString();
         trip.setStrategy(stra);
         trip.setUserID(userID);
         trip.setDepartTime(LocalDateTime.now());
