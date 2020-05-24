@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.TripRepository;
 import org.sjtugo.api.entity.Route;
 import org.sjtugo.api.entity.Strategy;
@@ -32,7 +33,7 @@ public class TripControl {
 
     @Data
     static class StrategyRequest {
-        private Strategy strategy;
+        private JSONObject strategy;
         private Integer userID; //前端
     }
 }

@@ -8,11 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
 import net.sf.json.JSONObject;
 
 @Data
 @Entity
-@Table
 @ApiModel(value = "一次出行信息")
 public class Trip {
     @Id
@@ -24,7 +24,17 @@ public class Trip {
     private Integer userID;
 
     @ApiModelProperty(value = "trip详细信息",notes = "json格式的String")
+    @Column(columnDefinition = "TEXT")
     private String strategy;  //Json
+
+
+    public JSONObject getStrategy() {
+        return JSONObject.fromObject(strategy);
+    }
+
+    public void setStrategy(JSONObject obj){
+        strategy = obj.toString();
+    }
     //JSONObject json = JSONObject.fromObject(strategy);
 
 /*    @ApiModelProperty(value = "交通方式", example = "哈罗单车")

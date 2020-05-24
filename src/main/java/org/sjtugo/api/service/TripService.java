@@ -16,9 +16,8 @@ public class TripService {
         this.tripRepository = tripRepository;
     }
 
-    public Integer startTrip(Strategy strategy, Integer userID){
+    public Integer startTrip(JSONObject strategy, Integer userID){
         Trip trip = new Trip();
-        JSONObject json = JSONObject.fromObject(strategy);
 /*
         trip.setType(strategy.getType());
         trip.setDepart(strategy.getDepart());
@@ -29,13 +28,12 @@ public class TripService {
         trip.setPreference(strategy.getPreference());
         trip.setRouts(strategy.getRouteplan());
  */
-        String stra = json.toString();
-        trip.setStrategy(stra);
+        trip.setStrategy(strategy);
         trip.setUserID(userID);
         trip.setDepartTime(LocalDateTime.now());
 
-        long minute = strategy.getTravelTime().toMinutes();
-        LocalDateTime arriveTime = LocalDateTime.now().plusMinutes(minute);
+        Integer difftime = (Integer) strategy.get("travelTime");
+        LocalDateTime arriveTime = LocalDateTime.now().plusSeconds(difftime);
         trip.setArriveTime(arriveTime);
 
         tripRepository.save(trip);
