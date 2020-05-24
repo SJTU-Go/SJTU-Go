@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
-import java.util.List;
 
 @Api(value="Start Trip")
 @RestController  // the data returned by each method will be written straight into the response body
@@ -33,7 +31,7 @@ public class TripControl {
     }
 
     @Data
-    private static class StrategyRequest {
+    static class StrategyRequest {
         private Strategy strategy;
         private Integer userID; //前端
     }
