@@ -32,7 +32,7 @@
  <view class="item-box">
   <view class="items">
     <view wx:for="{{carList}}" wx:key="{{index}}" class="msg-item">
-         <view class='user-name' bindtype = 'inputreturn'>{{item.placeName}}</view>
+         <view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.placeName}}</view>
     </view>
   </view>
 </view>

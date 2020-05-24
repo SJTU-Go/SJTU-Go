@@ -123,7 +123,19 @@ Page({
               )             
     }})},
   navigatePage:function()
-  {   wx.navigateTo({
+  { wx.setStorage({
+    data:'',
+    key: 'arrive',
+  })  
+  wx.setStorage({
+    data:'',
+    key: 'pass',
+  })  
+  wx.setStorage({
+    data:'',
+    key: 'depart',
+  })  
+    wx.navigateTo({
     url: '../searchindex/searchindex',
   })
   },

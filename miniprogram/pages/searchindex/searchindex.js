@@ -8,8 +8,11 @@ Page({
     bus:{},
     walk:{},
     pass:'',
+    passid:'',
     depart:'',
+    departid:'',
     arrive:'',
+    arriveid:'',
     index:['walk','bus'],
     value : new Array(),
     method:["步行","校园巴士"],
@@ -18,27 +21,38 @@ Page({
     searchtxt:'',
     datares: new Array(),
   }  ,
-    onLoad:function(){
-    var that = this
+    onLoad:function(options){
+      var that = this
+      wx.getStorage({
+        key: 'depart',
+      success:function(res){
+        that.setData({depart:res.data.name,departid : 'DT'+res.data.id})
 
-    that.setData({ 
-         pass:'',
-    depart:'',
-    arrive:'',})},
-    pass:function(e){
-      this.setData({
-        pass: e.detail.value,
-      })
+      
+      } })
+      wx.getStorage({
+        key: 'pass',
+      success:function(res){that.setData({pass:res.data.name,passid :'DT'+res.data.id})} })
+      wx.getStorage({
+        key: 'arrive',
+      success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})} })
+
+},
+
+
+    pass:function(){
+wx.navigateTo({
+  url: '../extendsearch/pass/pass',
+})
     },
     depart:function(e){
-
-      this.setData({
-        depart: e.detail.value,
+      wx.navigateTo({
+        url: '../extendsearch/depart/depart',
       })
     },
     arrive:function(e){
-      this.setData({
-        arrive: e.detail.value,
+      wx.navigateTo({
+        url: '../extendsearch/arrive/arrive',
       })
     },
     indexback: function(e)
@@ -53,9 +67,9 @@ Page({
         }) }
       else
       {
-      var depart=String( this.data.depart)
-      var arrive=String( this.data.arrive)
-      var pass=this.data.pass
+      var depart=String( this.data.departid)
+      var arrive=String( this.data.arriveid)
+      var pass=this.data.passid
       var passlist=[];
 
       var that =this;
@@ -65,40 +79,6 @@ Page({
       var i;
       var j = 0;
       var preres = new Array();
-
-      wx.request({
-        url: 'https://api.ltzhou.com/map/search/destination',
-        method:'GET',
-        header: {
-        'content-type': 'application/json'
-        },
-        data:{
-        "keyword":arrive},
-        success (res) {arrive = 'DT'+res.data[0].placeID}
-      })
-
-      wx.request({
-        url: 'https://api.ltzhou.com/map/search/destination',
-        method:'GET',
-        header: {
-        'content-type': 'application/json'
-        },
-        data:{
-        "keyword":depart},
-        success (res) {depart = 'DT'+res.data[0].placeID}
-      })
-        if (pass){
-      wx.request({
-        url: 'https://api.ltzhou.com/map/search/destination',
-        method:'GET',
-        header: {
-        'content-type': 'application/json'
-        },
-        data:{
-        "keyword":pass},
-        success (res) {pass = 'DT'+res.data[0].placeID}
-      })}
-
       if(pass){
         passlist.push(pass)};
 

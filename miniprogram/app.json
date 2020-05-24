@@ -1,9 +1,14 @@
 
 {
   "pages": [
-    "pages/searchindex/searchindex",
-    "pages/depart/depart",
+
     "pages/index/index",
+    "pages/searchindex/searchindex",
+    "pages/extendsearch/depart/depart",
+    "pages/extendsearch/arrive/arrive",
+    "pages/extendsearch/pass/pass",
+
+
     "index/index",
 
 
