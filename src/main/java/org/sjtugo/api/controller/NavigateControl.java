@@ -13,10 +13,7 @@ import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.entity.ErrorResponse;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
-import org.sjtugo.api.service.planner.BusPlanner;
-import org.sjtugo.api.service.planner.PlaceNotFoundException;
-import org.sjtugo.api.service.planner.StrategyNotFoundException;
-import org.sjtugo.api.service.planner.WalkPlanner;
+import org.sjtugo.api.service.planner.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -38,7 +35,8 @@ public class NavigateControl {
     private BusTimeRepository busTimeRepository;
     @Autowired
     private BusStopRepository busStopRepository;
-
+    @Autowired
+    private VertexDestinationRepository vertexDestinationRepository;
 
     @ApiOperation(value = "Walk Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回步行方案")
@@ -67,12 +65,30 @@ public class NavigateControl {
         })
     public ResponseEntity<?> navigateBus(@RequestBody NavigateRequest navigateRequest) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate, busTimeRepository,busStopRepository);
+                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(new ErrorResponse(5,"No need to take Bus"),
                     HttpStatus.NOT_FOUND);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ApiOperation(value = "Bike Navigate Service",
+            notes = "给定校园内地点ID或经纬度，返回哈罗单车出行方案")
+    @PostMapping("/bike")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Strategy.class),
+            @ApiResponse(code = 404, message = "[3]Place Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> navigateBike(@RequestBody NavigateRequest navigateRequest) {
+        BikePlanner planner = new BikePlanner(mapVertexInfoRepository,destinationRepository,
+                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository);
+        try {
+            return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (PlaceNotFoundException e) {
             return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
                     HttpStatus.BAD_REQUEST);
@@ -90,7 +106,7 @@ public class NavigateControl {
     })
     public ResponseEntity<?> processPlace(@RequestBody String place) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository, destinationRepository,
-                restTemplate, busTimeRepository, busStopRepository);
+                restTemplate, busTimeRepository, busStopRepository,vertexDestinationRepository);
         try {
             return new ResponseEntity<>(planner.parsePlace(place).toString(),HttpStatus.OK);
         } catch (PlaceNotFoundException e) {
