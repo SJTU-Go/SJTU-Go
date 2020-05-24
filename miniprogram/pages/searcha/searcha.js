@@ -2,12 +2,16 @@
 const app = getApp()
 Page({
   data:{
-    step:1,
+    pass:'',
+    passid:'',
+    depart:'',
+    departid:'',
+    arrive:'',
+    arriveid:'',
     currentData : 0,
-    index:['walk','bus'],
     value : new Array(),
-    method:["步行","校园巴士"],
-    preference:["步行","校园巴士"],
+    method:["步行","校园巴士","共享单车"],
+    preference:["步行","校园巴士","共享单车"],
     preferencelist: new Array(),
     routeplan:new Array(),
     arrive:'',
@@ -20,14 +24,43 @@ Page({
       preferencelist: JSON.parse(options.RT)[0],
       value:JSON.parse(options.RT)[1],
       routeplan:JSON.parse(options.RT)[2],
-      depart:JSON.parse(options.RT)[3],
-      pass:JSON.parse(options.RT)[4],
-      arrive:JSON.parse(options.RT)[5]
-    })
+    }
+    )
 console.log( that.data.preferencelist)
+wx.getStorage({
+  key: 'depart',
+success:function(res){
+  that.setData({depart:res.data.name,departid : 'DT'+res.data.id})
+
+
+} })
+wx.getStorage({
+  key: 'pass',
+success:function(res){if(res.data.name){that.setData({pass:res.data.name,passid :'DT'+res.data.id})}} })
+wx.getStorage({
+  key: 'arrive',
+success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})} })
 
 
   },
+
+  pass:function(){
+    console.log("pass")
+    wx.navigateTo({
+      url: '../extendsearcha/pass/pass',
+    })
+        },
+        depart:function(e){
+          wx.navigateTo({
+            url: '../extendsearcha/depart/depart',
+          })
+        },
+        arrive:function(e){
+          wx.navigateTo({
+            url: '../extendsearcha/arrive/arrive',
+          })
+        },
+
   searchPagebus: function()
   {
     wx.navigateTo({
@@ -138,22 +171,7 @@ indexback:function()
 wx.switchTab({
   url: '../index/index',})
 }, 
- 
-pass:function(e){
-  this.setData({
-    pass: e.detail.value,
-  })
-},
-depart:function(e){
-  this.setData({
-    depart: e.detail.value,
-  })
-},
-arrive:function(e){
-  this.setData({
-    arrive: e.detail.value,
-  })
-},
+
   onUnload:function(){
     // 页面关闭
   }

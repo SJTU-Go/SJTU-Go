@@ -8,6 +8,7 @@
       <view class="massge-hd">
         <view wx:if="{{list.type==method[0]}}"><image class="massge-img" src="../../images/walk.png"></image></view>
         <view wx:elif="{{list.type==method[1]}}"><image class="massge-img" src="../../images/bus.png"></image></view>
+        <view wx:elif="{{list.type==method[2]}}"><image class="massge-img" src="../../images/bike.png"></image></view>
         <view>{{list.type}}</view>
       </view>
       <view class="massge-bd font-color-666">
@@ -24,6 +25,7 @@
       <view class="massge-hd">
         <view wx:if="{{list.type==method[0]}}"><image class="massge-img" src="../../images/walk.png"></image></view>
         <view wx:elif="{{list.type==method[1]}}"><image class="massge-img" src="../../images/bus.png"></image></view>
+        <view wx:elif="{{list.type==method[2]}}"><image class="massge-img" src="../../images/bike.png"></image></view>
         <view>{{list.type}}</view>
       </view>
       <view class="massge-bd font-color-666">

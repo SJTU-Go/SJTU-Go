@@ -15,8 +15,8 @@ Page({
     arriveid:'',
     index:['walk','bus'],
     value : new Array(),
-    method:["步行","校园巴士"],
-    preference:["步行","校园巴士"],
+    method:["步行","校园巴士","共享单车"],
+    preference:["步行","校园巴士","共享单车"],
     preferencelist: new Array(),
     searchtxt:'',
     datares: new Array(),
@@ -32,7 +32,7 @@ Page({
       } })
       wx.getStorage({
         key: 'pass',
-      success:function(res){that.setData({pass:res.data.name,passid :'DT'+res.data.id})} })
+      success:function(res){if(res.data.name){that.setData({pass:res.data.name,passid :'DT'+res.data.id})}} })
       wx.getStorage({
         key: 'arrive',
       success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})} })
@@ -69,9 +69,15 @@ wx.navigateTo({
       {
       var depart=String( this.data.departid)
       var arrive=String( this.data.arriveid)
+      var arrivename = this.data.arrive
+      var departname = this.data.depart
+      var passname = this.data.pass
       var pass=this.data.passid
       var passlist=[];
-
+      console.log("传入数据")
+        console.log(depart)
+        console.log(arrive)
+        console.log(pass)
       var that =this;
       var tem;
       var valuetem=new Array();
@@ -81,15 +87,14 @@ wx.navigateTo({
       var preres = new Array();
       if(pass){
         passlist.push(pass)};
-
-
-
-
       console.log({
         "arrivePlace": arrive,
         "beginPlace": depart,
         "departTime": "2020/05/11 12:05:12",
         "passPlaces": passlist,})
+      
+        //busrequest
+
       wx.request({
         url: 'https://api.ltzhou.com/navigate/bus',
         method:'POST',
@@ -107,6 +112,7 @@ wx.navigateTo({
           console.log(tem)
           that.setData({bus:tem})
           valuetem.push(tem)
+          //walkrequest
           wx.request({
             url: 'https://api.ltzhou.com/navigate/walk',
             method:'POST',
@@ -121,31 +127,57 @@ wx.navigateTo({
               tem = res.data
               console.log(tem)
               valuetem.push(tem)
-              that.setData({value:valuetem})
-              console.log(that.data.value)
-              console.log("1")
-              for(j=0;j<that.data.preference.length;j++){
-                for (i=0;i<that.data.value.length;i++){
-                  if(that.data.value[i].type==that.data.preference[j]){pre.push(i)}}}
-              for (i=0;i<pre.length;i++){preres.push(that.data.value[pre[i]])}
-              console.log(preres)
-              var ressss = new Array()
-              ressss.push(preres)
-              ressss.push(valuetem)
-              ressss.push(that.data.bus.routeplan)
-              ressss.push(depart)
-              ressss.push(pass)
-              ressss.push(arrive) 
-              that.setData({datares:ressss})
-              console.log(that.data.datares)
+      wx.request({
+        url: 'https://api.ltzhou.com/navigate/bike',
+        method:'POST',
+        header: {
+        'content-type': 'application/json'},
+      data:{
+        "arrivePlace": arrive,
+        "beginPlace": depart,
+        "passPlaces": passlist,
+        },
+        success (res) {
+          tem = res.data
+          console.log(tem)
+          valuetem.push(tem)
+          that.setData({value:valuetem})
+          console.log(that.data.value)
+          console.log("1")
+          for(j=0;j<that.data.preference.length;j++){
+            for (i=0;i<that.data.value.length;i++){
+              if(that.data.value[i].type==that.data.preference[j]){pre.push(i)}}}
+          for (i=0;i<pre.length;i++){preres.push(that.data.value[pre[i]])}
+          console.log(preres)
+          var ressss = new Array()
+          ressss.push(preres)
+          ressss.push(valuetem)
+          ressss.push(that.data.bus.routeplan)
+          ressss.push(departname)
+          ressss.push(passname)
+          ressss.push(arrivename)
 
-              wx.navigateTo({
-                url: '../searcha/searcha?RT='+JSON.stringify(that.data.datares),
-                //success:function(res){that.setData({step:0})}
-              
-              },
 
-                )
+          that.setData({datares:ressss})
+          console.log("coming resuuuu")
+          console.log(that.data.datares)
+
+          wx.navigateTo({
+            url: '../searcha/searcha?RT='+JSON.stringify(that.data.datares),
+            //success:function(res){that.setData({step:0})}
+          
+          },
+
+            )
+
+
+        
+        
+        }
+      })        
+
+
+         
 
             }}
               )             

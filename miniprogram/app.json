@@ -1,19 +1,21 @@
 
 {
   "pages": [
-
+    "pages/searcha/searcha",
     "pages/index/index",
     "pages/searchindex/searchindex",
     "pages/extendsearch/depart/depart",
     "pages/extendsearch/arrive/arrive",
     "pages/extendsearch/pass/pass",
-
+    "pages/extendsearcha/depart/depart",
+    "pages/extendsearcha/arrive/arrive",
+    "pages/extendsearcha/pass/pass",
 
     "index/index",
 
 
     "pages/search/search",
-    "pages/searcha/searcha",
+
     "pages/searchresultPage/searchresultPage",
     "pages/dragtest/dragtest",
     "pages/LoginPage/LoginPage",

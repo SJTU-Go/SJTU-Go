@@ -297,3 +297,13 @@ font-family: 'Times New Roman', Times, serif;
     flex-direction: row;
     align-items: center;
     justify-content: center;}
+    .bikebutton{  
+      height: 30rpx;
+      width: 40%;
+      background-color: rgb(1, 37, 153);
+      color: white;
+      border-radius: 3rpx;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;}
