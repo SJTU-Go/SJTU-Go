@@ -9,6 +9,7 @@ public class NavigatePlace {
     private String placeName;
     private Point location;
     private PlaceType placeType;
+    private Integer placeID = 0;
 
     public NavigatePlace(){}
 
@@ -18,11 +19,12 @@ public class NavigatePlace {
                         "（逆时针方向）":"（顺时针方向）");
         this.location = busStop.getLocationPlatform();
         this.placeType = PlaceType.busStop;
+        this.placeID = busStop.getStopId();
     }
 
     @Override
     public String toString(){
-        return placeName + location.toString() + placeType.toString();
+        return placeName + location.toString() + placeType.toString() + placeID;
     }
 
     enum PlaceType {

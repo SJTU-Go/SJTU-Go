@@ -24,9 +24,10 @@ public class BusPlanner extends AbstractPlanner {
                       DestinationRepository destinationRepository,
                       RestTemplate restTemplate,
                       BusTimeRepository busTimeRepository,
-                      BusStopRepository busStopRepository){
+                      BusStopRepository busStopRepository,
+                      VertexDestinationRepository vertexDestinationRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeRepository,busStopRepository);
+                busTimeRepository,busStopRepository,vertexDestinationRepository);
     }
 
     @Override
@@ -115,6 +116,7 @@ public class BusPlanner extends AbstractPlanner {
             for (LineString nextRoute : routePaths) {
                 merger.add(nextRoute);
             }
+            @SuppressWarnings("unchecked")
             Collection<LineString> collection = merger.getMergedLineStrings();
             busRoute.setRoutePath(collection.iterator().next());
             return busRoute;

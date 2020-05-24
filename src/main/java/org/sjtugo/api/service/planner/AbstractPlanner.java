@@ -1,5 +1,6 @@
 package org.sjtugo.api.service.planner;
 
+import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -30,6 +31,7 @@ public abstract class AbstractPlanner {
     protected final BusTimeRepository busTimeRepository;
     protected final BusStopRepository busStopRepository;
     protected final TokenPool tokenPool;
+    protected final VertexDestinationRepository vertexDestinationRepository;
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
      */
@@ -37,12 +39,14 @@ public abstract class AbstractPlanner {
                            DestinationRepository destinationRepository,
                            RestTemplate restTemplate,
                            BusTimeRepository busTimeRepository,
-                           BusStopRepository busStopRepository){
+                           BusStopRepository busStopRepository,
+                           VertexDestinationRepository vertexDestinationRepository){
         this.mapVertexInfoRepository = mapVertexInfoRepository;
         this.destinationRepository = destinationRepository;
         this.restTemplate = restTemplate;
         this.busTimeRepository = busTimeRepository;
         this.busStopRepository = busStopRepository;
+        this.vertexDestinationRepository = vertexDestinationRepository;
         this.tokenPool = new TokenPool();
     }
 
@@ -100,6 +104,7 @@ public abstract class AbstractPlanner {
                 result.setLocation(vtx_record.get().getLocation());
                 result.setPlaceName(vtx_record.get().getVertexName());
                 result.setPlaceType(NavigatePlace.PlaceType.parking);
+                result.setPlaceID(Integer.parseInt(place));
                 return result;
             }
         }
@@ -111,6 +116,7 @@ public abstract class AbstractPlanner {
                 result.setLocation(dst_record.get().getLocation());
                 result.setPlaceName(dst_record.get().getPlaceName());
                 result.setPlaceType(NavigatePlace.PlaceType.destination);
+                result.setPlaceID(Integer.parseInt(place));
                 return result;
             }
         }
@@ -154,6 +160,7 @@ public abstract class AbstractPlanner {
      * @param end 到达点的地名、坐标、类型
      * @return 一条WalkRoute
      */
+
     protected WalkRoute planWalkTencent (NavigatePlace start, NavigatePlace end){
         Map<String,String> params=new HashMap<>();
         params.put("from", start.getLocation().getCoordinate().y
@@ -181,6 +188,12 @@ public abstract class AbstractPlanner {
         walkRoute.setRoutePath(Objects.requireNonNull(tencentResponse.getBody(),"Route not fetched").getRoute());
         return walkRoute;
     }
+
+    protected MapVertexInfo nearsetParking (NavigatePlace point){
+        Coordinate pointCoord = point.getLocation().getCoordinate();
+        return mapVertexInfoRepository.findNearbyParking(pointCoord.x,pointCoord.y).get(0);
+    }
+
 
 }
 
