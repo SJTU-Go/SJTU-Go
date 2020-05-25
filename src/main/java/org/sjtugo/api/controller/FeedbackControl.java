@@ -1,12 +1,12 @@
 package org.sjtugo.api.controller;
 
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.Data;
 import org.sjtugo.api.DAO.FeedbackRepository;
+import org.sjtugo.api.entity.ErrorResponse;
 import org.sjtugo.api.entity.Feedback;
+import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,11 @@ public class FeedbackControl {
     private FeedbackRepository feedbackRepository;
 
     @ApiOperation(value = "用户添加行程反馈")
-    @PostMapping("/addfeedback")
+    @PostMapping("/add")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Feedback.class),
+            @ApiResponse(code = 404, message = "[2]Invalid Feedback", response = ErrorResponse.class)
+    })
     public ResponseEntity<?> addFeedback(@RequestBody FeedbackRequest feedbackRequest){
         FeedbackService feedbackser = new FeedbackService(feedbackRepository);
         return feedbackser.addFeedback(feedbackRequest.getUserID(),
