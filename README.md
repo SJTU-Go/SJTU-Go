@@ -1,61 +1,51 @@
 # SJTU-Go
-EI333 Group Project 交大校园共享出行导航
+EI333 Group Project 交大校园共享出行导航服务端
+
+## 项目环境
+
+IntelliJ IDEA 2020.1
+AdoptOpenJDK 11(LTS)
+相关依赖包可通过pom.xml文件导入
 
 ## 目录说明
 ```
-|- server 准备部署在服务器端的代码
+SJTU-Go
+│  .gitignore
+│  LICENSE
+│  mvnw
+│  mvnw.cmd
+│  pom.xml     // 包管理配置文件
+│  README.md
+│  SJTU-Go.iml
+│
+├─arango      // ArangoDB和MySQL数据库中地图信息的导入脚本
+│      addedge.py       // 向ArangoDB图数据库导入地图边和建筑物信息
+│      addvertex.py     // 向ArangoDB图数据库导入地图节点
+│      changeedge.py    // 根据基础图在ArangoDB中建立不同子地图
+│      mysqledge.py     // 在MySQL数据库里导入边信息
+│      mysqlrelation.py // 在MySQL数据库中导入建筑物信息，并建立建筑和最近停车点的关系表
+│      mysqlvertex.py   // 在MySQL数据库里导入节点信息
+│
+├─crawler    // 交通信息导入
+│  │  crawler_script_e100.py   // 持续运行更新共享汽车数据库
+│  │  crawler_script_hello.py  // 持续运行更新哈罗单车数据库
+│  │
+│  │
+│  └─WriteBus                  // 写入校园巴士位置、时刻表
+│          busStopWrite.py     // MySQL写入校园巴士位置脚本
+│          busTimeWrite.py     // MySQL写入校园巴士时刻表脚本
+│
+└─src
+    ├─main.java.org.sjtugo.api
+    │  │   │  ApiApplication.java
+    │  │   ├─config  // 配置类
+    │  │   ├─controller  // 请求控制类
+    │  │   ├─DAO      // 数据服务接口
+    │  │   ├─entity   // 实体类
+    │  │   └─service   // 控制类
+    │  └─resources
+    │      │  api.jks
+    │      └─ application.properties // 配置文件
+    └─test.java.org.sjtugo.api               // 测试代码
+          ApiApplicationTests.java
 ```
-
-
-## Deadlines
-- **启动**
-  + [x] 项目建议书
-- **计划** 4/10
-  + [ ] 可行性分析报告
-  + [ ] 软件计划
-  + [ ] 风险列表
-- **需求** 4/20
-  + [ ] 软件需求规约
-  + [ ] 词汇表
-- **分析&设计** 5/2
-  + [ ] 软件需求规约V2
-  + [ ] 软件架构文档
-  + [ ] 介绍PPT
-- **构造** 5/25
-  + [ ] 代码
-  + [ ] 介绍PPT
-  + [ ] 演示
-- **交付** 6/22
-  + [ ] 软件测试计划
-  + [ ] 软件测试总结报告
-  + [ ] 交付清单
-  + [ ] 软件验收报告
-  + [ ] 用户手册
-  + [ ] 软件项目总结报告
-  + [ ] 系统演示视频
-  + [ ] 小组分工
-  + [ ] 代码
-
-
-
-
-
-
-
-
-## Getting Started
-
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/maven-plugin/)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-
