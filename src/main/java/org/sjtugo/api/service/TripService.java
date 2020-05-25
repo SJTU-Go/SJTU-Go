@@ -18,16 +18,7 @@ public class TripService {
 
     public Integer startTrip(JSONObject strategy, Integer userID){
         Trip trip = new Trip();
-/*
-        trip.setType(strategy.getType());
-        trip.setDepart(strategy.getDepart());
-        trip.setArrive(strategy.getArrive());
-        trip.setPass(strategy.getPass());
-        trip.setCost(strategy.getCost());
-        trip.setDistance(strategy.getDistance());
-        trip.setPreference(strategy.getPreference());
-        trip.setRouts(strategy.getRouteplan());
- */
+
         trip.setStrategy(strategy);
         trip.setUserID(userID);
         trip.setDepartTime(LocalDateTime.now());

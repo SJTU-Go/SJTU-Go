@@ -40,6 +40,13 @@ public class CommentControl {
         return commentser.getCommentList(location);
     }
 
+    @ApiOperation(value = "点击查看子评论")
+    @PostMapping("/subcomment")
+    public @ResponseBody List<Comment> getSubCommentList(@RequestParam Integer fatherID) {
+        CommentService commentser = new CommentService(commentRepositoryJpa);
+        return commentser.getSubCommentList(fatherID);
+    }
+
     @PostMapping(value = "/addcomment")
     @ExceptionHandler(AddCommentException.class)
     public ResponseEntity<?> addComment(@RequestBody CommentRequest commentRequest){
