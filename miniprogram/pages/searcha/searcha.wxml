@@ -84,7 +84,10 @@
         <view wx:if="{{list.type==method[0]}}"  class='walkbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[1]}}"  class='busbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[2]}}"  class='bikebutton'>{{list.type}}</view>
-        <view class = 'rightt'><view class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view></view>
+        <view class = 'rightt'>
+          <view wx:if="{{list.cost}}" class='textclass'><text>{{list.travelTime/60|Int}} min · {{list.cost/60}}元</text></view>
+          <view wx:else class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view>
+        </view>
       </view>
       <view class='divLine'></view>
       <view class="massge-bd font-color-666">
@@ -110,7 +113,10 @@
         <view wx:if="{{list.type==method[0]}}"  class='walkbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[1]}}"  class='busbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[2]}}"  class='bikebutton'>{{list.type}}</view>
-        <view class = 'rightt'><view class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view></view>
+        <view class = 'rightt'>
+          <view wx:if="{{list.cost}}" class='textclass'><text>{{list.travelTime/60|Int}} min · {{list.cost/60}}元</text></view>
+          <view wx:else class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view>
+        </view>
       </view>
       <view class='divLine'></view>
       <view class="massge-bd font-color-666">

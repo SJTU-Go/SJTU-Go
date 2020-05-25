@@ -2,6 +2,7 @@ var app = getApp()
 
 Page({
   data: {
+    boxshow:true,
     datapass:'',
     // 搜索框状态
     inputShowed: true,
@@ -40,11 +41,15 @@ Page({
   // 清除搜索框值
   clearInput: function () {
     this.setData({
-      inputVal: ""
+      inputVal: "",
+      boxshow:false
     });
   },
   // 键盘抬起事件2
   inputTyping: function (e) {
+    this.setData({
+      boxshow:true
+    })
     console.log(e.detail.value)
     var that = this;
     if (e.detail.value == ''){

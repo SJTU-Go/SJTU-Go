@@ -35,7 +35,15 @@ Page({
       success:function(res){if(res.data.name){that.setData({pass:res.data.name,passid :'DT'+res.data.id})}} })
       wx.getStorage({
         key: 'arrive',
-      success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})} })
+      success:function(res){
+        if(res.data.id){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})}
+      
+        else{that.setData({arrive:res.data.name,arriveid :res.data.name})}
+      
+      }
+
+      
+      })
 
 },
 
@@ -67,12 +75,16 @@ wx.navigateTo({
         }) }
       else
       {
-      var depart=String( this.data.departid)
-      var arrive=String( this.data.arriveid)
+        var depart
+          depart=String( this.data.departid)
+        var arrive
+          arrive=String( this.data.arriveid)
+        var pass
+          pass=String( this.data.passid)
+
       var arrivename = this.data.arrive
       var departname = this.data.depart
       var passname = this.data.pass
-      var pass=this.data.passid
       var passlist=[];
       console.log("传入数据")
         console.log(depart)

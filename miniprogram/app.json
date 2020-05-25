@@ -1,13 +1,14 @@
 
 {
   "pages": [
-    "pages/searcha/searcha",
     "pages/index/index",
-    "pages/searchindex/searchindex",
+    "pages/searcha/searcha",
+    "pages/extendsearcha/depart/depart",
     "pages/extendsearch/depart/depart",
+    "pages/searchindex/searchindex",
     "pages/extendsearch/arrive/arrive",
     "pages/extendsearch/pass/pass",
-    "pages/extendsearcha/depart/depart",
+
     "pages/extendsearcha/arrive/arrive",
     "pages/extendsearcha/pass/pass",
 
@@ -16,8 +17,6 @@
 
     "pages/search/search",
 
-    "pages/searchresultPage/searchresultPage",
-    "pages/dragtest/dragtest",
     "pages/LoginPage/LoginPage",
     "pages/schedulePage/schedulePage",
     "pages/HistoryPage/HistoryPage",

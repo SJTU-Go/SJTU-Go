@@ -16,6 +16,7 @@ border-bottom: 1rpx solid #ddd;
 .lab_name{
 position: absolute;
 left: 30rpx;
+font-size: 35rpx;
 }
 
 /* serch-index */
@@ -152,3 +153,60 @@ line-height:70rpx;
 .weui-icon-clear{
 top:4rpx;
 }
+
+
+.search-bar {
+  position: relative;
+  padding: 8px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #EFEFF4;
+  border-top: 1rpx solid #D7D6DC;
+  border-bottom: 1rpx solid #D7D6DC;
+}
+.icon-search_in-box {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+}
+.search-bar__form {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+          flex: auto;
+  border-radius: 5px;
+  background: #FFFFFF;
+  border: 1rpx solid #E6E6EA;
+}
+.search-bar__box {
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+}
+.search-bar__input {
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+}
+.search-bar__cancel-btn {
+  margin-left: 10px;
+  line-height: 28px;
+  color: #09BB07;
+  white-space: nowrap;
+}
+.cells{margin-left: 40rpx;
+  font-size: large;}
+.cell__bd
+{margin-left: 40rpx;
+  font-size: large;
+
+
+
+}
+.user-name{font-size: 30rpx;font-family: Arial, Helvetica, sans-serif;}
+.msg-item{text-align: left;height: 100rpx;}

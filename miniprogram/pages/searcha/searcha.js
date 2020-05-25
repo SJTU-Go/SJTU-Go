@@ -22,11 +22,26 @@ Page({
     var that = this
     that.setData({
       preferencelist: JSON.parse(options.RT)[0],
-      value:JSON.parse(options.RT)[1],
       routeplan:JSON.parse(options.RT)[2],
     }
     )
-console.log( that.data.preferencelist)
+
+    var arr = JSON.parse(options.RT)[1]
+    var compare = function (obj1, obj2) {
+      var val1 = obj1.travelTime;
+      var val2 = obj2.travelTime;
+      if (val1 < val2) {
+          return -1;
+      } else if (val1 > val2) {
+          return 1;
+      } else {
+          return 0;
+      }            
+  } 
+
+  this.setData({value:arr.sort(compare)})
+
+
 wx.getStorage({
   key: 'depart',
 success:function(res){
