@@ -1,5 +1,0 @@
-代码有些乱QAQ
-highway2是数据源
-addvertex.py是向Arango加点，addedge.py向Arrango加边，change.py是后面对已有坐标进行坐标转换（数值，经纬度先后位置）。
-relate.py向MySQL加点，addedg.py向MySQL加边，addrelation.py在MySQL建立建筑和最近停车点的关系表。
-

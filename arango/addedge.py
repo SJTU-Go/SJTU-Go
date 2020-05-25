@@ -1,6 +1,10 @@
 from pyArango.connection import *
 import xml.etree.ElementTree as ET
 from math import radians, cos, sin, asin, sqrt
+from coordTransform_utils import wgs84_to_gcj02
+def transform(lon,lat):
+    gcj_lon, gcj_lat = wgs84_to_gcj02(lon,lat)
+    return (gcj_lon,gcj_lat)
 def haversine(lon1, lat1, lon2, lat2):
 
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
@@ -44,8 +48,8 @@ for i in range(len(root)):
             if att['k'] == 'building':
                 isbuild =True
     if(isway):
-        pass
-        '''for j in range(len(nd)-1):
+
+        for j in range(len(nd)-1):
 
             n1 = data[j].attrib['ref']
             n2 = data[j+1].attrib['ref']
@@ -83,7 +87,7 @@ for i in range(len(root)):
                 'type': waytype['type']
             }
             c2.createDocument(edge1).save()
-            c2.createDocument(edge2).save()'''
+            c2.createDocument(edge2).save()
     if(isbuild):
         la=0
         lo=0
@@ -92,7 +96,7 @@ for i in range(len(root)):
                 n1 = data[j].attrib['ref']
                 nn1 = c1[n1[1:]]
                 a1 = nn1['location']
-                lat1, lon1 = float(a1[0]), float(a1[1])
+                lon1, lat1 = float(a1[0]), float(a1[1])
                 la+=lat1
                 lo+=lon1
             la/=(len(nd)-1)
@@ -101,7 +105,7 @@ for i in range(len(root)):
             n1 = data[0].attrib['ref']
             nn1 = c1[n1[1:]]
             a1 = nn1['location']
-            la, lo = float(a1[0]), float(a1[1])
+            lo, la = float(a1[0]), float(a1[1])
         array = []
         close=''
         cid=''
@@ -116,10 +120,14 @@ for i in range(len(root)):
                 cid=i['_key']
                 break
 
-        array.append(float(la))
         array.append(float(lo))
-
+        array.append(float(la))
+        array[0], array[1] = transform(array[0], array[1])
         print(array,waytype['name'])
+        doc=c3[id[1:]]
+        doc['location']=array
+        doc.save()
+
         nn = {
             '_key': id ,
             'isPlace': True,

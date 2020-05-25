@@ -2,7 +2,7 @@
 from pyArango.connection import *
 import pyArango
 import xml.etree.ElementTree as ET
-conn = Connection(arangoURL='http://47.92.147.237:8529', username="root", password="")
+conn = Connection(arangoURL='http://47.92.147.237:8529', username="root", password="sjtugo")
 db = conn["_system"]
 tree = ET.parse('highway2.xml')
 root = tree.findall('node')
@@ -24,8 +24,9 @@ for i in c1.fetchAll():
     loc = tuple(locat)
     #print (i['isPark'])
     count += 1
-    print('No.', count,loc)
+
     if count>4000:
+        print('No.', count, loc)
         cur.execute("UPDATE map_vertex_info SET location = POINT%s where vertexid = '%s';" % (loc,id))
         con.commit()
         '''if (i['isPark']):
