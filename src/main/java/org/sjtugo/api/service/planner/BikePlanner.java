@@ -134,7 +134,7 @@ public class BikePlanner extends AbstractPlanner {
         headers.setContentType(MediaType.APPLICATION_JSON);
         Map<String,Object> params = new HashMap<>();
         restTemplate.getInterceptors().add(
-                new BasicAuthenticationInterceptor("root", ""));
+                new BasicAuthenticationInterceptor("public", ""));
         params.put("query","FOR p IN OUTBOUND K_SHORTEST_PATHs " +
                             "@f TO @to  @edge OPTIONS  {weightAttribute: @attribute}  LIMIT 1 " +
                             "RETURN {  vertex: p.vertices[*]._key, " +
