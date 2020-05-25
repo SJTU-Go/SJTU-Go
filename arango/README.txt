@@ -1,0 +1,10 @@
+arango文件夹下包含ArangoDB和MySQL数据库中地图信息导入的代码文件。
+
+highway.xml为地图数据源文件,包含所有需要提取的地图信息。
+addvertex.py 实现了向ArangoDB图数据库导入地图节点（包括路径节点和停车点）的功能。
+addedge.py实现了向ArangoDB图数据库导入地图边和建筑物信息的功能。
+changeedge.py实现了根据基础图在ArangoDB中建立不同子地图的功能。
+mysqlvertex.py在MySQL数据库里导入节点信息。
+mysqledge.py在MySQL数据库里导入边信息。
+mysqlrelation.py在MySQL数据库中导入建筑物信息，并建立建筑和最近停车点的关系表。
+coord_converter.py、coordTransform_utils.py为地图坐标转换文件，在ArangoDB中建立节点信息时被调用，将osm坐标转换成腾讯地图坐标。
