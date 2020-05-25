@@ -1,7 +1,12 @@
 
 {
   "pages": [
+    "pages/LoginPage/LoginPage",
     "pages/index/index",
+    "pages/commentmap/commentmap",
+    "pages/feedback/feedback",
+    "pages/bike/bike",
+    "pages/walk/walk",
     "pages/searcha/searcha",
     "pages/extendsearcha/depart/depart",
     "pages/extendsearch/depart/depart",
@@ -17,7 +22,7 @@
 
     "pages/search/search",
 
-    "pages/LoginPage/LoginPage",
+
     "pages/schedulePage/schedulePage",
     "pages/HistoryPage/HistoryPage",
     "pages/preferencePage/preferencePage",

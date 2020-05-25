@@ -6,7 +6,7 @@
   </view>
     </view>
 <view wx:else>
-          <view class="massge" wx:for="{{showlist}}"  wx:for-item="list" >
+    <view class="massge" wx:for="{{showlist}}"  wx:for-item="list" >
       <view class="massge-hd"><image class="massge-img" src="../../images/calendar.png"></image><view>{{list.schedulename}}</view></view>
       <view class="massge-bd font-color-666">
         <text>日程时间：<text class="font-color-c24e4e font-size-15">{{list.timehour}}</text>:<text class="font-color-c24e4e font-size-15">{{list.timeminute}}</text></text>

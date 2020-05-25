@@ -1,0 +1,6 @@
+<!--pages/commentmap/commentmap.wxml-->
+<map longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal" polyline="{{polyline}}" show-location style="width: 100%; height: 100vh;"></map>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">地点
+<input class="big" name="comment" placeholder="输入评论" />
+<button formType="submit">Submit</button>
+</view>

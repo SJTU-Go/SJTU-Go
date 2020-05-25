@@ -1,4 +1,4 @@
-// pages/search/search.js 校园巴士页
+// pages/bike/bike.js
 
 Page({
   data: {
@@ -19,6 +19,7 @@ Page({
       time:options.travelTime,
     })
     var polyline = [];
+    console.log(options.travelTime);
     for(var j=0;j<d.length;j++){
       var line = {};
       var points = [];
@@ -29,14 +30,21 @@ Page({
         cor['latitude']=i[1];
         points.push(cor);
       }
-      if(item.type=="BUS"){
+      if(item.type=="HELLOBIKE"){
         line['color']='#0099FF';
+      }
+      if(item.type=="FIND"){
+        line['color']='#FFCC33';
       }
       else{line['color']='#00CC33'}
       line['points']=points;
+      //line['color']='#808080';
       line['width']=4;
+      //line['dottedLine']=true;
+      //console.log(line);
       polyline.push(line);
     }
+    //console.log(polyline)
     this.setData({
       polyline:polyline
     })
@@ -64,7 +72,6 @@ Page({
       success:function(res){that.setData({tmproute:res.data})}
     })
   },
-
 
   starttirp:function(e){
     var that=this
@@ -98,7 +105,6 @@ Page({
       }
     })
   },
-
   
   onReady: function () {
   },

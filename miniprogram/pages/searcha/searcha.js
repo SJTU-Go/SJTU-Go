@@ -17,6 +17,9 @@ Page({
     arrive:'',
     pass:'',
     depart:'',
+    bus:new Array(),
+    walk:new Array(),
+    bike:new Array(),
   },
   onLoad:function(options){   
     var that = this
@@ -25,7 +28,19 @@ Page({
       routeplan:JSON.parse(options.RT)[2],
     }
     )
-
+    for(var j=0;j<that.data.preferencelist.length;j++){
+      var item = that.data.preferencelist[j];
+      if(item.type=="校园巴士"){
+        that.setData({bus:item})
+        console.log(item)
+      }
+      if(item.type=="步行"){
+        that.setData({walk:item})
+      }
+      if(item.type=="共享单车"){
+        that.setData({bike:item})
+      }
+      }
     var arr = JSON.parse(options.RT)[1]
     var compare = function (obj1, obj2) {
       var val1 = obj1.travelTime;
@@ -77,11 +92,25 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
         },
 
   searchPagebus: function()
-  {
-    wx.navigateTo({
-      url: '../search/search?RT='+JSON.stringify(this.data.routeplan),})
+  {    wx.navigateTo({
+    url: '../search/search?RT='+JSON.stringify(this.data.routeplan) + '&travelTime=' + this.data.bus.travelTime})//+ '&travelTime=' + this.data.travelTime  
     
   },
+
+
+  searchPagewalk: function()
+  {
+    wx.navigateTo({
+      url: '../walk/walk?RT='+JSON.stringify(this.data.walk.routeplan) + '&travelTime=' + this.data.walk.travelTime})
+  },
+
+  searchPagebike: function()
+  {
+    wx.navigateTo({
+      url: '../bike/bike?RT='+JSON.stringify(this.data.bike.routeplan) + '&travelTime=' + this.data.bike.travelTime}) 
+  },
+
+
   checkCurrent:function(e){
     const that = this;
  

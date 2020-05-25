@@ -1,4 +1,4 @@
-// pages/search/search.js 校园巴士页
+// pages/walk/walk.js
 
 Page({
   data: {
@@ -19,6 +19,7 @@ Page({
       time:options.travelTime,
     })
     var polyline = [];
+    console.log(options.travelTime);
     for(var j=0;j<d.length;j++){
       var line = {};
       var points = [];
@@ -29,12 +30,15 @@ Page({
         cor['latitude']=i[1];
         points.push(cor);
       }
-      if(item.type=="BUS"){
+      if(item.type=="WALK"){
         line['color']='#0099FF';
       }
       else{line['color']='#00CC33'}
       line['points']=points;
+      //line['color']='#808080';
       line['width']=4;
+      //line['dottedLine']=true;
+      //console.log(line);
       polyline.push(line);
     }
     this.setData({
@@ -63,8 +67,8 @@ Page({
       key: 'historyroute',
       success:function(res){that.setData({tmproute:res.data})}
     })
-  },
 
+  },
 
   starttirp:function(e){
     var that=this
@@ -98,7 +102,6 @@ Page({
       }
     })
   },
-
   
   onReady: function () {
   },

@@ -1,3 +1,4 @@
+<!--pages/walk/walk.wxml-->
 <!--pages/search/search.wxml-->
 <scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="15" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
 
@@ -6,7 +7,7 @@
 <scroll-view scroll-y style="display: flex; height: 415px;">
 <view  class='subtitle'>
   <text>
-校园巴士方案 · 用时{{time/60|int}}分钟 · 免费
+步行方案 · 用时{{time/60|int}}分钟 · 免费
   </text>
 </view>
 <view class='routeplan' wx:for="{{routeplan}}" wx:for-item="itema" wx:key="strategy" wx:for-index="idx">
@@ -50,4 +51,5 @@
   </view>
 </view>
 </scroll-view>
+
 

@@ -1,23 +1,58 @@
 //index.js
 const app = getApp()
 Page({
-  data:{},
-  onLoad:function(options){
-    // 页面初始化 options为页面跳转所带来的参数
-    this.setData({
-       orderList:[{
-        arrive:'菁菁堂',
-        depart:'D24宿舍楼',
-        passPlaces:'第四餐饮大楼',
-        routetime:'20min',
-       },{
-        arrive:'霍英东体育馆',
-        depart:'上院',
-        passPlaces:'无',
-        routetime:'13min',
-       }]
-    })
+  data:{
+    orderList:[],
+    routeList:[]
   },
+
+  onLoad:function(options){
+    var that=this
+   //var list=new Array()
+    // 页面初始化 options为页面跳转所带来的参数
+    wx.getStorage({
+      key: 'history',
+      success:function(res){
+        console.log(res.data)
+        that.setData({orderList:res.data})
+      }
+    })
+    wx.getStorage({
+      key: 'historyroute',
+      success:function(res){
+        console.log(res.data)
+        that.setData({routeList:res.data})
+      }
+    })
+
+    //console.log(that.data.orderList)
+
+    //this.setData({
+      //  orderList:[{
+      //   arrive:'菁菁堂',
+      //   depart:'D24宿舍楼',
+      //   passPlaces:'第四餐饮大楼',
+      //   routetime:'20min',
+      //  },{
+      //   arrive:'霍英东体育馆',
+      //   depart:'上院',
+      //   passPlaces:'无',
+      //   routetime:'13min',
+      //  }]
+   // })
+  },
+
+  searchPage:function(e){
+    console.log(e)
+    var index=e.currentTarget.dataset.index
+    console.log(this.data.routeList)
+    var route = this.data.routeList[index]
+    //var route = 'routeList['+index+']'
+    console.log(route)
+   wx.navigateTo({ url: '../feedback/feedback?RT='+JSON.stringify(route),})
+
+},
+
   onReady:function(){
     // 页面渲染完成
   },

@@ -54,6 +54,25 @@ Page({
 
 
   },
+  searchPage:function()
+  { wx.setStorage({
+    data:{name:this.data.showlist[0].place,
+        
+    },
+    key: 'arrive',
+  })  
+  wx.setStorage({
+    data:'',
+    key: 'pass',
+  })  
+  wx.setStorage({
+    data:'',
+    key: 'depart',
+  })  
+    wx.navigateTo({
+    url: '../searchindex/searchindex',
+  })
+  },
   addschedule:function(){
   this.setData({mHidden:false})
   },
