@@ -1,4 +1,4 @@
-package org.sjtugo.api.service.planner;
+package org.sjtugo.api.service.NavigateService;
 
 import org.sjtugo.api.DAO.DestinationRepository;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;

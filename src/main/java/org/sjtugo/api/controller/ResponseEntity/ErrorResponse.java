@@ -1,4 +1,4 @@
-package org.sjtugo.api.entity;
+package org.sjtugo.api.controller.ResponseEntity;
 
 import lombok.Data;
 

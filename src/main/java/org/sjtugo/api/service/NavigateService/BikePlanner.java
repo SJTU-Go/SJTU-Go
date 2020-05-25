@@ -1,26 +1,23 @@
-package org.sjtugo.api.service.planner;
+package org.sjtugo.api.service.NavigateService;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-import com.vividsolutions.jts.operation.linemerge.LineMerger;
-import io.swagger.models.auth.In;
-import org.json.simple.JSONObject;
 import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.DAO.Entity.MapVertexInfo;
+import org.sjtugo.api.DAO.Entity.VertexDestination;
+import org.sjtugo.api.DAO.Entity.VertexDestinationID;
 import org.sjtugo.api.entity.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 

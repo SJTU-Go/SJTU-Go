@@ -1,7 +1,7 @@
 package org.sjtugo.api.DAO;
 
-import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
+import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

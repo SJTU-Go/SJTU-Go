@@ -1,15 +1,8 @@
-package org.sjtugo.api.service.planner;
+package org.sjtugo.api.service.NavigateService;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import io.swagger.models.auth.In;
 import lombok.Data;
-import org.sjtugo.api.DAO.BusStop;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

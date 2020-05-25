@@ -1,4 +1,4 @@
-package org.sjtugo.api.controller;
+package org.sjtugo.api.controller.RequestEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

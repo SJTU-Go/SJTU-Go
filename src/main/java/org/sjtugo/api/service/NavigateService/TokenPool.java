@@ -1,4 +1,4 @@
-package org.sjtugo.api.service.planner;
+package org.sjtugo.api.service.NavigateService;
 
 public class TokenPool {
     int idx = 0;

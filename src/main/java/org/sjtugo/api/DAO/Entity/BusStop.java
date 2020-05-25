@@ -1,4 +1,4 @@
-package org.sjtugo.api.DAO;
+package org.sjtugo.api.DAO.Entity;
 
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;

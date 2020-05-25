@@ -1,8 +1,8 @@
-package org.sjtugo.api.service.planner;
+package org.sjtugo.api.service.NavigateService;
 
 import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
-import org.sjtugo.api.DAO.BusStop;
+import org.sjtugo.api.DAO.Entity.BusStop;
 
 @Data
 public class NavigatePlace {

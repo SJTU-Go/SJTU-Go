@@ -1,7 +1,7 @@
 package org.sjtugo.api.DAO;
 
+import org.sjtugo.api.DAO.Entity.Destination;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 

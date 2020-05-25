@@ -1,4 +1,4 @@
-package org.sjtugo.api.DAO;
+package org.sjtugo.api.DAO.Exception;
 
 public class IdSyntaxException extends RuntimeException {
     IdSyntaxException(String idtype){

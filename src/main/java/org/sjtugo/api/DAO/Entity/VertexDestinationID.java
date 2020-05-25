@@ -1,4 +1,4 @@
-package org.sjtugo.api.DAO;
+package org.sjtugo.api.DAO.Entity;
 
 
 import lombok.Data;
