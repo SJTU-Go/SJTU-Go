@@ -107,7 +107,7 @@ public class BikePlanner extends AbstractPlanner {
             endTransition.setArriveName(end.getPlaceName());
             endTransition.setDepartName(parkbike.getVertexName() + "（停车点）");
             endTransition.setRoutePath(new GeometryFactory().createLineString(
-                    new Coordinate[]{parkbike.getLocation().getCoordinate(), start.getLocation().getCoordinate()}
+                    new Coordinate[]{parkbike.getLocation().getCoordinate(), end.getLocation().getCoordinate()}
             ));
 
             routeList.add(endTransition);
