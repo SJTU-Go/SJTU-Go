@@ -38,14 +38,14 @@ public class Trip {
     //JSONObject json = JSONObject.fromObject(strategy);
 
 
-    @ApiModelProperty(value = "出发时间", example = "2020/05/11 07:36")
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")  //传入的参数格式
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")  //输出参数格式化
+    @ApiModelProperty(value = "出发时间", example = "2020/05/11 07:36:23")
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")  //传入的参数格式
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")  //输出参数格式化
     private LocalDateTime departTime;
 
-    @ApiModelProperty(value = "到达时间", example = "2020/05/11 07:44")
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")  //传入的参数格式
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")  //输出参数格式化
+    @ApiModelProperty(value = "到达时间", example = "2020/05/11 07:44:56")
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")  //传入的参数格式
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")  //输出参数格式化
     private LocalDateTime arriveTime;
 
 

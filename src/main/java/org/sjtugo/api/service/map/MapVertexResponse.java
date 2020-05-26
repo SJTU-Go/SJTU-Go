@@ -23,6 +23,5 @@ public class MapVertexResponse{
     private int motorCount = 0;
 
     public MapVertexResponse(){
-
     }
 }

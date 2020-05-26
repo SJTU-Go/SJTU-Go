@@ -108,6 +108,11 @@ public class CommentService {
          return new ResponseEntity<>(new ErrorResponse(0,"点赞+1"),HttpStatus.OK);
     }
 
+    /**
+     * 返回子评论
+     * @param fatherID:父评论ID
+     * @return 子评论列表
+     */
     public List<Comment> getSubCommentList(Integer fatherID) {
         List<Comment> subComments = new ArrayList<>();
         Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
