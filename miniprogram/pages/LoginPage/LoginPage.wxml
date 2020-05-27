@@ -10,8 +10,10 @@
   </button>
 
 </view>
+<!--
 <view class="containerbutton">
   <button class='btn2' bindtap='jumpaccountLogin'>
     <view>用户密码登录</view>
     </button>
     </view>
+!-->

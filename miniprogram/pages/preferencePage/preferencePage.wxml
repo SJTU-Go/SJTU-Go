@@ -1,18 +1,38 @@
 
-<view>目前的偏好优先级为：</view>
+<view style="font-size:40rpx">目前的偏好优先级为：</view>
 <view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
   <view wx:if="{{i < preference.length}}">
-    <view class = 'block'>{{preference[i]}}</view>
+   <view class="massge-hd">
+    
+        <view wx:if="{{preference[i]==method[0]}}"><image class="massge-img" src="../../images/feet1.png"></image>
+        </view>
+        <view wx:elif="{{preference[i]==method[1]}}"><image class="massge-img" src="../../images/bus2.png"></image></view>
+        <view wx:elif="{{preference[i]==method[2]}}"><image class="massge-img" src="../../images/bicycle2.png"></image></view>
+ 
+      <view class = 'blockleft'>{{preference[i]}}</view>
+    </view>
   </view>
 </view>
-<view>目前的禁止的出行方式有：</view>
+<view style="font-size:40rpx">目前的禁止的出行方式有：</view>
 <view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
   <view wx:if="{{i < banned.length}}">
-    <view class = 'block'>{{banned[i]}}</view>
+   <view class="massge-hd">
+    
+        <view wx:if="{{banned[i]==method[0]}}"><image class="massge-img" src="../../images/feet1.png"></image>
+        </view>
+        <view wx:elif="{{banned[i]==method[1]}}"><image class="massge-img" src="../../images/bus2.png"></image></view>
+        <view wx:elif="{{banned[i]==method[2]}}"><image class="massge-img" src="../../images/bicycle2.png"></image></view>
+ 
+      <view class = 'blockleft'>{{banned[i]}}</view>
+    </view>
   </view>
 </view>
-<view class="containerbutton">
-  <button class='btn2' bindtap='setPreference'>
+<view style="height:100rpx"></view> 
+<view class="containerbutton1">
+  <button class='btn1' bindtap='setPreference'>
     <view>修改偏好</view>
+    </button>
+  <button class='btn2' bindtap='back'>
+    <view>回到主页</view>
     </button>
     </view>

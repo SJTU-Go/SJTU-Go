@@ -58,6 +58,7 @@
 </view>
 
 </view>
+<view class = 'toolblock'>
 <view class = 'downblock'>
   <button class='btn2' bindtap='formSubmit'>
     <view>重新搜索</view>
@@ -66,7 +67,7 @@
     <view>回到主页</view>
     </button>
 </view>
-
+</view>
 
 <view class='topTabSwiper'>
     <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>按偏好显示</view>

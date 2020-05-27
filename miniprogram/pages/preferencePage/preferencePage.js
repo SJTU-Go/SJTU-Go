@@ -3,13 +3,12 @@ const app = getApp()
 
 Page({
   data:
-  {preference:[],
+  {preference1:['步行','共享单车','校园巴士'],
+   preference:[],
+   method:['步行','校园巴士','共享单车'],
    banned:[]
   },
-  setPreference:function()
-    {wx.navigateTo({
-      url: '../setPreferencePage/setPreferencePage',
-     })},
+
      onLoad: function (options) {
       var that =this;
       wx.getStorage({
@@ -52,7 +51,16 @@ Page({
         console.log(res+'aaaaa')
         }
         });
-      },
+        console.log(that.data.preference.length==0&&that.data.banned.length==0)
 
+
+      },
+      setPreference:function()
+      {wx.navigateTo({
+        url: '../setPreferencePage/setPreferencePage',
+       })},
+       back:function(){wx.switchTab({
+         url: '../index/index',
+       })}
 }
 )

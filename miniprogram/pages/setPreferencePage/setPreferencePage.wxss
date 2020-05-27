@@ -16,7 +16,15 @@ page {
   flex-direction: row;
   text-align: center;
   align-items: center;
-  width:50%;
+  width:25%;
+}
+.updownbox
+{ margin-left:20rpx ;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  width:15%;
 }
 .blockright
 {display: flex;
@@ -34,6 +42,16 @@ page {
 .containerbutton
 {
   height: 110rpx;
+  width: 40%;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.containerbutton1
+{
+  height: 110rpx;
   width: 100%;
   border-left: none;
   border-right: none;
@@ -44,7 +62,7 @@ page {
 
 .btn1 {
   width: 80%;
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(9, 133, 30, 0.53);
   color: white;
   border-radius: 15rpx;
   display: flex;
@@ -78,3 +96,22 @@ page {
   display: flex;
   flex-direction: row;
   align-content: space-between;}
+  .massge-hd{
+    padding:20rpx 0rpx 30rpx 20rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .massge-bd,.massge-ft{
+    padding:0rpx 0rpx 30rpx 40rpx;
+  }
+  .massge-bd{
+    display: flex;
+    flex-direction: column;
+  }
+  .massge-img{
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+  
+  }

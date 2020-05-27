@@ -71,6 +71,19 @@ Page({
       key: 'historyroute',
       success:function(res){that.setData({tmproute:res.data})}
     })
+    
+    wx.showToast({
+       title: '行程已被记录，请跳转到对应app导航',
+       icon: 'none',
+       duration: 3000,
+       success: function () {
+       setTimeout(function () {
+       wx.reLaunch({
+       url: '../index/index',
+       })
+       }, 2000);
+       }
+      })
   },
 
   starttirp:function(e){

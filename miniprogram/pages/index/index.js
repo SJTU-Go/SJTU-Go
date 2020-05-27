@@ -14,6 +14,9 @@ Page({
     value : new Array(),
     method:["步行","校园巴士"],
     preference:["步行","校园巴士"],
+    preference1:['步行','共享单车','校园巴士'],
+    preferencelist:[],
+    banned:[],
     preferencelist: new Array(),
     searchtxt:'',
     datares: new Array(),
@@ -26,9 +29,10 @@ Page({
       width: 50,
       height: 50,
     }
+
     ],
     currentdata:new Array(),
-
+    hasmarkers:false
 
 
   }  ,
@@ -63,20 +67,68 @@ Page({
             marker.longitude=res.data[x].vertexInfo.location.coordinates[0] 
             marker.name=res.data[x].vertexInfo.vertexName 
             marker.bikeCount=res.data[x].bikeCount
-            marker.iconPath = "/mark/"+res.data[x].bikeCount+".PNG"
+            marker.iconPath = "/mark/"+res.data[x].bikeCount+".png"
             console.log(marker)
             markers.push(marker) 
             console.log("adding")
             console.log(markers)
            q =q +1}}      
          console.log(markers)
-        that.setData({markers:markers})}
+        that.setData({markers:markers})
+      that.setData({hasmarkers:true})}
     })
   
   
   
   
-  
+    var that =this;
+    wx.getStorage({
+    key: 'preference',
+    success: function(res){
+    that.setData({
+      preferencelist:res.data,
+    })
+    if(that.data. preferencelist.length==0){
+    that.setData({
+    status:false
+    });
+    }else{
+    that.setData({
+    status:true
+    })
+    }
+    },
+    fail: function(res) {
+    console.log(res+'aaaaa')
+    }
+    });
+    wx.getStorage({
+      key: 'banned',
+      success: function(res){
+      that.setData({
+        banned:res.data,
+      })
+      if(that.data.banned.length==0){
+      that.setData({
+      status:false
+      });
+      }else{
+      that.setData({
+      status:true
+      })
+      }
+      },
+      fail: function(res) {
+      console.log(res+'aaaaa')
+      }
+      });
+      console.log(that.data.preferencelist.length==0&&that.data.banned.length==0)
+    if(that.data.preferencelist.length==0&&that.data.banned.length==0){
+      that.setData({preferencelist:that.data.preference1})
+      console.log(that.data.preferencelist)
+      wx.setStorage({ key:'preference',
+      data:that.data.preferencelist})
+    }
   
   
   },

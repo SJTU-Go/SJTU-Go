@@ -1,16 +1,19 @@
 
 {
   "pages": [
+    "pages/searchindex/searchindex",
     "pages/LoginPage/LoginPage",
     "pages/index/index",
+    "pages/preferencePage/preferencePage",
+    "pages/walk/walk",
     "pages/commentmap/commentmap",
     "pages/feedback/feedback",
     "pages/bike/bike",
-    "pages/walk/walk",
+  
     "pages/searcha/searcha",
     "pages/extendsearcha/depart/depart",
     "pages/extendsearch/depart/depart",
-    "pages/searchindex/searchindex",
+
     "pages/extendsearch/arrive/arrive",
     "pages/extendsearch/pass/pass",
 
@@ -25,7 +28,7 @@
 
     "pages/schedulePage/schedulePage",
     "pages/HistoryPage/HistoryPage",
-    "pages/preferencePage/preferencePage",
+
     "pages/userInfoPage/userInfoPage",
     "pages/setPreferencePage/setPreferencePage",
     "pages/registrationPage/registrationPage",

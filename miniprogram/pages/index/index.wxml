@@ -13,7 +13,7 @@
         </view>
     </view>
 
-<map longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal"  show-location style="width: 100%; height: 100vh;"></map>
+<map longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal"  show-location style="width: 100%; height: 100vh;" wx:if="{{hasmarkers}}"></map>
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
 <view class = 'title'>{{markers[currentdata].name}}</view>
 <view class = 'line'>当前车辆数 ：{{markers[currentdata].bikeCount}}</view>

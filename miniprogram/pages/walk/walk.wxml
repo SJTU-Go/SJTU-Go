@@ -22,7 +22,7 @@
     </view>
     <view class ='rightpart'>
       <view hidden="{{itema.hiddena}}">
-        <view style='fontsize=20rpx; color=grey'>13:00({{itema.routeTime/60|int}}min)</view>
+        <view style='fontsize=20rpx; color=grey'>({{itema.routeTime/60|int}}min)</view>
         <view class = 'flexblock'>
           <view class = 'block'>  
             <view class='routeInfo'>
@@ -37,7 +37,7 @@
 </view>  
   <view class = 'emptyblock'></view>
 </view>
-
+<view class = 'toolblock'>
 <view class = 'downblock'>
   <view class = 'btnblk'>
     <button class='btn2' bindtap='starttirp'>
@@ -49,6 +49,7 @@
       <view>查看评论</view>
     </button>
   </view>
+</view>
 </view>
 </scroll-view>
 

@@ -16,13 +16,21 @@ Page({
     index:['walk','bus'],
     value : new Array(),
     method:["步行","校园巴士","共享单车"],
-    preference:["步行","校园巴士","共享单车"],
+    preference:[],
     preferencelist: new Array(),
     searchtxt:'',
     datares: new Array(),
+    passnum:0
   }  ,
     onLoad:function(options){
       var that = this
+      wx.getStorage({
+        key: 'preference',
+      success:function(res){
+        that.setData({preference:res.data})
+
+      
+      } })
       wx.getStorage({
         key: 'depart',
       success:function(res){
@@ -203,5 +211,10 @@ wx.navigateTo({
   },
   search:function()
   {    
-  }
+  },
+  addpass:function()
+  {this.setData({passnum:this.data.passnum+1})
+  
+  },
+deletepass:function(){this.setData({passnum:this.data.passnum-1})},
 })

@@ -412,13 +412,14 @@ font-family: 'Times New Roman', Times, serif;
 .left
 {width: 15%;
 }
-
+.toolblock{align-items: center;
+  justify-content: center;display: flex;}
 .downblock
 { margin-top: 40rpx;
   display: flex;
   height: 30%;
   margin-bottom: 40rpx;
-
+width: 90%;
 }
 .btn1 {
   height: 80rpx;
