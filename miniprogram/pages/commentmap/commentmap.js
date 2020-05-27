@@ -1,6 +1,7 @@
 Page({
   data: {
     polyline:[],
+    routeplan:[]
     // markers: [{
     //   iconPath: "/mark/19.PNG",
     //   id: 0,
@@ -31,7 +32,23 @@ Page({
   onLoad: function (options) {
     this.setData({
       polyline: JSON.parse(options.RT),
+      routeplan:JSON.parse(options.plan)
     })
+  },
+
+  formSubmit:function(e){
+    wx.showToast({
+       title: '评论提交成功',
+       icon: 'success',
+       duration: 2000,
+       success: function () {
+       setTimeout(function () {
+       wx.navigateTo({
+       url: '../HistoryPage/HistoryPage',
+       })
+       }, 2000);
+       }
+      })
   },
 
   //显示弹框

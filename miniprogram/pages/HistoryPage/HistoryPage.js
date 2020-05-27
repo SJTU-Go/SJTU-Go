@@ -3,7 +3,8 @@ const app = getApp()
 Page({
   data:{
     orderList:[],
-    routeList:[]
+    routeList:[],
+    planList:[]
   },
 
   onLoad:function(options){
@@ -24,7 +25,13 @@ Page({
         that.setData({routeList:res.data})
       }
     })
-
+    wx.getStorage({
+      key: 'plan',
+      success:function(res){
+        console.log(res.data)
+        that.setData({planList:res.data})
+      }
+    })
     //console.log(that.data.orderList)
 
     //this.setData({
@@ -51,7 +58,15 @@ Page({
     console.log(route)
    wx.navigateTo({ url: '../feedback/feedback?RT='+JSON.stringify(route),})
 
+
+
 },
+indexback:function()
+{
+  wx.switchTab(
+    {
+  url: '../index/index'}
+  )},
 
   onReady:function(){
     // 页面渲染完成
@@ -64,6 +79,19 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
-  }
+  },
+  showRoute:function(e){
+    console.log(e)
+    var index=e.currentTarget.dataset.index
+    //console.log(this.data.routeList)
+    var route = this.data.routeList[index]
+    var plan = this.data.planList[index]
+    //var route = 'routeList['+index+']'
+    console.log(route)
+    console.log(plan)
+   wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(route)+'&plan='+JSON.stringify(plan),})
+  },
+
+
 })
 

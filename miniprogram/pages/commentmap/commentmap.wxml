@@ -1,6 +1,62 @@
-<!--pages/commentmap/commentmap.wxml-->
+<!-- pages/commentmap/commentmap.wxml
 <map longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal" polyline="{{polyline}}" show-location style="width: 100%; height: 100vh;"></map>
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">地点
 <input class="big" name="comment" placeholder="输入评论" />
 <button formType="submit">Submit</button>
+</view> -->
+<!--pages/bike/bike.wxml-->
+<scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="16" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
+
+
+<scroll-view scroll-y style="display: flex; height: 415px;">
+<form class="form" bindsubmit="formSubmit">
+<view class='routeplan' wx:for="{{routeplan}}" wx:for-item="itema" wx:key="strategy" wx:for-index="idx">
+  <view class='route'>
+    <view class = 'leftpart'>
+      <view class = 'upper'>
+        <view wx:if='{{itema.type=="HELLOBIKE"}}' style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bicycle2.png"></image></view>
+        <view wx:elif='{{itema.type=="BUS"}}' style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bus2.png"></image></view>
+         <view wx:else style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/feet1.png"></image></view>
+    </view>
+    <view class="verticalline2">  </view>
+
+    </view>
+    <view class ='rightpart'>
+      <view hidden="{{itema.hiddena}}">
+        <!-- <view style='fontsize=20rpx; color=grey'>13:00({{itema.routeTime/60|int}}min)</view> -->
+        <view class = 'flexblock'>
+          <view class = 'block'>  
+            <view class='routeInfo'>
+              <view wx:if='{{itema.type=="HELLOBIKE"}}' width="300rpx">哈罗单车{{itema.departID}}前往 {{itema.arriveName}}</view>
+              <view wx:elif ='{{itema.type=="BUS"}}' width="300rpx">校园巴士{{itema.departID}}前往 {{itema.arriveName}}</view>
+              <view wx:else  width="300rpx">步行{{itema.distance}}米前往 {{itema.arriveName}}</view>
+            </view> 
+          </view> 
+      </view> 
+      <view>
+        <view style='fontsize=20rpx; color=grey'> 评论{{itema.arriveName}}：</view>
+        <input placeholder="请输入评论" />
+      </view>    
+    </view>
+  </view>
+</view>  
+  <view class = 'emptyblock'></view>
 </view>
+
+<!-- <view class = 'downblock'>
+  <view class = 'btnblk'>
+    <button class='btn2' bindtap='starttirp'>
+      <view>开始行程</view>
+      </button>
+  </view>
+  <view class = 'btnblk2'>
+    <button class='btn1' bindtap='viewcomment'>
+      <view>查看评论</view>
+    </button>
+  </view>
+</view> -->
+<button formType="submit">提交评论</button>
+</form>
+</scroll-view>
+
+

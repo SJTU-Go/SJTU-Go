@@ -15,14 +15,18 @@ Page({
 
   formSubmit: function (e) {
   //  wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(this.data.polyline),})
-  wx.showToast({ 
-    title: '提交成功', 
-    icon: 'success', 
-    duration: 2000 
-    }) 
-    wx.switchTab({
-      url: '../index/index',
-    })  
+  wx.showToast({
+     title: '评论提交成功',
+     icon: 'success',
+     duration: 2000,
+     success: function () {
+     setTimeout(function () {
+     wx.reLaunch({
+     url: '../index/index',
+     })
+     }, 2000);
+     }
+    })
 },
 
   /**

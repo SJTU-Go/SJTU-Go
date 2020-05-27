@@ -37,3 +37,33 @@ page {
   display: flex;
   flex-direction: column;
 }
+.downblock
+{ margin-top: 40rpx;
+  display: flex;
+  height: 30%;
+  margin-bottom: 40rpx;
+width: 90%;
+}
+.btn1 {
+  height: 80rpx;
+  width: 60%;
+  background-color: rgba(61, 61, 61, 0.53);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn2 {
+  height: 80rpx;
+  width: 60%;
+  background-color: rgba(9, 133, 30, 0.53);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

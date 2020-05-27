@@ -1,9 +1,13 @@
 
 {
   "pages": [
-    "pages/searchindex/searchindex",
     "pages/LoginPage/LoginPage",
     "pages/index/index",
+
+
+    "pages/searchindex/searchindex",
+
+
     "pages/preferencePage/preferencePage",
     "pages/walk/walk",
     "pages/commentmap/commentmap",

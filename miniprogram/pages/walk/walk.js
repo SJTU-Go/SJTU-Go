@@ -9,7 +9,8 @@ Page({
     arrive:'',
     pass:'',
     tmphis:[],
-    tmproute:[]
+    tmproute:[],
+    tmpplan:[]
   },
 
   onLoad: function(options){
@@ -67,7 +68,10 @@ Page({
       key: 'historyroute',
       success:function(res){that.setData({tmproute:res.data})}
     })
-
+    wx.getStorage({
+      key: 'plan',
+      success:function(res){that.setData({tmpplan:res.data})}
+    })
   },
 
   starttirp:function(e){
@@ -81,6 +85,8 @@ Page({
     history.push(record)
     var historyroute=that.data.tmproute
     historyroute.push(that.data.polyline)
+    var plan=that.data.tmpplan
+    plan.push(that.data.routeplan)
     wx.setStorage({
       data: history,
       key: 'history',
@@ -89,6 +95,10 @@ Page({
       data: historyroute,
       key: 'historyroute',
     })
+    wx.setStorage({
+      data: plan,
+      key: 'plan',
+    })
     wx.getStorage({
       key: 'history',
       success: function(res) {
@@ -101,21 +111,24 @@ Page({
         console.log(res.data)
       }
     })
-
+    wx.getStorage({
+      key: 'plan',
+      success: function(res) {
+        console.log(res.data)
+      }
+    })
     wx.showToast({
        title: '行程已被记录，请跳转到对应app导航',
        icon: 'none',
        duration: 3000,
        success: function () {
        setTimeout(function () {
-       wx.reLaunch({
+       wx.switchTab({
        url: '../index/index',
        })
        }, 2000);
        }
       })
-
-
   },
   
   onReady: function () {
