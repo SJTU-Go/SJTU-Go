@@ -48,19 +48,26 @@ cursor = conn.cursor()
 #                 DEFAULT CHARACTER SET = utf8mb4')
 
 # 创建table: helloBikeInfo
-cursor.execute('CREATE TABLE `feedback`(\
-                `feedbackID` INT NOT NULL,\
-                `userID` INT NOT NULL,\
-                `tripID` INT NOT NULL,\
-                `pickupFB` INT,\
-                `trafficFB` INT,\
-                `parkFB` INT,\
-                `serviceFB` INT,\
-                `contents` VARCHAR(255),\
-                `time` DATETIME NOT NULL,\
-                PRIMARY KEY (`feedbackID`),\
-                INDEX `ID` USING BTREE (`feedbackID`))\
-                DEFAULT CHARACTER SET = utf8mb4')
+# cursor.execute('CREATE TABLE `feedback`(\
+#                 `feedbackID` INT NOT NULL,\
+#                 `userID` INT NOT NULL,\
+#                 `tripID` INT NOT NULL,\
+#                 `pickupFB` INT,\
+#                 `trafficFB` INT,\
+#                 `parkFB` INT,\
+#                 `serviceFB` INT,\
+#                 `contents` VARCHAR(255),\
+#                 `time` DATETIME NOT NULL,\
+#                 PRIMARY KEY (`feedbackID`),\
+#                 INDEX `ID` USING BTREE (`feedbackID`))\
+#                 DEFAULT CHARACTER SET = utf8mb4')
+
+# cursor.execute('ALTER TABLE user drop column preference')
+
+# cursor.execute('ALTER TABLE user add column preference JSON')
+
+cursor.execute('ALTER TABLE user add session_key VARCHAR(100) NOT NULL')
+
 
 
 conn.commit()
