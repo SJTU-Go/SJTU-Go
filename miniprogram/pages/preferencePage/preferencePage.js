@@ -37,7 +37,7 @@ Page({
         that.setData({
           banned:res.data,
         })
-        if(that.data.banned.length==0){
+ /*       if(that.data.banned.length==0){
         that.setData({
         status:false
         });
@@ -45,7 +45,7 @@ Page({
         that.setData({
         status:true
         })
-        }
+        }*/
         },
         fail: function(res) {
         console.log(res+'aaaaa')
