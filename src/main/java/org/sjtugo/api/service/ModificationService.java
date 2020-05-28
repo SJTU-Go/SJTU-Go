@@ -28,7 +28,7 @@ public class ModificationService {
     }
 
     public ResponseEntity<ErrorResponse> modifyMap(Integer adminID, Integer placeID,
-                                                   String message, String parkSize) { //String??
+                                                   String message, Integer parkSize) { //String??
         //通过placeID找到对应place修改parkSize的信息？？？  管理员手动更改？？？
         MapVertexInfo mapVertexInfo = mapVertexInfoRepository.findById(placeID).orElse(null);
         assert mapVertexInfo != null;

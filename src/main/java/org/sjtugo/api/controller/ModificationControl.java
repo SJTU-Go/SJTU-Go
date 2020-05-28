@@ -33,7 +33,7 @@ public class ModificationControl {
     }
 
     @ApiOperation(value = "管理员更新系统")
-    @PostMapping("/modify")
+    @PostMapping("/modify/park")
     public ResponseEntity<ErrorResponse> modifyMap(@RequestBody ModifyRequest modifyRequest) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
         return modiService.modifyMap(modifyRequest.getAdminID(),
@@ -43,7 +43,7 @@ public class ModificationControl {
     }
 
     @ApiOperation(value = "管理员更新系统")
-    @PostMapping("/modify")
+    @PostMapping("/modify/traffic")
     public ResponseEntity<ErrorResponse> modifyMap(@RequestParam Integer adminID, @RequestParam TrafficInfo trafficInfo) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
         return modiService.modifyMap(adminID, trafficInfo);
@@ -54,6 +54,6 @@ public class ModificationControl {
         private Integer adminID;
         private Integer placeID;
         private String message;
-        private String parkSize;
+        private Integer parkSize;
     }
 }
