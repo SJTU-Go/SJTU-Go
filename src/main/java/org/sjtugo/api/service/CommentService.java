@@ -1,7 +1,6 @@
 package org.sjtugo.api.service;
 
 
-import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
@@ -10,7 +9,7 @@ import com.vividsolutions.jts.io.WKTReader;
 
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
 import org.sjtugo.api.entity.Comment;
-import org.sjtugo.api.entity.ErrorResponse;
+import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

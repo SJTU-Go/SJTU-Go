@@ -4,17 +4,12 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
-import io.swagger.annotations.ApiParam;
 import org.sjtugo.api.DAO.*;
-import org.sjtugo.api.entity.HelloBikeInfo;
-import org.sjtugo.api.service.map.MapVertexResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.sjtugo.api.DAO.Entity.Destination;
+import org.sjtugo.api.DAO.Entity.MapVertexInfo;
+import org.sjtugo.api.DAO.Entity.HelloBikeInfo;
+import org.sjtugo.api.controller.ResponseEntity.MapVertexResponse;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 

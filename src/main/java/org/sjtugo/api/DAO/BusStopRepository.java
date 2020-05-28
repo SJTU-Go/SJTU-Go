@@ -1,6 +1,7 @@
 package org.sjtugo.api.DAO;
 
 
+import org.sjtugo.api.DAO.Entity.BusStop;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

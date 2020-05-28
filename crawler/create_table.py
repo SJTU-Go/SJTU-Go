@@ -49,15 +49,15 @@ cursor = conn.cursor()
 
 # 创建table: helloBikeInfo
 cursor.execute('CREATE TABLE `feedback`(\
-                `feedbackID` VARCHAR(30) NOT NULL,\
-                `userID` VARCHAR(30) NOT NULL,\
-                `tripID` VARCHAR(30) NOT NULL,\
-                `reviewerID` VARCHAR(30),\
+                `feedbackID` INT NOT NULL,\
+                `userID` INT NOT NULL,\
+                `tripID` INT NOT NULL,\
                 `pickupFB` INT,\
                 `trafficFB` INT,\
                 `parkFB` INT,\
                 `serviceFB` INT,\
-                `contents` VARCHAR(15),\
+                `contents` VARCHAR(255),\
+                `time` DATETIME NOT NULL,\
                 PRIMARY KEY (`feedbackID`),\
                 INDEX `ID` USING BTREE (`feedbackID`))\
                 DEFAULT CHARACTER SET = utf8mb4')

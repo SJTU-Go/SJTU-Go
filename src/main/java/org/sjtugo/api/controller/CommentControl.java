@@ -8,12 +8,11 @@ import io.swagger.annotations.ApiOperation;
 
 import lombok.Data;
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
+import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Comment;
-import org.sjtugo.api.entity.ErrorResponse;
-import org.sjtugo.api.service.AddCommentException;
+import org.sjtugo.api.service.Exception.AddCommentException;
 import org.sjtugo.api.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
