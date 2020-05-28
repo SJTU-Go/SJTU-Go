@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(value="Comment System")
-@RestController  // the data returned by each method will be written straight into the response body
+@RestController
 @RequestMapping("/comments")
 public class CommentControl {
     @Autowired
@@ -79,6 +79,6 @@ public class CommentControl {
         @ApiModelProperty(value = "评论相关停车点ID", example = "134234")
         private Integer relatedPlace;   //前端传
         @ApiModelProperty(value = "父评论ID，若填0表示新评论", example = "34")
-        private Integer fatherID; //=0表示是父评论
+        private Integer fatherID;
     }
 }

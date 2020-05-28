@@ -20,8 +20,10 @@ public class Modification {
     private Integer modificationID;
 
     @ApiModelProperty(value = "修改者ID(管理员)", example = "1")
-    private Integer publisherID;
+    private Integer adminID;
 
     @ApiModelProperty(value = "修改内容")
     private String contens;
+
+    public Modification() {}
 }
