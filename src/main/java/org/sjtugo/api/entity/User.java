@@ -21,7 +21,7 @@ public class User {
     private String openid;
 
     @ApiModelProperty(value = "用户session_key", example = "834jf")
-    private String session_key;
+    private String sessionkey;
 
     @ApiModelProperty(value = "用户昵称", example = "asd")
     private String name;

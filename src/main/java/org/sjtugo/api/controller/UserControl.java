@@ -27,5 +27,4 @@ public class UserControl {
         UserService userser = new UserService(userRepository);
         return userser.userLogin(code);
     }
-
 }

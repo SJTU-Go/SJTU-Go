@@ -62,11 +62,11 @@ cursor = conn.cursor()
 #                 INDEX `ID` USING BTREE (`feedbackID`))\
 #                 DEFAULT CHARACTER SET = utf8mb4')
 
-# cursor.execute('ALTER TABLE user drop column preference')
+# cursor.execute('ALTER TABLE user drop column openid')
 
 # cursor.execute('ALTER TABLE user add column preference JSON')
 
-cursor.execute('ALTER TABLE user add session_key VARCHAR(100) NOT NULL')
+cursor.execute('ALTER TABLE user add openid VARCHAR(100) NOT NULL')
 
 
 
