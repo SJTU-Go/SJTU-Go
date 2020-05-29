@@ -1,0 +1,212 @@
+.searchbar-result{
+  margin-top: 0;
+  font-size: 14px;
+}
+
+/* 搜索列表名称 */
+.list_name{
+position: relative;
+width: 100%;
+height: 90rpx;
+line-height: 90rpx;
+border-bottom: 1rpx solid #ddd; 
+
+}
+/* 列表名称 */
+.lab_name{
+position: absolute;
+left: 30rpx;
+font-size: 35rpx;
+}
+
+/* serch-index */
+/* 隐藏滚动条 */
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
+
+.msg-item {
+width: 100%;
+height: 145rpx;
+border-bottom: 1rpx solid rgb(233, 233, 233);
+position: relative;
+left:0;
+top:0;
+overflow: hidden;
+}
+
+.msg {
+position: absolute;
+width: 100%;
+height: 150rpx;
+left:0;
+top:0;
+z-index: 100;
+background-color: #FFF;
+}
+
+.header-img {
+position: absolute;
+width: 100rpx;
+height: 100rpx;
+left: 20rpx;
+top: 30rpx;
+border-radius: 10%;
+}
+
+.site-img {
+position: absolute;
+width: 70rpx;
+height: 70rpx;
+right: 50rpx;
+top: 40rpx;
+border-radius: 10%;
+}
+.user-name {
+position: absolute;
+left: 150rpx;
+top: 33rpx;
+font-weight: 600;
+font-size: 33rpx;
+}
+
+.msg-text {
+position: absolute;
+left: 150rpx;
+bottom: 32rpx;
+font-size: 70%;
+color: rgb(127, 127, 127);
+}
+
+.msg-menu {
+position: absolute;
+width: 100%;
+height: 150rpx;
+left:0;
+top:0;
+z-index: 0;
+}
+
+.menu-delete {
+position: absolute;
+width: 150rpx;
+height: 148rpx;
+top:1rpx;
+right: 0;
+background-color: rgb(255, 58, 50);
+color:#FFF;
+text-align: center;
+line-height:150rpx;
+}
+
+.menu-mark {
+position: absolute;
+width: 200rpx;
+height: 148rpx;
+top:1rpx;
+right: 150rpx;
+background-color: rgb(200, 199, 205);
+color:#FFF;
+text-align: center;
+line-height:150rpx;
+}
+
+/* 滑动效果 */
+.inner.del {
+position: absolute;
+width: 300rpx;
+height: 148rpx;
+top: 1rpx;
+right: -300rpx;
+color: #fff;
+text-align: center;
+line-height: 130rpx;
+}
+.draw {
+border-right: 1px solid #fff;
+display: inline-block;
+width: 140rpx;
+height: 142rpx;
+background: #d6cdcd;
+}
+
+.delete {
+display: inline-block;
+width: 140rpx;
+height: 142rpx;
+background: #fd9903;
+}
+
+/*  end  */
+/* 搜索 */
+.weui-search-bar__input{
+height: 72rpx;
+}
+.weui-icon-search_in-box{
+top:22rpx;
+}
+.weui-search-bar__cancel-btn{
+line-height:70rpx;
+}
+.weui-icon-clear{
+top:4rpx;
+}
+
+
+.search-bar {
+  position: relative;
+  padding: 8px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #EFEFF4;
+  border-top: 1rpx solid #D7D6DC;
+  border-bottom: 1rpx solid #D7D6DC;
+}
+.icon-search_in-box {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+}
+.search-bar__form {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+          flex: auto;
+  border-radius: 5px;
+  background: #FFFFFF;
+  border: 1rpx solid #E6E6EA;
+}
+.search-bar__box {
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+}
+.search-bar__input {
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+}
+.search-bar__cancel-btn {
+  margin-left: 10px;
+  line-height: 28px;
+  color: #09BB07;
+  white-space: nowrap;
+}
+.cells{margin-left: 40rpx;
+  font-size: large;}
+.cell__bd
+{margin-left: 40rpx;
+  font-size: large;
+
+
+
+}
+.user-name{font-size: 30rpx;font-family: Arial, Helvetica, sans-serif;}
+.msg-item{text-align: left;height: 100rpx;}

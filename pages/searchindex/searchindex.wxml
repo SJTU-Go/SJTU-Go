@@ -1,0 +1,91 @@
+<!--index.wxml-->
+
+
+
+
+<view class = 'outsideblock'>
+<view class = 'marginn'>
+  <view class = 'left'>
+      <view class="verticalline1"></view>
+      <view class="verticalline2"></view>
+
+          <view class="verticalline1"></view>
+          <view class="verticalline2"></view>
+  
+      <view class="verticalline1"></view>
+  </view>
+  <view class = 'right'>
+  <form class="form" bindsubmit="formSubmit">
+
+    <view class="section1">
+      <view class = "sectionleft">
+        <view class = 'emptyblock'></view>
+        <view class = 'upsection'>From</view>
+        <view class = 'downsection'>
+         <view wx:if = "{{depart}}">
+         <input bindtap="depart"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="{{depart}}" />
+         </view>
+         <view wx:else>
+         <input bindtap="depart"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="当前位置" /></view>
+        </view>
+      </view> 
+    <view wx:if="{{!passnum}}"class = 'iconright'>
+      <image class="massge-img" src="../../images/add1.png" bindtap = 'addpass'></image></view>
+    </view>  
+    <view class="divLine"></view>
+<view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
+  <view wx:if="{{i < passnum}}">
+    <view class="section">
+      <view class = "sectionleft">
+      <view class = 'emptyblock'></view>
+      <view class = 'upsection'>Pass</view>
+      <view class = 'downsection'>
+         <view wx:if = "{{pass}}">
+         <input bindtap="pass"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="{{pass}}" />
+         </view>
+         <view wx:else>
+        <input bindtap="pass"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="点击输入..." />
+        </view>
+      </view>
+     </view>
+    <view class = 'iconright1'>
+      <image class="massge-img" src="../../images/cross.png" bindtap = 'deletepass'></image></view>
+    </view>  
+   
+    <view class="divLine"></view>
+  </view></view>
+    <view class="section">
+      <view class = "sectionleft">
+      <view class = 'emptyblock'></view>
+      <view class = 'upsection'>To</view>
+      <view class = 'downsection'>
+         <view wx:if = "{{arrive}}">
+         <input bindtap="arrive"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="{{arrive}}" />
+         </view>
+         <view wx:else>
+        <input bindtap="arrive"    placeholder-style="color:rgb(5, 5, 5,0.651);" placeholder="点击输入..." />
+            </view>
+      </view>
+    </view>
+    </view>  
+    <view class="divLine"></view>
+
+  </form>
+
+  </view>
+
+</view>
+
+</view>
+<view class = 'toolblock'>
+<view class = 'downblock'>
+  <button class='btn2' bindtap='formSubmit'>
+    <view>开始搜索</view>
+    </button>
+  <button class='btn1' bindtap='indexback'>
+    <view>回到主页</view>
+    </button>
+</view>
+</view>
+
+

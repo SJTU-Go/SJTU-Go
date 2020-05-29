@@ -1,0 +1,117 @@
+page {
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.title
+{ margin:100;
+  height: 200rpx;
+  font-size: 100rpx;
+  text-align: center;
+  justify-content: center;
+}
+.blockleft
+{display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  width:25%;
+}
+.updownbox
+{ margin-left:20rpx ;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  width:15%;
+}
+.blockright
+{display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+}
+.block
+{width:100%;
+  height: 100rpx;
+  display: flex;
+  align-items: right;
+  justify-content: center;
+}
+.containerbutton
+{
+  height: 110rpx;
+  width: 30%;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.containerbutton1
+{
+  height: 110rpx;
+  width: 100%;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn1 {
+  width: 80%;
+  background-color: rgba(9, 133, 30, 0.53);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnImg {
+  margin-right: 8rpx;
+  width: 55rpx;
+  height: 45rpx;
+}
+.btn1::after {
+  border-radius: 98rpx;
+  border: 0; 
+}
+.btn2 {
+  width: 10%;
+  background-color: rgba(61, 61, 61, 0.53);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.guide .counter {
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;}
+  .massge-hd{
+    padding:20rpx 0rpx 30rpx 20rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .massge-bd,.massge-ft{
+    padding:0rpx 0rpx 30rpx 40rpx;
+  }
+  .massge-bd{
+    display: flex;
+    flex-direction: column;
+  }
+  .massge-img{
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+  
+  }

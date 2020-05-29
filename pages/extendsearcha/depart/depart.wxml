@@ -1,0 +1,36 @@
+
+<view class="page">
+  <view class="page__bd">
+    <view class="search-bar">
+      <view class="search-bar__form">
+        <view class="search-bar__box">
+          <icon class="icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="search-bar__input" placeholder="输入出发地点" maxlength='10' value="{{inputVal}}" focus="{{inputShowed}}"   bindinput="inputTyping" />
+
+        </view>
+     
+      </view>
+          <view class="icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+    </view>
+    <view class="cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+      <!-- 搜索列表 -->
+      <view class="weui-cell__bd" wx:for="{{list}}" wx:key="key">
+        <!-- 列表名称 -->
+        <view class='list_name'  data-index='{{index}}' data-id='{{item.deviceId}}' 
+        data-name='{{item.carNum}}' bindtap='btn_name'>
+          <!-- 昵称 -->
+          <label class='lab_name'>{{item.carNum}}</label>
+        </view>
+      </view>
+    </view>   
+  </view>
+</view>
+
+
+
+    <view wx:if='{{boxshow}}' wx:for="{{carList}}" wx:key="{{index}}" class="msg-item">
+         <view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.placeName}}</view>
+    </view>
+

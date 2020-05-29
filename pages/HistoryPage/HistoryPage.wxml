@@ -1,0 +1,20 @@
+
+<view class="container">
+    <view class="massge" wx:for="{{orderList}}" wx:for-index="idx" wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/search.png"></image><view>搜索结果</view></view>
+      <view class="massge-bd font-color-666">
+        <text>出发点：<text class="font-color-c24e4e font-size-15">{{list.arrive}}</text><text style="margin-left:40rpx;">路线用时:</text> {{list.routetime}}</text>
+        <text style="margin-top:22rpx;"><text>目的地：<text class="font-color-c24e4e font-size-15">{{list.depart}}</text></text><text style="margin-left:40rpx;">途径地点:</text> {{list.passPlaces}}</text>
+        <view class='textdiv'>
+          <text style="font-size-20" data-index="{{idx}}" bindtap="searchPage">评价></text>
+                    <text style="font-size-20" data-index="{{idx}}" bindtap="showRoute">                   路线></text>
+        </view>
+       </view>
+    </view>
+<view class = 'downblock'>
+
+  <button class='btn1' bindtap='indexback'>
+    <view>回到主页</view>
+    </button>
+</view>
+</view>

@@ -1,0 +1,28 @@
+<view class="title">
+</view>
+<view class="block">
+  <view class="smallblock">账号
+  </view>
+  <view class="largeblock">
+    <input class="input" text-align="center" name="adminName" placeholder="请输入账号"
+    bindinput="adminNameInput"/>
+  </view>
+</view>
+<view class="block">
+  <view class="smallblock">密码
+  </view>
+  <view class="largeblock">
+    <input class="input" text-align="center" name="adminName" password placeholder="请输入密码"
+    bindinput="passwordInput"/>
+  </view>
+</view>
+<view class="block">
+  <view>
+    <button class="submit"  open-type="getUserInfo" bindgetuserinfo="onClickSubmit">登录</button>
+  </view>
+</view>
+<view class="block">
+  <view>
+    <button class="register"  open-type="getUserInfo" bindgetuserinfo="onClickRegister">注册</button>
+  </view>
+</view>

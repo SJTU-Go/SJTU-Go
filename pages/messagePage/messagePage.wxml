@@ -1,0 +1,14 @@
+<!--pages/messagePage/messagePage.wxml-->
+<view>
+        <view class="search-bar">
+            <view class="search-bar__form">
+                <view class="search-bar__box">
+                    <icon class="icon-search_in-box" type="search" size="17"></icon>
+                    <input type="text" class="search-bar__input"  bindinput="searchInput" placeholder="请输入搜索内容"/>
+                </view>
+            </view>
+            <view class="search-bar__cancel-btn" bindtap='search'>搜索</view>
+        </view>
+    </view>
+  <switch bandchange='filter' > 仅显示未读信息 </switch>
+<view class="divLine"></view>

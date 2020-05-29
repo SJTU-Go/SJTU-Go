@@ -1,0 +1,8 @@
+<!--pages/noticePage/noticePage.wxml-->
+<text>请输入通知：</text>
+<form class="form" bindsubmit="formSubmit">
+<textarea placeholder="点击输入内容" auto-height auto-focus name="textarea"/>
+
+<view class ='containerbutton'>
+<button class='btn2' formType="submit">发布</button></view>
+</form>

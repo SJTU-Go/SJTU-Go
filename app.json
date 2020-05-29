@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/LoginPage/LoginPage",
+    "pages/index/index",
+    "pages/searchindex/searchindex",
+    "pages/preferencePage/preferencePage",
+    "pages/walk/walk",
+    "pages/commentmap/commentmap",
+    "pages/feedback/feedback",
+    "pages/bike/bike",
+    "pages/searcha/searcha",
+    "pages/extendsearcha/depart/depart",
+    "pages/extendsearch/depart/depart",
+    "pages/extendsearch/arrive/arrive",
+    "pages/extendsearch/pass/pass",
+    "pages/extendsearcha/arrive/arrive",
+    "pages/extendsearcha/pass/pass",
+    "index/index",
+    "pages/search/search",
+    "pages/schedulePage/schedulePage",
+    "pages/HistoryPage/HistoryPage",
+    "pages/userInfoPage/userInfoPage",
+    "pages/setPreferencePage/setPreferencePage",
+    "pages/registrationPage/registrationPage",
+    "pages/accountLoginPage/accountLoginPage",
+    "pages/trafficPage/trafficPage",
+    "pages/messagePage/messagePage",
+    "pages/modifyPark/modifyPark",
+    "pages/noticePage/noticePage"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "SJTU-Go",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/messagePage/messagePage",
+        "text": "收件箱",
+        "selectedIconPath": "images/mail2.png",
+        "iconPath": "images/mail.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "地图",
+        "selectedIconPath": "images/bicycle2.png",
+        "iconPath": "images/bicycle1.png"
+      },
+      {
+        "pagePath": "pages/userInfoPage/userInfoPage",
+        "text": "系统",
+        "selectedIconPath": "images/settings2.png",
+        "iconPath": "images/setting.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

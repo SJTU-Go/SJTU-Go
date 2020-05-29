@@ -1,0 +1,56 @@
+<!--pages/walk/walk.wxml-->
+<!--pages/search/search.wxml-->
+<scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="15" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
+
+
+
+<scroll-view scroll-y style="display: flex; height: 415px;">
+<view  class='subtitle'>
+  <text>
+步行方案 · 用时{{time/60|int}}分钟 · 免费
+  </text>
+</view>
+<view class='routeplan' wx:for="{{routeplan}}" wx:for-item="itema" wx:key="strategy" wx:for-index="idx">
+  <view class='route'>
+    <view class = 'leftpart'>
+      <view class = 'upper'>
+        <view wx:if='{{itema.departID}}'style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bus2.png"></image></view>
+        <view wx:else style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/feet1.png"></image></view>
+    </view>
+    <view class="verticalline2">  </view>
+
+    </view>
+    <view class ='rightpart'>
+      <view hidden="{{itema.hiddena}}">
+        <view style='fontsize=20rpx; color=grey'>({{itema.routeTime/60|int}}min)</view>
+        <view class = 'flexblock'>
+          <view class = 'block'>  
+            <view class='routeInfo'>
+              <view wx:if='{{itema.departID}}' width="300rpx">校园巴士{{itema.departID}}前往 {{itema.arriveName}}</view>
+              <view wx:else width="300rpx">步行{{itema.distance}}米前往 {{itema.arriveName}}</view>
+            </view> 
+
+        </view> 
+      </view>     
+    </view>
+  </view>
+</view>  
+  <view class = 'emptyblock'></view>
+</view>
+<view class = 'toolblock'>
+<view class = 'downblock'>
+  <view class = 'btnblk'>
+    <button class='btn2' bindtap='starttirp'>
+      <view>开始行程</view>
+      </button>
+  </view>
+  <view class = 'btnblk2'>
+    <button class='btn1' bindtap='viewcomment'>
+      <view>查看评论</view>
+    </button>
+  </view>
+</view>
+</view>
+</scroll-view>
+
+
