@@ -2,6 +2,7 @@ package org.sjtugo.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vividsolutions.jts.geom.Point;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -46,6 +47,7 @@ public class Feedback {
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")  //输出参数格式化
     private LocalDateTime time;
 
-
+    @ApiModelProperty(value = "已查看该条评论的管理员ID")
+    private Integer adminID;
     public Feedback() {}
 }
