@@ -49,7 +49,7 @@ public class ModificationService {
     public ResponseEntity<ErrorResponse> modifyMap(Integer adminID, TrafficInfo trafficInfo) {
         Modification modify = new Modification();
         modify.setAdminID(adminID);
-        modify.setContens(trafficInfo.toString());
+        modify.setContents(trafficInfo.toString());
         modificationRepository.save(modify);
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
     }

@@ -32,7 +32,7 @@ public class CommentControl {
         return commentser.getCommentList(placeID);
     }
 
-    @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度，返回附近用户的评论")
+    @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度,格式POINT(x y)，返回附近用户的评论")
     @PostMapping("/loc")
     public @ResponseBody List<Comment> getCommentList(@RequestParam String location) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa);

@@ -33,7 +33,7 @@ public class ModificationControl {
     }
 
     @ApiOperation(value = "管理员更新系统")
-    @PostMapping("/modify/park")
+    @PostMapping("/modify/parking")
     public ResponseEntity<ErrorResponse> modifyMap(@RequestBody ModifyRequest modifyRequest) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
         return modiService.modifyMap(modifyRequest.getAdminID(),

@@ -23,7 +23,7 @@ public class Modification {
     private Integer adminID;
 
     @ApiModelProperty(value = "修改内容")
-    private String contens;
+    private String contents;
 
     public Modification() {}
 }
