@@ -77,6 +77,13 @@
             <version>1.13</version>
         </dependency>
 
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
+
         <!--JSON转换-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
