@@ -41,14 +41,16 @@ public class UserService {
 
         User user = userRepository.findByOpenid(openid).get(0);
         if(user != null){
-            String userID = (String)user.getId();
+            Integer temp_id = user.getId();
+            String userID = temp_id.toString();
             userInfo.put("userID", userID);
         } else {
             User new_user = new User();
             new_user.setOpenid(openid);
             new_user.setSessionkey(session_key);
             userRepository.save(new_user);
-            String userID = (String)new_user.getId();
+            Integer temp_id = new_user.getId();
+            String userID = temp_id.toString();
             userInfo.put("userID", userID);
         }
         return new ResponseEntity<>(userInfo, HttpStatus.OK);
@@ -66,12 +68,14 @@ public class UserService {
 
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(url.toString());
+
+        String resultString = null;
         try{
             CloseableHttpResponse response = client.execute(get);
-            //String resultString = EntityUtils.toString(response.getEntity());
-            return EntityUtils.toString(response.getEntity());
+            resultString = EntityUtils.toString(response.getEntity());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return resultString;
     }
 }
