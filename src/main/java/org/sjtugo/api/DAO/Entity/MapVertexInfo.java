@@ -39,5 +39,5 @@ public class MapVertexInfo {
 
     @Column(name="park_size")
     @ApiModelProperty(value = "停车点最大容量，由管理员维护，用于计算寻车难度和拥堵程度", example = "60")
-    private String parkSize;
+    private Integer parkSize;
 }

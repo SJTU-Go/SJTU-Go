@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentService {
@@ -104,5 +105,22 @@ public class CommentService {
          likedComment.setApproveUsers(approveUsers);
          commentRepositoryJpa.save(likedComment);
          return new ResponseEntity<>(new ErrorResponse(0,"点赞+1"),HttpStatus.OK);
+    }
+
+    /**
+     * 返回子评论
+     * @param fatherID:父评论ID
+     * @return 子评论列表
+     */
+    public List<Comment> getSubCommentList(Integer fatherID) {
+        List<Comment> subComments = new ArrayList<>();
+        Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
+        List<Integer> subCommentsID = fatherComment.getSubComment();
+        for (Integer subCommentID : subCommentsID)
+        {
+            Comment subComment = commentRepositoryJpa.findById(subCommentID).orElse(null);
+            subComments.add(subComment);
+        }
+        return subComments;
     }
 }
