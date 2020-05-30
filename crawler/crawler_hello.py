@@ -39,7 +39,7 @@ def write_db_hello(bike):
     lat = bike['lat']
     lon = bike['lng']
     cluster_point = calculate_cluster(lat,lon)
-    cursor.execute("REPLACE INTO hello_bike_info (BikeID,latitude,longitude,bikeType,bikeColor,cluster_point) \
+    cursor.execute("REPLACE INTO hello_bike_info (bike_id,latitude,longitude,bike_type,bike_color,cluster_point) \
                     VALUES (%s, %s, %s, %s, %s, %s)",(bike['bikeNo'],lat,lon,bike['bikeType'],bike['bikeColor'],cluster_point))
     conn.commit()
     return 1

@@ -4,7 +4,7 @@ import json
 import requests
 import pymysql
 
-from calculate_cluster import calculate_cluster
+from calculate_cluster import calculate_cluster, calculate_car_cluster
 
 # 爬取旋风E100车辆信息
 def crawler_e100():
@@ -40,8 +40,8 @@ def write_db_e100(data):
         lat = car["vehicles"][0]["lat"]
         lon = car["vehicles"][0]["lon"]
         CarID = title[1:9]
-        cluster_point = calculate_cluster(lat,lon)
-        cursor.execute("REPLACE INTO e100_info (CarID,CarPlate,latitude,longitude,cluster_point) \
+        cluster_point = calculate_car_cluster(lat,lon)
+        cursor.execute("REPLACE INTO e100_info (car_id,car_plate,latitude,longitude,cluster_point) \
                         VALUES (%s, %s, %s, %s, %s)",(CarID,title,lat,lon,cluster_point))
         conn.commit()
     
