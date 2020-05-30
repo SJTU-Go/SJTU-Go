@@ -7,6 +7,8 @@ import org.sjtugo.api.controller.RequestEntity.NavigateRequest;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Strategy;
 import io.swagger.annotations.*;
+import org.sjtugo.api.service.NavigateService.PlaceNotFoundException;
+import org.sjtugo.api.service.NavigateService.StrategyNotFoundException;
 import org.sjtugo.api.service.NavigateService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,8 @@ public class NavigateControl {
     private BusStopRepository busStopRepository;
     @Autowired
     private VertexDestinationRepository vertexDestinationRepository;
+    @Autowired
+    private CarInfoRepository carInfoRepository;
 
     @ApiOperation(value = "Walk Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回步行方案")
@@ -80,6 +84,24 @@ public class NavigateControl {
     public ResponseEntity<?> navigateBike(@RequestBody NavigateRequest navigateRequest) {
         BikePlanner planner = new BikePlanner(mapVertexInfoRepository,destinationRepository,
                 restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository);
+        try {
+            return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ApiOperation(value = "Car Navigate Service",
+            notes = "给定校园内地点ID或经纬度，返回旋风E100出行方案")
+    @PostMapping("/car")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Strategy.class),
+            @ApiResponse(code = 404, message = "[3]Place Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> navigateCar(@RequestBody NavigateRequest navigateRequest) {
+        CarPlanner planner = new CarPlanner(mapVertexInfoRepository,destinationRepository,
+                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository,carInfoRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (PlaceNotFoundException e) {

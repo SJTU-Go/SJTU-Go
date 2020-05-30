@@ -33,6 +33,7 @@ public abstract class AbstractPlanner {
     protected final BusStopRepository busStopRepository;
     protected final TokenPool tokenPool;
     protected final VertexDestinationRepository vertexDestinationRepository;
+    protected final CarInfoRepository carInfoRepository;
     /**
      * @param mapVertexInfoRepository 注入地图信息数据库接口
      */
@@ -41,7 +42,8 @@ public abstract class AbstractPlanner {
                            RestTemplate restTemplate,
                            BusTimeRepository busTimeRepository,
                            BusStopRepository busStopRepository,
-                           VertexDestinationRepository vertexDestinationRepository){
+                           VertexDestinationRepository vertexDestinationRepository,
+                           CarInfoRepository carInfoRepository){
         this.mapVertexInfoRepository = mapVertexInfoRepository;
         this.destinationRepository = destinationRepository;
         this.restTemplate = restTemplate;
@@ -49,6 +51,7 @@ public abstract class AbstractPlanner {
         this.busStopRepository = busStopRepository;
         this.vertexDestinationRepository = vertexDestinationRepository;
         this.tokenPool = new TokenPool();
+        this.carInfoRepository = carInfoRepository;
     }
 
     /**

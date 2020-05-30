@@ -3,6 +3,8 @@ package org.sjtugo.api.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CarRoute extends Route{
@@ -17,4 +19,6 @@ public class CarRoute extends Route{
     private int distance;
 
     private int cost;
+
+    private List<String> passingVertex;
 }

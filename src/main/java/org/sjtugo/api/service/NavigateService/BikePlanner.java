@@ -30,12 +30,12 @@ public class BikePlanner extends AbstractPlanner {
                        BusStopRepository busStopRepository,
                        VertexDestinationRepository vertexDestinationRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeRepository,busStopRepository,vertexDestinationRepository);
+                busTimeRepository,busStopRepository,vertexDestinationRepository,null);
     }
 
     @Override
     public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
-        // 匹配公交站
+        // 匹配地点
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
         List<Route> routeList = new ArrayList<>();

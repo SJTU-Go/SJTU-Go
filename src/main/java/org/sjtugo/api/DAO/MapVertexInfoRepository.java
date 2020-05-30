@@ -11,9 +11,13 @@ import java.util.List;
 public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, Integer> {
     List<MapVertexInfo> findByVertexNameLike(String kw);
 
-    @Query( value = "SELECT * FROM map_vertex_info WHERE vertex_name IS NOT NULL AND (MBRWithin(location,:window)) = TRUE",
+    @Query( value = "SELECT vertex_infos.* " +
+            "FROM (SELECT ST_LENGTH(LineString(location, ST_Centroid(:window))) AS distance, map_vertex_info.*" +
+            " FROM map_vertex_info WHERE vertex_name IS NOT NULL " +
+            "AND (MBRWithin(location,:window)) = TRUE) AS vertex_infos " +
+            "ORDER BY vertex_infos.distance",
             nativeQuery = true)
-    List<MapVertexInfo> findNearbyPoint(@Param("window") Polygon windows);
+    List<MapVertexInfo> findNearbyPoint(@Param("window") Polygon window);
 
     @Query( value = "SELECT vertex_infos.*" +
             "  FROM (" +

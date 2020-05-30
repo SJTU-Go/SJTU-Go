@@ -6,6 +6,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
+import org.sjtugo.api.service.NavigateService.PlaceNotFoundException;
 
 import java.util.Map;
 

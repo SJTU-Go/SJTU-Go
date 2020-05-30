@@ -17,7 +17,7 @@ public class WalkPlanner extends AbstractPlanner {
                        DestinationRepository destinationRepository,
                        RestTemplate restTemplate){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                null,null,null);
+                null,null,null, null);
     }
 
 
