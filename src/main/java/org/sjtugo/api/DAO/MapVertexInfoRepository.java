@@ -30,7 +30,7 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
     @Query( value = "SELECT vertex_infos.*" +
             "  FROM (" +
             "     SELECT ST_LENGTH(LineString(location,POINT(:lng,:lat))) AS distance," +
-            "            location, vertexid, bike_count, motor_count, park_info, park_size, vertex_name" +
+            "            location, vertexid, bike_count, motor_count, park_info, park_size, vertex_name, is_car_vertex " +
             "       FROM map_vertex_info" +
             "      WHERE  MBRContains(" +
             "                GeomFromText(" +

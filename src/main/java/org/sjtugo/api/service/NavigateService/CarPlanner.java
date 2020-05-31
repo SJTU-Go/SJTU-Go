@@ -46,20 +46,20 @@ public class CarPlanner extends AbstractPlanner{
         WalkRoute findCar = planWalkTencent(start,new NavigatePlace(objectCar));
         routeList.add(findCar);
 
+        Strategy result = new Strategy();
         // 驾车
         try {
             CarRoute driveCar = planCar(
                     mapVertexInfoRepository.getOne(Integer.parseInt(objectCar.getClusterPoint())), parkCar);
             routeList.add(driveCar);
+            result.setCost(driveCar.getCost());
         } catch (ParseException e) {
             throw new StrategyNotFoundException("Current Car unavailable");
         }
-        Strategy result = new Strategy();
         result.setType("旋风E100");
         result.setArrive(end.getPlaceName());
         result.setDepart(start.getPlaceName());
         result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
-        result.setCost(0);
         result.setPreference(new ArrayList<>()); //TODO
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(routeList
