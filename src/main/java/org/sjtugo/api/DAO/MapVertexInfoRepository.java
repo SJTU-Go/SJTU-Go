@@ -19,6 +19,14 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
             nativeQuery = true)
     List<MapVertexInfo> findNearbyPoint(@Param("window") Polygon window);
 
+    @Query( value = "SELECT vertex_infos.* " +
+            "FROM (SELECT ST_LENGTH(LineString(location, ST_Centroid(:window))) AS distance, map_vertex_info.*" +
+            " FROM map_vertex_info WHERE " +
+            "(MBRWithin(location,:window)) = TRUE AND is_car_vertex = 1) AS vertex_infos " +
+            "ORDER BY vertex_infos.distance",
+            nativeQuery = true)
+    List<MapVertexInfo> findNearbyCarPoint(@Param("window") Polygon window);
+
     @Query( value = "SELECT vertex_infos.*" +
             "  FROM (" +
             "     SELECT ST_LENGTH(LineString(location,POINT(:lng,:lat))) AS distance," +

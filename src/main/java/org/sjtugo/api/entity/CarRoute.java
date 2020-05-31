@@ -10,15 +10,16 @@ import java.util.List;
 public class CarRoute extends Route{
     public CarRoute () {
         this.type = RouteType.E100;
+        this.distance = 0;
     }
 
     private String departID;
 
     private String arriveID;
 
-    private int distance;
-
     private int cost;
 
     private List<String> passingVertex;
+
+    private int driveDistance;
 }

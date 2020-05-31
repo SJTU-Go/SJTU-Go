@@ -34,11 +34,11 @@ def calculate_car_cluster(lat,lon):
 
     sql = 'select * from (\
             SELECT ST_LENGTH(LINESTRING (location, POINT(%(lng)s, %(lat)s))) \
-            AS distance, location, vertexid, bike_count, motor_count, park_info, park_size, vertex_name FROM map_vertex_info WHERE \
+            AS distance, location, vertexid, bike_count, motor_count, park_info, park_size, vertex_name, is_car_vertex FROM map_vertex_info WHERE \
             MBRContains (ST_GeomFromText (CONCAT( \
               \"LINESTRING(\", %(lng)s - 0.05, \" \", %(lat)s - 0.05, \",\", \
               %(lng)s + 0.05, \" \", %(lat)s + 0.05, \")\" ) \
-                ) ,location)) AS vertex_infos \
+                ) ,location) AND is_car_vertex = 1) AS vertex_infos \
             ORDER BY vertex_infos.distance LIMIT 1' %{'lng':lon,'lat':lat}
 
     cursor.execute(sql)

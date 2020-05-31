@@ -15,5 +15,6 @@ public class TransitionRoute extends Route {
     public TransitionRoute(boolean isDepart){
         this.isDepart = isDepart;
         this.type = isDepart ? RouteType.FIND : RouteType.PARK;
+        this.distance = 100; // TODO default value
     }
 }

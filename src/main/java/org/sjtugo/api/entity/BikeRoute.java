@@ -12,15 +12,16 @@ public class BikeRoute extends Route {
 
     private String arriveID;
 
-    private int distance;
-
     private int cost;
 
     private String method;
 
     private List<String> passingVertex;
 
+    private int rideDistance;
+
     public BikeRoute(){
         this.type = RouteType.HELLOBIKE;
+        this.distance = 0;
     }
 }

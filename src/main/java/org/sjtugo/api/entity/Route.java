@@ -23,6 +23,9 @@ public abstract class Route {
             example = "上院东侧停车点")
     protected String arriveName;
 
+    @ApiModelProperty(value = "步行距离，米为单位",
+            example = "2354")
+    protected int distance;
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     @ApiModelProperty(value = "路线",

@@ -114,7 +114,7 @@ public class BikePlanner extends AbstractPlanner {
         result.setArrive(end.getPlaceName());
         result.setCost(150);
         result.setDepart(start.getPlaceName());
-        result.setDistance(0);
+        result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
         result.setPreference(new ArrayList<>()); //TODO
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(routeList
@@ -161,9 +161,9 @@ public class BikePlanner extends AbstractPlanner {
         result.setDepartID("PK"+begin.getVertexID());
         result.setArriveID("PK"+end.getVertexID());
         result.setCost(150);
-        System.out.println(arrangoResult.get("total_distance"));
-        System.out.println(arrangoResult.get("total_distance").getClass());
-        result.setDistance(((Double) arrangoResult.get("total_distance")).intValue());
+//        System.out.println(arrangoResult.get("total_distance"));
+//        System.out.println(arrangoResult.get("total_distance").getClass());
+        result.setRideDistance(((Double) arrangoResult.get("total_distance")).intValue());
         result.setRouteTime(((Double) arrangoResult.get("total_time")).intValue());
         result.setMethod("哈罗单车");
 //        System.out.println(arrangoResult.get("vertex").getClass());

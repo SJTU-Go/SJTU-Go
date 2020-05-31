@@ -38,7 +38,7 @@ public class CarPlanner extends AbstractPlanner{
 
         CarInfo objectCar = carInfoRepository
                 .findNearbyCar(start.getLocation().getCoordinate().x, start.getLocation().getCoordinate().y).get(0);
-        MapVertexInfo parkCar = mapVertexInfoRepository.findNearbyPoint(nearbyWindow(end.getLocation())).get(0);
+        MapVertexInfo parkCar = mapVertexInfoRepository.findNearbyCarPoint(nearbyWindow(end.getLocation())).get(0);
 
         List<Route> routeList = new ArrayList<>();
 
@@ -58,14 +58,14 @@ public class CarPlanner extends AbstractPlanner{
         result.setType("旋风E100");
         result.setArrive(end.getPlaceName());
         result.setDepart(start.getPlaceName());
-        result.setDistance(0);
+        result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
         result.setCost(0);
         result.setPreference(new ArrayList<>()); //TODO
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(routeList
                 .stream().mapToInt(Route::getRouteTime).sum()));
         result.setRouteplan(routeList);
-        return null;
+        return result;
     }
 
     private Polygon nearbyWindow(Point t){
@@ -104,7 +104,7 @@ public class CarPlanner extends AbstractPlanner{
         bindVars.put("edge","caredge");
         bindVars.put("attribute","normalCarTime"); //TODO TRAFFIC
         params.put("bindVars",bindVars);
-        System.out.println(bindVars);
+//        System.out.println(bindVars);
         params.put("count",true);
         params.put("batchSize",1);
 
@@ -122,8 +122,8 @@ public class CarPlanner extends AbstractPlanner{
         CarRoute result = new CarRoute();
         result.setDepartID("PK"+begin.getVertexID());
         result.setArriveID("PK"+end.getVertexID());
-        System.out.println(arrangoResult.get("total_distance"));
-        System.out.println(arrangoResult.get("total_distance").getClass());
+//        System.out.println(arrangoResult.get("total_distance"));
+//        System.out.println(arrangoResult.get("total_distance").getClass());
         result.setDistance(((Double) arrangoResult.get("total_distance")).intValue());
         result.setRouteTime(((Double) arrangoResult.get("total_time")).intValue());
         result.setCost(300+15*(result.getRouteTime()/60 + 1));
