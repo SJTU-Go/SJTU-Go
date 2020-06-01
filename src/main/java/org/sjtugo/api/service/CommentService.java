@@ -8,6 +8,7 @@ import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
+import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.entity.Comment;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -15,11 +16,14 @@ import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommentService {
 
     private final CommentRepositoryJpa commentRepositoryJpa;
+
     private final GeometryFactory geometryFactory = new GeometryFactory();
     static double r = 2;
 
@@ -33,7 +37,8 @@ public class CommentService {
      * @return (x-r y+r)~(x+r y-r)范围内的评论列表
      * @throws ParseException String转Point
      */
-    public List<Comment> getCommentList(String location) throws ParseException {
+    public List<Map<Comment,Double>> getCommentList(String location) throws ParseException {
+        List<Map<Comment,Double>> listMap = new ArrayList<>();
         Point loc = (Point) new WKTReader().read(location);
         double x = loc.getX();
         double y = loc.getY();
@@ -46,7 +51,15 @@ public class CommentService {
                 +"))";
         System.out.println(polygon);
         Polygon square = (Polygon) new WKTReader().read(polygon);
-        return commentRepositoryJpa.findByLocationWithin(square);
+        List<Comment> comments = commentRepositoryJpa.findByLocationWithin(square);
+        for(Comment comment:comments) {
+            Point nearLocation = comment.getLocation();
+            double d = loc.distance(nearLocation);
+            Map<Comment, Double> map = new HashMap<>();
+            map.put(comment,d);
+            listMap.add(map);
+        }
+        return listMap;
     }
 
     public List<Comment> getCommentList(Integer placeID){

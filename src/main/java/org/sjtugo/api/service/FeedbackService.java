@@ -1,6 +1,7 @@
 package org.sjtugo.api.service;
 
 import org.sjtugo.api.DAO.FeedbackRepository;
+import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Feedback;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,26 @@ public class FeedbackService {
 
         return new ResponseEntity<>(newFeedback, HttpStatus.OK);
     }
+
+    public ResponseEntity<?> inbox(Integer adminID) {
+        if (adminID!=null)
+            return new ResponseEntity<>(feedbackRepository.findAll(),HttpStatus.OK);
+        return new ResponseEntity<>(new ErrorResponse(0,"please login"),HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<?> processFeedback(Integer feedBackID,Integer adminID) {
+        Feedback feedback = feedbackRepository.findById(feedBackID).orElse(null);
+        assert feedback != null;
+        if (feedback.getAdminID()==null)
+            feedback.setAdminID(adminID);
+        feedbackRepository.save(feedback); //关于save的问题
+        return new ResponseEntity<>(feedbackRepository.findById(feedBackID),HttpStatus.OK);
+    }
+
+
+//    public ResponseEntity<ErrorResponse> deleteFeedback(Integer feedbackID) {
+//        feedbackRepository.deleteByFeedbackID(feedbackID);
+//        return new ResponseEntity<>(new ErrorResponse(0,"delete successfully!"),HttpStatus.OK);
+//    }
 }
 

@@ -11,11 +11,9 @@ import org.springframework.util.StringUtils;
 
 public class AdminService {
     private final AdminRepository adminRepository;
-    private final FeedbackRepository feedbackRepository;
 
-    public AdminService(AdminRepository adminRepository, FeedbackRepository feedbackRepository) {
+    public AdminService(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
-        this.feedbackRepository = feedbackRepository;
     }
 
     public ResponseEntity<ErrorResponse> login(String name, String pw) {
@@ -30,13 +28,5 @@ public class AdminService {
                 return new ResponseEntity<>(new ErrorResponse(0, "login successfully!"), HttpStatus.OK);
             return new ResponseEntity<>(new ErrorResponse(0, "password error!"), HttpStatus.BAD_REQUEST);
         }
-    }
-
-    public ResponseEntity<?> inbox(Integer adminID) {
-        return new ResponseEntity<>(feedbackRepository.findAll(),HttpStatus.OK);
-    }
-
-    public ResponseEntity<?> processFeedback(Integer feedBackID) {
-        return new ResponseEntity<>(feedbackRepository.findAll(),HttpStatus.OK);
     }
 }

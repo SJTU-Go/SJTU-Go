@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 
 import lombok.Data;
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
+import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Comment;
 import org.sjtugo.api.service.Exception.AddCommentException;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Api(value="Comment System")
 @RestController
@@ -24,6 +26,8 @@ import java.util.List;
 public class CommentControl {
     @Autowired
     private CommentRepositoryJpa commentRepositoryJpa;
+    @Autowired
+    private MapVertexInfoRepository mapVertexInfoRepository;
 
     @ApiOperation(value = "get comments by place ID", notes = "给定地点ID，返回该处用户的评论")
     @GetMapping("/place={placeID}")
@@ -34,7 +38,7 @@ public class CommentControl {
 
     @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度,格式POINT(x y)，返回附近用户的评论")
     @PostMapping("/loc")
-    public @ResponseBody List<Comment> getCommentList(@RequestParam String location) throws ParseException {
+    public @ResponseBody List<Map<Comment, Double>> getCommentList(@RequestParam String location) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.getCommentList(location);
     }
@@ -78,6 +82,8 @@ public class CommentControl {
         private String location;  //前端传
         @ApiModelProperty(value = "评论相关停车点ID", example = "134234")
         private Integer relatedPlace;   //前端传
+        @ApiModelProperty(value = "评论相关停车点名")
+        private String name;
         @ApiModelProperty(value = "父评论ID，若填0表示新评论", example = "34")
         private Integer fatherID;
     }
