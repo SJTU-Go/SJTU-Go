@@ -49,5 +49,6 @@ public class Feedback {
 
     @ApiModelProperty(value = "已查看该条评论的管理员ID")
     private Integer adminID;
+
     public Feedback() {}
 }

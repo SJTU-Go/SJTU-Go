@@ -3,9 +3,11 @@ package org.sjtugo.api.controller;
 
 import io.swagger.annotations.*;
 import lombok.Data;
+import org.hibernate.cfg.CreateKeySecondPass;
 import org.sjtugo.api.DAO.FeedbackRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Feedback;
+import org.sjtugo.api.service.AdminService;
 import org.sjtugo.api.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,27 @@ public class FeedbackControl {
                 feedbackRequest.getServiceFB(),
                 feedbackRequest.getContents());
     }
+
+    @ApiOperation(value = "管理员收件箱,返回所有反馈")
+    @PostMapping("/inbox")
+    public ResponseEntity<?> inbox(@RequestParam Integer adminID) {
+        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
+        return feedbackser.inbox(adminID);
+    }
+
+    @ApiOperation(value = "管理员查看反馈")
+    @PostMapping("/processfeedback")
+    public ResponseEntity<?> processFeedback(@RequestParam Integer feedbackID, @RequestParam Integer adminID) {
+        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
+        return feedbackser.processFeedback(feedbackID,adminID);
+    }
+
+//    @ApiOperation(value = "管理员从收件箱中删除反馈")
+//    @PostMapping("/delete")
+//    public ResponseEntity<ErrorResponse> deleteFeedback(@RequestParam Integer feedbackID) {
+//        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
+//        return feedbackser.deleteFeedback(feedbackID);
+//    }
 
     @Data
     static class FeedbackRequest{

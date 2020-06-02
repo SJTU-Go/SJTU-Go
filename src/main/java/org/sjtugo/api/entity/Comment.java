@@ -52,6 +52,9 @@ public class Comment {
     @ApiModelProperty(value = "评论相关停车点ID", example = "134234")
     private Integer relatedPlace;
 
+    @ApiModelProperty(value = "评论相关停车点名")
+    private String parkingName;
+
     @ElementCollection
     @ApiModelProperty(value = "评论下方的子评论ID", example = "[2,3]")
     private List<Integer> subComment;

@@ -22,27 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminControl {
     @Autowired
     private AdminRepository adminRepository;
-    @Autowired
-    private FeedbackRepository feedbackRepository;
 
     @ApiOperation(value = "管理员登录",notes = "数据库已有数据：用户名lyuf，密码123456")
     @PostMapping("/adminlogin")
     public ResponseEntity<ErrorResponse> adminLogin(@RequestParam String name, @RequestParam String pw) {
-        AdminService adminser = new AdminService(adminRepository,null);
+        AdminService adminser = new AdminService(adminRepository);
         return adminser.login(name,pw);
-    }
-
-    @ApiOperation(value = "管理员收件箱")
-    @PostMapping("/inbox")
-    public ResponseEntity<?> inbox(@RequestParam Integer adminID) {
-        AdminService adminser = new AdminService(adminRepository,feedbackRepository);
-        return adminser.inbox(adminID);
-    }
-
-    @ApiOperation(value = "查看反馈")
-    @PostMapping("/feedback")
-    public ResponseEntity<?> processFeedback(@RequestParam Integer feedbackID) {
-        AdminService adminser = new AdminService(adminRepository,feedbackRepository);
-        return adminser.processFeedback(feedbackID);
     }
 }
