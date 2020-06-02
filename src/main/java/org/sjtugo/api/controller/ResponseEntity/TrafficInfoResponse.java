@@ -1,6 +1,11 @@
-package org.sjtugo.api.entity;
+package org.sjtugo.api.controller.ResponseEntity;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Point;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,15 +14,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Data
-@Entity
 @ApiModel(value = "交通信息")
-public class TrafficInfo {
-    @Id
+public class TrafficInfoResponse {
+
     private Integer trafficID;
 
     @ApiModelProperty(value = "相关交通情况开始时间", example = "07:00")
@@ -45,9 +48,11 @@ public class TrafficInfo {
     @ApiModelProperty(value = "提供交通信息的管理者ID")
     private Integer adminID;
 
-    @ElementCollection
     @ApiModelProperty(value = "交通路段中的相关地点ID")
-    private List<Integer> relatedVertex;
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
+    private List<Point> relatedVertex;
 
-    private String taskCron;
+
+
 }

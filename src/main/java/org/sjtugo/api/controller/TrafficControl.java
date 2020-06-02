@@ -9,8 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/traffic")
 public class TrafficControl {
 
-    @ApiO
-
-
 }
- 
