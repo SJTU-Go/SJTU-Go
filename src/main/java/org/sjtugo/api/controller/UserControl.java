@@ -4,13 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
-import org.sjtugo.api.DAO.HistoryRepository;
 import org.sjtugo.api.DAO.PreferenceRepository;
 import org.sjtugo.api.DAO.ScheduleRepository;
+import org.sjtugo.api.DAO.TripRepository;
 import org.sjtugo.api.DAO.UserRepository;
-import org.sjtugo.api.entity.History;
 import org.sjtugo.api.entity.Preference;
 import org.sjtugo.api.entity.Schedule;
+import org.sjtugo.api.entity.Trip;
 import org.sjtugo.api.service.HistoryService;
 import org.sjtugo.api.service.PreferenceService;
 import org.sjtugo.api.service.ScheduleService;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public class UserControl {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private HistoryRepository historyRepository;
+    private TripRepository tripRepository;
     @Autowired
     private PreferenceRepository preferenceRepository;
     @Autowired
@@ -46,8 +47,8 @@ public class UserControl {
     @ApiOperation(value = "上传偏好")
     @PostMapping("/preference/add")
     public ResponseEntity<?> addPreference(@RequestBody PreferenceRequest preferenceRequest){
-        PreferenceService preferenceser = new PreferenceService(preferenceRepository);
-        return preferenceser.addPreference(preferenceRequest.getUserID(),
+        PreferenceService preferenceService = new PreferenceService(preferenceRepository);
+        return preferenceService.addPreference(preferenceRequest.getUserID(),
                 preferenceRequest.getPreferencelist(),
                 preferenceRequest.getBanlist());
     }
@@ -59,21 +60,11 @@ public class UserControl {
         return preferenceService.getPreference(userID);
     }
 
-    @ApiOperation(value = "上传历史")
-    @PostMapping("/history/add")
-    public ResponseEntity<?> addHistory(@RequestBody HistoryRequest historyRequest){
-        HistoryService historyService = new HistoryService(historyRepository);
-        return historyService.addHistory(historyRequest.getUserID(),
-                historyRequest.getDepart(),
-                historyRequest.getArrive(),
-                historyRequest.getRoutetime(),
-                historyRequest.getRoute());
-    }
 
     @ApiOperation(value = "获取用户历史行程")
     @PostMapping("/history/get")
-    public @ResponseBody List<History> getHistoryList(@RequestParam Integer userID){
-        HistoryService historyService = new HistoryService(historyRepository);
+    public @ResponseBody List<Trip> getHistoryList(@RequestParam Integer userID){
+        HistoryService historyService = new HistoryService(tripRepository);
         return historyService.getHistoryList(userID);
     }
 
@@ -109,15 +100,17 @@ public class UserControl {
     }
 
     @Data
-    static class HistoryRequest{
+    static class History{
         @ApiModelProperty(value = "用户ID", example = "123")
         private Integer userID;
         @ApiModelProperty(value = "出发地", example="上院")
         private String depart;
         @ApiModelProperty(value = "目的地", example="北区篮球场")
         private String arrive;
-        @ApiModelProperty(value = "行程时间", example="1140")
-        private String routetime;
+        @ApiModelProperty(value = "出发时间", example="2020-05-24 19:07:40")
+        private LocalDateTime departTime;
+        @ApiModelProperty(value = "到达时间", example="2020-05-24 19:14:43")
+        private LocalDateTime arriveTime;
         @ApiModelProperty(value = "路径")
         private String route;
     }
@@ -139,6 +132,10 @@ public class UserControl {
         @ApiModelProperty(value = "地点", example="电院群楼三号楼")
         private String place;
     }
+
+
+
+
 
 
 
