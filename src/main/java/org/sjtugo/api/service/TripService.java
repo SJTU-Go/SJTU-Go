@@ -8,6 +8,7 @@ import org.sjtugo.api.entity.Trip;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class TripService {
     private final TripRepository tripRepository;
@@ -29,5 +30,9 @@ public class TripService {
 
         tripRepository.save(trip);
         return trip.getTripID();
+    }
+
+    public Optional<Trip> findTrip (Integer tripID) {
+        return tripRepository.findById(tripID);
     }
 }
