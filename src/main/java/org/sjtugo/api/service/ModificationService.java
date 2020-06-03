@@ -10,6 +10,7 @@ import org.sjtugo.api.entity.TrafficInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +32,9 @@ public class ModificationService {
                                                    String message, Integer parkSize) {
         MapVertexInfo mapVertexInfo = mapVertexInfoRepository.findById(placeID).orElse(null);
         assert mapVertexInfo != null;
+        String placeName = null;
         try {
+            placeName = mapVertexInfo.getVertexName();
             mapVertexInfo.setParkSize(parkSize);
             mapVertexInfo.setParkInfo(message);
             mapVertexInfoRepository.save(mapVertexInfo);
@@ -43,6 +46,8 @@ public class ModificationService {
         Modification modify = new Modification();
         modify.setAdminID(adminID);
         modify.setContents(message);
+        modify.setPlaceName(placeName);
+        modify.setTime(LocalDateTime.now());
         modificationRepository.save(modify);
 
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);

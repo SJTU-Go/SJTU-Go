@@ -24,7 +24,7 @@ public class CommentService {
 
     private final CommentRepositoryJpa commentRepositoryJpa;
 
-    private final GeometryFactory geometryFactory = new GeometryFactory();
+    //private final GeometryFactory geometryFactory = new GeometryFactory();
     static double r = 2;
 
     public CommentService(CommentRepositoryJpa commentRepositoryJpa) {
