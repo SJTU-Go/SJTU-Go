@@ -28,19 +28,22 @@ public class ModificationService {
     }
 
     public ResponseEntity<ErrorResponse> modifyMap(Integer adminID, Integer placeID,
-                                                   String message, Integer parkSize) { //String??
-        //通过placeID找到对应place修改parkSize的信息？？？  管理员手动更改？？？
+                                                   String message, Integer parkSize) {
         MapVertexInfo mapVertexInfo = mapVertexInfoRepository.findById(placeID).orElse(null);
         assert mapVertexInfo != null;
-        mapVertexInfo.setParkSize(parkSize);
-        mapVertexInfo.setParkInfo(message);
-        mapVertexInfoRepository.save(mapVertexInfo);
+        try {
+            mapVertexInfo.setParkSize(parkSize);
+            mapVertexInfo.setParkInfo(message);
+            mapVertexInfoRepository.save(mapVertexInfo);
+        } catch (Exception e) {
+            System.out.println("no such place");
+        }
 
-        //Modification modify = new Modification();
-        //Modification modify = modificationRepository.findById(adminID).orElse(null);
-        //modify.setAdminID(adminID);
-        //modify.setContens(message);
-        //modificationRepository.save(modify);
+
+        Modification modify = new Modification();
+        modify.setAdminID(adminID);
+        modify.setContents(message);
+        modificationRepository.save(modify);
 
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
     }
