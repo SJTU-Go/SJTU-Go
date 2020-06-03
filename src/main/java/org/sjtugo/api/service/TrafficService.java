@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TrafficService {
-
+    // TODO check 是否当前时间
     protected final RestTemplate restTemplate;
     protected final TrafficInfoRepository trafficInfoRepository;
 
@@ -40,12 +40,12 @@ public class TrafficService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         Map<String,Object> bindVars = new HashMap<>();
         restTemplate.getInterceptors().add(
-                new BasicAuthenticationInterceptor("public", ""));
+                new BasicAuthenticationInterceptor("root", "sjtugo"));
 
         bindVars.put("id","update"+task.getTrafficID());
-        bindVars.put("name","update"+task.getMessage().substring(0,10));
-        if (task.getRepeat() > 0){
-            bindVars.put("repeat",task.getRepeat());
+        bindVars.put("name","update"+task.getName());
+        if (task.getRepeatTime() > 0){
+            bindVars.put("period",task.getRepeatTime());
         }
 
         // update traffic
@@ -64,7 +64,7 @@ public class TrafficService {
                 "        var distance = bikeedge[0].distance;\n" +
                 "    }\n" +
                 "    db.bikeedge.updateByExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}, {avoidBikeTime : 999999999, normalBikeTime : distance / bikespeed, avoidMotorTime : 999999999, normalMotorTime : distance / motorspeed });\n" +
-                "} (params)");
+                "}}) (params)");
         Map<String,Object> update_params = new HashMap<>();
         update_params.put("relatedVertex",task.getRelatedVertex());
         update_params.put("motorSpeed",task.getMotorSpeed());
@@ -72,19 +72,21 @@ public class TrafficService {
         update_params.put("carSpeed",task.getCarSpeed());
         bindVars.put("params",update_params);
 
+//        System.out.println(bindVars);
+
         HttpEntity<Object> update_request = new HttpEntity<>(bindVars,headers);
-        restTemplate.postForObject("http://47.92.147.237:8529/_api/tasks",
-                        update_request,Integer.class);
+        restTemplate.put("http://47.92.147.237:8529/_api/tasks/"+bindVars.get("id"),
+                        update_request);
 
         // restore traffic
         bindVars.replace("id","restore"+task.getTrafficID());
-        bindVars.replace("name","restore"+task.getMessage().substring(0,10));
+        bindVars.replace("name","restore"+task.getName());
         bindVars.replace("offset", Duration.between(LocalDateTime.now(),
                 task.getEndTime().atDate(task.getBeginDay())).toSeconds());
         Map<String,Object> restore_params = new HashMap<>();
         restore_params.put("relatedVertex",task.getRelatedVertex());
         bindVars.replace("params",restore_params);
-        bindVars.replace("command","var carspeed = 16;\n" +
+        bindVars.replace("command","(function(params) {var carspeed = 16;\n" +
                 "var bikespeed = 6;\n" +
                 "var motorspeed = 8;\n" +
                 "var arrayLength = relatedVertex.length;\n" +
@@ -101,10 +103,10 @@ public class TrafficService {
                 "    }\n" +
                 "    db.bikeedge.updateByExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}, {avoidBikeTime : distance / bikespeed, normalBikeTime : distance / bikespeed, avoidMotorTime : distance / motorspeed, normalMotorTime : distance / motorspeed });\n" +
                 "\n" +
-                "}");
+                "}}) (params)");
         HttpEntity<Object> restore_request = new HttpEntity<>(bindVars,headers);
-        restTemplate.postForObject("http://47.92.147.237:8529/_api/tasks",
-                restore_request,Integer.class);
+        restTemplate.put("http://47.92.147.237:8529/_api/tasks/"+bindVars.get("id"),
+                restore_request);
         }
 
 

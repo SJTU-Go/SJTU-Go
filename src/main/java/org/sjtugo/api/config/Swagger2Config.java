@@ -26,6 +26,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,8 @@ public class Swagger2Config implements WebMvcConfigurer {
                 .apiInfo(apiInfo())
                 .directModelSubstitute(Duration.class, int.class)
                 .directModelSubstitute(LineString.class, ArrayList.class)
-                .directModelSubstitute(Point.class, String.class);
+                .directModelSubstitute(Point.class, String.class)
+                .directModelSubstitute(LocalTime.class,String.class);
     }
 
     public ApiInfo apiInfo() {
