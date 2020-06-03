@@ -16,7 +16,7 @@ public class HistoryService {
 
     public List<Trip> getHistoryList(Integer userID){
         //List<Trip> trips = tripRepository.findByUserID(userID);
-        return tripRepository.findByUserID(userID)
+        return tripRepository.findByUserID(userID);
     }
 }
 
