@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.Data;
+import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
@@ -38,7 +39,8 @@ public class CommentControl {
 
     @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度,格式POINT(x y)，返回附近用户的评论")
     @PostMapping("/loc")
-    public @ResponseBody List<Map<Comment, Double>> getCommentList(@RequestParam String location) throws ParseException {
+    public @ResponseBody
+    List<Map<Double,Comment>> getCommentList(@RequestParam String location) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.getCommentList(location);
     }

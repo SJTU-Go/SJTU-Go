@@ -10,6 +10,7 @@ import org.sjtugo.api.entity.TrafficInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,19 +29,26 @@ public class ModificationService {
     }
 
     public ResponseEntity<ErrorResponse> modifyMap(Integer adminID, Integer placeID,
-                                                   String message, Integer parkSize) { //String??
-        //通过placeID找到对应place修改parkSize的信息？？？  管理员手动更改？？？
+                                                   String message, Integer parkSize) {
         MapVertexInfo mapVertexInfo = mapVertexInfoRepository.findById(placeID).orElse(null);
         assert mapVertexInfo != null;
-        mapVertexInfo.setParkSize(parkSize);
-        mapVertexInfo.setParkInfo(message);
-        mapVertexInfoRepository.save(mapVertexInfo);
+        String placeName = null;
+        try {
+            placeName = mapVertexInfo.getVertexName();
+            mapVertexInfo.setParkSize(parkSize);
+            mapVertexInfo.setParkInfo(message);
+            mapVertexInfoRepository.save(mapVertexInfo);
+        } catch (Exception e) {
+            System.out.println("no such place");
+        }
 
-        //Modification modify = new Modification();
-        //Modification modify = modificationRepository.findById(adminID).orElse(null);
-        //modify.setAdminID(adminID);
-        //modify.setContens(message);
-        //modificationRepository.save(modify);
+
+        Modification modify = new Modification();
+        modify.setAdminID(adminID);
+        modify.setContents(message);
+        modify.setPlaceName(placeName);
+        modify.setTime(LocalDateTime.now());
+        modificationRepository.save(modify);
 
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
     }
@@ -53,4 +61,5 @@ public class ModificationService {
         modificationRepository.save(modify);
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
     }
+
 }
