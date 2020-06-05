@@ -105,8 +105,10 @@ Page({
     wx.getStorage({
       key: 'banned',
       success: function(res){
+        console.log(res.data)
       that.setData({
         banned:res.data,
+
       })
       if(that.data.banned.length==0){
       that.setData({
@@ -122,6 +124,8 @@ Page({
       console.log(res+'aaaaa')
       }
       });
+      console.log(that.data.preferencelist)
+      console.log(that.data.banned)
       console.log(that.data.preferencelist.length==0&&that.data.banned.length==0)
     if(that.data.preferencelist.length==0&&that.data.banned.length==0){
       that.setData({preferencelist:that.data.preference1})

@@ -1,0 +1,28 @@
+
+
+    <view wx:if='{{boxshow}}' wx:for="{{lista}}" wx:for-item="item" class="msg-item" bindtap="viewcomment" wx:for-index='i'  >
+     <view wx:if='{{i==0}}' >
+         <!--<view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.location.coordinates}}</view>
+         <view class='contents'>{{item.contents}}</view>!-->
+         <view class = 'toppart'>
+            <view class='titlename' >{{item.relatedPlace}}</view>
+            <view class='right'>
+            <view class='distancename' >xxxx米</view></view>
+        </view>
+         <view class = 'middlepart'>
+            <view class='commentname' >{{item.contents}}</view>
+        </view> 
+         <view class = 'toppart'>
+            <view class='rightt'><view class='usersname' >{{item.userID}} {{item.commentTime}}</view></view>
+        </view> 
+ 
+         <view class = 'toppartimg'>
+            <view class='rightt'><view class='usersname' ><image class="massge-img" src="/images/uncomment.png"></image><image class="massge-img" src="/images/uncomment1.png"></image></view></view>
+        </view>     
+            </view>
+    </view>
+        <view class = "bottomblock">
+
+            <input class="input" text-align="center" name="userName" placeholder="回复评论"
+    bindinput="commentInput"/>        <button class = 'navigatebutton'bindtap="updataInput">提交</button>
+    </view>

@@ -1,6 +1,6 @@
 
 <view style="font-size:40rpx">目前的偏好优先级为：</view>
-<view wx:if="{{!preference.length}}">
+<view wx:if="{{preference.length}}">
 <view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
   <view wx:if="{{i < preference.length}}">
    <view class="massge-hd">
@@ -16,7 +16,7 @@
 </view>
 </view>
 <view style="font-size:40rpx">目前的禁止的出行方式有：</view>
-<view wx:if="{{!banned.length}}">
+<view wx:if="{{banned.length}}">
 <view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
   <view wx:if="{{i < banned.length}}">
    <view class="massge-hd">

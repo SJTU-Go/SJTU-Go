@@ -1,11 +1,21 @@
 
 {
-  "pages": [
-    "pages/LoginPage/LoginPage",
+  "pages": [ "pages/LoginPage/LoginPage",   
+    "pages/extendsearch/arrive/arrive",
+    "pages/searchindex/searchindex",
+    "pages/comment/comment",    
+    "pages/addcomment/addcomment", 
+  
+
+
+
+
+ 
+
+  
+
     "pages/index/index",
 
-
-    "pages/searchindex/searchindex",
 
 
     "pages/preferencePage/preferencePage",
@@ -18,7 +28,7 @@
     "pages/extendsearcha/depart/depart",
     "pages/extendsearch/depart/depart",
 
-    "pages/extendsearch/arrive/arrive",
+
     "pages/extendsearch/pass/pass",
 
     "pages/extendsearcha/arrive/arrive",
@@ -64,11 +74,18 @@
          "iconPath": "images/traffic01.png"
        },
        {   
+        "pagePath": "pages/comment/comment",  
+         "text":"评论" ,
+         "selectedIconPath": "images/comment2.png",
+         "iconPath": "images/comment1.png"
+       },
+       {   
         "pagePath": "pages/userInfoPage/userInfoPage",  
          "text":"用户" ,
          "selectedIconPath": "images/user2.png",
          "iconPath": "images/user1.png"
        }
+
 ]
     },
 

@@ -1,7 +1,10 @@
 var app = getApp()
 
 Page({
+
   data: {
+    hasmarkers:false,
+    markers:new Array(0),
     boxshow:true,
     datapass:'',
     // 搜索框状态
@@ -69,10 +72,39 @@ Page({
       },
 
       success: function (res) {
+        var x
+        var markers=new Array(0)
+        for (x in res.data)
+        {
+
+        var marker ={iconPath: "/mark/19.PNG",
+          latitude: 31.021807,//31.029236,
+          longitude: 121.429846,//121.452591,
+          width: 50,
+          height: 50,
+          name:'',
+          bikeCount:''}
+            marker.latitude=res.data[x].location.coordinates[1]
+            marker.longitude=res.data[x].location.coordinates[0] 
+            marker.name="noname"
+            marker.iconPath = "../../../images/logo.png"
+            console.log(marker)
+            markers.push(marker) 
+            console.log("adding")
+            console.log(markers)
+           }   
+
+        
         console.log(res.data)
         that.setData({
           carList: res.data
         })
+        that.setData({
+          markers:markers
+        })
+        that.setData({hasmarkers:true})
+        console.log("markers")
+        console.log(that.data.markers)
       }
     });
   },

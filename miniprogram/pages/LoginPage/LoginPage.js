@@ -10,12 +10,24 @@ Page({
   jumpaccountLogin:function(){wx.navigateTo({url: '../accountLoginPage/accountLoginPage', })
   },
   checkUserInfo: function()
-  {wx.request({
-    url: 'https://api.ltzhou.com/hello',
+  {wx.login({
     success (res) {
-      console.log(res.data)
+      if (res.code) {
+        console.log(res.code)
+        //发起网络请求
+        wx.request({
+          url: 'https://api.ltzhou.com/user/login',
+          data: {
+            code: res.code
+          },
+          success(res){console.log("return");console.log(res.data)}
+        })
+      } else {
+        console.log('登录失败！' + res.errMsg)
+      }
     }
   })
+
     if(wx.canIUse('button.open-type.getUserInfo')){wx.switchTab({url: '../index/index', })}},
   onLoad: function() {
     // 查看是否授权

@@ -52,8 +52,8 @@ Page({
         }
         });
         console.log(that.data.preference.length==0&&that.data.banned.length==0)
-
-
+console.log("test")
+console.log(that.data)
       },
       setPreference:function()
       {wx.navigateTo({

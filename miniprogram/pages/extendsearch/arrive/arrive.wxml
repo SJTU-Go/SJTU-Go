@@ -28,6 +28,7 @@
   </view>
 </view>
 
+<map longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal"  show-location style="width: 100%; height: 40vh;" wx:if="{{hasmarkers}}"></map>
 
 
     <view wx:if='{{boxshow}}' wx:for="{{carList}}" wx:key="{{index}}" class="msg-item">
