@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Api(value="修改记录信息")
@@ -53,7 +52,7 @@ public class ModificationControl {
     @PostMapping("/modify/traffic")
     public ResponseEntity<ErrorResponse> modifyMap(@RequestParam Integer adminID, @RequestBody TrafficInfo trafficInfo) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
-        TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository);
+        TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository);
         trafficService.newTraffic(trafficInfo);
         return modiService.modifyMap(adminID, trafficInfo);
     }

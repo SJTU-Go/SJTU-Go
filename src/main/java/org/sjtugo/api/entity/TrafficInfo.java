@@ -76,7 +76,7 @@ public class TrafficInfo {
         return result;
     }
 
-    @ApiModelProperty(value = "重复次数，以秒为单位,现阶段功能还未完善，为避免冲突，建议设置成0，" +
+    @ApiModelProperty(value = "重复频率，以天为单位,现阶段功能还未完善，为避免冲突，建议设置成0，" +
             "表示不重复，使得ArangoDB能自动销毁我们的toy task", example = "0")
     private Integer repeatTime;
 }

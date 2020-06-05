@@ -13,4 +13,9 @@ public class ErrorResponse {
         this.message = message;
     }
 
+    public ErrorResponse (Exception e) {
+        this.code =500;
+        this.message = e.getMessage();
+    }
+
 }

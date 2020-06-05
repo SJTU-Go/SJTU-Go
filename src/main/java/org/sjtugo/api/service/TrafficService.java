@@ -1,21 +1,18 @@
 package org.sjtugo.api.service;
 
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.io.WKTReader;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.TrafficInfoResponse;
-import org.sjtugo.api.entity.BikeRoute;
 import org.sjtugo.api.entity.TrafficInfo;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,17 +20,29 @@ public class TrafficService {
     // TODO check 是否当前时间
     protected final RestTemplate restTemplate;
     protected final TrafficInfoRepository trafficInfoRepository;
+    protected final MapVertexInfoRepository mapVertexInfoRepository;
 
-    public TrafficService(RestTemplate restTemplate, TrafficInfoRepository trafficInfoRepository) {
+    public TrafficService(RestTemplate restTemplate, TrafficInfoRepository trafficInfoRepository, MapVertexInfoRepository mapVertexInfoRepository) {
         this.restTemplate = restTemplate;
         this.trafficInfoRepository = trafficInfoRepository;
+        this.mapVertexInfoRepository = mapVertexInfoRepository;
     }
 
     public void newTraffic(TrafficInfo trafficInfo) {
         trafficInfoRepository.save(trafficInfo);
         scheduleArango(trafficInfo);
     }
-
+    
+    public List<TrafficInfoResponse> currentTraffic() {
+        return trafficInfoRepository
+                .findAllByBeginTimeIsBeforeAndEndTimeIsAfter(LocalTime.now(),LocalTime.now())
+                .stream().filter(traffic ->
+                        traffic.getRepeatTime() == 0 ||
+                        Period.between(traffic.getBeginDay(), LocalDate.now()).getDays()
+                                % traffic.getRepeatTime() == 0)
+                .map(this::makeResponse)
+                .collect(Collectors.toList());
+    }
 
     private void scheduleArango(TrafficInfo task) {
         HttpHeaders headers = new HttpHeaders();
@@ -45,7 +54,7 @@ public class TrafficService {
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
         if (task.getRepeatTime() > 0){
-            bindVars.put("period",task.getRepeatTime());
+            bindVars.put("period",86400*task.getRepeatTime());
         }
 
         // update traffic
@@ -110,4 +119,14 @@ public class TrafficService {
         }
 
 
+    private TrafficInfoResponse makeResponse(TrafficInfo trafficInfo){
+        TrafficInfoResponse response = new TrafficInfoResponse();
+        response.setTrafficInfo(trafficInfo);
+        Coordinate[] locations = trafficInfo.getRelatedVertex().stream()
+                .map(id -> mapVertexInfoRepository.findById(id)
+                        .orElseThrow().getLocation().getCoordinate())
+                .toArray(Coordinate[]::new);
+        response.setPointList( new GeometryFactory().createLineString(locations));
+        return response;
+    }
 }
