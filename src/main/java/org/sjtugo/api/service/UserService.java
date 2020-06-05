@@ -1,20 +1,18 @@
 package org.sjtugo.api.service;
 
-import com.vividsolutions.jts.io.ParseException;
 import net.sf.json.JSONObject;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.sjtugo.api.DAO.UserRepository;
 import org.sjtugo.api.entity.User;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserService {
@@ -32,15 +30,16 @@ public class UserService {
     public ResponseEntity<?> userLogin(String code){
         String resultString = doGet(code);
         JSONObject res = JSONObject.fromObject(resultString);
-
+        System.out.println(res);
+        //错误code会返回 'errcode': 40029
         String session_key = res.get("session_key").toString();
         String openid = res.get("openid").toString();
 
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("session_key", session_key);
-
-        User user = userRepository.findByOpenid(openid).get(0);
-        if(user != null){
+        List<User> users = userRepository.findByOpenid(openid);
+        if(users.size() != 0){
+            User user = users.get(0);
             Integer temp_id = user.getId();
             String userID = temp_id.toString();
             userInfo.put("userID", userID);
@@ -57,7 +56,7 @@ public class UserService {
     }
 
     private String doGet(String code){
-        StringBuilder url = new StringBuilder(UserConstant.WX_LOGIN_URL);
+        StringBuffer url = new StringBuffer(UserConstant.WX_LOGIN_URL);
         url.append("appid=");
         url.append(UserConstant.WX_LOGIN_APPID);
         url.append("&secret=");
@@ -66,7 +65,9 @@ public class UserService {
         url.append(code);
         url.append("&grant_type=authorization_code");
 
-        CloseableHttpClient client = HttpClientBuilder.create().build();
+        //String url1 = URLEncoder.encode(url.toString(), StandardCharsets.UTF_8);
+
+        CloseableHttpClient client = HttpClients.createDefault();
         HttpGet get = new HttpGet(url.toString());
 
         String resultString = null;
