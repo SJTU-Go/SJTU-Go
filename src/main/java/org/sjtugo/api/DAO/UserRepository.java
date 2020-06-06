@@ -8,6 +8,6 @@ import java.util.List;
 
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    List<User> findByOpenid(String Openid);
+    List<User> findByOpenId(String Openid);
     //更新数据需用sql语句，save无法部分更新
 }
