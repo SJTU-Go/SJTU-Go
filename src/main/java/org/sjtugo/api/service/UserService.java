@@ -36,7 +36,7 @@ public class UserService {
         String openid = res.get("openid").toString();
 
         Map<String, String> userInfo = new HashMap<>();
-        userInfo.put("session_key", session_key);
+        userInfo.put("openid", openid);
         List<User> users = userRepository.findByOpenId(openid);
         if(users.size() != 0){
             User user = users.get(0);
