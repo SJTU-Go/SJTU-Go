@@ -37,8 +37,8 @@ public class CommentService {
      * @return (x-r y+r)~(x+r y-r)范围内的评论列表
      * @throws ParseException String转Point
      */
-    public List<Map<Double,Comment>> getCommentList(String location) throws ParseException {
-        List<Map<Double,Comment>> listMap = new ArrayList<>();
+    public List<Comment> getCommentList(String location) throws ParseException {
+
         Point loc = (Point) new WKTReader().read(location);
         double x = loc.getX();
         double y = loc.getY();
@@ -51,16 +51,7 @@ public class CommentService {
                 +"))";
 //        System.out.println(polygon);
         Polygon square = (Polygon) new WKTReader().read(polygon);
-        List<Comment> comments = commentRepositoryJpa.findByLocationWithin(square);
-        for(Comment comment:comments) {
-            Point nearLocation = comment.getLocation();
-            double d = loc.distance(nearLocation);
-            //JSONObject json = JSONObject.fromObject(comment);
-            Map<Double,Comment> map = new HashMap<>();
-            map.put(d,comment);
-            listMap.add(map);
-        }
-        return listMap;
+        return commentRepositoryJpa.findByLocationWithin(square);
     }
 
     public List<Comment> getCommentList(Integer placeID){
@@ -74,16 +65,18 @@ public class CommentService {
      * @param userID 评论者ID
      * @param location 评论地点
      * @param relatedPlace 评论相关位置ID
+     * @param name 停车点名
      * @param fatherID 父评论ID
      * @return 本次添加的新评论
      */
     public ResponseEntity<?> addComment(String title, String contents, Integer userID,
-                                             String location, Integer relatedPlace,
+                                             String location, Integer relatedPlace, String name,
                                              Integer fatherID) {
         Comment newComment = new Comment();
         newComment.setTitle(title);
         newComment.setContents(contents);
         newComment.setUserID(userID);
+        newComment.setParkingName(name);
         newComment.setCommentTime(LocalDateTime.now());
         Point loc;
         try {
@@ -129,6 +122,7 @@ public class CommentService {
     public List<Comment> getSubCommentList(Integer fatherID) {
         List<Comment> subComments = new ArrayList<>();
         Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
+        assert fatherComment != null;
         List<Integer> subCommentsID = fatherComment.getSubComment();
         for (Integer subCommentID : subCommentsID)
         {

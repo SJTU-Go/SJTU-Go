@@ -34,7 +34,7 @@ public class FeedbackService {
     public ResponseEntity<?> inbox(Integer adminID) {
         if (adminID!=null)
             return new ResponseEntity<>(feedbackRepository.findAll(),HttpStatus.OK);
-        return new ResponseEntity<>(new ErrorResponse(0,"please login"),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse(5,"please login"),HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<?> processFeedback(Integer feedBackID,Integer adminID) {
