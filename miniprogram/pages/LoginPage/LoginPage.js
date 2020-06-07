@@ -16,19 +16,30 @@ Page({
         console.log(res.code)
         //发起网络请求
         wx.request({
-          url: 'https://api.ltzhou.com/user/login',
-          data: {
-            code: res.code
-          },
-          success(res){console.log("return");console.log(res.data)}
+          url: 'https://api.ltzhou.com/user/login?code='+res.code,
+          method:'POST',
+          success(res){console.log("returningcode");console.log(res.data)
+        wx.setStorage({
+          data:res.data.userID,
+          key: 'userID',
+        })
+wx.switchTab({url: '../index/index', })
+        }
         })
       } else {
         console.log('登录失败！' + res.errMsg)
+        wx.showToast({ 
+          title: '登录失败', 
+          icon: 'loading', 
+          duration: 2000 
+          }) 
       }
     }
   })
 
-    if(wx.canIUse('button.open-type.getUserInfo')){wx.switchTab({url: '../index/index', })}},
+
+
+},
   onLoad: function() {
     // 查看是否授权
     wx.getSetting({

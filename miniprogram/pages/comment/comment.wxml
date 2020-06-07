@@ -23,7 +23,7 @@
          <view class = 'toppart'>
             <view class='titlename' >{{item.relatedPlace}}</view>
             <view class='right'>
-            <view class='distancename' >xxxx米</view></view>
+            <view class='distancename' >{{item.distance|Int}}米</view></view>
         </view>
          <view class = 'toppart'>
             <view class='commentname' >{{item.title}}</view>

@@ -10,7 +10,8 @@ Page({
     pass:'',
     tmphis:[],
     tmproute:[],
-    tmpplan:[]
+    tmpplan:[],
+    storage:'',
   },
 
   onLoad: function(options){
@@ -76,6 +77,25 @@ Page({
       key: 'plan',
       success:function(res){that.setData({tmpplan:res.data})}
     })
+    var p
+    var id
+     var storage={}
+     wx.getStorage({
+       key: 'userID',
+      success(res){
+        id = res.data
+     wx.getStorage({
+       key: 'bike',
+       success(res){p  = res.data
+        storage.strategy = p
+        storage.userID = id
+        that.setData({storage:storage})
+          console.log(that.data.storage)
+      }
+     })   
+        }
+  
+  })
   },
 
   starttirp:function(e){
@@ -132,6 +152,12 @@ Page({
        })
        }, 2000);
        }
+      })
+      wx.request({
+        url: 'https://api.ltzhou.com/trip/start',
+        method:"POST",
+        data:this.data.storage,
+          success (res) {console.log("assessing");console.log(res.data)}
       })
   },
   

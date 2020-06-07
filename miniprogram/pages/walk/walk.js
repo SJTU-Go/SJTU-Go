@@ -10,10 +10,12 @@ Page({
     pass:'',
     tmphis:[],
     tmproute:[],
-    tmpplan:[]
+    tmpplan:[],
+    storage:'',
   },
 
   onLoad: function(options){
+
     var d = JSON.parse(options.RT)
     this.setData({
       routeplan: JSON.parse(options.RT),
@@ -72,6 +74,27 @@ Page({
       key: 'plan',
       success:function(res){that.setData({tmpplan:res.data})}
     })
+    var p
+     var storage={}
+    var id
+     wx.getStorage({
+      key: 'userID',
+     success(res){
+       id = res.data
+    wx.getStorage({
+      key: 'walk',
+      success(res){p  = res.data
+       storage.strategy = p
+       storage.userID = id
+       that.setData({storage:storage})
+         console.log(that.data.storage)
+     }
+    })   
+       }
+ 
+ })
+
+
   },
 
   starttirp:function(e){
@@ -129,6 +152,15 @@ Page({
        }, 2000);
        }
       })
+      wx.request({
+        url: 'https://api.ltzhou.com/trip/start',
+        method:"POST",
+        data:this.data.storage,
+          success (res) {console.log(res.data)}
+      })
+      
+
+
   },
   
   onReady: function () {

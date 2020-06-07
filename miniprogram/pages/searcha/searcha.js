@@ -92,20 +92,31 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
         },
 
   searchPagebus: function()
-  {    wx.navigateTo({
+  {  wx.setStorage({
+    data: this.data.bus,
+    key: 'bus',
+  })
+    wx.navigateTo({
     url: '../search/search?RT='+JSON.stringify(this.data.routeplan) + '&travelTime=' + this.data.bus.travelTime})//+ '&travelTime=' + this.data.travelTime  
     
   },
 
 
   searchPagewalk: function()
-  {
+  {console.log(this.data)
+     wx.setStorage({
+    data: this.data.walk,
+    key: 'walk',
+  })
     wx.navigateTo({
-      url: '../walk/walk?RT='+JSON.stringify(this.data.walk.routeplan) + '&travelTime=' + this.data.walk.travelTime})
+      url: '../walk/walk?RT='+JSON.stringify(this.data.walk.routeplan) + '&travelTime=' + this.data.walk.travelTime /*+ '&travel=' + this.data.walk.travel*/})
   },
 
   searchPagebike: function()
-  {
+  {     wx.setStorage({
+    data: this.data.bike,
+    key: 'bike',
+  })
     wx.navigateTo({
       url: '../bike/bike?RT='+JSON.stringify(this.data.bike.routeplan) + '&travelTime=' + this.data.bike.travelTime}) 
   },

@@ -14,7 +14,9 @@ Page({
     list:Array(0),
     fakelist:[{distance:"100m",name:"上院西侧",content:"评论内容",username:"小王"},{distance:"100m",name:"上院西侧",content:"评论内容",username:"小王"},{distance:"100m",name:"上院西侧",content:"评论内容",username:"小王"}]
   },
+
 onLoad:function(e){
+
   var that = this
   wx.request({
     url: 'https://api.ltzhou.com/comments/loc',
@@ -38,7 +40,21 @@ onLoad:function(e){
       for( j in res.data){
     
       for (i in res.data[j]){
-        ress.push(res.data[j][i])
+        var pushlist=res.data[j][i]
+        var lat1 = 31.025940
+        var lng1 = 121.437600
+        var lat2 = res.data[j][i].location.coordinates[1]
+        var lng2 = res.data[j][i].location.coordinates[0]
+        var radLat1 = lat1*Math.PI / 180.0;
+        var radLat2 = lat2*Math.PI / 180.0;
+        var a = radLat1 - radLat2;
+        var b = lng1*Math.PI / 180.0 - lng2*Math.PI / 180.0;
+        var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
+        Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+        s = s *6378.137 ;// EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+pushlist.distance = s*1000
+ress.push(pushlist)
 
       }
   

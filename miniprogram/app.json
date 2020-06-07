@@ -1,9 +1,10 @@
 
 {
   "pages": [ "pages/LoginPage/LoginPage",   
+    "pages/comment/comment",    
     "pages/extendsearch/arrive/arrive",
     "pages/searchindex/searchindex",
-    "pages/comment/comment",    
+
     "pages/addcomment/addcomment", 
   
 
