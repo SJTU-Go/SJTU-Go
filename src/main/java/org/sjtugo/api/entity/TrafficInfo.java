@@ -24,6 +24,7 @@ import java.util.List;
 public class TrafficInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @ApiModelProperty(hidden = true)
     private Integer trafficID;
 
     @ApiModelProperty(value = "相关交通情况开始时间，必须是未来时间", example = "07:00")

@@ -47,9 +47,10 @@ public class TrafficService {
     private void scheduleArango(TrafficInfo task) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
         Map<String,Object> bindVars = new HashMap<>();
-        restTemplate.getInterceptors().add(
-                new BasicAuthenticationInterceptor("root", "sjtugo"));
+//        restTemplate.getInterceptors().add(
+//                new BasicAuthenticationInterceptor("root", "sjtugo"));
 
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
