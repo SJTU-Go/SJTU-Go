@@ -38,19 +38,20 @@ public class ModificationService {
             mapVertexInfo.setParkSize(parkSize);
             mapVertexInfo.setParkInfo(message);
             mapVertexInfoRepository.save(mapVertexInfo);
+
+            Modification modify = new Modification();
+            modify.setAdminID(adminID);
+            modify.setContents(message);
+            modify.setPlaceName(placeName);
+            modify.setTime(LocalDateTime.now());
+            modificationRepository.save(modify);
+
+            return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println("no such place");
+            //System.out.println("no such place");
+            return new ResponseEntity<>(new ErrorResponse(5,"no such place！"), HttpStatus.BAD_REQUEST);
         }
 
-
-        Modification modify = new Modification();
-        modify.setAdminID(adminID);
-        modify.setContents(message);
-        modify.setPlaceName(placeName);
-        modify.setTime(LocalDateTime.now());
-        modificationRepository.save(modify);
-
-        return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
     }
 
     //待修改

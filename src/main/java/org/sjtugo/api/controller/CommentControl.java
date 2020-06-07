@@ -40,7 +40,7 @@ public class CommentControl {
     @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度,格式POINT(x y)，返回附近用户的评论")
     @PostMapping("/loc")
     public @ResponseBody
-    List<Map<Double,Comment>> getCommentList(@RequestParam String location) throws ParseException {
+    List<Comment> getCommentList(@RequestParam String location) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.getCommentList(location);
     }
@@ -61,6 +61,7 @@ public class CommentControl {
                 commentRequest.getUserID(),
                 commentRequest.getLocation(),
                 commentRequest.getRelatedPlace(),
+                commentRequest.getName(),
                 commentRequest.getFatherID());
     }
 

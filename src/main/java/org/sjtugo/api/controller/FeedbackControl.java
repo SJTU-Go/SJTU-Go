@@ -44,7 +44,7 @@ public class FeedbackControl {
         return feedbackser.inbox(adminID);
     }
 
-    @ApiOperation(value = "管理员查看反馈")
+    @ApiOperation(value = "管理员查看反馈",notes = "对应feedback中的adminID将会变为查看的管理员ID")
     @PostMapping("/processfeedback")
     public ResponseEntity<?> processFeedback(@RequestParam Integer feedbackID, @RequestParam Integer adminID) {
         FeedbackService feedbackser = new FeedbackService(feedbackRepository);
