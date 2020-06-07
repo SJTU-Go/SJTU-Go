@@ -23,22 +23,22 @@ public class Schedule {
     private Integer userID;
 
     @ApiModelProperty(value = "年月", example="2020-5")
-    private String yearMonth;
+    private String yearMonh;
 
     @ApiModelProperty(value = "日", example="14")
     private String selectDay;
 
     @ApiModelProperty(value = "小时", example="12")
-    private String timehour;
+    private String timeHour;
 
     @ApiModelProperty(value = "分钟", example="30")
-    private String timeminute;
+    private String timeMinute;
 
     @ApiModelProperty(value = "日程名称", example="年纪大会")
-    private String schedulename;
+    private String scheduleName;
 
     @ApiModelProperty(value = "地点", example="电院群楼三号楼")
-    private String place;
+    private String placeName;
 
     public Schedule() {}
 }

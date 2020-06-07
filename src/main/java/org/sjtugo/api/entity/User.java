@@ -15,22 +15,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @ApiModelProperty(value = "用户ID",example = "123")
-    private Integer id;
+    private Integer userID;
 
     @ApiModelProperty(value = "用户openID", example = "hi23guef")
-    private String openid;
+    private String openId;
 
     @ApiModelProperty(value = "用户session_key", example = "834jf")
     private String sessionkey;
-
-    @ApiModelProperty(value = "用户昵称", example = "asd")
-    private String name;
-
-    @ApiModelProperty(value = "用户偏好", example = "")
-    private String preference;
-
-    @ApiModelProperty(value = "用户行程", example = "")
-    private String schedule;
 
     public User() {}
 }

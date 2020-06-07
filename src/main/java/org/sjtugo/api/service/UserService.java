@@ -36,19 +36,19 @@ public class UserService {
         String openid = res.get("openid").toString();
 
         Map<String, String> userInfo = new HashMap<>();
-        userInfo.put("session_key", session_key);
-        List<User> users = userRepository.findByOpenid(openid);
+        userInfo.put("openid", openid);
+        List<User> users = userRepository.findByOpenId(openid);
         if(users.size() != 0){
             User user = users.get(0);
-            Integer temp_id = user.getId();
+            Integer temp_id = user.getUserID();
             String userID = temp_id.toString();
             userInfo.put("userID", userID);
         } else {
             User new_user = new User();
-            new_user.setOpenid(openid);
+            new_user.setOpenId(openid);
             new_user.setSessionkey(session_key);
             userRepository.save(new_user);
-            Integer temp_id = new_user.getId();
+            Integer temp_id = new_user.getUserID();
             String userID = temp_id.toString();
             userInfo.put("userID", userID);
         }

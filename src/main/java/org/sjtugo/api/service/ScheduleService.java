@@ -18,12 +18,12 @@ public class ScheduleService {
                                          String timehour, String timeminute, String schedulename, String place){
         Schedule newSchedule = new Schedule();
         newSchedule.setUserID(userID);
-        newSchedule.setYearMonth(yearMonth);
+        newSchedule.setYearMonh(yearMonth);
         newSchedule.setSelectDay(selectDay);
-        newSchedule.setTimehour(timehour);
-        newSchedule.setTimeminute(timeminute);
-        newSchedule.setSchedulename(schedulename);
-        newSchedule.setPlace(place);
+        newSchedule.setTimeHour(timehour);
+        newSchedule.setTimeMinute(timeminute);
+        newSchedule.setScheduleName(schedulename);
+        newSchedule.setPlaceName(place);
         scheduleRepository.save(newSchedule);
 
         return new ResponseEntity<>(newSchedule, HttpStatus.OK);
