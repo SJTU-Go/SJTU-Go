@@ -1,1 +1,19 @@
 /* pages/modifyPark/modifyPark.wxss */
+.btn2 {
+  width: 25%;
+  background-color: rgba(6, 202, 59, 0.53);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.search-bar__box {
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+}

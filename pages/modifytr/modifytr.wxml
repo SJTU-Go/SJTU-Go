@@ -1,0 +1,26 @@
+<!--pages/modifytr/modifytr.wxml-->
+<scroll-view><map id="map" longitude="{{center[0]}}" latitude="{{center[1]}}" scale="16" markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal" polyline="{{polyline}}" show-location style="width: 100%; height: 45vh;"  wx:if="{{hasmarkers}}"></map></scroll-view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+<view class = 'title'>当前点</view>
+<view class = 'line'>longitude：{{markers[currentdata].longitude}}</view>
+<view class = 'line'>latitude：{{markers[currentdata].latitude}}</view>
+<!--
+<view class = 'line'>推荐指数：</view>
+<view class = 'line'>备注信息：</view>
+<view class = 'viewmore'>查看更多评论</view>
+   <view class = "bottomblock">
+<button class ="navigatebutton"bindtap="setnavigatePage">设为目的地</button>
+    </view>-->
+</view>
+<view class="divLine"></view>
+<view>选中两个节点以确定修改的路径</view>
+
+<view class="divLine"></view>
+<view class = 'line'><text>出发点：</text>{{cuTripDetail.strategy.arrive}}</view>
+<view class = 'line'><text>终点：</text>{{cuTripDetail.strategy.depart}}</view>
+<view class = 'line'><text>出行方式：</text>{{cuTripDetail.strategy.type}}</view>
+  <view class="containerbutton">
+  <button class='btn2' bindtap='modifytraffic'>
+    <view>修改交通</view>
+    </button>
+    </view>

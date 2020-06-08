@@ -56,8 +56,7 @@ Page({
       newInfo:e.detail.value.textarea
     }
     console.log(mod)
-    
-    
+   
     wx.getStorage({
       key: 'history',
      success:function(res){
@@ -76,11 +75,13 @@ Page({
      console.log(newhis) 
      newhis.push(mod)
      console.log(newhis)
-    wx.setStorage({
+     wx.setStorage({
       data:{hia: newhis,},
         
       key: 'history',
-    })  }})
+    })
+      }})
+    
     
     wx.showToast({
        title: '保存成功',

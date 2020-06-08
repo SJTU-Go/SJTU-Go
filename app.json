@@ -26,7 +26,12 @@
     "pages/trafficPage/trafficPage",
     "pages/messagePage/messagePage",
     "pages/modifyPark/modifyPark",
-    "pages/noticePage/noticePage"
+    "pages/noticePage/noticePage",
+    "pages/fbDetail/fbDetail",
+    "pages/history/history",
+    "pages/modifytr/modifytr",
+    "pages/hisNotice/hisNotice",
+    "pages/settr/settr"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

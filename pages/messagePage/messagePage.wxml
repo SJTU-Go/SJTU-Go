@@ -1,4 +1,5 @@
 <!--pages/messagePage/messagePage.wxml-->
+<!--
 <view>
         <view class="search-bar">
             <view class="search-bar__form">
@@ -10,5 +11,23 @@
             <view class="search-bar__cancel-btn" bindtap='search'>搜索</view>
         </view>
     </view>
-  <switch bandchange='filter' > 仅显示未读信息 </switch>
+    -->
+    <view class="body-view">
+  <switch  bindchange="filter" > 仅显示未读信息 </switch></view>
 <view class="divLine"></view>
+
+<view class="container">
+    <view class="massge" wx:for="{{message}}" wx:for-index="idx" wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户ID：{{list.userID}} </view></view>
+      <view class="massge-bd font-color-666">
+      <text>行程ID：<text class="font-color-c24e4e font-size-15">{{list.tripID}}</text><text style="margin-left:40rpx;">时间:</text> {{list.time}}</text>
+        <text style="margin-top:22rpx;"><text>路况评分：<text class="font-color-c24e4e font-size-15">{{list.trafficFB}}</text></text><text style="margin-left:40rpx;">寻车评分:</text> {{list.pickupFB}}</text>
+        <text style="margin-top:22rpx;"><text>停车评分：<text class="font-color-c24e4e font-size-15">{{list.parkFB}}</text></text><text style="margin-left:40rpx;">服务评分:</text> {{list.serviceFB}}</text>
+       
+        <view class='textdiv'>
+          <text style="font-size-20" data-index="{{idx}}" bindtap="detail">查看详情></text>
+                    
+        </view>
+       </view>
+    </view>
+    </view>

@@ -1,16 +1,21 @@
 <!--index.wxml-->
 <view class ='tool'>
       <view class ='blocklleft'>当前账号：</view>
-      <view class ='blockright'>666666</view>
+      <view class ='blockright'>{{admin}}</view>
     </view>
     <view class ='tool'>
       <view class ='blocklleft'>修改条目：</view>
       <view class ='blockright'>{{num}}</view>
     </view>
+    <view class='textdiv'>
+          <text style="font-size-20"  bindtap="history">[地点修改记录</text>
+          <text style="font-size-20"  >]         [</text>
+          <text style="font-size-20"  bindtap="hisNotice"> 通知记录]</text>          
+        </view>
 <view class="divLine"></view>
 <view class="container">
     <view class="massge" wx:for="{{List.hia}}" wx:for-index="idx" wx:for-item="list" >
-      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text>({{list.type}} )</text></view></view>
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text>[{{list.type}}]</text></view></view>
       <view class="massge-bd font-color-666">
         <text>原备注：<text class="font-color-c24e4e font-size-15">{{list.formerInfo}}</text></text>
         <text style="margin-top:22rpx;"><text>新备注：<text class="font-color-c24e4e font-size-15">{{list.newInfo}}</text></text></text>
@@ -20,9 +25,28 @@
         </view>
        </view>
     </view>
+
+
+  
+    <view class="massge" wx:for="{{tList}}" wx:for-index="idx" wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text>[traffic]</text></view></view>
+      <view class="massge-bd font-color-666">
+      <text>开始日期：<text class="font-color-c24e4e font-size-15">{{list.beginDay}}</text><text style="margin-left:40rpx;">起始时间:</text> {{list.beginTime}}</text>
+        <text style="margin-top:22rpx;"><text>结束时间：<text class="font-color-c24e4e font-size-15">{{list.endTime}}</text></text><text style="margin-left:40rpx;">单车速度:</text> {{list.bikeSpeed}}</text>
+        <text style="margin-top:22rpx;"><text>电动车速度：<text class="font-color-c24e4e font-size-15">{{list.motorSpeed}}</text></text><text style="margin-left:40rpx;">汽车速度:</text> {{list.carSpeed}}</text>
+        
+        <text style="margin-top:22rpx;"><text>详细描述：<text class="font-color-c24e4e font-size-15">{{list.message}}</text></text></text>
+        <view class='textdiv'>
+          <text style="font-size-20" data-index="{{idx}}" bindtap="deletePage2">删除></text>
+                    
+        </view>
+       </view>
+    </view>
+
+
 <view class = 'downblock'>
 <view class ='blocklleft'>
-  <button class='btn2' bindtap='submitInfo'>
+  <button class='btn2' bindtap='submitInfoo'>
     <view>确认提交</view>
     </button></view>
 <view class ='blockright'>

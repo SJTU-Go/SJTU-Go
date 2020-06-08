@@ -1,0 +1,20 @@
+<!--pages/hisNotice/hisNotice.wxml-->
+<view class ='tool'>
+      <view class ='blocklleft'>当前账号：</view>
+      <view class ='blockright'>{{admin}}</view>
+    </view>
+    
+    
+<view class="divLine"></view>
+<view class="container">
+    <view class="massge" wx:for="{{hisNotice}}" wx:for-index="idx" wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>通知ID：{{list.noticeID}} </view></view>
+      <view class="massge-bd font-color-666">
+        <view class = 'line'>提交时间 ：{{list.publishTime}}</view>
+<view class = 'line'>起始时间：{{list.validBeginTime}}</view>
+<view class = 'line'>结束时间：{{list.validEndTime}}</view>
+<view class = 'line'>通知内容：{{list.contents}}</view>
+        </view>
+       </view>
+    </view>
+

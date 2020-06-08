@@ -1,4 +1,5 @@
-/* pages/messagePage/messagePage.wxss */
+/* pages/hisNotice/hisNotice.wxss */
+
 page {
   background: #f6f6f6;
   display: flex;
@@ -6,7 +7,7 @@ page {
   justify-content: flex-start;
 }
 .btn2 {
-  width: 80%;
+  width: 25%;
   background-color: rgba(6, 202, 59, 0.53);
   color: white;
   border-radius: 15rpx;
@@ -14,50 +15,6 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-.search-bar {
-  position: relative;
-  padding: 8px 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  box-sizing: border-box;
-  background-color: #EFEFF4;
-  border-top: 1rpx solid #D7D6DC;
-  border-bottom: 1rpx solid #D7D6DC;
-}
-.icon-search_in-box {
-  position: absolute;
-  left: 10px;
-  top: 7px;
-}
-.search-bar__form {
-  position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex: auto;
-          flex: auto;
-  border-radius: 5px;
-  background: #FFFFFF;
-  border: 1rpx solid #E6E6EA;
-}
-.search-bar__box {
-  position: relative;
-  padding-left: 30px;
-  padding-right: 30px;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1;
-}
-.search-bar__input {
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
-}
-.search-bar__cancel-btn {
-  margin-left: 10px;
-  line-height: 28px;
-  color: #09BB07;
-  white-space: nowrap;
 }
 .textdiv{
   margin-top:30rpx;
@@ -102,14 +59,14 @@ width: 90%;
   flex-direction: row;
   text-align: center;
   align-items: center;
-  width:10%;
+  width:20%;
 }
 .blockleft
 {display: flex;
   flex-direction: row;
   text-align: left;
   
-  width:20%;
+  width:30%;
 }
 .verticaltool{  
   display: flex;
@@ -126,14 +83,16 @@ width: 90%;
 {display: flex;
   flex-direction: row;
   text-align: left;
-  width:50%;
+  width: 50%;
 }
 .blockright
 { 
   display: flex;
+  
   flex-direction: row;
-  text-align: center;
+  text-align: right;
   align-items: center;
+  width: 50%
 }
 
 .block
@@ -174,19 +133,16 @@ width: 90%;
   align-items: top;
   justify-content: left;
 }
+.line
+{ font-size: 28rpx;
+  text-align: left;
+margin-left: 20rpx;
 
+}
 .extendblock
 {display: flex;
   flex-direction: row;
   text-align: left;
   align-items: top;
   color:rgb(181, 181, 181);
-}
-.containerbutton
-{
-  height: 150rpx;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }

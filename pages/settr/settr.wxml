@@ -1,0 +1,63 @@
+<!--pages/settr/settr.wxml-->
+<view class="head"><text color="#B4DCFF">请对以下交通属性进行修改（填写整数）</text></view>
+<form class="form" bindsubmit="formSubmit">
+<view class="container1">
+  <view class="line">
+    <text> 自行车速度</text>
+    <input class="small" name="bikeSpeed" placeholder="点击填写" />
+  </view>
+  <view class="line">
+    <text> 电动车速度</text>
+    <input class="small" name="motorSpeed" placeholder="点击填写" />
+  </view>
+  <view class="line">
+    <text> 汽车速度</text>
+    <input class="small" name="carSpeed" placeholder="点击填写" />
+  </view>
+  
+</view>
+<view class="head"><text color="#B4DCFF">请选择日期和时间</text></view>
+<view class="container1">
+ <view class="line">
+<view class="tui-picker-content">
+  <view class="tui-picker-name"></view>
+  <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="changeTime">
+    <view class="tui-picker-detail">
+      选择开始时间: {{time}} 
+    </view>
+  </picker>
+</view>
+</view>
+ <view class="line">
+<view class="tui-picker-content">
+  <view class="tui-picker-name"></view>
+  <picker mode="time" value="{{time2}}" start="00:00" end="23:59" bindchange="changeTime2">
+    <view class="tui-picker-detail">
+      选择结束时间: {{time2}} 
+    </view>
+  </picker>
+</view>
+</view>
+ <view class="line">
+<view class="tui-picker-content">
+  <view class="tui-picker-name"></view>
+  <picker mode="date" value="{{date}}" start="2020-06-08" end="2030-10-08" bindchange="changeDate">
+    <view class="tui-picker-detail">
+      选择开始日期: {{date}}
+    </view>
+  </picker>
+</view>
+</view>
+</view>
+<view class="head"><text color="#B4DCFF">文字信息</text></view>
+<view class="container1">
+<view class="line">
+    <text> 为本次修改命名:</text>
+    <input  name="name" placeholder="X路段X时" />
+  </view>
+<view class="line">添加详细描述：</view>
+<input class="big" name="message" placeholder="XXX路段XXX时刻由于XXX拥堵" />
+</view>
+<view class ='containerbutton'>
+<button class="btn2" formType="submit">提交</button></view>
+</form>

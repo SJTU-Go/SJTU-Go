@@ -11,5 +11,5 @@
 <view class="remark">{{info}}</view>
 </view>
 <textarea placeholder="点击输入新备注" auto-height auto-focus name="textarea"/>
-<button formType="submit">保存</button>
+<button class='btn2' formType="submit">保存</button>
 </form>

@@ -1,20 +1,11 @@
-/* pages/messagePage/messagePage.wxss */
+/* pages/fbDetail/fbDetail.wxss */
 page {
   background: #f6f6f6;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
-.btn2 {
-  width: 80%;
-  background-color: rgba(6, 202, 59, 0.53);
-  color: white;
-  border-radius: 15rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
+
 .search-bar {
   position: relative;
   padding: 8px 10px;
@@ -189,4 +180,14 @@ width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.btn2 {
+  width: 80%;
+  background-color: rgba(6, 202, 59, 0.53);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

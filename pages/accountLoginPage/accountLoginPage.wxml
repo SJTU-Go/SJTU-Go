@@ -21,8 +21,10 @@
     <button class="submit"  open-type="getUserInfo" bindgetuserinfo="onClickSubmit">登录</button>
   </view>
 </view>
+<!--
 <view class="block">
   <view>
     <button class="register"  open-type="getUserInfo" bindgetuserinfo="onClickRegister">注册</button>
   </view>
 </view>
+-->

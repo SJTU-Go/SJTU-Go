@@ -1,0 +1,17 @@
+<!--pages/history/history.wxml-->
+<view class ='tool'>
+      <view class ='blocklleft'>当前账号：</view>
+      <view class ='blockright'>{{admin}}</view>
+    </view>
+    
+    
+<view class="divLine"></view>
+<view class="container">
+    <view class="massge" wx:for="{{hislist}}" wx:for-index="idx" wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改ID：{{list.modificationID}} </view></view>
+      <view class="massge-bd font-color-666">
+        <text>修改内容：<text class="font-color-c24e4e font-size-15"></text></text>
+        <text style="margin-top:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.contents}}</text></text></text>
+        </view>
+       </view>
+    </view>
