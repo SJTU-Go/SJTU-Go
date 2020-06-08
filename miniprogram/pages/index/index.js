@@ -1,5 +1,12 @@
 //index.js
 const app = getApp()
+var x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+
+var PI = 3.1415926535897932384626;
+
+var a = 6378245.0;
+
+var ee = 0.00669342162296594323;
 
 Page({
 
@@ -28,9 +35,12 @@ Page({
       longitude: 121.434009,//121.452591,
       width: 50,
       height: 50,
-    }
+    },
+
 
     ],
+        latitude:'31.021807',
+    longitude:'121.429846',
     currentdata:new Array(),
     hasmarkers:false
 
@@ -92,7 +102,15 @@ Page({
             markers.push(marker) 
             console.log("adding")
             console.log(markers)
-           q =q +1}}      
+           q =q +1}}
+           markers.push({iconPath: "../../images/crosses.png",
+           id: q,
+           latitude: that.data.latitude,
+           longitude:that.data.longitude,
+           width: 50,
+           height: 50,
+           name:'',
+           bikeCount:''})      
          console.log(markers)
         that.setData({markers:markers})
       that.setData({hasmarkers:true})}
@@ -166,6 +184,73 @@ Page({
         depart: e.detail.value,
       })
     },
+    regionchange:function(e){
+      var llatitude
+      var llongitude
+      console.log(e)
+      if ((e.type == 'end' || e.type == 'begin')&& (e.causedBy == 'scale' || e.causedBy == 'drag'||e.causedBy=='gesture')) {
+    
+              var that = this;
+        
+              this.mapCtx = wx.createMapContext("map4select");
+        
+              this.mapCtx.getCenterLocation({
+        
+                type: 'gcj02',
+        
+                success: function(res) {
+        console.log('location')
+        console.log(that.data)
+                  console.log(res, 11111)
+        
+                  var coordinate = that.gcj02towgs84(res.longitude, res.latitude)
+        
+                  console.log(coordinate, 2222)
+        console.log(res.latitude)
+        llatitude = res.latitude
+        llongitude = res.longitude
+        var mar = that.data.markers[that.data.markers.length-1]
+        mar.latitude = llatitude
+        mar.longitude = llongitude
+        var h = that.data.markers
+        h[that.data.markers.length-1]=mar
+        console.log(h[that.data.markers.length-1])
+        that.setData({markers:h})
+        console.log("poping")
+
+
+                  that.setData({
+        
+                    latitude: res.latitude,
+        
+                    longitude: res.longitude,
+        
+                    circles: [{
+        
+                      latitude: res.latitude,
+        
+                      longitude: res.longitude,
+        
+                      color: '#FF0000DD',
+        
+                      fillColor: '#d1edff88',
+        
+                      radius: 0, //定位点半径
+        
+                      strokeWidth: 10000
+        
+                    }]
+        
+                  })
+     
+                }
+        
+              })
+            }
+
+
+          },
+      
     arrive:function(e){
       this.setData({
         arrive: e.detail.value,
@@ -347,4 +432,96 @@ Page({
   },
 
 
+
+    gcj02towgs84(lng, lat) {
+
+        var that  = this;
+    
+        if (that.out_of_china(lng, lat)) {
+    
+          return [lng, lat]
+    
+        } else {
+    
+          var dlat = that.transformlat(lng - 105.0, lat - 35.0);
+    
+          var dlng = that.transformlng(lng - 105.0, lat - 35.0);
+    
+          var radlat = lat / 180.0 * PI;
+    
+          var magic = Math.sin(radlat);
+    
+          magic = 1 - ee * magic * magic;
+    
+          var sqrtmagic = Math.sqrt(magic);
+    
+          dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+    
+          dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+    
+          var mglat = lat + dlat;
+    
+          var mglng = lng + dlng;
+    
+          return [lng * 2 - mglng, lat * 2 - mglat]
+    
+        }
+    
+      },
+      transformlat(lng, lat) {
+
+          var ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
+      
+          ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+      
+          ret += (20.0 * Math.sin(lat * PI) + 40.0 * Math.sin(lat / 3.0 * PI)) * 2.0 / 3.0;
+      
+          ret += (160.0 * Math.sin(lat / 12.0 * PI) + 320 * Math.sin(lat * PI / 30.0)) * 2.0 / 3.0;
+      
+          return ret
+      
+        },
+      
+        transformlng(lng, lat) {
+      
+          var ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng));
+      
+          ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+      
+          ret += (20.0 * Math.sin(lng * PI) + 40.0 * Math.sin(lng / 3.0 * PI)) * 2.0 / 3.0;
+      
+          ret += (150.0 * Math.sin(lng / 12.0 * PI) + 300.0 * Math.sin(lng / 30.0 * PI)) * 2.0 / 3.0;
+      
+          return ret
+      
+        },
+        out_of_china(lng, lat) {
+
+            return (lng < 72.004 || lng > 137.8347) || ((lat < 0.8293 || lat > 55.8271) || false);
+        
+          }
+
+
+
 })
+
+/*
+
+            
+            
+            
+              data: {
+     latitude: 31.020502,//31.029236,
+      longitude: 121.434009,//121.452591,
+
+
+                         markers.push({iconPath: "../../images/crosses.png",
+           id: q,
+           latitude: that.data.latitude,
+           longitude:that.data.longitude,
+           width: 50,
+           height: 50,
+           name:'',
+           bikeCount:''})    
+            
+            */

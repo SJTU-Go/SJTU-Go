@@ -14,6 +14,7 @@ Page({
     success (res) {
       if (res.code) {
         console.log(res.code)
+
         //发起网络请求
         wx.request({
           url: 'https://api.ltzhou.com/user/login?code='+res.code,
@@ -58,9 +59,12 @@ wx.switchTab({url: '../index/index', })
           icon: 'loading', 
           duration: 2000 
           }) 
+          
       }
     }
-  })
+    
+  }
+  )
 
 
 

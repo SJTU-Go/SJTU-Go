@@ -85,10 +85,13 @@ wx.navigateTo({
       {
         var depart
           depart=String( this.data.departid)
+          if (depart=="DT404"){console.log("404"),depart=this.data.depart}
         var arrive
           arrive=String( this.data.arriveid)
+          if (arrive=="DT404"){console.log("404"),arrive=this.data.arrive}
         var pass
           pass=String( this.data.passid)
+          if (pass=="DT404"){console.log("404"),pass=this.data.pass}
 
       var arrivename = this.data.arrive
       var departname = this.data.depart

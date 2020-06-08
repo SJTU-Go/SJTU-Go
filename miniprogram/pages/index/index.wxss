@@ -137,11 +137,7 @@ font-family: 'Times New Roman', Times, serif;
 .left
 {width: 15%;
 }
-.right
-{
 
-
-}
 .downblock
 { margin-top: 40rpx;
   display: flex;

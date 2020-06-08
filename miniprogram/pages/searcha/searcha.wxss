@@ -253,7 +253,7 @@ font-family: 'Times New Roman', Times, serif;
   display: flex;
   height: 30%;
   margin-bottom: 40rpx;
-width: 90%;
+width: 100%;
 }
 .btn1 {
   height: 80rpx;

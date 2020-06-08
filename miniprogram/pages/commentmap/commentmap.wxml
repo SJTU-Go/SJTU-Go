@@ -43,18 +43,6 @@
   <view class = 'emptyblock'></view>
 </view>
 
-<!-- <view class = 'downblock'>
-  <view class = 'btnblk'>
-    <button class='btn2' bindtap='starttirp'>
-      <view>开始行程</view>
-      </button>
-  </view>
-  <view class = 'btnblk2'>
-    <button class='btn1' bindtap='viewcomment'>
-      <view>查看评论</view>
-    </button>
-  </view>
-</view> -->
 <button formType="submit">提交评论</button>
 </form>
 </scroll-view>

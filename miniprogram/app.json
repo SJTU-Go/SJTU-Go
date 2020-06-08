@@ -1,11 +1,17 @@
 
 {
   "pages": [ 
+
+    "pages/extendsearch/arrive/arrive",
+  
+
+    "pages/index/index",
+
     "pages/LoginPage/LoginPage",   
     "pages/trafficPage/trafficPage",
 
     "pages/comment/comment",    
-    "pages/extendsearch/arrive/arrive",
+ 
     "pages/searchindex/searchindex",
 
     "pages/addcomment/addcomment", 
@@ -15,10 +21,6 @@
 
 
  
-
-  
-
-    "pages/index/index",
 
 
 

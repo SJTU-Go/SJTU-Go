@@ -53,7 +53,51 @@ Page({
     },
 
   setPreference:function()
-  {
+  {/*
+    var pref=''
+    var i = 0
+    var pass ={"banlist":"","preferencelist":"","userID":1}
+    var bann=''
+    wx.getStorage({
+    key: 'preference',
+    success:function(res){
+      
+      var pre=res.data
+    while(i<pre.length){
+      pref = pref + pre[i]+","
+      i = i + 1
+    }
+pass.preferencelist=pref
+i = 0
+wx.getStorage({
+  key: 'banned',
+  success:function(res){
+    
+   var pre=res.data
+  while(i<pre.length){
+    bann = bann+ pre[i]+","
+    i = i + 1
+  }
+
+  pass.banlist = bann
+  pass.userID = 106
+  console.log(pass)
+  console.log("passing")
+    wx.request({
+      url: 'https://api.ltzhou.com/user/preference/get',
+      data:pass,
+      method:"POST",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+success(res){console.log(res.data)}
+    })  
+
+  
+  }})
+  }
+  })
+  */
     wx.navigateTo({
     url: '../preferencePage/preferencePage',})
 
