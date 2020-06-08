@@ -4,17 +4,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
-import org.sjtugo.api.DAO.PreferenceRepository;
-import org.sjtugo.api.DAO.ScheduleRepository;
-import org.sjtugo.api.DAO.TripRepository;
-import org.sjtugo.api.DAO.UserRepository;
+import net.sf.json.JSONObject;
+import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.DAO.ScheduleInfoRepository;
 import org.sjtugo.api.entity.Preference;
 import org.sjtugo.api.entity.Schedule;
+import org.sjtugo.api.entity.ScheduleInfo;
 import org.sjtugo.api.entity.Trip;
-import org.sjtugo.api.service.HistoryService;
-import org.sjtugo.api.service.PreferenceService;
-import org.sjtugo.api.service.ScheduleService;
-import org.sjtugo.api.service.UserService;
+import org.sjtugo.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +32,8 @@ public class UserControl {
     private PreferenceRepository preferenceRepository;
     @Autowired
     private ScheduleRepository scheduleRepository;
+    @Autowired
+    private ScheduleInfoRepository scheduleInfoRepository;
 
 
     @ApiOperation(value = "用户登陆")
@@ -42,6 +41,21 @@ public class UserControl {
     public ResponseEntity<?> userLogin(@RequestParam String code){
         UserService userser = new UserService(userRepository);
         return userser.userLogin(code);
+    }
+
+    @ApiOperation(value = "上传用户日程")
+    @PostMapping("/updateScheduleInfo")
+    public ResponseEntity<?> updateSchedule(@RequestBody ScheduleInfoRequest scheduleInfoRequest){
+        ScheduleInfoService scheduleInfoService = new ScheduleInfoService(scheduleInfoRepository);
+        return scheduleInfoService.updateSchedule(scheduleInfoRequest.getSchedule(),
+                scheduleInfoRequest.getUserID());
+    }
+
+    @ApiOperation(value = "获取用户日程信息")
+    @PostMapping("/getScheduleInfo")
+    public @ResponseBody Optional<ScheduleInfo> getScheduleInfo(@RequestParam Integer userID){
+        ScheduleInfoService scheduleInfoService = new ScheduleInfoService(scheduleInfoRepository);
+        return scheduleInfoService.getScheduleInfo(userID);
     }
 
     @ApiOperation(value = "上传偏好")
@@ -81,7 +95,7 @@ public class UserControl {
                 scheduleRequest.getPlace());
     }
 
-    @ApiOperation(value = "获取用户日程信息")
+    @ApiOperation(value = "获取日程信息")
     @PostMapping("/schedule/get")
     public @ResponseBody List<Schedule> getScheduleList(@RequestParam Integer userID){
         ScheduleService scheduleService = new ScheduleService(scheduleRepository);
@@ -100,19 +114,11 @@ public class UserControl {
     }
 
     @Data
-    static class History{
+    static class ScheduleInfoRequest{
         @ApiModelProperty(value = "用户ID", example = "123")
         private Integer userID;
-        @ApiModelProperty(value = "出发地", example="上院")
-        private String depart;
-        @ApiModelProperty(value = "目的地", example="北区篮球场")
-        private String arrive;
-        @ApiModelProperty(value = "出发时间", example="2020-05-24 19:07:40")
-        private LocalDateTime departTime;
-        @ApiModelProperty(value = "到达时间", example="2020-05-24 19:14:43")
-        private LocalDateTime arriveTime;
-        @ApiModelProperty(value = "路径")
-        private String route;
+        @ApiModelProperty(value = "用户日程信息", example="{\"schedule\":[{\"time\":\"12\"},{\"time\":\"13\"}]}")
+        private JSONObject schedule;
     }
 
     @Data
