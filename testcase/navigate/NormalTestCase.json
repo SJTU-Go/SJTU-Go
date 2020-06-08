@@ -1,0 +1,8 @@
+{
+  "arrivePlace": "POINT (121.435505 31.026303)",
+  "beginPlace": "图书馆",
+  "departTime": "2020/05/11 12:05:12",
+  "passPlaces": [
+    "学生服务中心"
+  ]
+}
