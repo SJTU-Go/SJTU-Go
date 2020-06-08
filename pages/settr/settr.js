@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isTR:0,
+    
     temp:[],
     admin:1,
     date: '2020-06-08',
@@ -65,6 +67,7 @@ Page({
     wx.getStorage({
       key: 'traffichistory',
      success:function(res){
+      that.setData({isTR:1})
       var i 
       if(res.data){
       that.setData({temp:res.data})
@@ -86,6 +89,15 @@ Page({
       key: 'traffichistory',
     })
       }})
+      if (that.data.isTR==0){
+        var newhis=new Array()
+      newhis.push(mod)
+        wx.setStorage({
+          data: newhis,
+            
+          key: 'traffichistory',
+        })
+      }
     //  wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(this.data.polyline),})
     wx.showToast({
        title: '修改成功',

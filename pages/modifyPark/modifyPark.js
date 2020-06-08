@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isPA:0,
     step :0,
     history:[],
     temp:[],
@@ -60,6 +61,7 @@ Page({
     wx.getStorage({
       key: 'history',
      success:function(res){
+       that.setData({isPA:1})
       var i 
       if(res.data.hia){
       that.setData({temp:res.data.hia})
@@ -81,7 +83,16 @@ Page({
       key: 'history',
     })
       }})
-    
+    if(that.data.isPA==0){
+      var newhis=new Array()
+      newhis.push(mod)
+      wx.setStorage({
+        
+        data:{hia: newhis,},
+          
+        key: 'history',
+      })
+    }
     
     wx.showToast({
        title: '保存成功',
