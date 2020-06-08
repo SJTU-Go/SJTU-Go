@@ -157,6 +157,14 @@ Page({
       status:true
       })
       }
+
+      if(that.data.preferencelist.length==0&&that.data.banned.length==0){
+        that.setData({preferencelist:that.data.preference1})
+        console.log(that.data.preferencelist)
+        wx.setStorage({ key:'preference',
+        data:that.data.preferencelist})
+      }
+
       },
       fail: function(res) {
       console.log(res+'aaaaa')
@@ -165,12 +173,7 @@ Page({
       console.log(that.data.preferencelist)
       console.log(that.data.banned)
       console.log(that.data.preferencelist.length==0&&that.data.banned.length==0)
-    if(that.data.preferencelist.length==0&&that.data.banned.length==0){
-      that.setData({preferencelist:that.data.preference1})
-      console.log(that.data.preferencelist)
-      wx.setStorage({ key:'preference',
-      data:that.data.preferencelist})
-    }
+
   
   
   },

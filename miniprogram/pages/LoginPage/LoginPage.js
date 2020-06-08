@@ -29,14 +29,34 @@ Page({
         wx.request({
           url: 'https://api.ltzhou.com/user/preference/get?userID='+res.data.userID,
           method:'POST',
-          success(res){if(res.data){if(res.data.preferencelist){wx.setStorage({
-            data: res.data.preferencelist,
+          success(res){if(res.data){
+            var preelist=res.data.preferencelist.split(",")
+            for(var i = 0;i<preelist.length;i++){
+              if(preelist[i]==''||preelist[i]==null||typeof(preelist[i])==undefined){
+                preelist.splice(i,1);
+                  i=i-1;
+              }
+          }
+            console.log(preelist)
+            var bannlist=res.data.banlist.split(",")
+            for(var i = 0;i<bannlist.length;i++){
+              if(bannlist[i]==''||bannlist[i]==null||typeof(bannlist[i])==undefined){
+                bannlist.splice(i,1);
+                  i=i-1;
+              }
+          }
+
+
+            console.log(bannlist)
+            if(preelist){wx.setStorage({
+            data: preelist,
             key: 'preference',
           })}
-          if(res.data.banlist){wx.setStorage({
-            data:res.data.banlist, 
+          if(bannlist){wx.setStorage({
+            data:bannlist, 
             key: 'banned',
-          })}}
+          })}
+        }
         }})
 
         wx.request({

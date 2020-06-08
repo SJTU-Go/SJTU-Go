@@ -26,7 +26,7 @@ Page({
 
     btnWidth: 300, //删除按钮的宽度单位
     startX: "", //收支触摸开始滑动的位置
-    inputmessage:"输入途径点",
+    inputmessage:"输入目的地",
   },
   returnresult:function(e){
     var  ress ={}
@@ -42,7 +42,7 @@ Page({
       ress.name = this.data.markers[res].name
       console.log(ress)
       wx.setStorage({
-        key: 'pass',
+        key: 'arrive',
         data: ress,
       })}}
   },
@@ -64,7 +64,7 @@ Page({
     boxshow:false})
 
     wx.setStorage({
-    key: 'pass',
+    key: 'arrive',
     data: event.currentTarget.dataset,
   })
   },
@@ -73,7 +73,7 @@ Page({
   if (this.data.inputVal.substring(0, 4)=='POIN'){console.log("corrdinating!!")
 wx.setStorage({
   data:{name:this.data.inputVal,id:"404"},
-  key: 'pass',
+  key: 'arrive',
 })
 }
     wx.navigateTo({

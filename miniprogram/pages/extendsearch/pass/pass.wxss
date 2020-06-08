@@ -1,3 +1,14 @@
+.icon-clear
+{position: fixed;
+left: 82%;
+top: 17rpx;
+}
+
+.serachicon
+{position: fixed;
+margin-right: 20rpx;
+height: 40rpx;
+}
 .searchbar-result{
   margin-top: 0;
   font-size: 14px;
@@ -143,6 +154,7 @@ background: #fd9903;
 /* 搜索 */
 .weui-search-bar__input{
 height: 72rpx;
+
 }
 .weui-icon-search_in-box{
 top:22rpx;
@@ -187,11 +199,13 @@ top:4rpx;
   width: 100%;
   box-sizing: border-box;
   z-index: 1;
+  align-items: center;
+  font-size: 30rpx;
 }
 .search-bar__input {
   height: 28px;
   line-height: 28px;
-  font-size: 14px;
+  font-size: 30rpx;
 }
 .search-bar__cancel-btn {
   margin-left: 10px;

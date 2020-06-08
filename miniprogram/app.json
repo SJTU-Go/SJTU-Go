@@ -1,13 +1,13 @@
 
 {
   "pages": [ 
-
+    "pages/LoginPage/LoginPage",       "pages/setPreferencePage/setPreferencePage",
+    "pages/index/index",
     "pages/extendsearch/arrive/arrive",
   
 
-    "pages/index/index",
 
-    "pages/LoginPage/LoginPage",   
+
     "pages/trafficPage/trafficPage",
 
     "pages/comment/comment",    
@@ -50,7 +50,7 @@
     "pages/HistoryPage/HistoryPage",
 
     "pages/userInfoPage/userInfoPage",
-    "pages/setPreferencePage/setPreferencePage",
+
     "pages/registrationPage/registrationPage",
     "pages/accountLoginPage/accountLoginPage"
 
