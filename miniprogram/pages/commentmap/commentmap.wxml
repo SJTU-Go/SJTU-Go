@@ -14,8 +14,8 @@
   <view class='route'>
     <view class = 'leftpart'>
       <view class = 'upper'>
-        <view wx:if='{{itema.type=="HELLOBIKE"}}' style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bicycle2.png"></image></view>
-        <view wx:elif='{{itema.type=="BUS"}}' style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bus2.png"></image></view>
+        <view wx:if='{{itema.type=="共享单车"}}' style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bicycle2.png"></image></view>
+        <view wx:elif='{{itema.type=="校园巴士"}}' style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/bus2.png"></image></view>
          <view wx:else style='font-weight:bold;' width="300rpx"><image class="massge-img" src="/images/feet1.png"></image></view>
     </view>
     <view class="verticalline2">  </view>
@@ -27,14 +27,14 @@
         <view class = 'flexblock'>
           <view class = 'block'>  
             <view class='routeInfo'>
-              <view wx:if='{{itema.type=="HELLOBIKE"}}' width="300rpx">哈罗单车{{itema.departID}}前往 {{itema.arriveName}}</view>
-              <view wx:elif ='{{itema.type=="BUS"}}' width="300rpx">校园巴士{{itema.departID}}前往 {{itema.arriveName}}</view>
-              <view wx:else  width="300rpx">步行{{itema.distance}}米前往 {{itema.arriveName}}</view>
+              <view wx:if='{{itema.type=="共享单车"}}' width="300rpx">哈罗单车{{itema.depart}}前往 {{itema.arrive}}</view>
+              <view wx:elif ='{{itema.type=="校园巴士"}}' width="300rpx">校园巴士{{itema.depart}}前往 {{itema.arrive}}</view>
+              <view wx:else  width="300rpx">步行{{itema.distance}}米前往 {{itema.arrive}}</view>
             </view> 
           </view> 
       </view> 
       <view>
-        <view style='fontsize=20rpx; color=grey'> 评论{{itema.arriveName}}：</view>
+        <view style='fontsize=20rpx; color=grey'> 评论{{itema.arrive}}：</view>
         <input placeholder="请输入评论" />
       </view>    
     </view>

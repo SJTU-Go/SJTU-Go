@@ -19,6 +19,108 @@ Page({
       }
     })
     wx.getStorage({
+      key: 'historygained',
+      success:function(res){
+        var wordlist=new Array(0);
+        console.log("transforming")
+        var i = 0
+        while (i<res.data.length){
+        console.log(res.data[i].strategy.depart)
+        console.log(res.data[i].strategy.travelTime)
+        console.log(res.data[i].strategy.arrive)
+        console.log(res.data[i].strategy.pass)
+        var historyword = {}
+        historyword.depart = res.data[i].strategy.depart
+        historyword.arrive = res.data[i].strategy.arrive
+        historyword.pass = res.data[i].strategy.pass
+        historyword.routetime =res.data[i].strategy.travelTime
+        historyword.distance = res.data[i].strategy.distance
+        historyword.type = res.data[i].strategy.type
+          i = i+1
+          wordlist.push(historyword)
+      }
+      wx.setStorage({
+        data: wordlist,
+        key: 'history',
+      })
+      var q= 0 
+      var linelist = new Array(0)
+      while (q<res.data.length){
+    var d = res.data[q].strategy.routeplan
+    var polyline=new Array(0)
+    for(var j=0;j<d.length;j++){
+      var line = {};
+      var points = [];
+      var item = d[j];
+      for(var i of item.routePath.coordinates){
+        var cor = {};
+        cor['longitude']=i[0];
+        cor['latitude']=i[1];
+        points.push(cor);
+      }
+      if(item.type=="HELLOBIKE"){
+        line['color']='#0099FF';
+      }
+      if(item.type=="FIND"){
+        line['color']='#FFCC33';
+      }
+      else{line['color']='#00CC33'}
+      line['points']=points;
+      //line['color']='#808080';
+      line['width']=4;
+      //line['dottedLine']=true;
+      //console.log(line);
+      polyline.push(line);
+    }
+    console.log(polyline)
+    q = q+1
+    console.log("routing")
+console.log(linelist)
+    linelist.push(polyline)
+
+}
+
+wx.setStorage({
+  data:linelist,
+  key: 'historyroute',
+})
+
+      }
+    })
+    /*
+    for(var j=0;j<d.length;j++){
+      var line = {};
+      var points = [];
+      var item = d[j];
+      for(var i of item.routePath.coordinates){
+        var cor = {};
+        cor['longitude']=i[0];
+        cor['latitude']=i[1];
+        points.push(cor);
+      }
+      if(item.type=="HELLOBIKE"){
+        line['color']='#0099FF';
+      }
+      if(item.type=="FIND"){
+        line['color']='#FFCC33';
+      }
+      else{line['color']='#00CC33'}
+      line['points']=points;
+      //line['color']='#808080';
+      line['width']=4;
+      //line['dottedLine']=true;
+      //console.log(line);
+      polyline.push(line);
+    }
+    //console.log(polyline)
+    this.setData({
+      polyline:polyline
+    })
+*/
+
+
+
+    wx.getStorage({
       key: 'historyroute',
       success:function(res){
         console.log(res.data)
@@ -89,7 +191,8 @@ indexback:function()
     //var route = 'routeList['+index+']'
     console.log(route)
     console.log(plan)
-   wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(route)+'&plan='+JSON.stringify(plan),})
+  /* wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(route)+'&plan='+JSON.stringify(plan),})*/
+  wx.navigateTo({ url: '../commentmap/commentmap?index='+index})
   },
 
 

@@ -37,6 +37,26 @@ Page({
 
   }  ,
     onLoad:function(){
+     /* wx.request({
+        url: 'https://api.ltzhou.com/user/preference',
+        method:"POST",
+        data:
+          {
+          "banlist": [],
+          "preferencelist": [
+            "步行",
+            "共享单车",
+            "校园巴士"
+          ],
+          "userID": 123
+      },
+      header: {
+        'content-type': "application/x-www-form-urlencoded"
+        },
+        success(res){console.log(updatinggggggggooood)}
+      })*/
+
+  
     var that = this
 
     that.setData({ 
@@ -232,7 +252,10 @@ Page({
 
             }}
               )             
-    }})},
+    }})
+
+  
+  },
   navigatePage:function()
   { wx.setStorage({
     data:'',

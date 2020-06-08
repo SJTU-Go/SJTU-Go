@@ -1,6 +1,9 @@
 
 {
-  "pages": [ "pages/LoginPage/LoginPage",   
+  "pages": [ 
+    "pages/LoginPage/LoginPage",   
+    "pages/trafficPage/trafficPage",
+
     "pages/comment/comment",    
     "pages/extendsearch/arrive/arrive",
     "pages/searchindex/searchindex",
@@ -47,8 +50,8 @@
     "pages/userInfoPage/userInfoPage",
     "pages/setPreferencePage/setPreferencePage",
     "pages/registrationPage/registrationPage",
-    "pages/accountLoginPage/accountLoginPage",
-    "pages/trafficPage/trafficPage"
+    "pages/accountLoginPage/accountLoginPage"
+
   ],
 
   "window": {

@@ -23,6 +23,31 @@ Page({
           data:res.data.userID,
           key: 'userID',
         })
+
+
+        wx.request({
+          url: 'https://api.ltzhou.com/user/preference/get?userID='+res.data.userID,
+          method:'POST',
+          success(res){if(res.data){if(res.data.preferencelist){wx.setStorage({
+            data: res.data.preferencelist,
+            key: 'preference',
+          })}
+          if(res.data.banlist){wx.setStorage({
+            data:res.data.banlist, 
+            key: 'banned',
+          })}}
+        }})
+
+        wx.request({
+          url: 'https://api.ltzhou.com/user/history/get?userID='+res.data.userID,
+          method:'POST',
+          success(res){wx.setStorage({
+            key: 'historygained',
+            data: res.data,
+          })
+        }})
+
+
 wx.switchTab({url: '../index/index', })
         }
         })

@@ -4,13 +4,7 @@ Page({
   data: {
     routeplan:[],
     polyline:[],
-    time:0,
-    depart:'',
-    arrive:'',
-    pass:'',
-    tmphis:[],
-    tmproute:[],
-    tmpplan:[]
+    trafficInfo:[],
   },
 
   onLoad: function(options){
@@ -24,6 +18,8 @@ wx.request({
     key: 'traffic',
   }
 )
+that.setData({"trafficInfo":res.data})
+
 d=res.data
 var polyline = []
 for(var j=0;j<d.length;j++){
@@ -53,86 +49,7 @@ for(var j=0;j<d.length;j++){
 
 }
 })
+}
 
 
-
-  },
-
-  starttirp:function(e){
-    var that=this
-    var record={};
-    record['depart']=that.data.depart
-    record['arrive']=that.data.arrive
-    record['passPlaces']=that.data.pass
-    record['routetime']=this.data.time
-    var history=that.data.tmphis
-    history.push(record)
-    var historyroute=that.data.tmproute
-    historyroute.push(that.data.polyline)
-    var plan=that.data.tmpplan
-    plan.push(that.data.routeplan)
-    wx.setStorage({
-      data: history,
-      key: 'history',
-    })
-    wx.setStorage({
-      data: historyroute,
-      key: 'historyroute',
-    })
-    wx.setStorage({
-      data: plan,
-      key: 'plan',
-    })
-    wx.getStorage({
-      key: 'history',
-      success: function(res) {
-        console.log(res.data)
-      }
-    })
-    wx.getStorage({
-      key: 'historyroute',
-      success: function(res) {
-        console.log(res.data)
-      }
-    })
-    wx.getStorage({
-      key: 'plan',
-      success: function(res) {
-        console.log(res.data)
-      }
-    })
-    wx.showToast({
-       title: '行程已被记录，请跳转到对应app导航',
-       icon: 'none',
-       duration: 3000,
-       success: function () {
-       setTimeout(function () {
-       wx.switchTab({
-       url: '../index/index',
-       })
-       }, 2000);
-       }
-      })
-  },
-  
-  onReady: function () {
-  },
-
-  onShow: function () {
-  },
-
-  onHide: function () {
-  },
-
-  onUnload: function () {
-  },
-
-  onPullDownRefresh: function () {
-  },
-
-  onReachBottom: function () {
-  },
-
-  onShareAppMessage: function () {
-  }
 })

@@ -2,37 +2,24 @@ Page({
   data: {
     polyline:[],
     routeplan:[]
-    // markers: [{
-    //   iconPath: "/mark/19.PNG",
-    //   id: 0,
-    //   latitude: 31.021807,//31.029236,
-    //   longitude: 121.429846,//121.452591,
-    //   width: 50,
-    //   height: 50,
-    // },
-    // {
-    //   iconPath: "/mark/15.PNG",
-    //   id: 0,
-    //   latitude: 31.021642,//31.029236,
-    //   longitude: 121.432335,//121.452591,
-    //   width: 50,
-    //   height: 50,
-    // },
-    // {
-    //   iconPath: "/mark/7.PNG",
-    //   id: 0,
-    //   latitude: 31.020502,//31.029236,
-    //   longitude: 121.434009,//121.452591,
-    //   width: 50,
-    //   height: 50,
-    // }
-    // ],
   },
 
   onLoad: function (options) {
-    this.setData({
-      polyline: JSON.parse(options.RT),
-      routeplan:JSON.parse(options.plan)
+    var that = this
+    var index =options.index
+    wx.getStorage({
+      key: 'history',
+      success(res){var q =new Array(0)
+        q.push(res.data[index])
+        that.setData({
+        routeplan:q
+      })}
+    })
+    wx.getStorage({
+      key: 'historyroute',
+      success(res){    that.setData({
+        polyline:res.data[index]
+      })}
     })
   },
 

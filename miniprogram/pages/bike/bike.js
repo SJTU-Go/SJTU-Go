@@ -111,6 +111,7 @@ Page({
     historyroute.push(that.data.polyline)
     var plan=that.data.tmpplan
     plan.push(that.data.routeplan)
+    
     wx.setStorage({
       data: history,
       key: 'history',
@@ -119,6 +120,7 @@ Page({
       data: historyroute,
       key: 'historyroute',
     })
+    
     wx.setStorage({
       data: plan,
       key: 'plan',
