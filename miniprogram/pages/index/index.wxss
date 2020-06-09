@@ -7,6 +7,8 @@ page {
   justify-content: flex-start;
 }
 
+
+
 .outsideblock
 {  display: flex;
   align-items: center;
@@ -15,14 +17,49 @@ height: 450rpx;
 }
 .map
 {height: 700rpx;}
+.massge-img{
+  width: 40rpx;
+  height: 40rpx;
 
+}
 .bottomblock
 {  position: fixed;
   width:100%; 
-  bottom: 30rpx;
+  bottom: 100rpx;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.bbottomblock
+{  position: fixed;
+  width:100%; 
+  bottom: 0rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.topTabSwiper {
+
+  width: 100%;
+  justify-content: center;
+  display: flex;
+
+  zoom: 1;
+  border-radius:5rpx;
+}
+.tab {
+  background-color: white;
+  border-top-left-radius:20rpx;
+  border-top-right-radius:20rpx;
+  float: left;
+  width: 33.3%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+
+.tabBorer {
+  border-bottom: 1px solid grey;
+  background-color:rgb(216, 214, 214);
 }
 .navigatebutton
 { width: 80%;

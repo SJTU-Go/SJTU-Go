@@ -1,9 +1,9 @@
 
 {
-  "pages": [ 
+  "pages": [     "pages/index/index",
         "pages/trafficPage/trafficPage",
     "pages/LoginPage/LoginPage",       "pages/setPreferencePage/setPreferencePage",
-    "pages/index/index",
+
     "pages/extendsearch/arrive/arrive",
   
 
