@@ -91,8 +91,36 @@ Page({
     var ress = this.data.currentschedule;
     this.setData({mHidden:true});
     ress.push(result);
+    var postitem = {}
+    var posti={}
+    posti.schedule=ress
+    postitem.schedule = posti
+  
     wx.setStorage({ key:'storedschedule',
-    data:ress})
+    data:ress,
+
+  success(res){
+    wx.getStorage({
+      key: 'userID',
+ success(res){
+   postitem.userID = res.data
+   console.log(postitem)
+    wx.request({
+      url: 'https://api.ltzhou.com/user/updateScheduleInfo',
+      method:"POST",
+      data:postitem,
+      success(res){console.log(res)}
+    })  
+  
+  
+  }
+  
+  
+  })
+  }
+  })
+
+
     },
   /**
    * 点击了上一周，选择周数字减一，然后直接调用工具类中一个方法获取到数据

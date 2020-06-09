@@ -68,6 +68,17 @@ Page({
           })
         }})
 
+wx.request({
+  url: 'https://api.ltzhou.com/user/getScheduleInfo?userID='+res.data.userID,
+  method:'POST',
+  success(res){var a =JSON.parse(res.data.schedule)
+  wx.setStorage({
+    data: a.schedule,
+    key: 'storedschedule',
+  })
+  }
+
+})
 
 wx.switchTab({url: '../index/index', })
         }
