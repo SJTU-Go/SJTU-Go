@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -52,4 +53,18 @@ public class HelloBikeInfo {
 
 
 //    }
+
+    public HelloBikeInfo(){
+
+    }
+
+    public HelloBikeInfo(String bikeID, double lng, double lat, int bikeType){
+        this.bikeID = bikeID;
+        this.lat = lat;
+        this.lng = lng;
+        this.biketype = bikeType;
+        this.time = LocalDateTime.now();
+    }
+
+
 }
