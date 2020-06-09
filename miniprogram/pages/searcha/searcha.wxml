@@ -82,9 +82,11 @@
         </view>
         <view wx:elif="{{list.type==method[1]}}"><image class="massge-img" src="../../images/bus1.png"></image></view>
         <view wx:elif="{{list.type==method[2]}}"><image class="massge-img" src="../../images/bike.png"></image></view>
+        <view wx:elif="{{list.type==method[3]}}"><image class="massge-img" src="../../images/car.png"></image></view>
         <view wx:if="{{list.type==method[0]}}"  class='walkbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[1]}}"  class='busbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[2]}}"  class='bikebutton'>{{list.type}}</view>
+        <view wx:if="{{list.type==method[3]}}"  class='carbutton'>{{list.type}}</view>
         <view class = 'rightt'>
           <view wx:if="{{list.cost}}" class='textclass'><text>{{list.travelTime/60|Int}} min · {{list.cost/60}}元</text></view>
           <view wx:else class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view>
@@ -98,6 +100,7 @@
       <view wx:if="{{list.type==method[1]}}">   <view class='textdiv'><text bindtap="searchPagebus">路径详情></text></view></view>
       <view wx:if="{{list.type==method[0]}}">   <view class='textdiv'><text bindtap="searchPagewalk">路径详情></text></view></view>
       <view wx:if="{{list.type==method[2]}}">   <view class='textdiv'><text bindtap="searchPagebike">路径详情></text></view></view>
+      <view wx:if="{{list.type==method[3]}}">   <view class='textdiv'><text bindtap="searchPageCar">路径详情></text></view></view>
       </view>
 
     </view>
@@ -111,9 +114,11 @@
         </view>
         <view wx:elif="{{list.type==method[1]}}"><image class="massge-img" src="../../images/bus1.png"></image></view>
         <view wx:elif="{{list.type==method[2]}}"><image class="massge-img" src="../../images/bike.png"></image></view>
+        <view wx:elif="{{list.type==method[3]}}"><image class="massge-img" src="../../images/car.png"></image></view>
         <view wx:if="{{list.type==method[0]}}"  class='walkbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[1]}}"  class='busbutton'>{{list.type}}</view>
         <view wx:if="{{list.type==method[2]}}"  class='bikebutton'>{{list.type}}</view>
+        <view wx:if="{{list.type==method[3]}}"  class='carbutton'>{{list.type}}</view>
         <view class = 'rightt'>
           <view wx:if="{{list.cost}}" class='textclass'><text>{{list.travelTime/60|Int}} min · {{list.cost/60}}元</text></view>
           <view wx:else class='textclass'><text>{{list.travelTime/60|Int}} min · 免费</text></view>
@@ -127,6 +132,7 @@
       <view wx:if="{{list.type==method[1]}}">   <view class='textdiv'><text bindtap="searchPagebus">路径详情></text></view></view>
       <view wx:if="{{list.type==method[0]}}">   <view class='textdiv'><text bindtap="searchPagewalk">路径详情></text></view></view>
       <view wx:if="{{list.type==method[2]}}">   <view class='textdiv'><text bindtap="searchPagebike">路径详情></text></view></view>
+        <view wx:if="{{list.type==method[3]}}">   <view class='textdiv'><text bindtap="searchPageCar">路径详情></text></view></view>    
       </view>
 
     </view>

@@ -30,14 +30,14 @@
     "pages/commentmap/commentmap",
     "pages/feedback/feedback",
     "pages/bike/bike",
-  
+    "pages/car/car",
     "pages/searcha/searcha",
-    "pages/extendsearcha/depart/depart",
+
     "pages/extendsearch/depart/depart",
 
 
     "pages/extendsearch/pass/pass",
-
+    "pages/extendsearcha/depart/depart",
     "pages/extendsearcha/arrive/arrive",
     "pages/extendsearcha/pass/pass",
 

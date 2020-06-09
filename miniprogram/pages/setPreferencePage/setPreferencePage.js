@@ -4,7 +4,7 @@ const app = getApp()
 Page({
   data:
   {preference:['步行','共享单车','校园巴士'],
-   method:['步行','校园巴士','共享单车'],
+   method:['步行','校园巴士','共享单车',"旋风E100"],
    banned:[],
    passnum:0
   },

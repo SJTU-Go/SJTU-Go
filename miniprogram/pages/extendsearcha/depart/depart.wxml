@@ -4,15 +4,16 @@
     <view class="search-bar">
       <view class="search-bar__form">
         <view class="search-bar__box">
-          <icon class="icon-search_in-box" type="search" size="14"></icon>
-          <input type="text" class="search-bar__input" placeholder="输入出发地点" maxlength='10' value="{{inputVal}}" focus="{{inputShowed}}"   bindinput="inputTyping" />
-
-        </view>
-     
-      </view>
+          <input type="text"  class="search-bar__input" placeholder="{{inputmessage}}" maxlength='40' value="{{inputVal}}" focus="{{inputShowed}}"   bindinput="inputTyping" />
           <view class="icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
-            <icon type="clear" size="14"></icon>
-          </view>
+            <icon type="clear" size="17"></icon>
+              
+      </view>
+        </view>
+
+      </view>
+
+          <icon class="searchicon" type="search" size="34" bindtap="searchout"></icon>
     </view>
     <view class="cells searchbar-result" wx:if="{{inputVal.length > 0}}">
       <!-- 搜索列表 -->
@@ -28,8 +29,9 @@
   </view>
 </view>
 
+<map id="map4select" longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="returnresult"   show-location style="width: 100%; height: 40vh;" bindregionchange="regionchange"></map>
 
-
+<!--wx:if="{{hasmarkers}}"!-->
     <view wx:if='{{boxshow}}' wx:for="{{carList}}" wx:key="{{index}}" class="msg-item">
          <view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.placeName}}</view>
     </view>

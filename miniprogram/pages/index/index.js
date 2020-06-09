@@ -22,7 +22,7 @@ Page({
     value : new Array(),
     method:["步行","校园巴士"],
     preference:["步行","校园巴士"],
-    preference1:['步行','共享单车','校园巴士'],
+    preference1:['步行','共享单车','校园巴士','旋风E100'],
     preferencelist:[],
     banned:[],
     preferencelist: new Array(),
@@ -145,7 +145,8 @@ Page({
     fail: function(res) {
     console.log(res+'aaaaa')
     }
-    });
+    })
+    
     wx.getStorage({
       key: 'banned',
       success: function(res){
@@ -221,6 +222,92 @@ Page({
         
         })
   
+        wx.request({
+          url: 'https://api.ltzhou.com/map/nearby/cars',
+          data:{"lat":"31.021807" ,"lng":"121.429846"},
+          success(res){
+            var x
+            var markers=new Array();
+            var q = 0
+            for (x in res.data)
+            {
+              if (1)
+              {var marker ={iconPath: "../../images/showres2.png",
+              id: q,
+              latitude: 31.021807,//31.029236,
+              longitude: 121.429846,//121.452591,
+              width: 10,
+              height: 10,
+              name:'',}
+                marker.latitude=res.data[x].latitude
+                marker.longitude=res.data[x].longitude
+                marker.name=res.data[x].bikeID
+                console.log(marker)
+                markers.push(marker) 
+                console.log("adding")
+                console.log(markers)
+               q =q +1}}
+               wx.setStorage({
+                 data: markers,
+                 key: "carpoint",
+               })
+               /*markers.push({iconPath: "../../images/crosses.png",
+               id: q,
+               latitude: that.data.latitude,
+               longitude:that.data.longitude,
+               width: 50,
+               height: 50,
+               name:'',
+               bikeCount:''})      */
+             console.log(markers)
+           
+          }
+          
+          })
+
+          wx.request({
+            url: 'https://api.ltzhou.com/map/nearby/mobike',
+            data:{"lat":"31.021807" ,"lng":"121.429846"},
+            success(res){
+              var x
+              var markers=new Array();
+              var q = 0
+              for (x in res.data)
+              {
+                if (1)
+                {var marker ={iconPath: "../../images/showres.png",
+                id: q,
+                latitude: 31.021807,//31.029236,
+                longitude: 121.429846,//121.452591,
+                width: 10,
+                height: 10,
+                name:'',}
+                  marker.latitude=res.data[x].lat
+                  marker.longitude=res.data[x].lng
+                  marker.name=res.data[x].bikeID
+                  console.log(marker)
+                  markers.push(marker) 
+                  console.log("adding")
+                  console.log(markers)
+                 q =q +1}}
+                 wx.setStorage({
+                   data: markers,
+                   key: "mopoint",
+                 })
+                 /*markers.push({iconPath: "../../images/crosses.png",
+                 id: q,
+                 latitude: that.data.latitude,
+                 longitude:that.data.longitude,
+                 width: 50,
+                 height: 50,
+                 name:'',
+                 bikeCount:''})      */
+               console.log(markers)
+             
+            }
+            
+            })
+
       console.log(that.data.preferencelist)
       console.log(that.data.banned)
       console.log(that.data.preferencelist.length==0&&that.data.banned.length==0)
@@ -497,6 +584,14 @@ Page({
          key: 'bikepoint',
          success(res){that.setData({markers:res.data})}
        })}
+       if (e.target.dataset.current==1){wx.getStorage({
+        key: 'mopoint',
+        success(res){that.setData({markers:res.data})}
+      })}
+       if (e.target.dataset.current==2){wx.getStorage({
+        key: 'carpoint',
+        success(res){that.setData({markers:res.data})}
+      })}
        if (e.target.dataset.current==3){wx.getStorage({
         key: 'cluster',
         success(res){that.setData({markers:res.data})}

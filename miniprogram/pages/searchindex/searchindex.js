@@ -5,6 +5,7 @@ Page({
 
   data:{
     step :0,
+    car:{},
     bus:{},
     walk:{},
     pass:'',
@@ -15,7 +16,7 @@ Page({
     arriveid:'',
     index:['walk','bus'],
     value : new Array(),
-    method:["步行","校园巴士","共享单车"],
+    method:["步行","校园巴士","共享单车","旋风E100"],
     preference:[],
     preferencelist: new Array(),
     searchtxt:'',
@@ -92,7 +93,7 @@ wx.navigateTo({
         var pass
           pass=String( this.data.passid)
           if (pass=="DT404"){console.log("404"),pass=this.data.pass}
-
+  
       var arrivename = this.data.arrive
       var departname = this.data.depart
       var passname = this.data.pass
@@ -117,7 +118,7 @@ wx.navigateTo({
         "passPlaces": passlist,})
       
         //busrequest
-
+  
       wx.request({
         url: 'https://api.ltzhou.com/navigate/bus',
         method:'POST',
@@ -129,7 +130,7 @@ wx.navigateTo({
         "beginPlace": depart,
         "departTime": "2020/05/11 12:05:12",
         "passPlaces": passlist,},
-
+  
         success (res) {
           tem = res.data
           console.log(tem)
@@ -164,6 +165,21 @@ wx.navigateTo({
           tem = res.data
           console.log(tem)
           valuetem.push(tem)
+          // 旋风100
+          wx.request({
+            url: 'https://api.ltzhou.com/navigate/car',
+            method:'POST',
+            header: {
+            'content-type': 'application/json'},
+          data:{
+            "arrivePlace": arrive,
+            "beginPlace": depart,
+            "passPlaces": passlist,
+            },
+            success (res) {
+              tem = res.data
+              console.log(tem)
+              valuetem.push(tem)
           that.setData({value:valuetem})
           console.log(that.data.value)
           console.log("1")
@@ -179,32 +195,34 @@ wx.navigateTo({
           ressss.push(departname)
           ressss.push(passname)
           ressss.push(arrivename)
-
-
+  
+  
           that.setData({datares:ressss})
           console.log("coming resuuuu")
           console.log(that.data.datares)
-
+  
           wx.navigateTo({
             url: '../searcha/searcha?RT='+JSON.stringify(that.data.datares),
             //success:function(res){that.setData({step:0})}
           
           },
-
+  
             )
-
-
+  
+        }})
         
         
         }
       })        
-
-
+  
+  
          
-
+  
             }}
               )             
-    }})}},
+    }})}
+  
+  },
   navigatePage:function()
   {    this.setData({step:1})
   },

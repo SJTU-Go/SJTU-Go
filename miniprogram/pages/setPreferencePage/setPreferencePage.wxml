@@ -8,7 +8,7 @@
         </view>
         <view wx:elif="{{preference[i]==method[1]}}"><image class="massge-img" src="../../images/bus2.png"></image></view>
         <view wx:elif="{{preference[i]==method[2]}}"><image class="massge-img" src="../../images/bicycle2.png"></image></view>
- 
+         <view wx:elif="{{preference[i]==method[3]}}"><image class="massge-img" src="../../images/carpre.png"></image></view>
       <view class = 'blockleft'>{{preference[i]}}</view>
       <view class="containerbutton">
         <button class='btn2' bindtap='addbanned' data-id="{{i}}"><view>设为禁止</view></button>
@@ -31,7 +31,7 @@
         </view>
         <view wx:elif="{{banned[i]==method[1]}}"><image class="massge-img" src="../../images/bus2.png"></image></view>
         <view wx:elif="{{banned[i]==method[2]}}"><image class="massge-img" src="../../images/bicycle2.png"></image></view>
- 
+         <view wx:elif="{{banned[i]==method[3]}}"><image class="massge-img" src="../../images/carpre.png"></image></view>
       <view class = 'blockleft'>{{banned[i]}}</view>
       <view class="containerbutton">
         <button class='btn2' bindtap='removebanned' data-id="{{i}}"><view>设为允许</view></button>

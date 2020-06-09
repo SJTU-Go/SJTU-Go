@@ -3,9 +3,8 @@ const app = getApp()
 
 Page({
   data:
-  {preference1:['步行','共享单车','校园巴士'],
-   preference:[],
-   method:['步行','校园巴士','共享单车'],
+  {preference:[],
+   method:['步行','校园巴士','共享单车',"旋风E100"],
    banned:[]
   },
 
