@@ -1,15 +1,20 @@
 <!--pages/modifyPark/modifyPark.wxml-->
-<view class = 'title'>停车点：{{parkname}}</view>
+<view class = 'title'><text style="color:#00a278">停车点：</text>{{parkname}}</view>
 
 <form class="form" bindsubmit="formSubmit">
 <view class="container1">
   <view class="line">
-    <text> 原备注信息：</text>
+    <text style="color:#00a278"> 原备注信息：</text>
    
   </view>
   
 <view class="remark">{{info}}</view>
 </view>
+
+  <view class="line">
+    <text style="color:#00a278"> 新备注信息：</text>
+   
+  </view>
 <textarea placeholder="点击输入新备注" auto-height auto-focus name="textarea"/>
 <button class='btn2' formType="submit">保存</button>
 </form>

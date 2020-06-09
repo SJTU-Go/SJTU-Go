@@ -9,17 +9,21 @@
     </view>
     <view class='textdiv'>
           <text style="font-size-20"  bindtap="history">[地点修改记录</text>
-          <text style="font-size-20"  >]         [</text>
-          <text style="font-size-20"  bindtap="hisNotice"> 通知记录]</text>          
+          <text style="font-size-20"  >]         [</text>          
+          <text style="font-size-20"  bindtap="hisNotice"> 通知记录</text>          
+                  <text style="font-size-20"  >]         [</text>
+        <text style="font-size-20"  bindtap="trhistory">交通修改记录]</text>
         </view>
 <view class="divLine"></view>
 <view class="container">
     <view class="massge" wx:for="{{List.hia}}" wx:for-index="idx" wx:for-item="list" >
-      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text>[{{list.type}}]</text></view></view>
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text style="color:#6495ED">[{{list.type}}]</text></view></view>
       <view class="massge-bd font-color-666">
-        <text>原备注：<text class="font-color-c24e4e font-size-15">{{list.formerInfo}}</text></text>
-        <text style="margin-top:22rpx;"><text>新备注：<text class="font-color-c24e4e font-size-15">{{list.newInfo}}</text></text></text>
-        <view class='textdiv'>
+        <text style="color:#00a278">原备注：</text>
+        <text style="margin-top:22rpx;" class="font-color-c24e4e font-size-15">{{list.formerInfo}}</text>
+        <text style="margin-top:22rpx;"><text style="color:#00a278">新备注：</text></text>
+        <text style="margin-top:22rpx;" class="font-color-c24e4e font-size-15">{{list.newInfo}}</text>
+        <view class='textdiv1'>
           <text style="font-size-20" data-index="{{idx}}" bindtap="deletePage">删除></text>
                     
         </view>
@@ -29,18 +33,22 @@
 
   
     <view class="massge" wx:for="{{tList}}" wx:for-index="idx" wx:for-item="list" >
-      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text>[traffic]</text></view></view>
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text style="color:#6495ED">[traffic]</text></view></view>
       <view class="massge-bd font-color-666">
-      <text>开始日期：<text class="font-color-c24e4e font-size-15">{{list.beginDay}}</text><text style="margin-left:40rpx;">起始时间:</text> {{list.beginTime}}</text>
-        <text style="margin-top:22rpx;"><text>结束时间：<text class="font-color-c24e4e font-size-15">{{list.endTime}}</text></text><text style="margin-left:40rpx;">单车速度:</text> {{list.bikeSpeed}}</text>
-        <text style="margin-top:22rpx;"><text>电动车速度：<text class="font-color-c24e4e font-size-15">{{list.motorSpeed}}</text></text><text style="margin-left:40rpx;">汽车速度:</text> {{list.carSpeed}}</text>
+     
+       <text style="margin-top:22rpx; "><text style="color:#00a278">开始日期：</text><text class="font-color-c24e4e font-size-15 ">{{list.beginDay}}<text style="margin-left:40rpx; color:#00a278">起始时间:</text> <text>{{list.beginTime}}</text></text>
+        <text style="margin-top:22rpx; "><text style="color:#00a278">结束时间：</text><text class="font-color-c24e4e font-size-15 ">{{list.endTime}}<text style="margin-left:40rpx; color:#00a278">单车速度:</text> <text>{{list.bikeSpeed}}</text></text>
+        <text style="margin-top:22rpx; "><text style="color:#00a278">电动车速度：</text><text class="font-color-c24e4e font-size-15 ">{{list.motorSpeed}}</text><text style="margin-left:40rpx; color:#00a278">汽车速度:</text> <text>{{list.carSpeed}}</text></text>
         
-        <text style="margin-top:22rpx;"><text>详细描述：<text class="font-color-c24e4e font-size-15">{{list.message}}</text></text></text>
-        <view class='textdiv'>
+        <text style="margin-top:22rpx; "><text style="color:#00a278">详细描述：</text></text>
+        <text style="margin-top:22rpx;" class="font-color-c24e4e font-size-15">{{list.message}}</text>
+        <view class='textdiv1'>
           <text style="font-size-20" data-index="{{idx}}" bindtap="deletePage2">删除></text>
-                    
+                   
         </view>
+        </text></text>
        </view>
+      
     </view>
 
 

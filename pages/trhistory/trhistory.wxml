@@ -1,0 +1,24 @@
+<!--pages/trhistory/trhistory.wxml-->
+<view class ='tool'>
+      <view class ='blocklleft'>当前账号：</view>
+      <view class ='blockright'>{{admin}}</view>
+    </view>
+    
+    
+<view class="divLine"></view>
+<view class="container">
+    <view class="massge" wx:for="{{hislist}}" wx:for-index="idx" wx:for-item="list" >
+      <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改ID：{{list.modificationID}} </view></view>
+      <view class="massge-bd font-color-666">
+       <text style="margin-top:22rpx;"><text style="color:#00a278">交通ID：</text><text class="font-color-c24e4e font-size-15">{{list.detail.trafficID}}</text><text style="margin-left:40rpx; color:#00a278">修改名称:</text> {{list.detail.name}}</text>
+       <text style="margin-top:22rpx;"><text style="color:#00a278">起始时间：</text><text class="font-color-c24e4e font-size-15">{{list.detail.beginTime}}</text><text style="margin-left:40rpx; color:#00a278">终止时间:</text> {{list.detail.endTime}}</text>
+        <text style="margin-top:22rpx;"><text style="color:#00a278">开始日期：</text><text class="font-color-c24e4e font-size-15">{{list.detail.beginDay}}</text><text style="margin-left:40rpx; color:#00a278">单车速度:</text> {{list.detail.bikeSpeed}}</text>
+        <text style="margin-top:22rpx;"><text style="color:#00a278">电动车速度：</text><text class="font-color-c24e4e font-size-15">{{list.detail.motorSpeed}}</text><text style="margin-left:40rpx; color:#00a278">汽车速度:</text> {{list.detail.carSpeed}}</text>
+        
+        <text style="margin-top:22rpx;" ><text style="color:#00a278" class="font-color-c24e4e font-size-15">详细描述：</text></text>
+        <text style="margin-top:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.detail.message}}</text></text></text>
+       
+        </view>
+       </view>
+    </view>
+

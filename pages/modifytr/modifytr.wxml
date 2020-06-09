@@ -13,7 +13,7 @@
     </view>-->
 </view>
 <view class="divLine"></view>
-<view>选中两个节点以确定修改的路径</view>
+<view><text style="color:#00a278">选中两个节点以确定修改的路径</text></view>
 
 <view class="divLine"></view>
 <view class = 'line'><text>出发点：</text>{{cuTripDetail.strategy.arrive}}</view>

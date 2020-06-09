@@ -1,4 +1,4 @@
-/* pages/hisNotice/hisNotice.wxss */
+/* pages/trhistory/trhistory.wxss */
 
 page {
   background: #f6f6f6;
@@ -30,7 +30,7 @@ page {
   line-height: 1;
 }
 .massge-img{
-  width: 40rpx;
+  width: 60rpx;
   height: 60rpx;
   margin-right: 20rpx;
 }
@@ -133,12 +133,7 @@ width: 90%;
   align-items: top;
   justify-content: left;
 }
-.line
-{ font-size: 28rpx;
-  text-align: left;
-margin-left: 20rpx;
 
-}
 .extendblock
 {display: flex;
   flex-direction: row;

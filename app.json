@@ -31,7 +31,8 @@
     "pages/history/history",
     "pages/modifytr/modifytr",
     "pages/hisNotice/hisNotice",
-    "pages/settr/settr"
+    "pages/settr/settr",
+    "pages/trhistory/trhistory"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -57,6 +58,12 @@
         "selectedIconPath": "images/bicycle2.png",
         "iconPath": "images/bicycle1.png"
       },
+      {  
+        "pagePath": "pages/trafficPage/trafficPage",  
+         "text": "交通"  ,
+         "selectedIconPath": "images/traffic02.png",
+         "iconPath": "images/traffic01.png"
+       },
       {
         "pagePath": "pages/userInfoPage/userInfoPage",
         "text": "系统",

@@ -1,16 +1,16 @@
 <!--pages/fbDetail/fbDetail.wxml-->
 <view class="container">
-    
+  
       <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户ID：{{cuFeedback.userID}} </view></view>
-      <view class="massge-bd font-color-666">
-      <text>行程ID：<text class="font-color-c24e4e font-size-15">{{cuFeedback.tripID}}</text><text style="margin-left:40rpx;">时间:</text> {{cuFeedback.time}}</text>
-        <text style="margin-top:22rpx;"><text>路况评分：<text class="font-color-c24e4e font-size-15">{{cuFeedback.trafficFB}}</text></text><text style="margin-left:40rpx;">寻车评分:</text> {{cuFeedback.pickupFB}}</text>
-        <text style="margin-top:22rpx;"><text>停车评分：<text class="font-color-c24e4e font-size-15">{{cuFeedback.parkFB}}</text></text><text style="margin-left:40rpx;">服务评分:</text> {{cuFeedback.serviceFB}}</text>
-        <text>评论：</text>
-        <text style="margin-top:22rpx;"><text class="font-color-c24e4e font-size-15">{{cuFeedback.contents}}</text></text>
-        
+     <view class="massge-bd font-color-666">
+      <text style="margin-top:12rpx;"> <text style="color:#00a278">行程ID：</text><text >{{cuFeedback.tripID}}</text></text><text style="margin-top:12rpx;"><text style= "color:#00a278">时间:</text> <text>{{cuFeedback.time}}</text></text>
+        <text style="margin-top:12rpx; "><text style=" color:#00a278">路况评分：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.trafficFB}}</text><text style="margin-left:40rpx; color:#00a278">寻车评分:</text> {{cuFeedback.pickupFB}}</text>
+        <text style="margin-top:12rpx; "><text style=" color:#00a278">停车评分：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.parkFB}}</text><text style="margin-left:40rpx; color:#00a278">服务评分:</text> {{cuFeedback.serviceFB}}</text>
+        <text style="margin-top:12rpx; color:#00a278" >评论：</text>
+        <text style="margin-top:12rpx;"><text class="font-color-c24e4e font-size-15">{{cuFeedback.contents}}</text></text>
+         </view>
        
-    </view>
+    
     <view class="containerbutton">
   <button class='btn2' bindtap='modifytraffic'>
     <view>修改交通</view>

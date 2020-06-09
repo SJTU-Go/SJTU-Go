@@ -138,7 +138,7 @@ Page({
              duration: 1000,
              success: function () {
              setTimeout(function () {
-             wx.reLaunch({
+             wx.navigateTo({
              url: '../modifytr/modifytr',
              })
              }, 2000);

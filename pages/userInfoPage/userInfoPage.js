@@ -216,6 +216,10 @@ history: function () {
   
   wx.navigateTo({url: '../history/history', })
 },
+trhistory: function () {
+  
+  wx.navigateTo({url: '../trhistory/trhistory', })
+},
 hisNotice: function () {
   
   wx.navigateTo({url: '../hisNotice/hisNotice', })
