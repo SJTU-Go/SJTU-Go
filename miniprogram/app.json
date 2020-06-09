@@ -1,6 +1,7 @@
 
 {
   "pages": [ 
+        "pages/trafficPage/trafficPage",
     "pages/LoginPage/LoginPage",       "pages/setPreferencePage/setPreferencePage",
     "pages/index/index",
     "pages/extendsearch/arrive/arrive",
@@ -8,7 +9,7 @@
 
 
 
-    "pages/trafficPage/trafficPage",
+
 
     "pages/comment/comment",    
  

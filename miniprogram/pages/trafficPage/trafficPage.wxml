@@ -3,7 +3,7 @@
 
 
 <scroll-view scroll-y style="display: flex; height: 415px;  align-items: center;">
-    <view class="trafficbox" wx:for="{{trafficInfo}}"  wx:for-item="list">
+    <view class="trafficbox" wx:for="{{trafficInfo}}"  wx:for-item="list" wx:for-index="idx">
       <view class = "titletime">
         <view class="traffictitle" >{{list.trafficInfo.name}}</view>
         <view class="time" >持续时间：{{list.trafficInfo.beginTime}}--{{list.trafficInfo.endTime}}</view>
@@ -12,6 +12,7 @@
       <view class = 'text'><image class="iimg" src="../../images/bike_1.png"></image> 自行车预计时速：{{list.trafficInfo.bikeSpeed}}</view>
       <view class = 'text'><image class="iimg" src="../../images/motor.png"></image>  电动车预计时速：{{list.trafficInfo.motorSpeed}}</view>
       <view class = 'text'><image class="iimg" src="../../images/car.png"></image>    汽车预计时速：{{list.trafficInfo.carSpeed}}</view>
+      <switch data-index="{{idx}}" bindchange="switchChange"/>
     </view>
 </scroll-view>
 

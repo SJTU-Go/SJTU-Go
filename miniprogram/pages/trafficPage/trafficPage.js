@@ -33,7 +33,7 @@ for(var j=0;j<d.length;j++){
     cor['latitude']=i[1];
     points.push(cor);
   }
-  line['color']='#ff0000'
+  line['color']='#808080'
   line['points']=points;
   //line['color']='#808080';
   line['width']=4;
@@ -49,7 +49,29 @@ for(var j=0;j<d.length;j++){
 
 }
 })
-}
-
+},
+switchChange:function(e){
+  var that = this;
+  var flag = e.detail.value;
+  var idx = e.currentTarget.dataset.index;
+  var color = 'polyline['+idx+'].color';
+  var width = 'polyline['+idx+'].width';
+  var dot = 'polyline['+idx+'].dottedLine';
+  if(flag==true){
+    that.setData({
+      [color] : "#ff0000",
+      [width] : 4,
+      [dot]: false
+    })
+  }
+  else{
+    that.setData({
+      [color] : "#808080",
+      [width] : 2,
+      [dot]: true
+    })
+  }
+console.log(that.data.polyline)
+},
 
 })
