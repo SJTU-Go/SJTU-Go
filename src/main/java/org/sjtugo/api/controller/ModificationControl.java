@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.Data;
+import org.sjtugo.api.DAO.Entity.CarInfo;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.ModificationRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
@@ -15,6 +16,7 @@ import org.sjtugo.api.entity.TrafficInfo;
 import org.sjtugo.api.service.ModificationService;
 import org.sjtugo.api.service.TrafficService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -53,11 +55,20 @@ public class ModificationControl {
 
     @ApiOperation(value = "管理员更新系统")
     @PostMapping("/modify/traffic")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "[3]格式错误\n[5]备份失败", response = ErrorResponse.class)
+    })
     public ResponseEntity<ErrorResponse> modifyMap(@RequestParam Integer adminID, @RequestBody TrafficInfo trafficInfo) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
         TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository);
-        trafficService.newTraffic(trafficInfo);
-        return modiService.modifyMap(adminID, trafficInfo);
+        ErrorResponse modiResponse = trafficService.newTraffic(trafficInfo);
+        if (modiResponse.getCode() == 0)
+        {
+            return modiService.modifyMap(adminID, trafficInfo);
+        } else {
+            return new ResponseEntity<>(modiResponse, HttpStatus.NOT_FOUND);
+        }
     }
 
     @Data

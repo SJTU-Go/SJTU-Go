@@ -54,12 +54,15 @@ public class ModificationService {
 
     }
 
-    //待修改
     public ResponseEntity<ErrorResponse> modifyMap(Integer adminID, TrafficInfo trafficInfo) {
         Modification modify = new Modification();
-        modify.setAdminID(adminID);
-        modify.setContents(trafficInfo.toString());
-        modificationRepository.save(modify);
+        try{
+            modify.setAdminID(adminID);
+            modify.setContents(trafficInfo.toString());
+            modificationRepository.save(modify);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(5,"备份失败"), HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
     }
 

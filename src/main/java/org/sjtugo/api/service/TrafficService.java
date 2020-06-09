@@ -4,6 +4,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
+import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.controller.ResponseEntity.TrafficInfoResponse;
 import org.sjtugo.api.entity.TrafficInfo;
 import org.springframework.http.HttpEntity;
@@ -28,9 +29,15 @@ public class TrafficService {
         this.mapVertexInfoRepository = mapVertexInfoRepository;
     }
 
-    public void newTraffic(TrafficInfo trafficInfo) {
-        trafficInfoRepository.save(trafficInfo);
-        scheduleArango(trafficInfo);
+    public ErrorResponse newTraffic(TrafficInfo trafficInfo) {
+        ErrorResponse arangoResponse = scheduleArango(trafficInfo);
+        if (arangoResponse.getCode() == 0) {
+            trafficInfoRepository.save(trafficInfo);
+            return new ErrorResponse(0,"修改Arango交通信息成功");
+        }
+        else {
+            return arangoResponse;
+        }
     }
     
     public List<TrafficInfoResponse> currentTraffic() {
@@ -44,19 +51,26 @@ public class TrafficService {
                 .collect(Collectors.toList());
     }
 
-    private void scheduleArango(TrafficInfo task) {
+    private ErrorResponse scheduleArango(TrafficInfo task) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
         Map<String,Object> bindVars = new HashMap<>();
-//        restTemplate.getInterceptors().add(
-//                new BasicAuthenticationInterceptor("root", "sjtugo"));
-
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
         if (task.getRepeatTime() > 0){
             bindVars.put("period",86400*task.getRepeatTime());
         }
+
+        if (task.getBeginDay().isBefore(LocalDate.now())) {
+            return new ErrorResponse(3,"invalid beginDay!");
+        } else if (task.getBeginTime().isBefore(LocalTime.now())) {
+            return new ErrorResponse(3,"invalid beginTime!");
+        } else if (task.getEndTime().isBefore(task.getBeginTime())) {
+            return new ErrorResponse(3,"invalid endTime!");
+        }
+
+
 
         // update traffic
         bindVars.put("offset", Duration.between(LocalDateTime.now(),
@@ -117,6 +131,8 @@ public class TrafficService {
         HttpEntity<Object> restore_request = new HttpEntity<>(bindVars,headers);
         restTemplate.put("http://47.92.147.237:8529/_api/tasks/"+bindVars.get("id"),
                 restore_request);
+
+        return new ErrorResponse(0,"修改Arango交通信息成功");
         }
 
 
