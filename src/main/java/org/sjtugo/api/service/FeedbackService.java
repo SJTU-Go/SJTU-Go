@@ -16,6 +16,9 @@ public class FeedbackService {
 
     public ResponseEntity<?> addFeedback(Integer userID, Integer tripID, Integer pickupFB, Integer trafficFB,
                                          Integer parkFB, Integer serviceFB, String contents){
+        if(pickupFB>5 || pickupFB<1 || trafficFB>5 || trafficFB<1 || parkFB>5 || parkFB<1 || serviceFB>5 || serviceFB<1){
+            throw new RuntimeException("反馈评分需为1-5的整数");
+        }
         Feedback newFeedback = new Feedback();
         newFeedback.setUserID(userID);
         newFeedback.setTripID(tripID);
