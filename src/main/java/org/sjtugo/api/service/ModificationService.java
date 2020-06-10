@@ -2,6 +2,8 @@ package org.sjtugo.api.service;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.ModificationRepository;
@@ -24,6 +26,7 @@ import java.time.LocalTime;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ModificationService {
     private final ModificationRepository modificationRepository;
@@ -58,7 +61,7 @@ public class ModificationService {
         Modification modify = new Modification();
         modify.setAdminID(adminID);
         JSONObject json = JSONObject.fromObject(modifyRequest);
-        modify.setContents(json.toString());
+        modify.setContents(json);
         modify.setTime(LocalDateTime.now());
         modificationRepository.save(modify);
 
@@ -69,11 +72,12 @@ public class ModificationService {
         Modification modify = new Modification();
 //        try{
         modify.setAdminID(adminID);
+        modify.setTime(LocalDateTime.now());
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.registerJsonValueProcessor(LocalDate.class,new JsonDateValueProcessor());
         jsonConfig.registerJsonValueProcessor(LocalDateTime.class,new JsonDateTimeValueProcessor());
         jsonConfig.registerJsonValueProcessor(LocalTime.class,new JsonTimeValueProcessor());
-        modify.setContents(JSONObject.fromObject(trafficInfo,jsonConfig).toString());
+        modify.setContents(JSONObject.fromObject(trafficInfo,jsonConfig));
         modificationRepository.save(modify);
 //        } catch (Exception e) {
 ////            new ErrorResponse(5, "备份失败");
@@ -86,4 +90,13 @@ public class ModificationService {
         modificationRepository.deleteById(id);
     }
 
+    public List<Modification> getTrafficModification(Integer adminID) {
+        return modificationRepository.findByAdminID(adminID).stream()
+                .filter(a ->  (a.getContents().containsKey("trafficID"))).collect(Collectors.toList());
+    }
+
+    public List<Modification> getMapModification(Integer adminID) {
+        return modificationRepository.findByAdminID(adminID).stream()
+                .filter(a ->  (a.getContents().containsKey("placeID"))).collect(Collectors.toList());
+    }
 }

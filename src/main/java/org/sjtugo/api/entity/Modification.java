@@ -1,17 +1,20 @@
 package org.sjtugo.api.entity;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -32,8 +35,18 @@ public class Modification {
     @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private LocalDateTime time;
 
-    @ApiModelProperty(value = "具体修改信息")
-    private String contents;
+    @ApiModelProperty(value = "具体修改信息",notes = "json格式的String")
+    @Column(columnDefinition = "TEXT")
+    private String contents;  //Json
+
+
+    public JSONObject getContents() {
+        return JSONObject.fromObject(contents);
+    }
+
+    public void setContents(JSONObject obj){
+        contents = obj.toString();
+    }
 
     public Modification() {}
 }

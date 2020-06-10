@@ -42,11 +42,18 @@ public class ModificationControl {
     @Autowired
     private RestTemplate restTemplate;
 
-    @ApiOperation(value = "管理员查看修改记录")
-    @PostMapping("/view")
-    public @ResponseBody List<Modification> getModification(@RequestParam Integer adminID) {
+    @ApiOperation(value = "管理员查看地图修改记录")
+    @PostMapping("/view/map")
+    public @ResponseBody List<Modification> getMapModification(@RequestParam Integer adminID) {
         ModificationService modiService = new ModificationService(modificationRepository,null);
-        return modiService.getModification(adminID);
+        return modiService.getMapModification(adminID);
+    }
+
+    @ApiOperation(value = "管理员查看地图修改记录")
+    @PostMapping("/view/traffic")
+    public @ResponseBody List<Modification> getTrafficModification(@RequestParam Integer adminID) {
+        ModificationService modiService = new ModificationService(modificationRepository,null);
+        return modiService.getTrafficModification(adminID);
     }
 
     @ApiOperation(value = "管理员修改停车点信息")
