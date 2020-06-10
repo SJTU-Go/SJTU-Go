@@ -86,7 +86,7 @@ public class TrafficService {
 
         if (task.getBeginDay().isBefore(LocalDate.now())) {
             return new ErrorResponse(3,"invalid beginDay!");
-        } else if (task.getBeginTime().atDate(LocalDate.now()).isBefore(LocalDateTime.now())) {
+        } else if (task.getBeginTime().atDate(task.getBeginDay()).isBefore(LocalDateTime.now())) {
             return new ErrorResponse(3,"invalid beginTime!");
         } else if (task.getEndTime().isBefore(task.getBeginTime())) {
             return new ErrorResponse(3,"invalid endTime!");
