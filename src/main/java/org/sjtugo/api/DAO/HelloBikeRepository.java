@@ -9,13 +9,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface HelloBikeRepository extends JpaRepository<HelloBikeInfo,Integer> {
-    @Query( value = "SELECT COUNT(*) FROM hello_bike_info WHERE TIMESTAMPDIFF(SECOND , CURRENT_TIMESTAMP, time) < 120" +
+    @Query( value = "SELECT COUNT(*) FROM hello_bike_info WHERE TIMESTAMPDIFF(SECOND ,time,CURRENT_TIMESTAMP) < 300" +
             " AND cluster_point = :id",
             nativeQuery = true)
     int findBikeCounts(@Param("id") String id);
 
-    @Query( value = "SELECT * FROM hello_bike_info WHERE ABS(longitude - :longi) < 0.002 " +
-            "AND ABS(latitude - :lati)< 0.002 AND TIMESTAMPDIFF(SECOND,current_timestamp,time) < 120",
+    @Query( value = "SELECT *, ST_LENGTH(LineString(POINT(longitude,latitude),POINT(:longi,:lati))) AS distance" +
+            " FROM hello_bike_info WHERE ABS(longitude - :longi) < 0.002 " +
+            "AND ABS(latitude - :lati)< 0.002 AND TIMESTAMPDIFF(SECOND,time,current_timestamp) < 300" +
+            " ORDER BY distance LIMIT 30",
             nativeQuery = true)
     List<HelloBikeInfo> findNearbyBikes(@Param("longi") double longi, @Param("lati") double lati); //, @Param("time")LocalDateTime time);
 

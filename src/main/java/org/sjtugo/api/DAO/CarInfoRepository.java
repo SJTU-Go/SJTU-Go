@@ -29,7 +29,7 @@ public interface CarInfoRepository extends JpaRepository<CarInfo, Integer> {
 
 
 
-    @Query( value = "SELECT * FROM e100_info WHERE TIMESTAMPDIFF(SECOND , CURRENT_TIMESTAMP, time) < 120" ,
+    @Query( value = "SELECT * FROM e100_info WHERE TIMESTAMPDIFF(SECOND , time,CURRENT_TIMESTAMP) < 120" ,
             nativeQuery = true)
     List<CarInfo>  findCurrentCars();
 
