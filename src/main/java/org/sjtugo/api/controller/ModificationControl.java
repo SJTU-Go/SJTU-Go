@@ -15,6 +15,7 @@ import org.sjtugo.api.DAO.ModificationRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
 import org.sjtugo.api.controller.RequestEntity.ParkingspotModify;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
+import org.sjtugo.api.controller.ResponseEntity.MapModification;
 import org.sjtugo.api.entity.Modification;
 import org.sjtugo.api.entity.TrafficInfo;
 import org.sjtugo.api.service.ModificationService;
@@ -44,15 +45,15 @@ public class ModificationControl {
 
     @ApiOperation(value = "管理员查看地图修改记录")
     @PostMapping("/view/map")
-    public @ResponseBody List<Modification> getMapModification(@RequestParam Integer adminID) {
-        ModificationService modiService = new ModificationService(modificationRepository,null);
+    public @ResponseBody List<MapModification> getMapModification(@RequestParam Integer adminID) {
+        ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
         return modiService.getMapModification(adminID);
     }
 
-    @ApiOperation(value = "管理员查看地图修改记录")
+    @ApiOperation(value = "管理员查看交通修改记录")
     @PostMapping("/view/traffic")
     public @ResponseBody List<Modification> getTrafficModification(@RequestParam Integer adminID) {
-        ModificationService modiService = new ModificationService(modificationRepository,null);
+        ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
         return modiService.getTrafficModification(adminID);
     }
 

@@ -15,6 +15,7 @@ import org.sjtugo.api.config.JsonDateValueProcessor;
 import org.sjtugo.api.config.JsonTimeValueProcessor;
 
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
+import org.sjtugo.api.controller.ResponseEntity.MapModification;
 import org.sjtugo.api.entity.Modification;
 import org.sjtugo.api.entity.TrafficInfo;
 import org.springframework.http.HttpStatus;
@@ -95,8 +96,16 @@ public class ModificationService {
                 .filter(a ->  (a.getContents().containsKey("trafficID"))).collect(Collectors.toList());
     }
 
-    public List<Modification> getMapModification(Integer adminID) {
+    @SuppressWarnings("all")
+    public List<MapModification> getMapModification(Integer adminID) {
         return modificationRepository.findByAdminID(adminID).stream()
-                .filter(a ->  (a.getContents().containsKey("placeID"))).collect(Collectors.toList());
+                .filter(a ->  (a.getContents().containsKey("placeID")))
+                .filter(a ->  (mapVertexInfoRepository.findById((Integer) a.getContents().get("placeID")).isPresent()))
+                .map(v -> {
+                    MapModification result = new MapModification();
+                    result.setModification(v);
+                    result.setMapVertexInfo(mapVertexInfoRepository.findById((Integer) v.getContents().get("placeID")).get());
+                    return result;})
+                .collect(Collectors.toList());
     }
 }
