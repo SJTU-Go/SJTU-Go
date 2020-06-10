@@ -5,6 +5,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import io.swagger.annotations.*;
 import org.sjtugo.api.DAO.*;
+import org.sjtugo.api.DAO.Entity.CarInfo;
 import org.sjtugo.api.DAO.Entity.Destination;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.sjtugo.api.DAO.Entity.HelloBikeInfo;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -27,6 +29,10 @@ public class MapInfoControl {
     private DestinationRepository destinationRepository;
     @Autowired
     private HelloBikeRepository helloBikeRepository;
+    @Autowired
+    private CarInfoRepository carInfoRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
 
     @ApiOperation(value = "校园内地点查询",
@@ -38,7 +44,7 @@ public class MapInfoControl {
     public ResponseEntity<List<Destination>> searchPlace(@ApiParam(value = "关键词", example = "图书馆")
                                          @RequestParam String keyword) {
         MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-                                        destinationRepository,helloBikeRepository);
+                                        destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
         return new ResponseEntity<>(mapInfoService.searchPlace(keyword),HttpStatus.OK);
     }
 
@@ -51,7 +57,7 @@ public class MapInfoControl {
     public ResponseEntity<List<MapVertexInfo>> searchParkingInfo(@ApiParam(value = "关键词", example = "图书馆")
                                                          @RequestParam String keyword) {
         MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-                destinationRepository,helloBikeRepository);
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
         return new ResponseEntity<>(mapInfoService.searchParkingSimple(keyword),HttpStatus.OK);
     }
 
@@ -64,11 +70,11 @@ public class MapInfoControl {
     public ResponseEntity<List<MapVertexResponse>> searchParking(@ApiParam(value = "关键词", example = "图书馆")
                                                                  @RequestParam String keyword) {
         MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-                destinationRepository,helloBikeRepository);
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
         return new ResponseEntity<>(mapInfoService.searchParking(keyword),HttpStatus.OK);
     }
 
-    @ApiOperation(value = "附近的停车点信息（pending）",
+    @ApiOperation(value = "附近的停车点信息",
             notes = "给定经纬度，查询校园内停车点信息，一般用于主页地图")
     @GetMapping("/nearby/parking")
     @ApiResponses(value = {
@@ -79,7 +85,7 @@ public class MapInfoControl {
                                                                  @ApiParam(value = "纬度", example = "31.020556617")
                                                                  @RequestParam double lat) {
         MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-                destinationRepository,helloBikeRepository);
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
         return new ResponseEntity<>(
                     mapInfoService.nearbyParking
                         (new GeometryFactory().createPoint(new Coordinate(lng,lat))),
@@ -99,10 +105,42 @@ public class MapInfoControl {
                                                            @ApiParam(value = "纬度", example = "31.020556617")
                                                                @RequestParam double lat) {
         MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-                destinationRepository,helloBikeRepository);
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
 //        System.out.println(mapInfoService.nearbyBikes(lng,lat));
         return new ResponseEntity<>(
                 mapInfoService.nearbyBikes(lng,lat),
                 HttpStatus.OK);
     }
+
+    @ApiOperation(value = "附近的E100车辆信息",
+            notes = "返回所有校园内实时E100车辆，用于主页地图")
+    @GetMapping("/nearby/cars")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = CarInfo[].class)
+    })
+    public ResponseEntity<List<CarInfo>> nearbyCars() {
+        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
+        return new ResponseEntity<>(
+                mapInfoService.nearbyCars(),
+                HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "附近的摩拜单车信息",
+            notes = "实时访问摩拜单车的API，爬取附近的车辆信息（注：结果为临时数据，且ID随机生成）")
+    @GetMapping("/nearby/mobike")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = CarInfo[].class)
+    })
+    public ResponseEntity<List<HelloBikeInfo>> nearbyMobikes(@ApiParam(value = "经度", example = "121.438324171")
+                                                                 @RequestParam double lng,
+                                                             @ApiParam(value = "纬度", example = "31.020556617")
+                                                                 @RequestParam double lat) {
+        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
+        return new ResponseEntity<>(
+                mapInfoService.nearbyMobikes(lat,lng),
+                HttpStatus.OK);
+    }
+
 }

@@ -27,4 +27,10 @@ public interface CarInfoRepository extends JpaRepository<CarInfo, Integer> {
             "LIMIT 1", nativeQuery = true)
     List<CarInfo> findNearbyCar(@Param("lng") double lng, @Param("lat") double lat);
 
+
+
+    @Query( value = "SELECT * FROM e100_info WHERE TIMESTAMPDIFF(SECOND , CURRENT_TIMESTAMP, time) < 120" ,
+            nativeQuery = true)
+    List<CarInfo>  findCurrentCars();
+
 }

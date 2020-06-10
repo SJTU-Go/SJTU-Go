@@ -4,12 +4,15 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
+import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.controller.ResponseEntity.TrafficInfoResponse;
 import org.sjtugo.api.entity.TrafficInfo;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.*;
@@ -28,10 +31,36 @@ public class TrafficService {
         this.mapVertexInfoRepository = mapVertexInfoRepository;
     }
 
-    public void newTraffic(TrafficInfo trafficInfo) {
+    public ErrorResponse newTraffic(TrafficInfo trafficInfo) {
         trafficInfoRepository.save(trafficInfo);
-        scheduleArango(trafficInfo);
+        ErrorResponse arangoResponse = scheduleArango(trafficInfo);
+        if (arangoResponse.getCode() == 0) {
+            return new ErrorResponse(0,"修改Arango交通信息成功");
+        }
+        else {
+            trafficInfoRepository.delete(trafficInfo);
+            return arangoResponse;
+        }
     }
+
+    /** 删除trafficRepository中的信息，并且删除Arango中对应ID的task
+     * @param id TrafficID
+     * @return 成功或错误提示
+     */
+    public ErrorResponse deleteTraffic(Integer id) {
+        Optional<TrafficInfo> todelete = trafficInfoRepository.findById(id);
+        if (todelete.isEmpty()) {
+            return new ErrorResponse(4, "Traffic Info by id Not Found in Repository");
+        }
+        ErrorResponse arangoResponse = removeArango(id);
+        if (arangoResponse.getCode() == 0) {
+            trafficInfoRepository.deleteById(id);
+            return new ErrorResponse(0,"删除Arango交通信息成功");
+        } else{
+            return new ErrorResponse(0,"删除traffic数据库失败，"+arangoResponse.getMessage());
+        }
+    }
+
     
     public List<TrafficInfoResponse> currentTraffic() {
         return trafficInfoRepository
@@ -44,19 +73,26 @@ public class TrafficService {
                 .collect(Collectors.toList());
     }
 
-    private void scheduleArango(TrafficInfo task) {
+    private ErrorResponse scheduleArango(TrafficInfo task) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
         Map<String,Object> bindVars = new HashMap<>();
-//        restTemplate.getInterceptors().add(
-//                new BasicAuthenticationInterceptor("root", "sjtugo"));
-
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
         if (task.getRepeatTime() > 0){
             bindVars.put("period",86400*task.getRepeatTime());
         }
+
+        if (task.getBeginDay().isBefore(LocalDate.now())) {
+            return new ErrorResponse(3,"invalid beginDay!");
+        } else if (task.getBeginTime().atDate(task.getBeginDay()).isBefore(LocalDateTime.now())) {
+            return new ErrorResponse(3,"invalid beginTime!");
+        } else if (task.getEndTime().isBefore(task.getBeginTime())) {
+            return new ErrorResponse(3,"invalid endTime!");
+        }
+
+
 
         // update traffic
         bindVars.put("offset", Duration.between(LocalDateTime.now(),
@@ -117,7 +153,9 @@ public class TrafficService {
         HttpEntity<Object> restore_request = new HttpEntity<>(bindVars,headers);
         restTemplate.put("http://47.92.147.237:8529/_api/tasks/"+bindVars.get("id"),
                 restore_request);
-        }
+
+        return new ErrorResponse(0,"修改Arango交通信息成功");
+    }
 
 
     private TrafficInfoResponse makeResponse(TrafficInfo trafficInfo){
@@ -129,5 +167,31 @@ public class TrafficService {
                 .toArray(Coordinate[]::new);
         response.setPointList( new GeometryFactory().createLineString(locations));
         return response;
+    }
+
+    private ErrorResponse removeArango(Integer trafficID) {
+        MultiValueMap<String,String> headers = new HttpHeaders();
+        headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
+
+
+        RestTemplate tempRestTemplate = new RestTemplateBuilder()
+                .basicAuthentication("root", "sjtugo")
+                .build();
+        HttpEntity<?> delete_request = new HttpEntity<>(null,headers);
+        try {
+            tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/update"+trafficID,
+                    delete_request);
+        } catch (Exception e) {
+            return new ErrorResponse(3,"删除UpdateArango交通信息失败");
+        }
+
+        try {
+            tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/restore"+trafficID,
+                    delete_request);
+            return new ErrorResponse(0,"Success");
+        }catch (Exception e) {
+            return new ErrorResponse(3,"删除RestoreArango交通信息成功");
+        }
+
     }
 }

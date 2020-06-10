@@ -1,0 +1,37 @@
+{
+  "type": "校园巴士",
+  "depart": "交通大学闵行校区-图书馆",
+  "arrive": "POINT (121.435505 31.026303)附近的位置",
+  "pass": [
+    "上海交通大学闵行校区-学生服务中心"
+  ],
+  "cost": 0,
+  "preference": [],
+  "routeplan": [
+    {
+      "type": "WALK",
+      "routePath": {
+        "type": "LineString"
+      }
+    },
+    {
+      "type": "BUS",
+      "departName": "图书信息楼（逆时针方向）",
+      "routePath": {
+        "type": "LineString"
+      }
+    },
+    {
+      "type": "WALK"
+    },
+    {
+      "type": "WALK"
+    },
+    {
+      "type": "BUS"
+    },
+    {
+      "type": "WALK"
+    }
+  ]
+}
