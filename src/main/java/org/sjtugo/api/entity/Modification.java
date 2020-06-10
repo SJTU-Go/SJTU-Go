@@ -35,8 +35,5 @@ public class Modification {
     @ApiModelProperty(value = "备注")
     private String contents;
 
-    @ApiModelProperty(value = "修改的地点名")
-    private String placeName;
-
     public Modification() {}
 }

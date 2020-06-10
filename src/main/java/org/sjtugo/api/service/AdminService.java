@@ -16,17 +16,11 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public ResponseEntity<ErrorResponse> login(String name, String pw) {
-        //检查用户名或密码是否为空 前端?
-
+    public ResponseEntity<?> login(String name, String pw) {
         Admin admin = adminRepository.findByName(name);
-        //判断是否存在
-        if (StringUtils.isEmpty(admin)) {
-            return new ResponseEntity<>(new ErrorResponse(0, "no such administrator!"), HttpStatus.BAD_REQUEST);
-        } else {
-            if (admin.getPassword().equals(pw))
-                return new ResponseEntity<>(new ErrorResponse(0, "login successfully!"), HttpStatus.OK);
-            return new ResponseEntity<>(new ErrorResponse(0, "password error!"), HttpStatus.BAD_REQUEST);
-        }
+        assert admin != null;
+        if (admin.getPassword().equals(pw))
+            return new ResponseEntity<>(admin.getAdminID(),HttpStatus.OK);
+        return new ResponseEntity<>(new ErrorResponse(500, "Password error!"), HttpStatus.BAD_REQUEST);
     }
 }

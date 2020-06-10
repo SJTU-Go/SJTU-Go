@@ -27,10 +27,18 @@ public class TripControl {
 
     @ApiOperation(value = "开始行程", notes = "选定一个strategy，返回行程ID")
     @PostMapping("/start")
-    public Integer startTrip(@RequestBody StrategyRequest strategyRequest){
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Integer.class),
+            @ApiResponse(code = 500, message = "[4]Invalid Trip", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> startTrip(@RequestBody StrategyRequest strategyRequest){
         TripService tripService = new TripService(tripRepository);
-        return tripService.startTrip(strategyRequest.getStrategy(),
-                strategyRequest.getUserID());
+        try {
+            return tripService.startTrip(strategyRequest.getStrategy(),
+                    strategyRequest.getUserID());
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(500, "Missing necessary data!"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ApiOperation(value = "查询行程", notes = "输入行程ID，返回详细信息")

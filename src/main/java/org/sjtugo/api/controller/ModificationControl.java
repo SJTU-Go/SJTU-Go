@@ -2,19 +2,17 @@ package org.sjtugo.api.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import lombok.Data;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.ModificationRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
+import org.sjtugo.api.controller.RequestEntity.ParkingspotModify;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
-import org.sjtugo.api.controller.ResponseEntity.MapVertexResponse;
 import org.sjtugo.api.entity.Modification;
 import org.sjtugo.api.entity.TrafficInfo;
 import org.sjtugo.api.service.ModificationService;
 import org.sjtugo.api.service.TrafficService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -43,12 +41,13 @@ public class ModificationControl {
 
     @ApiOperation(value = "管理员更新系统")
     @PostMapping("/modify/parking")
-    public ResponseEntity<ErrorResponse> modifyMap(@RequestBody ModifyRequest modifyRequest) {
+    public ResponseEntity<ErrorResponse> modifyMap(@RequestParam Integer adminID, @RequestBody ParkingspotModify modifyRequest) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
-        return modiService.modifyMap(modifyRequest.getAdminID(),
-                modifyRequest.getPlaceID(),
-                modifyRequest.getMessage(),
-                modifyRequest.getParkSize());
+        try {
+            return modiService.modifyMap(adminID, modifyRequest);
+        }catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(5,"no such place!"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ApiOperation(value = "管理员更新系统")
@@ -60,11 +59,11 @@ public class ModificationControl {
         return modiService.modifyMap(adminID, trafficInfo);
     }
 
-    @Data
-    static class ModifyRequest {
-        private Integer adminID;
-        private Integer placeID;
-        private String message;
-        private Integer parkSize;
-    }
+//    @Data
+//    static class ModifyRequest {
+//        private Integer adminID;
+//        private Integer placeID;
+//        private String message;
+//        private Integer parkSize;
+//    }
 }

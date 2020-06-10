@@ -4,12 +4,14 @@ package org.sjtugo.api.controller;
 import io.swagger.annotations.*;
 import lombok.Data;
 import org.hibernate.cfg.CreateKeySecondPass;
+import org.sjtugo.api.DAO.AdminRepository;
 import org.sjtugo.api.DAO.FeedbackRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Feedback;
 import org.sjtugo.api.service.AdminService;
 import org.sjtugo.api.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class FeedbackControl {
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
     @ApiOperation(value = "用户添加行程反馈")
     @PostMapping("/add")
@@ -27,7 +31,7 @@ public class FeedbackControl {
             @ApiResponse(code = 404, message = "[2]Invalid Feedback", response = ErrorResponse.class)
     })
     public ResponseEntity<?> addFeedback(@RequestBody FeedbackRequest feedbackRequest){
-        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
+        FeedbackService feedbackser = new FeedbackService(feedbackRepository,null);
         return feedbackser.addFeedback(feedbackRequest.getUserID(),
                 feedbackRequest.getTripID(),
                 feedbackRequest.getPickupFB(),
@@ -39,24 +43,34 @@ public class FeedbackControl {
 
     @ApiOperation(value = "管理员收件箱,返回所有反馈")
     @PostMapping("/inbox")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Feedback.class),
+            @ApiResponse(code = 500, message = "[5]Invalid Administrator", response = ErrorResponse.class)
+    })
     public ResponseEntity<?> inbox(@RequestParam Integer adminID) {
-        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
-        return feedbackser.inbox(adminID);
+        FeedbackService feedbackser = new FeedbackService(feedbackRepository,adminRepository);
+        try {
+            return feedbackser.inbox(adminID);
+        } catch (Exception e) {
+            return  new ResponseEntity<>(new ErrorResponse(500,"No such admin!"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ApiOperation(value = "管理员查看反馈",notes = "对应feedback中的adminID将会变为查看的管理员ID")
     @PostMapping("/processfeedback")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Feedback.class),
+            @ApiResponse(code = 500, message = "[5]Feedback Not Found", response = ErrorResponse.class)
+    })
     public ResponseEntity<?> processFeedback(@RequestParam Integer feedbackID, @RequestParam Integer adminID) {
-        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
-        return feedbackser.processFeedback(feedbackID,adminID);
+        FeedbackService feedbackser = new FeedbackService(feedbackRepository,null);
+        try {
+            return feedbackser.processFeedback(feedbackID,adminID);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(500,"No such feedback!"),HttpStatus.NOT_FOUND);
+        }
     }
 
-//    @ApiOperation(value = "管理员从收件箱中删除反馈")
-//    @PostMapping("/delete")
-//    public ResponseEntity<ErrorResponse> deleteFeedback(@RequestParam Integer feedbackID) {
-//        FeedbackService feedbackser = new FeedbackService(feedbackRepository);
-//        return feedbackser.deleteFeedback(feedbackID);
-//    }
 
     @Data
     static class FeedbackRequest{

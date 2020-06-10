@@ -2,8 +2,11 @@ package org.sjtugo.api.service;
 
 import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.TripRepository;
+import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.Trip;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -17,7 +20,7 @@ public class TripService {
         this.tripRepository = tripRepository;
     }
 
-    public Integer startTrip(JSONObject strategy, Integer userID){
+    public ResponseEntity<?> startTrip(JSONObject strategy, Integer userID){
         Trip trip = new Trip();
 
         trip.setStrategy(strategy);
@@ -25,11 +28,13 @@ public class TripService {
         trip.setDepartTime(LocalDateTime.now());
 
         Integer difftime = (Integer) strategy.get("travelTime");
+//        if(difftime==null)
+//            return new ResponseEntity<>(new ErrorResponse(5,"travelTime miss"), HttpStatus.BAD_REQUEST);
         LocalDateTime arriveTime = LocalDateTime.now().plusSeconds(difftime);
         trip.setArriveTime(arriveTime);
 
         tripRepository.save(trip);
-        return trip.getTripID();
+        return new ResponseEntity<>(trip.getTripID(), HttpStatus.OK);
     }
 
     public Optional<Trip> findTrip (Integer tripID) {

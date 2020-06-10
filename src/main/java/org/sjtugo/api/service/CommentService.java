@@ -24,7 +24,6 @@ public class CommentService {
 
     private final CommentRepositoryJpa commentRepositoryJpa;
 
-    //private final GeometryFactory geometryFactory = new GeometryFactory();
     static double r = 2;
 
     public CommentService(CommentRepositoryJpa commentRepositoryJpa) {
@@ -49,7 +48,6 @@ public class CommentService {
         String polygon = "POLYGON(("
                 + x1 + " " + y1 + "," + x2 + " " + y1 + "," + x1 + " " + y2 + "," + x2 + " " + y2 + "," + x1 + " " + y1
                 +"))";
-//        System.out.println(polygon);
         Polygon square = (Polygon) new WKTReader().read(polygon);
         return commentRepositoryJpa.findByLocationWithin(square);
     }
@@ -83,19 +81,19 @@ public class CommentService {
             loc = (Point) new WKTReader().read(location);
         } catch (ParseException e){
             return new ResponseEntity<>(new ErrorResponse
-                    (5, "Invalid Location"), HttpStatus.BAD_REQUEST);
+                    (e), HttpStatus.BAD_REQUEST);
         }
         newComment.setLocation(loc);
         newComment.setRelatedPlace(relatedPlace);
         commentRepositoryJpa.save(newComment);
 
         Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
-        if (fatherComment !=null) {
-            List<Integer> subComments = fatherComment.getSubComment();  //得到子评论
-            subComments.add(newComment.getCommentID());
-            fatherComment.setSubComment(subComments);
-            commentRepositoryJpa.save(fatherComment);
-        }
+        assert fatherComment != null;
+        List<Integer> subComments = fatherComment.getSubComment();  //得到子评论
+        subComments.add(newComment.getCommentID());
+        fatherComment.setSubComment(subComments);
+        commentRepositoryJpa.save(fatherComment);
+
         return new ResponseEntity<>(newComment, HttpStatus.OK);
     }
 
@@ -119,7 +117,7 @@ public class CommentService {
      * @param fatherID:父评论ID
      * @return 子评论列表
      */
-    public List<Comment> getSubCommentList(Integer fatherID) {
+    public ResponseEntity<?> getSubCommentList(Integer fatherID) {
         List<Comment> subComments = new ArrayList<>();
         Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
         assert fatherComment != null;
@@ -129,6 +127,18 @@ public class CommentService {
             Comment subComment = commentRepositoryJpa.findById(subCommentID).orElse(null);
             subComments.add(subComment);
         }
-        return subComments;
+        return new ResponseEntity<>(subComments,HttpStatus.OK);
     }
+
+    public ResponseEntity<ErrorResponse> deleteComment(Integer commentID) {
+        Comment comment = commentRepositoryJpa.findById(commentID).orElse(null);
+        assert comment != null;
+        List<Integer> subCommentsID = comment.getSubComment();
+        for (Integer ID : subCommentsID) {
+            commentRepositoryJpa.deleteById(ID);
+        }
+        commentRepositoryJpa.deleteById(commentID);
+        return new ResponseEntity<>(new ErrorResponse(0, "delete successfully!"), HttpStatus.OK);
+    }
+
 }

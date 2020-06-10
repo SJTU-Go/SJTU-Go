@@ -1,10 +1,7 @@
 package org.sjtugo.api.controller;
 
 import com.vividsolutions.jts.io.ParseException;
-import io.swagger.annotations.Api;
-
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 
 import lombok.Data;
 import net.sf.json.JSONObject;
@@ -15,6 +12,7 @@ import org.sjtugo.api.entity.Comment;
 import org.sjtugo.api.service.Exception.AddCommentException;
 import org.sjtugo.api.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,49 +25,87 @@ import java.util.Map;
 public class CommentControl {
     @Autowired
     private CommentRepositoryJpa commentRepositoryJpa;
-    @Autowired
-    private MapVertexInfoRepository mapVertexInfoRepository;
 
     @ApiOperation(value = "get comments by place ID", notes = "给定地点ID，返回该处用户的评论")
-    @GetMapping("/place={placeID}")
+    @GetMapping("/getcomments/place={placeID}")
     public @ResponseBody List<Comment> getCommentByID(@PathVariable("placeID") Integer placeID) {
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.getCommentList(placeID);
     }
 
     @ApiOperation(value = "get comments by place location", notes = "给定地点经纬度,格式POINT(x y)，返回附近用户的评论")
-    @PostMapping("/loc")
+    @PostMapping("/getcomments/loc")
     public @ResponseBody
     List<Comment> getCommentList(@RequestParam String location) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa);
         return commentser.getCommentList(location);
     }
 
-    @ApiOperation(value = "点击查看子评论")
+    @ApiOperation(value = "点击查看子评论", notes = "可能返回子评论中有空评论（评论8的一条子评论被删除）")
     @PostMapping("/subcomment")
-    public @ResponseBody List<Comment> getSubCommentList(@RequestParam Integer fatherID) {
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Comment.class),
+            @ApiResponse(code = 500, message = "[2]Comment Not Found", response = ErrorResponse.class)
+    })
+    public @ResponseBody ResponseEntity<?> getSubCommentList(@RequestParam Integer fatherID) {
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        return commentser.getSubCommentList(fatherID);
+        try {
+            return commentser.getSubCommentList(fatherID);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(500,"No such comment!"),HttpStatus.BAD_REQUEST);
+        }
     }
 
+    @ApiOperation(value = "添加评论")
     @PostMapping(value = "/addcomment")
-    @ExceptionHandler(AddCommentException.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Comment.class),
+            @ApiResponse(code = 500, message = "[2]Invalid Comment", response = ErrorResponse.class)
+    })
     public ResponseEntity<?> addComment(@RequestBody CommentRequest commentRequest){
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        return commentser.addComment(commentRequest.getTitle(),
-                commentRequest.getContents(),
-                commentRequest.getUserID(),
-                commentRequest.getLocation(),
-                commentRequest.getRelatedPlace(),
-                commentRequest.getName(),
-                commentRequest.getFatherID());
+        try {
+            return commentser.addComment(commentRequest.getTitle(),
+                    commentRequest.getContents(),
+                    commentRequest.getUserID(),
+                    commentRequest.getLocation(),
+                    commentRequest.getRelatedPlace(),
+                    commentRequest.getName(),
+                    commentRequest.getFatherID());
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(500,"Invalid comment!"),HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @ApiOperation(value = "用户点赞功能")
     @PostMapping("/like")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "[2]Comment Not Found", response = ErrorResponse.class)
+    })
     public ResponseEntity<ErrorResponse> likeComment(@RequestParam Integer userID, @RequestParam Integer commentID){
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        return commentser.likeComment(userID, commentID);
+        try {
+            return commentser.likeComment(userID, commentID);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(500,"No such comment!"), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+     @ApiOperation(value = "用户删除评论")
+     @GetMapping("/delete={ID}")
+     @ApiResponses(value = {
+             @ApiResponse(code = 200, message = "OK", response = Comment.class),
+             @ApiResponse(code = 500, message = "[2]Comment Not Found", response = ErrorResponse.class)
+     })
+     public ResponseEntity<ErrorResponse> deleteComment(@PathVariable("ID") Integer commentID){
+        CommentService commentser = new CommentService(commentRepositoryJpa);
+        try {
+            return commentser.deleteComment(commentID);
+        }catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(500,"No such comment!"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Data
