@@ -53,15 +53,11 @@ public class ModificationControl {
     @PostMapping("/modify/parking")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ErrorResponse.class),
-            @ApiResponse(code = 500, message = "[5]修改失败", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[5]No Such Place", response = ErrorResponse.class)
     })
     public ResponseEntity<ErrorResponse> modifyMap(@RequestParam Integer adminID, @RequestBody ParkingspotModify modifyRequest) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
-        try {
-            return modiService.modifyMap(adminID, modifyRequest);
-        }catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(5,"No such place!"), HttpStatus.BAD_REQUEST);
-        }
+        return modiService.modifyMap(adminID, modifyRequest);
     }
 
     @ApiOperation(value = "管理员更新系统中的交通信息")

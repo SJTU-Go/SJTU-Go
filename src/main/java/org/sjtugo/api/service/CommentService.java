@@ -89,11 +89,14 @@ public class CommentService {
 
         Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
         assert fatherComment != null;
-        List<Integer> subComments = fatherComment.getSubComment();  //得到子评论
-        subComments.add(newComment.getCommentID());
-        fatherComment.setSubComment(subComments);
-        commentRepositoryJpa.save(fatherComment);
-
+        try {
+            List<Integer> subComments = fatherComment.getSubComment();  //得到子评论
+            subComments.add(newComment.getCommentID());
+            fatherComment.setSubComment(subComments);
+            commentRepositoryJpa.save(fatherComment);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(2,"Can reply!"),HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(newComment, HttpStatus.OK);
     }
 
@@ -105,11 +108,15 @@ public class CommentService {
     public ResponseEntity<ErrorResponse> likeComment(Integer userID, Integer commentID) {
          Comment likedComment = commentRepositoryJpa.findById(commentID).orElse(null);  //get返回实体对象 获取被点赞的评论
          assert likedComment != null;
-         List<Integer> approveUsers = likedComment.getApproveUsers();  //之前点赞的用户ID
-         approveUsers.add(userID);  //添当前点赞用户ID
-         likedComment.setApproveUsers(approveUsers);
-         commentRepositoryJpa.save(likedComment);
-         return new ResponseEntity<>(new ErrorResponse(0,"点赞+1"),HttpStatus.OK);
+         try{
+             List<Integer> approveUsers = likedComment.getApproveUsers();  //之前点赞的用户ID
+             approveUsers.add(userID);  //添当前点赞用户ID
+             likedComment.setApproveUsers(approveUsers);
+             commentRepositoryJpa.save(likedComment);
+             return new ResponseEntity<>(new ErrorResponse(0,"点赞+1"),HttpStatus.OK);
+         } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     /**
@@ -121,24 +128,32 @@ public class CommentService {
         List<Comment> subComments = new ArrayList<>();
         Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
         assert fatherComment != null;
-        List<Integer> subCommentsID = fatherComment.getSubComment();
-        for (Integer subCommentID : subCommentsID)
-        {
-            Comment subComment = commentRepositoryJpa.findById(subCommentID).orElse(null);
-            subComments.add(subComment);
+        try {
+            List<Integer> subCommentsID = fatherComment.getSubComment();
+            for (Integer subCommentID : subCommentsID)
+            {
+                Comment subComment = commentRepositoryJpa.findById(subCommentID).orElse(null);
+                subComments.add(subComment);
+            }
+            return new ResponseEntity<>(subComments,HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"),HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(subComments,HttpStatus.OK);
     }
 
     public ResponseEntity<ErrorResponse> deleteComment(Integer commentID) {
         Comment comment = commentRepositoryJpa.findById(commentID).orElse(null);
         assert comment != null;
-        List<Integer> subCommentsID = comment.getSubComment();
-        for (Integer ID : subCommentsID) {
-            commentRepositoryJpa.deleteById(ID);
+        try {
+            List<Integer> subCommentsID = comment.getSubComment();
+            for (Integer ID : subCommentsID) {
+                commentRepositoryJpa.deleteById(ID);
+            }
+            commentRepositoryJpa.deleteById(commentID);
+            return new ResponseEntity<>(new ErrorResponse(0, "delete successfully!"), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"), HttpStatus.BAD_REQUEST);
         }
-        commentRepositoryJpa.deleteById(commentID);
-        return new ResponseEntity<>(new ErrorResponse(0, "delete successfully!"), HttpStatus.OK);
     }
 
 }

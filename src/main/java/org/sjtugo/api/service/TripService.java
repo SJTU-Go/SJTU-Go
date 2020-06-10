@@ -28,8 +28,8 @@ public class TripService {
         trip.setDepartTime(LocalDateTime.now());
 
         Integer difftime = (Integer) strategy.get("travelTime");
-//        if(difftime==null)
-//            return new ResponseEntity<>(new ErrorResponse(5,"travelTime miss"), HttpStatus.BAD_REQUEST);
+        if(difftime==null)
+            return new ResponseEntity<>(new ErrorResponse(5,"travelTime miss"), HttpStatus.BAD_REQUEST);
         LocalDateTime arriveTime = LocalDateTime.now().plusSeconds(difftime);
         trip.setArriveTime(arriveTime);
 

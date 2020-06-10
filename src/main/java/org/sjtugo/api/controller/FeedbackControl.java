@@ -45,30 +45,22 @@ public class FeedbackControl {
     @PostMapping("/inbox")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Feedback.class),
-            @ApiResponse(code = 500, message = "[5]Invalid Administrator", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[5]Invalid Administrator", response = ErrorResponse.class)
     })
     public ResponseEntity<?> inbox(@RequestParam Integer adminID) {
         FeedbackService feedbackser = new FeedbackService(feedbackRepository,adminRepository);
-        try {
-            return feedbackser.inbox(adminID);
-        } catch (Exception e) {
-            return  new ResponseEntity<>(new ErrorResponse(5,"No such admin!"), HttpStatus.BAD_REQUEST);
-        }
+        return feedbackser.inbox(adminID);
     }
 
     @ApiOperation(value = "管理员查看反馈",notes = "对应feedback中的adminID将会变为查看的管理员ID")
     @PostMapping("/processfeedback")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Feedback.class),
-            @ApiResponse(code = 500, message = "[5]Feedback Not Found", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[5]Feedback Not Found", response = ErrorResponse.class)
     })
     public ResponseEntity<?> processFeedback(@RequestParam Integer feedbackID, @RequestParam Integer adminID) {
         FeedbackService feedbackser = new FeedbackService(feedbackRepository,null);
-        try {
-            return feedbackser.processFeedback(feedbackID,adminID);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(5,"No such feedback!"),HttpStatus.NOT_FOUND);
-        }
+        return feedbackser.processFeedback(feedbackID,adminID);
     }
 
 

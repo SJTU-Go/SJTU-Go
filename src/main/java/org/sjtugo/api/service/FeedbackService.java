@@ -45,11 +45,15 @@ public class FeedbackService {
     public ResponseEntity<?> processFeedback(Integer feedBackID,Integer adminID) {
         Feedback feedback = feedbackRepository.findById(feedBackID).orElse(null);
         assert feedback != null;
-        if (feedback.getAdminID()==null)
-        {
-            feedback.setAdminID(adminID);
-            feedbackRepository.save(feedback);
-        } //关于save的问题
+        try {
+            if (feedback.getAdminID()==null)
+            {
+                feedback.setAdminID(adminID);
+                feedbackRepository.save(feedback);
+            } //关于save的问题
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(5,"No such feedback!"),HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(feedbackRepository.findById(feedBackID),HttpStatus.OK);
     }
 

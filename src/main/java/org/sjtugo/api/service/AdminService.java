@@ -19,8 +19,12 @@ public class AdminService {
     public ResponseEntity<?> login(String name, String pw) {
         Admin admin = adminRepository.findByName(name);
         assert admin != null;
-        if (admin.getPassword().equals(pw))
-            return new ResponseEntity<>(admin.getAdminID(),HttpStatus.OK);
-        return new ResponseEntity<>(new ErrorResponse(3, "Password error!"), HttpStatus.BAD_REQUEST);
+        try {
+            if (admin.getPassword().equals(pw))
+                return new ResponseEntity<>(admin.getAdminID(), HttpStatus.OK);
+            return new ResponseEntity<>(new ErrorResponse(3, "Password error!"), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(5, "No such admin!"), HttpStatus.NOT_FOUND);
+        }
     }
 }

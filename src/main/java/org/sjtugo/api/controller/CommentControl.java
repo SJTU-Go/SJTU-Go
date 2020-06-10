@@ -45,67 +45,50 @@ public class CommentControl {
     @PostMapping("/subcomment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Comment.class),
-            @ApiResponse(code = 500, message = "[2]Comment Not Found", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[2]Comment Not Found", response = ErrorResponse.class)
     })
     public @ResponseBody ResponseEntity<?> getSubCommentList(@RequestParam Integer fatherID) {
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        try {
-            return commentser.getSubCommentList(fatherID);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"),HttpStatus.BAD_REQUEST);
-        }
+        return commentser.getSubCommentList(fatherID);
     }
 
     @ApiOperation(value = "添加评论")
     @PostMapping(value = "/addcomment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Comment.class),
-            @ApiResponse(code = 500, message = "[2]Invalid Comment", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[2]Invalid Comment", response = ErrorResponse.class)
     })
     public ResponseEntity<?> addComment(@RequestBody CommentRequest commentRequest){
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        try {
-            return commentser.addComment(commentRequest.getTitle(),
-                    commentRequest.getContents(),
-                    commentRequest.getUserID(),
-                    commentRequest.getLocation(),
-                    commentRequest.getRelatedPlace(),
-                    commentRequest.getName(),
-                    commentRequest.getFatherID());
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(2,"Invalid comment!"),HttpStatus.BAD_REQUEST);
-        }
-
+        return commentser.addComment(commentRequest.getTitle(),
+                commentRequest.getContents(),
+                commentRequest.getUserID(),
+                commentRequest.getLocation(),
+                commentRequest.getRelatedPlace(),
+                commentRequest.getName(),
+                commentRequest.getFatherID());
     }
 
     @ApiOperation(value = "用户点赞功能")
     @PostMapping("/like")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ErrorResponse.class),
-            @ApiResponse(code = 500, message = "[2]Comment Not Found", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[2]Comment Not Found", response = ErrorResponse.class)
     })
     public ResponseEntity<ErrorResponse> likeComment(@RequestParam Integer userID, @RequestParam Integer commentID){
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        try {
-            return commentser.likeComment(userID, commentID);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"), HttpStatus.BAD_REQUEST);
-        }
+        return commentser.likeComment(userID, commentID);
     }
 
      @ApiOperation(value = "用户删除评论")
      @GetMapping("/delete={ID}")
      @ApiResponses(value = {
              @ApiResponse(code = 200, message = "OK", response = Comment.class),
-             @ApiResponse(code = 500, message = "[2]Comment Not Found", response = ErrorResponse.class)
+             @ApiResponse(code = 404, message = "[2]Comment Not Found", response = ErrorResponse.class)
      })
      public ResponseEntity<ErrorResponse> deleteComment(@PathVariable("ID") Integer commentID){
         CommentService commentser = new CommentService(commentRepositoryJpa);
-        try {
-            return commentser.deleteComment(commentID);
-        }catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"), HttpStatus.BAD_REQUEST);
-        }
+        return commentser.deleteComment(commentID);
     }
 
     @Data

@@ -29,16 +29,12 @@ public class TripControl {
     @PostMapping("/start")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Integer.class),
-            @ApiResponse(code = 500, message = "[4]Invalid Trip", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "[4]Invalid Trip", response = ErrorResponse.class)
     })
     public ResponseEntity<?> startTrip(@RequestBody StrategyRequest strategyRequest){
         TripService tripService = new TripService(tripRepository);
-        try {
-            return tripService.startTrip(strategyRequest.getStrategy(),
+        return tripService.startTrip(strategyRequest.getStrategy(),
                     strategyRequest.getUserID());
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500, "Missing necessary data!"), HttpStatus.BAD_REQUEST);
-        }
     }
 
     @ApiOperation(value = "查询行程", notes = "输入行程ID，返回详细信息")
@@ -47,7 +43,7 @@ public class TripControl {
             @ApiResponse(code = 200, message = "OK", response = Trip.class),
             @ApiResponse(code = 404, message = "[4]Not Found", response = ErrorResponse.class)
     })
-    public ResponseEntity<?> startTrip(@PathVariable("tripID") Integer tripID){
+    public ResponseEntity<?> findTrip(@PathVariable("tripID") Integer tripID){
         TripService tripService = new TripService(tripRepository);
         Optional<Trip> result = tripService.findTrip(tripID);
         if (result.isPresent()){

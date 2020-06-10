@@ -1,13 +1,10 @@
 package org.sjtugo.api.service;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.ModificationRepository;
-
 
 import org.sjtugo.api.controller.RequestEntity.ParkingspotModify;
 
@@ -20,8 +17,6 @@ import org.sjtugo.api.entity.Modification;
 import org.sjtugo.api.entity.TrafficInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import javax.json.JsonObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -40,6 +35,7 @@ public class ModificationService {
         this.mapVertexInfoRepository = mapVertexInfoRepository;
     }
 
+    //根据交通和停车点返回
     public List<Modification> getModification(Integer adminID) {
         return modificationRepository.findByAdminID(adminID);
     }
@@ -49,6 +45,16 @@ public class ModificationService {
     }
 
     public ResponseEntity<ErrorResponse> modifyMap(Integer adminID, ParkingspotModify modifyRequest) {
+
+        MapVertexInfo mapVertexInfo = mapVertexInfoRepository.findById(modifyRequest.getPlaceID()).orElse(null);
+        assert mapVertexInfo != null;
+        try {
+            mapVertexInfo.setParkSize(modifyRequest.getParkSize());
+            mapVertexInfo.setParkInfo(modifyRequest.getMessage());
+            mapVertexInfoRepository.save(mapVertexInfo);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(5,"No such place!"),HttpStatus.NOT_FOUND);
+        }
         Modification modify = new Modification();
         modify.setAdminID(adminID);
         JSONObject json = JSONObject.fromObject(modifyRequest);
@@ -56,14 +62,7 @@ public class ModificationService {
         modify.setTime(LocalDateTime.now());
         modificationRepository.save(modify);
 
-        MapVertexInfo mapVertexInfo = mapVertexInfoRepository.findById(modifyRequest.getPlaceID()).orElse(null);
-        assert mapVertexInfo != null;
-        mapVertexInfo.setParkSize(modifyRequest.getParkSize());
-        mapVertexInfo.setParkInfo(modifyRequest.getMessage());
-        mapVertexInfoRepository.save(mapVertexInfo);
-
         return new ResponseEntity<>(new ErrorResponse(0,"修改成功！"), HttpStatus.OK);
-
     }
 
     public void modifyMap(Integer adminID, TrafficInfo trafficInfo) {

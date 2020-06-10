@@ -34,10 +34,6 @@ public class AdminControl {
     })
     public ResponseEntity<?> adminLogin(@RequestParam String name, @RequestParam String pw) {
         AdminService adminser = new AdminService(adminRepository);
-        try {
-            return adminser.login(name, pw);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(5, "No such admin!"), HttpStatus.NOT_FOUND);
-        }
+        return adminser.login(name, pw);
     }
 }
