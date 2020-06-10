@@ -30,14 +30,14 @@ public class AdminControl {
     @PostMapping("/adminlogin")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Integer.class),
-            @ApiResponse(code = 404, message = "No Such Administrator", response = ErrorResponse.class)
+            @ApiResponse(code = 500, message = "[5]No Such Administrator\n[3]Password Error", response = ErrorResponse.class)
     })
     public ResponseEntity<?> adminLogin(@RequestParam String name, @RequestParam String pw) {
         AdminService adminser = new AdminService(adminRepository);
         try {
             return adminser.login(name, pw);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500, "No such admin!"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(5, "No such admin!"), HttpStatus.NOT_FOUND);
         }
     }
 }

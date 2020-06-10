@@ -38,7 +38,7 @@ public class FeedbackService {
     public ResponseEntity<?> inbox(Integer adminID) {
         Admin admin = adminRepository.findById(adminID).orElse(null);
         if(admin==null)
-            return new ResponseEntity<>(new ErrorResponse(500,"Illegal administrator"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(5,"Illegal administrator"),HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(feedbackRepository.findAll(),HttpStatus.OK);
     }
 

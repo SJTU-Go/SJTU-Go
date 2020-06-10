@@ -21,6 +21,6 @@ public class AdminService {
         assert admin != null;
         if (admin.getPassword().equals(pw))
             return new ResponseEntity<>(admin.getAdminID(),HttpStatus.OK);
-        return new ResponseEntity<>(new ErrorResponse(500, "Password error!"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse(3, "Password error!"), HttpStatus.BAD_REQUEST);
     }
 }

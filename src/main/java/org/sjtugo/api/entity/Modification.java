@@ -32,7 +32,7 @@ public class Modification {
     @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private LocalDateTime time;
 
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "具体修改信息")
     private String contents;
 
     public Modification() {}

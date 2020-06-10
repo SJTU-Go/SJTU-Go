@@ -52,7 +52,7 @@ public class FeedbackControl {
         try {
             return feedbackser.inbox(adminID);
         } catch (Exception e) {
-            return  new ResponseEntity<>(new ErrorResponse(500,"No such admin!"), HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<>(new ErrorResponse(5,"No such admin!"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -67,7 +67,7 @@ public class FeedbackControl {
         try {
             return feedbackser.processFeedback(feedbackID,adminID);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500,"No such feedback!"),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(5,"No such feedback!"),HttpStatus.NOT_FOUND);
         }
     }
 

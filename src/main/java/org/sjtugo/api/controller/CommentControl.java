@@ -41,7 +41,7 @@ public class CommentControl {
         return commentser.getCommentList(location);
     }
 
-    @ApiOperation(value = "点击查看子评论", notes = "可能返回子评论中有空评论（评论8的一条子评论被删除）")
+    @ApiOperation(value = "点击查看子评论", notes = "可能返回子评论中有空评论，不影响（评论8的一条子评论被删除）")
     @PostMapping("/subcomment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Comment.class),
@@ -52,7 +52,7 @@ public class CommentControl {
         try {
             return commentser.getSubCommentList(fatherID);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500,"No such comment!"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -73,7 +73,7 @@ public class CommentControl {
                     commentRequest.getName(),
                     commentRequest.getFatherID());
         } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500,"Invalid comment!"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(2,"Invalid comment!"),HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -89,7 +89,7 @@ public class CommentControl {
         try {
             return commentser.likeComment(userID, commentID);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500,"No such comment!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -104,7 +104,7 @@ public class CommentControl {
         try {
             return commentser.deleteComment(commentID);
         }catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(500,"No such comment!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"), HttpStatus.BAD_REQUEST);
         }
     }
 
