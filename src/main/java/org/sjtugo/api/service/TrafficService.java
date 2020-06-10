@@ -86,7 +86,7 @@ public class TrafficService {
 
         if (task.getBeginDay().isBefore(LocalDate.now())) {
             return new ErrorResponse(3,"invalid beginDay!");
-        } else if (task.getBeginTime().isBefore(LocalTime.now())) {
+        } else if (task.getBeginTime().atDate(LocalDate.now()).isBefore(LocalDateTime.now())) {
             return new ErrorResponse(3,"invalid beginTime!");
         } else if (task.getEndTime().isBefore(task.getBeginTime())) {
             return new ErrorResponse(3,"invalid endTime!");
@@ -186,7 +186,7 @@ public class TrafficService {
         }
 
         try {
-            tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/remove"+trafficID,
+            tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/restore"+trafficID,
                     delete_request);
             return new ErrorResponse(0,"Success");
         }catch (Exception e) {
