@@ -28,9 +28,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   modifytraffic: function () {
-   
+    wx.getStorage({
+      key: 'twoVertex',
+      success:function(res){
+        console.log(res.data)
+        var t=res.data
+        if (t.length!=2){
+          wx.showToast({
+             title: '节点数不足',
+             icon: 'loading',
+             duration: 1000,
+             success: function () {
+             setTimeout(function () {
+             
+             }, 2000);
+             }
+            })
+        }
+        else{wx.navigateTo({url: '../settr/settr', })}}})
     
-    wx.navigateTo({url: '../settr/settr', })
+    
   },
   showModal: function (e) {
     var that=this
