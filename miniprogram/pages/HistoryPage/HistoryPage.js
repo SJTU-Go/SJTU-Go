@@ -21,6 +21,14 @@ Page({
     wx.getStorage({
       key: 'historygained',
       success:function(res){
+        var k = []
+        for(i in res.data)
+        {k[i]=res.data[i].tripID
+        }
+        wx.setStorage({
+          data: k,
+          key: 'tripID',
+        })
         var wordlist=new Array(0);
         console.log("transforming")
         var i = 0
@@ -154,11 +162,12 @@ wx.setStorage({
   searchPage:function(e){
     console.log(e)
     var index=e.currentTarget.dataset.index
-    console.log(this.data.routeList)
+    console.log(index)
+   /* console.log(this.data.routeList)
     var route = this.data.routeList[index]
     //var route = 'routeList['+index+']'
-    console.log(route)
-   wx.navigateTo({ url: '../feedback/feedback?RT='+JSON.stringify(route),})
+    console.log(route)*/
+   wx.navigateTo({ url: '../feedback/feedback?RT='+index,})
 
 
 

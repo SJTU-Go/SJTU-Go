@@ -151,7 +151,22 @@ Page({
         url: 'https://api.ltzhou.com/trip/start',
         method:"POST",
         data:this.data.storage,
-          success (res) {console.log("assessing");console.log(res.data)}
+          success (res) {console.log("assessing");console.log(res.data)
+          var addid=res.data
+        var numberid;
+        wx.getStorage({
+          key: 'tripID',
+          success(res){numberid=res.data;numberid.push(addid)
+          wx.setStorage({
+            data: numberid,
+            key: 'tripID',
+          })
+          
+          }
+        })
+        
+        
+        }
       })
   },
 

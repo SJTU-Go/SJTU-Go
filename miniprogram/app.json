@@ -1,36 +1,20 @@
 
 {
-  "pages": [     "pages/index/index",
-        "pages/trafficPage/trafficPage",
-    "pages/LoginPage/LoginPage",       "pages/setPreferencePage/setPreferencePage",
-
-    "pages/extendsearch/arrive/arrive",
-  
-
-
-
-
-
-    "pages/comment/comment",    
- 
-    "pages/searchindex/searchindex",
-
-    "pages/addcomment/addcomment", 
-  
-
-
-
-
- 
-
-
-
-    "pages/preferencePage/preferencePage",
-    "pages/walk/walk",
-    "pages/commentmap/commentmap",
-    "pages/feedback/feedback",
-    "pages/bike/bike",
-    "pages/car/car",
+  "pages": [     
+      "pages/LoginPage/LoginPage",       
+      "pages/setPreferencePage/setPreferencePage",
+      "pages/index/index",
+      "pages/trafficPage/trafficPage",
+      "pages/extendsearch/arrive/arrive",
+      "pages/comment/comment",    
+      "pages/searchindex/searchindex",
+      "pages/addcomment/addcomment", 
+      "pages/preferencePage/preferencePage",
+      "pages/walk/walk",
+      "pages/commentmap/commentmap",
+      "pages/feedback/feedback",
+      "pages/bike/bike",
+      "pages/car/car",
     "pages/searcha/searcha",
 
     "pages/extendsearch/depart/depart",

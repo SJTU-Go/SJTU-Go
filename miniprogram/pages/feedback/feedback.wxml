@@ -4,23 +4,23 @@
 <view class="container1">
   <view class="line">
     <text> 实际路况是否符合规划路况</text>
-    <input class="small" name="roadconditon" placeholder="1-10" />
+    <input class="small" name="roadconditon" placeholder="1-10"  bindinput="roadInput"/>
   </view>
   <view class="line">
     <text> 按指示寻车顺利程度</text>
-    <input class="small" name="findvehicle" placeholder="1-10" />
+    <input class="small" name="findvehicle" placeholder="1-10" bindinput="vehicleInput"/>
   </view>
   <view class="line">
     <text> 按指示停车点拥挤程度</text>
-    <input class="small" name="load" placeholder="1-10" />
+    <input class="small" name="load" placeholder="1-10" bindinput="congestionInput"/>
   </view>
   <view class="line">
     <text> 对本次出行服务满意程度</text>
-    <input class="small" name="service" placeholder="1-10" />
+    <input class="small" name="service" placeholder="1-10" bindinput="serviceInput"/>
   </view>
 </view>
 <view class="remark">*请选择数字1-10作为评分，分数越高表示符合程度越大</view>
 <view class="remark">您对本次出行还有什么评价与建议？</view>
-<input class="big" name="comment" placeholder="输入评论" />
+<input class="big" name="comment" placeholder="输入评论" bindinput="commentInput" />
 <button formType="submit">Submit</button>
 </form>

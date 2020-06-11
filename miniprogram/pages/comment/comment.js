@@ -16,17 +16,12 @@ Page({
   },
 
 onLoad:function(e){
-
   var that = this
   wx.request({
-    url: 'https://api.ltzhou.com/comments/loc',
-    data: {location:"POINT(121.437600 31.025940)"} ,
-    method: 'POST',
-    header: {
-      'Content-type': 'application/x-www-form-urlencoded'
-    },
-    success: function (res) {
-      console.log(res[0])
+  url: 'https://api.ltzhou.com/comments/getcomments/loc?location=POINT(121.437600%2031.025940)',
+  method: 'POST',
+  header: {'Content-type': 'application/x-www-form-urlencoded'},
+  success: function (res) {
       wx.setStorage({
         data: res.data,
         key: 'test',
@@ -38,13 +33,11 @@ onLoad:function(e){
       var j;
       var ress=that.data.reslist
       for( j in res.data){
-    
-      for (i in res.data[j]){
-        var pushlist=res.data[j][i]
+        var pushlist=res.data[j]
         var lat1 = 31.025940
         var lng1 = 121.437600
-        var lat2 = res.data[j][i].location.coordinates[1]
-        var lng2 = res.data[j][i].location.coordinates[0]
+        var lat2 = res.data[j].location.coordinates[1]
+        var lng2 = res.data[j].location.coordinates[0]
         var radLat1 = lat1*Math.PI / 180.0;
         var radLat2 = lat2*Math.PI / 180.0;
         var a = radLat1 - radLat2;
@@ -53,24 +46,22 @@ onLoad:function(e){
         Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
         s = s *6378.137 ;// EARTH_RADIUS;
         s = Math.round(s * 10000) / 10000;
-pushlist.distance = s*1000
-ress.push(pushlist)
-
+      pushlist.distance = s*1000
+      ress.push(pushlist)
       }
-  
-      }
+      console.log("ressinggg")
       console.log(ress)
       that.setData({reslist:ress})
       wx.setStorage({
         data:ress,
         key: 'commentlist',
       })
-    }
-
+  }
   });
-}
+},
 
-,
+
+
 viewcomment:function(e)
 {console.log("tap")
 console.log("dsadasd")

@@ -4,17 +4,69 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userID:1,
+    tripid:1,
+    road:"",
+    vehicle:"",
+    congestion:"",
+    service:"",
+    comment:"",
     polyline:[]
   },
- 
+  commentInput:function(e){
+    this.setData({comment:e.detail.value})
+  },
+  congestionInput:function(e){
+    this.setData({congestion:e.detail.value})
+  },
+  serviceInput:function(e){
+    this.setData({service:e.detail.value})
+  },
+  vehicleInput:function(e){
+    this.setData({vehicle:e.detail.value})
+  },
+  roadInput:function(e){
+    this.setData({road:e.detail.value})
+  },
   onLoad: function (options) {
-    this.setData({
-      polyline: JSON.parse(options.RT),
+    var that =this
+    var id = options.RT
+    console.log(id)
+    wx.getStorage({
+      key: 'tripID',
+      success(res){that.setData({tripid:res.data[id]})
+    
+      console.log(res.data[id])
+    }
+    })
+    wx.getStorage({
+      key: 'userID',
+      success(res){that.setData({userID:res.data})
+    
+      console.log(res.data)
+    }
     })
   },
 
   formSubmit: function (e) {
+
   //  wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(this.data.polyline),})
+
+var updata = {}
+updata.contents = this.data.comment
+updata.pickupFB = this.data.vehicle
+updata.serviceFB = this.data.service
+updata.parkFB = this.data.congestion
+updata.trafficFB = this.data.road
+updata.tripID = this.data.tripid
+updata.userID = this.data.userID
+console.log(updata)
+wx.request({
+  url:'https://api.ltzhou.com/feedback/add',
+  data:updata,
+  method:"POST",
+  success(res){console.log(res.data)}
+})
   wx.showToast({
      title: '评论提交成功',
      icon: 'success',
