@@ -33,6 +33,7 @@ height: 450rpx;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 100rpx;
 }
 
 .search-bar {
@@ -181,6 +182,7 @@ font-family: 'Times New Roman', Times, serif;
 }
 .title
 {font-size: 32rpx;
+  margin-bottom: 30rpx;
   text-align: center;}
 .line
 { font-size: 28rpx;

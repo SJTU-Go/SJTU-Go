@@ -1,5 +1,10 @@
 /* pages/noticePage/noticePage.wxss */
 
+.line
+{
+  margin-left: 15rpx;
+  margin-bottom: 15rpx;
+  }
 .btn2 {
   width: 80%;
   background-color: rgba(6, 202, 59, 0.53);

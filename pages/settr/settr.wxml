@@ -18,22 +18,22 @@
 </view>
 <view class="head"><view class="massge-hd"><image class="massge-img" src="../../images/time.png"></image><text color="#B4DCFF">请选择日期和时间</text></view></view>
 <view class="container1">
- <view class="line">
+ <view class="line"><text style="color:#00a278">选择开始时间:</text>
 <view class="tui-picker-content">
   <view class="tui-picker-name"></view>
   <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="changeTime">
     <view class="tui-picker-detail">
-      选择开始时间: {{time}} 
+       {{time}} 
     </view>
   </picker>
 </view>
 </view>
- <view class="line">
+ <view class="line"><text style="color:#00a278">选择结束时间:</text>
 <view class="tui-picker-content">
   <view class="tui-picker-name"></view>
   <picker mode="time" value="{{time2}}" start="00:00" end="23:59" bindchange="changeTime2">
     <view class="tui-picker-detail">
-      选择结束时间: {{time2}} 
+       {{time2}} 
     </view>
   </picker>
 </view>

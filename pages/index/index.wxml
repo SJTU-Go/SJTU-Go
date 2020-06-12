@@ -15,13 +15,12 @@
 -->
 <map longitude="121.429846" latitude="31.021807" scale="16"  markers="{{markers}}" bindtap="hideModal" bindmarkertap="showModal"  show-location style="width: 100%; height: 100vh;" wx:if="{{hasmarkers}}"></map>
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-<view class = 'title'>{{markers[currentdata].name}}</view>
-<view class = 'line'>当前车辆数 ：{{markers[currentdata].bikeCount}}</view>
-<view class = 'line'>拥堵时段：</view>
-<view class = 'line'>推荐指数：</view>
-<view class = 'line'>备注信息：{{markers[currentdata].info}}</view>
+<view class = 'title' style="color:#6495ED">{{markers[currentdata].name}}</view>
+<view class = 'line'><text style="color:#00a278">当前车辆数：</text>{{markers[currentdata].bikeCount}}</view>
 
-<button class ="navigatebutton"bindtap="modifyPark">编辑修改</button>
+<view class = 'line'><text style="color:#00a278">备注信息：</text>{{markers[currentdata].info}}</view>
+
+<button class ="navigatebutton" bindtap="modifyPark">编辑修改</button>
     </view>
 
 

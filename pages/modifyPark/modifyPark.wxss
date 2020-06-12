@@ -8,6 +8,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 200rpx;
 }
 .search-bar__box {
   position: relative;
@@ -17,3 +18,19 @@
   box-sizing: border-box;
   z-index: 1;
 }
+.title
+{font-size: 35rpx;
+  margin-bottom: 30rpx;
+  text-align: center;}
+
+  .remark
+{
+  margin-left: 20rpx;
+  margin-bottom: 15rpx;
+  }
+  
+  .line
+{
+  margin-left: 20rpx;
+  margin-bottom: 15rpx;
+  }
