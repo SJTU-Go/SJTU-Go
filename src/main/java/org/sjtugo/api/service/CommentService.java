@@ -1,44 +1,54 @@
 package org.sjtugo.api.service;
 
 
-import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Location;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.CommentRepositoryJpa;
+import org.sjtugo.api.DAO.Entity.MapVertexInfo;
+import org.sjtugo.api.DAO.MapVertexInfoRepository;
+import org.sjtugo.api.DAO.UserRepository;
+import org.sjtugo.api.controller.ResponseEntity.CommentResponse;
 import org.sjtugo.api.entity.Comment;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CommentService {
 
     private final CommentRepositoryJpa commentRepositoryJpa;
 
-    static double r = 2;
+    private final MapVertexInfoRepository mapVertexInfoRepository;
 
-    public CommentService(CommentRepositoryJpa commentRepositoryJpa) {
+    private final UserRepository userRepository;
+
+    static double r = 0.005;
+
+    public CommentService(CommentRepositoryJpa commentRepositoryJpa,
+                          MapVertexInfoRepository mapVertexInfoRepository,
+                          UserRepository userRepository) {
         this.commentRepositoryJpa = commentRepositoryJpa;
+        this.mapVertexInfoRepository = mapVertexInfoRepository;
+        this.userRepository = userRepository;
     }
 
     /**
      *
-     * @param location:地点，前端传入，格式POINT(x y)
+     * @param loc:地点，前端传入，格式POINT(x y)
+     * @param fatherID:父评论id
      * @return (x-r y+r)~(x+r y-r)范围内的评论列表
-     * @throws ParseException String转Point
      */
-    public List<Comment> getCommentList(String location) throws ParseException {
+    public List<CommentResponse> getCommentList(Point loc, Integer fatherID){
 
-        Point loc = (Point) new WKTReader().read(location);
         double x = loc.getX();
         double y = loc.getY();
         double x1 = x-r;
@@ -48,8 +58,25 @@ public class CommentService {
         String polygon = "POLYGON(("
                 + x1 + " " + y1 + "," + x2 + " " + y1 + "," + x1 + " " + y2 + "," + x2 + " " + y2 + "," + x1 + " " + y1
                 +"))";
-        Polygon square = (Polygon) new WKTReader().read(polygon);
-        return commentRepositoryJpa.findByLocationWithin(square);
+        Polygon square;
+        try {
+            square = (Polygon) new WKTReader().read(polygon);
+        } catch (ParseException e ){
+            return new ArrayList<>();
+        }
+        return commentRepositoryJpa.findByLocationWithin(square,fatherID).stream()
+                .filter(comment -> userRepository.findById(comment.getUserID()).isPresent())
+                .map(comment -> {
+                    CommentResponse result = new CommentResponse(comment);
+                    result.setUserName(userRepository.findById(comment.getUserID()).orElseThrow().getName());
+                    result.setApproveNames(
+                            comment.getApproveUsers().stream()
+                                    .filter(userid -> userRepository.findById(userid).isPresent())
+                            .map(userid -> userRepository.findById(userid).orElseThrow().getName())
+                            .collect(Collectors.toList())
+                    );
+                    return result;
+                }).collect(Collectors.toList());
     }
 
     public List<Comment> getCommentList(Integer placeID){
@@ -58,44 +85,41 @@ public class CommentService {
 
     /**
      * 添加评论/回复评论
-     * @param title 标题
      * @param contents 内容
      * @param userID 评论者ID
-     * @param location 评论地点
      * @param relatedPlace 评论相关位置ID
-     * @param name 停车点名
      * @param fatherID 父评论ID
      * @return 本次添加的新评论
      */
-    public ResponseEntity<?> addComment(String title, String contents, Integer userID,
-                                             String location, Integer relatedPlace, String name,
-                                             Integer fatherID) {
+    public ResponseEntity<?> addComment( String contents, Integer userID, Integer relatedPlace, Integer fatherID) {
         Comment newComment = new Comment();
-        newComment.setTitle(title);
         newComment.setContents(contents);
         newComment.setUserID(userID);
-        newComment.setParkingName(name);
         newComment.setCommentTime(LocalDateTime.now());
-        Point loc;
         try {
-            loc = (Point) new WKTReader().read(location);
-        } catch (ParseException e){
-            return new ResponseEntity<>(new ErrorResponse
-                    (e), HttpStatus.BAD_REQUEST);
+            MapVertexInfo parking = mapVertexInfoRepository.findById(relatedPlace).orElseThrow();
+            newComment.setParkingName(parking.getVertexName()+"停车点");
+            newComment.setLocation(parking.getLocation());
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(4,"MapVertexId invalid"),HttpStatus.BAD_REQUEST);
         }
-        newComment.setLocation(loc);
         newComment.setRelatedPlace(relatedPlace);
+        newComment.setSubComment(new ArrayList<>());
+        newComment.setFatherComment(fatherID);
         commentRepositoryJpa.save(newComment);
 
-        Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
-        assert fatherComment != null;
-        try {
+        if (fatherID != 0){
+            Comment fatherComment;
+            try {
+                fatherComment = commentRepositoryJpa.findById(fatherID).orElseThrow();
+            } catch (Exception e){
+                commentRepositoryJpa.delete(newComment);
+                return new ResponseEntity<>(new ErrorResponse(5,"Invalid FatherID"),HttpStatus.BAD_REQUEST);
+            }
             List<Integer> subComments = fatherComment.getSubComment();  //得到子评论
             subComments.add(newComment.getCommentID());
             fatherComment.setSubComment(subComments);
             commentRepositoryJpa.save(fatherComment);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(2,"Can reply!"),HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(newComment, HttpStatus.OK);
     }
@@ -124,21 +148,14 @@ public class CommentService {
      * @param fatherID:父评论ID
      * @return 子评论列表
      */
-    public ResponseEntity<?> getSubCommentList(Integer fatherID) {
-        List<Comment> subComments = new ArrayList<>();
-        Comment fatherComment = commentRepositoryJpa.findById(fatherID).orElse(null);
-        assert fatherComment != null;
+    public ResponseEntity<?> getSubCommentList(Integer fatherID){
+        Comment fatherComment;
         try {
-            List<Integer> subCommentsID = fatherComment.getSubComment();
-            for (Integer subCommentID : subCommentsID)
-            {
-                Comment subComment = commentRepositoryJpa.findById(subCommentID).orElse(null);
-                subComments.add(subComment);
-            }
-            return new ResponseEntity<>(subComments,HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ErrorResponse(2,"No such comment!"),HttpStatus.BAD_REQUEST);
+            fatherComment = commentRepositoryJpa.findById(fatherID).orElseThrow();
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorResponse(3,"FatherID Not Found"),HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(getCommentList(fatherComment.getLocation(),fatherID),HttpStatus.OK);
     }
 
     public ResponseEntity<ErrorResponse> deleteComment(Integer commentID) {

@@ -29,9 +29,6 @@ public class Comment {
     @ApiModelProperty(value = "评论者ID", example = "1")
     private Integer userID;
 
-    @ApiModelProperty(value = "评论名", example="评论一")
-    private String title;
-
     @ApiModelProperty(value = "评论内容")
     private String contents;
 
@@ -58,6 +55,9 @@ public class Comment {
     @ElementCollection
     @ApiModelProperty(value = "评论下方的子评论ID", example = "[2,3]")
     private List<Integer> subComment;
+
+    @ApiModelProperty(value = "父评论ID", example = "[2,3]")
+    private Integer fatherComment;
 
     public Comment() {}
 }

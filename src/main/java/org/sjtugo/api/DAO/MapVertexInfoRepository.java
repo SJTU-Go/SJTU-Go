@@ -15,7 +15,7 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
             "FROM (SELECT ST_LENGTH(LineString(location, ST_Centroid(:window))) AS distance, map_vertex_info.*" +
             " FROM map_vertex_info WHERE vertex_name IS NOT NULL " +
             "AND (MBRWithin(location,:window)) = TRUE) AS vertex_infos " +
-            "ORDER BY vertex_infos.distance",
+            "ORDER BY vertex_infos.distance LIMIT 30",
             nativeQuery = true)
     List<MapVertexInfo> findNearbyPoint(@Param("window") Polygon window);
 
@@ -35,8 +35,8 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
             "      WHERE  MBRContains(" +
             "                GeomFromText(" +
             "                       CONCAT('LINESTRING('," +
-            "                               :lng - 0.1,' ', :lat - 0.1, ','," +
-            "                               :lng + 0.1,' ', :lat + 0.1, ')'))," +
+            "                               :lng - 0.005,' ', :lat - 0.005, ','," +
+            "                               :lng + 0.005,' ', :lat + 0.005, ')'))," +
             "                location ) AND vertex_name IS NOT NULL" +
             "       ) AS vertex_infos " +
             "ORDER BY vertex_infos.distance " +

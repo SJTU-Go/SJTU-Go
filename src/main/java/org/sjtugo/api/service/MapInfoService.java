@@ -105,8 +105,8 @@ public class MapInfoService {
 
 
     private Polygon nearbyWindow(Point t){
-        double lng_shift = 0.01;
-        double lat_shift = 0.01;
+        double lng_shift = 0.005;
+        double lat_shift = 0.005;
         double x = t.getCoordinate().x;
         double y = t.getCoordinate().y;
         return new GeometryFactory().createPolygon(
