@@ -9,6 +9,8 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 @Data
@@ -27,16 +29,24 @@ public class Feedback {
     @ApiModelProperty(value = "行程ID", example = "123")
     private Integer tripID;
 
-    @ApiModelProperty(value = "取车反馈", example="5")
+    @ApiModelProperty(value = "取车反馈", example="5", notes = "评分为1-5")
+    @Max(value = 5)
+    @Min(value = 1)
     private Integer pickupFB;
 
     @ApiModelProperty(value = "交通反馈", example="5")
+    @Max(value = 5)
+    @Min(value = 1)
     private Integer trafficFB;
 
     @ApiModelProperty(value = "停车反馈", example="5")
+    @Max(value = 5)
+    @Min(value = 1)
     private Integer parkFB;
 
     @ApiModelProperty(value = "服务反馈", example="5")
+    @Max(value = 5)
+    @Min(value = 1)
     private Integer serviceFB;
 
     @ApiModelProperty(value = "文字反馈内容")
