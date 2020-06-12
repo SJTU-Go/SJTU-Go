@@ -26,10 +26,10 @@ def run(interval):
         time.sleep(time_remaining)
         # execute the command
         print_ts("Starting crawler.")
-        try:
-            crawler_hello()
-        except:
-            print_ts("hello crawler error")
+        # try:
+        crawler_hello()
+        # except:
+            # print_ts("hello crawler error")
 
         print_ts("-"*100)
 
@@ -44,7 +44,7 @@ if __name__=="__main__":
     cursor = conn.cursor()
 
     requests.packages.urllib3.disable_warnings()
-    interval = 10
+    interval = 240
     run(interval)
 
 

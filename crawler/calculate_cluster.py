@@ -12,7 +12,7 @@ def calculate_cluster(lat,lon):
 
     cursor = conn.cursor()
 
-    sql = 'select * from (SELECT vertexid, lng AS longitude, lat AS latitude FROM map_vertex_info) where latitude > %s-0.003 and latitude < %s+0.003 and longitude > %s-0.003 and longitude < %s+0.003 order \
+    sql = 'select * from (SELECT vertexid, lng AS longitude, lat AS latitude FROM map_vertex_info) a where latitude > %s-0.003 and latitude < %s+0.003 and longitude > %s-0.003 and longitude < %s+0.003 order \
             by ST_length(LINESTRING(POINT(longitude,latitude),POINT(%s,%s))) asc limit 1'
 
     cursor.execute(sql,(lat,lat,lon,lon,lon,lat))
