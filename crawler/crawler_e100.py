@@ -6,6 +6,9 @@ import pymysql
 
 from calculate_cluster import calculate_cluster, calculate_car_cluster
 
+from coordTransform.coordTransform_utils import bd09_to_gcj02
+
+
 # 爬取旋风E100车辆信息
 def crawler_e100():
     url = 'https://api.ezcarsharing.com/doraemon/cluster/4856712C981340B0A6A10B77861F2411?lon=121.40377&lat=31.080002&geodetic_system=gcj02&rectangle=121.41308566624373,31.05444286048026,121.46480872496845,30.970588273341708'
@@ -39,6 +42,9 @@ def write_db_e100(data):
         title = car["title"]
         lat = car["vehicles"][0]["lat"]
         lon = car["vehicles"][0]["lon"]
+        lon, lat = bd09_to_gcj02(lon,lat)
+        lat = lat-31.024782+31.029231
+        lon = lon-121.428711+121.439690
         CarID = title[1:9]
         cluster_point = calculate_car_cluster(lat,lon)
         cursor.execute("REPLACE INTO e100_info (car_id,car_plate,latitude,longitude,cluster_point) \
