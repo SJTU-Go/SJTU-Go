@@ -1,10 +1,33 @@
 /* pages/databaseGuide/databaseGuide.wxss */
+.trafficbox
+{height: 390rpx;
+  width: 90%;
+margin-left: 10%;
+}
+.traffictitle
+{font-size: 40rpx;
+}
+.time
+{ margin-left: 20rpx;margin-top: 15rpx;
+ font-size:30rpx;
+}
+.notice
+{font-size: 24rpx;
 
-@import "../../style/guide.wxss";
+}
+.text
+{font-size: 32rpx;
 
-.guide .counter {
-  margin-top: 50rpx;
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
+}
+.titletime
+{
+
+display: flex;
+text-align: end;
+
+}
+.iimg{
+  width: 60rpx;
+  height: 60rpx;
+margin-top: 10rpx;
 }

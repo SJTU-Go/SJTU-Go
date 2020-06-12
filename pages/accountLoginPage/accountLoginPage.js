@@ -56,11 +56,16 @@ Page({
       
           success (res){
             console.log(res)
-            if(res.data.message=="login successfully!"){
+            if(res.statusCode==200){
               wx.setStorage({
                 data:that.data.adminName,
                   
                 key: 'admin',
+              })
+              wx.setStorage({
+                data:res.data,
+                  
+                key: 'adminID',
               })
               wx.switchTab({
                 url: '../index/index',

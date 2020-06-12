@@ -13,6 +13,7 @@ Page({
    */
   data: {
     admin:'',
+    adminID:1,
     hislist:{}
   },
 
@@ -20,6 +21,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+   
+    
+   
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     var that=this
     wx.getStorage({
       key: 'admin',
@@ -29,19 +47,27 @@ Page({
         
       }
     })
+    wx.getStorage({
+      key: 'adminID',
+      success:function(res){
+        console.log(res.data)
+        that.setData({adminID:res.data})
+        
+      }
+    })
     wx.request({
-      url: 'https://api.ltzhou.com/modification/view',
+      url: 'https://api.ltzhou.com/modification/view/traffic',
       method:'POST',
       header: {
       'content-type': 'application/x-www-form-urlencoded'
       },
      data:json2Form({
-       adminID:1
+       adminID:that.data.adminID
      }),
   
      success (res){
       console.log(res)
-      var mm= new Object();
+      /*var mm= new Object();
       var count=0;
       for (var i in res.data){
         if  (res.data[i].adminID==1 && res.data[i].contents[0]=='T'){
@@ -75,29 +101,45 @@ Page({
           count+=1
         }
       }
-      console.log(mm)
-      that.setData({hislist :mm})
+      console.log(mm)*/
+      that.setData({hislist :res.data})
+      console.log(that.data.hislist)
       
     }
        
     })
-    
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  deletePage:function(e){
+    var that= this
+   console.log(e)
+   var index=e.currentTarget.dataset.index
+   console.log(that.data.hislist)
+   var tid = that.data.hislist[index].modificationID
+   var u="https://api.ltzhou.com/modification/delete/id=".concat(tid)
+    wx.request({
+      url: u,
+      method:'POST',
+      header: {
+      'content-type': 'application/json'
+      },
+     //data:{
+       //id:that.data.cuFeedback.tripID
+     //},
+  
+      success (res){
+        console.log(res)
+        that.onShow()
+        
+      }
+       
+    }) 
+   
+  
+   
+  
+  
+  
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面隐藏
    */

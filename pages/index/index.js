@@ -59,7 +59,7 @@ Page({
         var q = 0
         for ( x in res.data)
         {
-          if (res.data[x].bikeCount)
+          if (res.data[x].vertexInfo.vertexID)
           {         var marker ={iconPath: "/mark/19.PNG",
           id: q,
           parkid: 123,

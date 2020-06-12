@@ -21,6 +21,11 @@ page {
   color: rgb(6, 207, 22);
   font-size: 20;
 }
+.textdiv1{
+  margin-top:30rpx;
+  color: rgb(150, 37, 9);
+  font-size: 20;
+}
 .massge{
   overflow: hidden;
   width: 100%;

@@ -23,6 +23,14 @@ Page({
       }
     })
     wx.getStorage({
+      key: 'adminID',
+      success:function(res){
+        console.log(res.data)
+        that.setData({adminID:res.data})
+        
+      }
+    })
+    wx.getStorage({
       key: 'history',
       success:function(res){
         console.log(res.data)
@@ -124,13 +132,13 @@ submitInfoo:function(){
     console.log(i)
   wx.request({
 
-    url: 'https://api.ltzhou.com/modification/modify/parking',
+    url: 'https://api.ltzhou.com/modification/modify/parking?adminID='.concat(that.data.adminID),
     method:'POST',
     header: {
     'content-type': 'application/json'
     },
     data:{
-    "adminID": 1,
+    
     "message": that.data.List.hia[i].newInfo,
     "placeID": that.data.List.hia[i].id,
     },
@@ -160,7 +168,7 @@ wx.getStorage({
   
 
 for (var i in that.data.tList){
-  console.log(i)
+  console.log(i,that.data.tList[i])
   var s='https://api.ltzhou.com/modification/modify/traffic?adminID='.concat(that.data.adminID)
 wx.request({
 

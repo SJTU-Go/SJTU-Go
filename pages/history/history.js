@@ -13,6 +13,7 @@ Page({
    */
   data: {
     admin:'',
+    adminID:1,
     hislist:{}
 
   },
@@ -30,28 +31,28 @@ Page({
         
       }
     })
+    wx.getStorage({
+      key: 'adminID',
+      success:function(res){
+        console.log(res.data)
+        that.setData({adminID:res.data})
+        
+      }
+    })
     wx.request({
-      url: 'https://api.ltzhou.com/modification/view',
+      url: 'https://api.ltzhou.com/modification/view/map',
       method:'POST',
       header: {
       'content-type': 'application/x-www-form-urlencoded'
       },
      data:json2Form({
-       adminID:1
+       adminID:that.data.adminID
      }),
   
      success (res){
       console.log(res)
-      var mm= new Object();
-      var count=0;
-      for (var i in res.data){
-        if  (res.data[i].adminID==1 && res.data[i].placeName){
-          mm[count]=res.data[i]
-          count+=1
-        }
-      }
-      console.log(mm)
-      that.setData({hislist :mm})
+     
+      that.setData({hislist :res.data})
       
     }
        
