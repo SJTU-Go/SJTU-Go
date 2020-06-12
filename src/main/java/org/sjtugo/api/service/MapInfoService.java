@@ -9,11 +9,8 @@ import org.sjtugo.api.DAO.Entity.CarInfo;
 import org.sjtugo.api.DAO.Entity.Destination;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.sjtugo.api.DAO.Entity.HelloBikeInfo;
-import org.sjtugo.api.controller.ResponseEntity.MapVertexResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -81,8 +78,7 @@ public class MapInfoService {
 
 
     public List<MapVertexInfo> nearbyParking(Point a){
-        Polygon window = nearbyWindow(a);
-        return mapVertexInfoRepository.findNearbyPoint(window)
+        return mapVertexInfoRepository.findNearbyPoint(a.getX(),a.getY())
                 .stream()
                 .peek(v-> v.setVertexName(v.getVertexName()+"停车点"))
                 .collect(Collectors.toList());
@@ -91,33 +87,22 @@ public class MapInfoService {
 
 
 
-    /**
-     * 根据数据库查询结果，查询实时单车数
-     * @param info 传入数据库对象
-     */
-    public MapVertexResponse dataToResponse (MapVertexInfo info) {
-        MapVertexResponse result = new MapVertexResponse();
-        result.setVertexInfo (info);
-        result.setBikeCount(getCurrentBike(info.getVertexID()));
-        result.setMotorCount(getCurrentMotor(info.getVertexID()));
-        return result;
-    }
 
 
-    private Polygon nearbyWindow(Point t){
-        double lng_shift = 0.005;
-        double lat_shift = 0.005;
-        double x = t.getCoordinate().x;
-        double y = t.getCoordinate().y;
-        return new GeometryFactory().createPolygon(
-                new Coordinate[]{
-                        new Coordinate(x - lng_shift, y - lat_shift),
-                        new Coordinate(x-lng_shift,y+lat_shift),
-                        new Coordinate(x+lng_shift,y+lat_shift),
-                        new Coordinate(x+lng_shift,y-lat_shift),
-                        new Coordinate(x - lng_shift, y - lat_shift)
-                });
-    }
+//    private Polygon nearbyWindow(Point t){
+//        double lng_shift = 0.005;
+//        double lat_shift = 0.005;
+//        double x = t.getCoordinate().x;
+//        double y = t.getCoordinate().y;
+//        return new GeometryFactory().createPolygon(
+//                new Coordinate[]{
+//                        new Coordinate(x - lng_shift, y - lat_shift),
+//                        new Coordinate(x-lng_shift,y+lat_shift),
+//                        new Coordinate(x+lng_shift,y+lat_shift),
+//                        new Coordinate(x+lng_shift,y-lat_shift),
+//                        new Coordinate(x - lng_shift, y - lat_shift)
+//                });
+//    }
 
     @SuppressWarnings("unchecked")
     public List<HelloBikeInfo> nearbyMobikes(double lat, double lng) {

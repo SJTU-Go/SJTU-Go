@@ -10,7 +10,6 @@ import org.sjtugo.api.DAO.Entity.Destination;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.sjtugo.api.DAO.Entity.HelloBikeInfo;
 import org.sjtugo.api.service.MapInfoService;
-import org.sjtugo.api.controller.ResponseEntity.MapVertexResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,26 +47,26 @@ public class MapInfoControl {
         return new ResponseEntity<>(mapInfoService.searchPlace(keyword),HttpStatus.OK);
     }
 
-    @ApiOperation(value = "校园内停车点查询（不含车辆数）",
-            notes = "给定关键词，查询校园内停车点信息，一般用于搜索框")
-    @GetMapping("/search/parkinginfo")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = MapVertexResponse[].class)
-    })
-    public ResponseEntity<List<MapVertexInfo>> searchParkingInfo(@ApiParam(value = "关键词", example = "图书馆")
-                                                         @RequestParam String keyword) {
-        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
-                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
-        return new ResponseEntity<>(mapInfoService.searchParkingSimple(keyword),HttpStatus.OK);
-    }
+//    @ApiOperation(value = "校园内停车点查询（不含车辆数）",
+//            notes = "给定关键词，查询校园内停车点信息，一般用于搜索框")
+//    @GetMapping("/search/parkinginfo")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "OK", response = MapVertexInfo[].class)
+//    })
+//    public ResponseEntity<List<MapVertexInfo>> searchParkingInfo(@ApiParam(value = "关键词", example = "图书馆")
+//                                                         @RequestParam String keyword) {
+//        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
+//                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
+//        return new ResponseEntity<>(mapInfoService.searchParkingSimple(keyword),HttpStatus.OK);
+//    }
 
     @ApiOperation(value = "校园内停车点查询（包含车辆数）",
             notes = "给定关键词，查询校园内停车点信息，一般用于主页地图")
     @GetMapping("/search/parking")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = MapVertexResponse[].class)
+            @ApiResponse(code = 200, message = "OK", response = MapVertexInfo[].class)
     })
-    public ResponseEntity<List<MapVertexResponse>> searchParking(@ApiParam(value = "关键词", example = "图书馆")
+    public ResponseEntity<List<MapVertexInfo>> searchParking(@ApiParam(value = "关键词", example = "图书馆")
                                                                  @RequestParam String keyword) {
         MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
                 destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
@@ -78,9 +77,9 @@ public class MapInfoControl {
             notes = "给定经纬度，查询校园内停车点信息，一般用于主页地图")
     @GetMapping("/nearby/parking")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = MapVertexResponse[].class)
+            @ApiResponse(code = 200, message = "OK", response = MapVertexInfo[].class)
     })
-    public ResponseEntity<List<MapVertexResponse>> nearbyParking(@ApiParam(value = "经度", example = "121.438324171")
+    public ResponseEntity<List<MapVertexInfo>> nearbyParking(@ApiParam(value = "经度", example = "121.438324171")
                                                                  @RequestParam double lng,
                                                                  @ApiParam(value = "纬度", example = "31.020556617")
                                                                  @RequestParam double lat) {

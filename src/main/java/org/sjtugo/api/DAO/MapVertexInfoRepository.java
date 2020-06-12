@@ -12,12 +12,13 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
     List<MapVertexInfo> findByVertexNameLike(String kw);
 
     @Query( value = "SELECT vertex_infos.* " +
-            "FROM (SELECT ST_LENGTH(LineString(location, ST_Centroid(:window))) AS distance, map_vertex_info.*" +
+            "FROM (SELECT ST_LENGTH(LineString(location, POINT(:lng, :lat))) AS distance, map_vertex_info.*" +
             " FROM map_vertex_info WHERE vertex_name IS NOT NULL " +
-            "AND (MBRWithin(location,:window)) = TRUE) AS vertex_infos " +
-            "ORDER BY vertex_infos.distance LIMIT 30",
+            " AND lng < :lng+0.005 AND lng > :lng - 0.005 " +
+            " AND lat < :lat+0.005 AND lat > :lat - 0.005) vertex_infos " +
+            " ORDER BY vertex_infos.distance LIMIT 30",
             nativeQuery = true)
-    List<MapVertexInfo> findNearbyPoint(@Param("window") Polygon window);
+    List<MapVertexInfo> findNearbyPoint(@Param("lng") Double lng, @Param("lat") Double lat);
 
     @Query( value = "SELECT vertex_infos.* " +
             "FROM (SELECT ST_LENGTH(LineString(location, ST_Centroid(:window))) AS distance, map_vertex_info.*" +
