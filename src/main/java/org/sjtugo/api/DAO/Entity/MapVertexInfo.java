@@ -44,4 +44,12 @@ public class MapVertexInfo {
     @Column(name="is_car_vertex")
     @ApiModelProperty(value = "是否允许汽车通过")
     private Boolean isCarVertex;
+
+    @Column(name="bike_count")
+    @ApiModelProperty(value = "实时单车数")
+    private Integer bikeCount;
+
+    @Column(name="motor_count")
+    @ApiModelProperty(value = "实时筋斗云车辆数")
+    private Integer motorCount;
 }

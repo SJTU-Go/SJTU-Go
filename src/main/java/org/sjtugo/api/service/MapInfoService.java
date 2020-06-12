@@ -44,10 +44,10 @@ public class MapInfoService {
         return mapVertexInfoRepository.findByVertexNameLike("%"+keyword+"%");
     }
 
-    public List<MapVertexResponse> searchParking(String keyword) {
+    public List<MapVertexInfo> searchParking(String keyword) {
         return mapVertexInfoRepository.findByVertexNameLike("%"+keyword+"%")
                 .stream()
-                .map(this::dataToResponse)
+                .peek(v-> v.setVertexName(v.getVertexName()+"停车点"))
                 .collect(Collectors.toList());
     }
 
@@ -80,11 +80,11 @@ public class MapInfoService {
 
 
 
-    public List<MapVertexResponse> nearbyParking(Point a){
+    public List<MapVertexInfo> nearbyParking(Point a){
         Polygon window = nearbyWindow(a);
         return mapVertexInfoRepository.findNearbyPoint(window)
                 .stream()
-                .map(this::dataToResponse)
+                .peek(v-> v.setVertexName(v.getVertexName()+"停车点"))
                 .collect(Collectors.toList());
     }
 
