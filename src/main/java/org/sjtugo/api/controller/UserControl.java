@@ -38,9 +38,9 @@ public class UserControl {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/login")
-    public ResponseEntity<?> userLogin(@RequestParam String code){
+    public ResponseEntity<?> userLogin(@RequestParam LoginRequest loginRequest){
         UserService userser = new UserService(userRepository);
-        return userser.userLogin(code);
+        return userser.userLogin(loginRequest.getCode(),loginRequest.getName());
     }
 
     @ApiOperation(value = "上传用户日程")
@@ -102,6 +102,14 @@ public class UserControl {
         return scheduleService.getScheduleList(userID);
     }
 
+
+    @Data
+    static class LoginRequest{
+        @ApiModelProperty(value = "登陆凭证")
+        private String code;
+        @ApiModelProperty(value = "用户名", example = "nicolas")
+        private String name;
+    }
 
     @Data
     static class PreferenceRequest{

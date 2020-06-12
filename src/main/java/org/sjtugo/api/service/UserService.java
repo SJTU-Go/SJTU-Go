@@ -27,7 +27,7 @@ public class UserService {
      * @param code:用户临时登陆凭证
      * @return 用户id & 用户openID
      */
-    public ResponseEntity<?> userLogin(String code){
+    public ResponseEntity<?> userLogin(String code,String name){
         String resultString = doGet(code);
         JSONObject res = JSONObject.fromObject(resultString);
         System.out.println(res);
@@ -43,10 +43,17 @@ public class UserService {
             Integer temp_id = user.getUserID();
             String userID = temp_id.toString();
             userInfo.put("userID", userID);
+            User new_user = new User();
+            new_user.setUserID(temp_id);
+            new_user.setOpenId(openid);
+            new_user.setSessionkey(session_key);
+            new_user.setName(name);
+            userRepository.save(new_user);
         } else {
             User new_user = new User();
             new_user.setOpenId(openid);
             new_user.setSessionkey(session_key);
+            new_user.setName(name);
             userRepository.save(new_user);
             Integer temp_id = new_user.getUserID();
             String userID = temp_id.toString();

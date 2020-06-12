@@ -23,5 +23,8 @@ public class User {
     @ApiModelProperty(value = "用户session_key", example = "834jf")
     private String sessionkey;
 
+    @ApiModelProperty(value = "用户名", example = "nicolas")
+    private String name;
+
     public User() {}
 }
