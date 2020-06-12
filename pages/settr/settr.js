@@ -100,7 +100,7 @@ Page({
       }
     //  wx.navigateTo({ url: '../commentmap/commentmap?RT='+JSON.stringify(this.data.polyline),})
     wx.showToast({
-       title: '修改成功',
+       title: '修改已保存',
        icon: 'success',
        duration: 2000,
        success: function () {

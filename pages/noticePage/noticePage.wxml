@@ -2,6 +2,7 @@
 <text>请输入通知：</text>
 <form class="form" bindsubmit="formSubmit">
 <view class="search-bar__box">
+
 <textarea placeholder="点击输入内容" auto-height auto-focus name="textarea"/>
 </view>
 <view class="tui-picker-content">

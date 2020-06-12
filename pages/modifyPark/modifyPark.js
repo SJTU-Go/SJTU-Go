@@ -95,7 +95,7 @@ Page({
     }
     
     wx.showToast({
-       title: '保存成功',
+       title: '修改已保存',
        icon: 'success',
        duration: 2000,
        success: function () {

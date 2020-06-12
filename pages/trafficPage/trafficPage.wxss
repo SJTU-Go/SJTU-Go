@@ -1,18 +1,36 @@
 /* pages/databaseGuide/databaseGuide.wxss */
+page {
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .trafficbox
 {height: 390rpx;
   width: 90%;
 margin-left: 10%;
 }
+.massge-img{
+  width: 50rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+}
+.massge-hd{
+  padding:0rpx 10rpx 30rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .traffictitle
-{font-size: 40rpx;
+{font-size: 40rpx;margin-top: 20rpx;
 }
 .time
 { margin-left: 20rpx;margin-top: 15rpx;
  font-size:30rpx;
 }
 .notice
-{font-size: 24rpx;
+{font-size: 24rpx;margin-left: 20rpx;margin-top: 15rpx;
 
 }
 .text
@@ -29,5 +47,31 @@ text-align: end;
 .iimg{
   width: 60rpx;
   height: 60rpx;
+  margin-left: 20rpx;
 margin-top: 10rpx;
 }
+.iimg1{
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
+margin-top: 25rpx;
+}
+.massge{
+  overflow: hidden;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: 20rpx;
+  position: relative;
+  line-height: 1;
+}
+.sw{
+  margin-left: 30rpx;
+margin-top: 25rpx;
+margin-bottom: 25rpx;
+}
+.divLine{
+  background: #e3f8f2;
+  width: 100%;
+  height: 5rpx;
+  margin-top: 15rpx;
+ }

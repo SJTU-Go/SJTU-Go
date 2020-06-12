@@ -192,7 +192,34 @@ wx.request({
     "repeatTime": 0
   },
 
-  success (res){console.log(res)}
+  success (res){console.log(res)
+  if (res.data.code==3)
+  {
+    wx.showToast({
+       title: '输入格式错误',
+       icon: 'loading',
+       duration: 1000,
+       success: function () {
+       setTimeout(function () {
+       
+       }, 2000);
+       }
+      })
+  }
+  else if (res.data.code==5)
+  {
+    wx.showToast({
+       title: '数据备份失败',
+       icon: 'loading',
+       duration: 1000,
+       success: function () {
+       setTimeout(function () {
+       
+       }, 2000);
+       }
+      })
+  }
+  }
    
 })
 }

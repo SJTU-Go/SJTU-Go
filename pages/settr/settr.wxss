@@ -53,3 +53,14 @@
   margin: 0 0 3px 18px;
   height: 100px;
 }
+.massge-img{
+  width: 50rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+.massge-hd{
+  padding:0rpx 10rpx 30rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

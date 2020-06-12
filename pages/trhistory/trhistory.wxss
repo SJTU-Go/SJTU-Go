@@ -16,6 +16,7 @@ page {
   align-items: center;
   justify-content: center;
 }
+
 .textdiv{
   margin-top:30rpx;
   color: rgb(6, 207, 22);

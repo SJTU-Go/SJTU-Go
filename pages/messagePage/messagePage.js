@@ -15,6 +15,8 @@ Page({
   data: {
     isChecked1: false,
     message:{},
+    adminID:1,
+    admin:'',
 mailName:''
   },
   searchInput :function (e) { 
@@ -37,7 +39,7 @@ filter:function(e){
       'content-type': 'application/x-www-form-urlencoded'
       },
      data:json2Form({
-       adminID:1
+       adminID:that.data.adminID
      }),
   
       success (res){
@@ -57,7 +59,7 @@ filter:function(e){
             'content-type': 'application/x-www-form-urlencoded'
             },
            data:json2Form({
-             adminID:1
+             adminID:that.data.adminID
            }),
         
             success (res){
@@ -97,9 +99,24 @@ filter:function(e){
    */
   onShow: function () {
     var that=this
+    wx.getStorage({
+      key: 'admin',
+      success:function(res){
+        console.log(res.data)
+        that.setData({admin:res.data})
+        
+      }
+    })
+    wx.getStorage({
+      key: 'adminID',
+      success:function(res){
+        console.log(res.data)
+        that.setData({adminID:res.data})
+        
+      }
+    })
     console.log(that.data)
-    var url="https://api.ltzhou.com/admin/adminlogin?name=".concat(that.data.adminName).concat("&pw=").concat(that.data.password)
-    console.log(url)
+    
     wx.request({
       url: 'https://api.ltzhou.com/feedback/inbox',
       method:'POST',
@@ -107,7 +124,7 @@ filter:function(e){
       'content-type': 'application/x-www-form-urlencoded'
       },
      data:json2Form({
-       adminID:1
+       adminID:that.data.adminID
      }),
   
       success (res){

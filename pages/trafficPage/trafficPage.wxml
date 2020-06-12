@@ -2,17 +2,21 @@
 
 
 <scroll-view scroll-y style="display: flex; height: 415px;  align-items: center;">
-    <view class="trafficbox" wx:for="{{trafficInfo}}"  wx:for-item="list" wx:for-index="idx">
-      <view class = "titletime">
-        <view class="traffictitle" >{{list.trafficInfo.name}}</view>
-        <view class="time" >持续时间：{{list.trafficInfo.beginTime}}--{{list.trafficInfo.endTime}}</view>
-      </view>
-      <view class="notice" >{{list.trafficInfo.message}}{{list.trafficInfo.message}}{{list.trafficInfo.message}}{{list.trafficInfo.message}}{{list.trafficInfo.message}}</view>
-      <view class = 'text'><image class="iimg" src="../../images/bike_1.png"></image> 自行车预计时速：{{list.trafficInfo.bikeSpeed}}</view>
-      <view class = 'text'><image class="iimg" src="../../images/motor.png"></image>  电动车预计时速：{{list.trafficInfo.motorSpeed}}</view>
-      <view class = 'text'><image class="iimg" src="../../images/car.png"></image>    汽车预计时速：{{list.trafficInfo.carSpeed}}</view>
-      <switch data-index="{{idx}}" bindchange="switchChange"/>
+<view class="container">
+    <view class="massge" wx:for="{{trafficInfo}}"  wx:for-item="list" wx:for-index="idx">
+      
+        <view class="massge-hd"><image class="massge-img" src="../../images/traf.png"></image><view class="traffictitle" style="color:#6495ED">{{list.trafficInfo.name}}</view></view>
+        <view class="time" ><text style="margin-top:15rpx;"><text style="color:#00a278">持续时间：</text>{{list.trafficInfo.beginTime}}--{{list.trafficInfo.endTime}}</text></view>
+        <view class="time" ><text style="margin-top:15rpx;"><text style="color:#00a278">详细信息：</text></text></view>
+    
+      <view class="notice" >{{list.trafficInfo.message}}</view>
+      <view class="divLine"></view>  
+      <view class = 'text'><image class="iimg1" src="../../images/bike_1.png"></image> <text style="color:#00a278">自行车预计时速：</text>{{list.trafficInfo.bikeSpeed}}</view>
+      <view class = 'text'><image class="iimg" src="../../images/motor.png"></image> <text style="color:#00a278"> 电动车预计时速：</text>{{list.trafficInfo.motorSpeed}}</view>
+      <view class = 'text'><image class="iimg" src="../../images/car.png"></image>    <text style="color:#00a278">汽车预计时速：</text>{{list.trafficInfo.carSpeed}}</view>
+      <switch class="sw" data-index="{{idx}}" bindchange="switchChange">显示路段</switch>
     </view>
+     </view>
 </scroll-view>
 
 
