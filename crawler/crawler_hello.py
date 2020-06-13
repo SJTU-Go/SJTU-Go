@@ -4,7 +4,7 @@ import requests
 import json
 import sys
 import pymysql
-
+import time
 from calculate_cluster import calculate_cluster
 
 def print_ts(message):

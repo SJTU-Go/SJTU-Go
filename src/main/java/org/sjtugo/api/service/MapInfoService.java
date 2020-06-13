@@ -107,31 +107,31 @@ public class MapInfoService {
     @SuppressWarnings("unchecked")
     public List<HelloBikeInfo> nearbyMobikes(double lat, double lng) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("User-Agent",
-                "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3 like Mac OS X)" +
-                        " AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148" +
-                        " MicroMessenger/7.0.12(0x17000c2d) NetType/WIFI Language/zh_CN");
-        headers.set("accesstoken","AxA4yAbjw1EdFWWVSGvfok-OQlYAAAAArQkAAB7QZ3M3hdaIzPvFSD7zx5NRbIKmbum_PbdPpD4hP9L8SvQHi7uSQajodVjL9724VQ");
+        headers.set("Host", "app2.mobike.com");
+        headers.set("User-Agent", "com.mobike.bike/189 (unknown, iOS 13.3, iPhone, Scale/2.000000)");
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-        params.add("userid","1899972877305856249090");
-        params.add("latitude", String.valueOf(lat));
-        params.add("longitude",String.valueOf(lng));
-        params.add("citycode","021");
+        params.add("bikenum","100");
         params.add("biketype","0");
-        params.add("errMsg","getMapCenterLocation:ok");
+        params.add("citycode","021");
+        params.add("client_id","ios");
+        params.add("filterMode","0");
+        params.add("latitude",String.valueOf(lat));
+        params.add("longitude",String.valueOf(lng));
+        params.add("scope","500");
 
         HttpEntity<Object> request = new HttpEntity<>(params,headers);
 
         LinkedHashMap<String,Object> mobikeResponse =
-                restTemplate.postForObject("https://mwx.mobike.com/nearby/nearbyBikeInfo",request,LinkedHashMap.class);
+                restTemplate.postForObject("https://app2.mobike.com/api/nearby/v4/nearbyBikeInfo",request,LinkedHashMap.class);
         assert mobikeResponse != null;
 
+//        System.out.println(mobikeResponse.values());
 //        System.out.println(mobikeResponse.get("object"));
 //        System.out.println(((List<LinkedHashMap<String,Object>>) mobikeResponse.get("object")
 //        ).size());
 
-        return (((List<LinkedHashMap<String,Object>>) mobikeResponse.get("object"))
-                .stream().map(bikeInfo -> new HelloBikeInfo((String) bikeInfo.get("bikeIds"),
+        return (((List<LinkedHashMap<String,Object>>) mobikeResponse.get("bike"))
+                .stream().map(bikeInfo -> new HelloBikeInfo((String) bikeInfo.get("distId"),
                         (double) bikeInfo.get("distX"), (double) bikeInfo.get("distY"),
                         (int) bikeInfo.get("biketype")))
                 .collect(Collectors.toList()));

@@ -23,11 +23,15 @@ def update():
                     db = 'playground',
                     charset = 'utf8')
     cursor = conn.cursor()
+    cursor.execute("SET SQL_SAFE_UPDATES = 0")
+    cursor.execute("UPDATE map_vertex_info SET bike_count = 0")
+    cursor.execute("SET SQL_SAFE_UPDATES = 1")
     cursor.execute("UPDATE map_vertex_info \
-        INNER JOIN (SELECT cluster_point, count(*) AS bikecnt FROM hello_bike_info\
-                    GROUP BY cluster_point) hello_count\
-        ON hello_count.cluster_point = map_vertex_info.vertexid\
-        SET map_vertex_info.bike_count = hello_count.bikecnt")
+   INNER JOIN (SELECT cluster_point, count(*) AS bikecnt FROM hello_bike_info \
+                WHERE TIMESTAMPDIFF(SECOND,time,current_timestamp) < 300 \
+				GROUP BY cluster_point) hello_count \
+   ON hello_count.cluster_point = map_vertex_info.vertexid \
+SET map_vertex_info.bike_count = hello_count.bikecnt")
 
 def run(interval):
     print_ts("-"*100)
