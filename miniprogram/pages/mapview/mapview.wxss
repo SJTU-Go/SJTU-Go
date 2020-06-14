@@ -1,0 +1,165 @@
+.commodity_attr_box {
+  height: 380rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+  padding-top: 20rpx;
+}
+
+.user-name {
+  display: flex;
+  top: 33rpx;
+
+  font-size: 33rpx;
+  }
+  .commentnum
+  {  width: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 80rpx;
+
+  }
+.contents
+{display: flex;
+
+}
+.toppart
+{
+  margin-top: 0.5%;
+  margin-left: 5%;
+  width: 90%;
+  height: 50rpx;
+display: flex;
+
+}
+.toppartimg
+{
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 90%;
+  height: 50rpx;
+display: flex;
+
+}
+.middlepart
+{
+  margin-top: 0.5%;
+  margin-left: 5%;
+  width: 90%;
+  height: 200rpx;
+display: flex;
+display:flex;
+flex-direction: column;
+}
+.smiddlepart
+{
+  margin-top: 0.5%;
+  margin-left: 5%;
+  width: 90%;
+  height: 300rpx;
+display: flex;
+
+}
+.subcontent
+{margin-left: 5%;
+font-size: 20rpx;
+
+}
+.right
+{
+  width: 45%;
+  display: flex;
+  align-items: flex-end;
+}
+.titlename
+{text-align:right;
+  font-size: 34rpx;
+}
+.emptyblock
+{width: 70%;
+
+}
+.distancename
+{width: 100%;
+
+  text-align:right;
+  font-size: 20rpx;}
+.msg-item{
+  display:flex;
+  flex-direction: column;
+  text-align: left;height: 450rpx;}
+.commentname{
+  margin-top:10rpx;
+color: grey;
+
+
+}
+.rightt
+{
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.usersname
+{
+  width: 100%;
+
+  text-align:right;
+  color: rgb(102, 102, 102);
+  font-size: 30rpx;
+}
+.likename
+{display: flex;
+  width: 100%;
+margin-left:83%;
+  text-align:right;
+  color: rgb(102, 102, 102);
+  font-size: 30rpx;
+}
+.bottomblock
+{  position: fixed;
+  width:100%; 
+  bottom: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navigatebutton
+{ width: 80%;
+  background-color: rgba(1, 11, 53, 0.508);
+  color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.massge-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 2rpx;
+
+}
+.bottomblock
+{  position: fixed;
+  width:100%; 
+  bottom: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navigatebutton
+{ width: 80%;
+  background-color: rgb(255, 255, 255);
+  color: rgb(54, 147, 69);
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

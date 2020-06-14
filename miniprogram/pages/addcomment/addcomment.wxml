@@ -9,13 +9,12 @@
             <view class='right'>
             <view class='distancename' >{{item.distance|Int}}米</view></view>
         </view>
-    <view class = 'middlepart'>
-         <view class = 'smiddlepart'>
+         <view class = 'middlepart'>
+            <view class = 'smiddlepart'>
             <view class='commentname' >{{item.contents}}</view>
+            </view> 
         </view> 
-        
-    </view> 
-         <view class = 'toppart'>
+        <view class = 'toppart'>
             <view class='rightt'><view class='usersname' >{{item.userName}} {{item.commentTime}}</view></view>
         </view> 
  

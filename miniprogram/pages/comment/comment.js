@@ -75,4 +75,10 @@ wx.navigateTo(
   url: '../addcomment/addcomment?RT='+JSON.stringify(i) }
 )
 },
+navigatePage:function()
+{wx.navigateTo(
+  {
+  url: '../mapview/mapview'}
+)
+},
 })

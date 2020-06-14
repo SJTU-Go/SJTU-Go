@@ -1,8 +1,9 @@
 
 {
   "pages": [    
-    "pages/searchindex/searchindex",
     "pages/comment/comment",   
+    "pages/searchindex/searchindex",
+
       "pages/LoginPage/LoginPage",       
       "pages/setPreferencePage/setPreferencePage",
       "pages/index/index",
