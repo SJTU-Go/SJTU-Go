@@ -77,6 +77,16 @@
 </view>
 
 </view>
+<view class = 'flexbbox'>
+  <view class = 'fill'></view>
+  <view class = 'others'>
+    <checkbox-group bindchange="checkboxChange">
+    <label class="checkbox" wx:for-items="{{checkInfo}}">
+      <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+    </label>
+    </checkbox-group>
+  </view>
+</view>
 <view class = 'toolblock'>
 <view class = 'downblock'>
   <button class='btn2' bindtap='formSubmit'>

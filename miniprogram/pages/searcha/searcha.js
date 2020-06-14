@@ -2,6 +2,10 @@
 const app = getApp()
 Page({
   data:{
+    checkInfo: [
+      {name: 'jam',value: '避开拥堵'},
+    ],
+    avoidjam : false,
     pass:'',
     passid:'',
     depart:'',
@@ -162,6 +166,7 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
     // 页面隐藏
   },
   formSubmit: function (e) {
+    var avoidTraffic=this.data.avoidjam
     if (!this.data.depart|!this.data.arrive){        wx.showToast({ 
       title: '输入错误', 
       icon: 'loading', 
@@ -214,7 +219,8 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
       "arrivePlace": arrive,
       "beginPlace": depart,
       "departTime": "2020/05/11 12:05:12",
-      "passPlaces": passlist,},
+      "passPlaces": passlist,
+      "avoidTraffic":avoidTraffic,},
 
       success (res) {
         tem = res.data
@@ -231,6 +237,7 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
           "arrivePlace": arrive,
           "beginPlace": depart,
           "passPlaces": passlist,
+          "avoidTraffic":avoidTraffic,
           },
           success (res) {
             tem = res.data
@@ -245,6 +252,7 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
       "arrivePlace": arrive,
       "beginPlace": depart,
       "passPlaces": passlist,
+      "avoidTraffic":avoidTraffic,
       },
       success (res) {
         tem = res.data
@@ -260,6 +268,7 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
           "arrivePlace": arrive,
           "beginPlace": depart,
           "passPlaces": passlist,
+          "avoidTraffic":avoidTraffic,
           },
           success (res) {
             tem = res.data

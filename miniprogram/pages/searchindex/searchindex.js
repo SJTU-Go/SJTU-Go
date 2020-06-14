@@ -4,6 +4,10 @@ const app = getApp()
 Page({
 
   data:{
+    checkInfo: [
+      {name: 'jam',value: '避开拥堵'},
+    ],
+    avoidjam : false,
     step :0,
     car:{},
     bus:{},
@@ -77,6 +81,8 @@ wx.navigateTo({
       url: '../index/index',})
     },
     formSubmit: function (e) {
+      var avoidTraffic=this.data.avoidjam
+      console.log(avoidTraffic)
       if (!this.data.depart|!this.data.arrive){        wx.showToast({ 
         title: '输入错误', 
         icon: 'loading', 
@@ -129,7 +135,9 @@ wx.navigateTo({
         "arrivePlace": arrive,
         "beginPlace": depart,
         "departTime": "2020/05/11 12:05:12",
-        "passPlaces": passlist,},
+        "passPlaces": passlist,
+        "avoidTraffic":avoidTraffic,
+      },
   
         success (res) {
           tem = res.data
@@ -146,6 +154,7 @@ wx.navigateTo({
             "arrivePlace": arrive,
             "beginPlace": depart,
             "passPlaces": passlist,
+            "avoidTraffic":avoidTraffic,
             },
             success (res) {
               tem = res.data
@@ -160,6 +169,7 @@ wx.navigateTo({
         "arrivePlace": arrive,
         "beginPlace": depart,
         "passPlaces": passlist,
+        "avoidTraffic":avoidTraffic,
         },
         success (res) {
           tem = res.data
@@ -175,6 +185,7 @@ wx.navigateTo({
             "arrivePlace": arrive,
             "beginPlace": depart,
             "passPlaces": passlist,
+            "avoidTraffic":avoidTraffic,
             },
             success (res) {
               tem = res.data
@@ -238,4 +249,14 @@ wx.navigateTo({
   
   },
 deletepass:function(){this.setData({passnum:this.data.passnum-1})},
+checkboxChange: function(e) {
+  //console.log(this.data.avoidjam)
+  if(e.detail.value[0]=='jam')
+  {console.log("jamming") 
+    this.setData({avoidjam:true})}
+    else{console.log("notjamming") 
+      this.setData({avoidjam:false})}
+     // console.log(this.data.avoidjam)
+}
+
 })

@@ -207,3 +207,11 @@ margin-top:40rpx;
 margin-left: 120rpx;
 margin-top:48rpx;
 }
+.fill
+{width:5%
+
+}
+.flexbbox
+{display: flex;
+
+}
