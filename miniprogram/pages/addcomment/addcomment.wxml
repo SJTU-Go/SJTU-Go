@@ -1,25 +1,65 @@
 
 
-    <view wx:if='{{boxshow}}' wx:for="{{lista}}" wx:for-item="item" class="msg-item" bindtap="viewcomment" wx:for-index='i'  >
+    <view wx:if='{{boxshow}}' wx:for="{{lista}}" wx:for-item="item" class="msg-item" wx:for-index='i'  >
      <view wx:if='{{i==0}}' >
          <!--<view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.location.coordinates}}</view>
          <view class='contents'>{{item.contents}}</view>!-->
          <view class = 'toppart'>
-            <view class='titlename' >{{item.relatedPlace}}</view>
+            <view class='titlename' >{{item.parkingName}}</view>
             <view class='right'>
             <view class='distancename' >{{item.distance|Int}}米</view></view>
         </view>
-         <view class = 'middlepart'>
+    <view class = 'middlepart'>
+         <view class = 'smiddlepart'>
             <view class='commentname' >{{item.contents}}</view>
         </view> 
+        
+    </view> 
          <view class = 'toppart'>
-            <view class='rightt'><view class='usersname' >{{item.userID}} {{item.commentTime}}</view></view>
+            <view class='rightt'><view class='usersname' >{{item.userName}} {{item.commentTime}}</view></view>
         </view> 
  
          <view class = 'toppartimg'>
-            <view class='rightt'><view class='usersname' ><image class="massge-img" src="/images/uncomment.png"></image><image class="massge-img" src="/images/uncomment1.png"></image></view></view>
-        </view>     
+            <view class='rightt'>
+
+                <view class='likename' >
+                    <view wx:if = '{{appr}}'>
+                        <image class="massge-img" src="/images/uncomment.png" bindtap ="thumb"> </image>
+                    </view>
+                    <view wx:else>  
+                        <image class="massge-img" src="/images/comment.png" > </image>
+                    </view>
+                    <image class="massge-img" src="/images/uncomment1.png"></image>
+                </view>
             </view>
+            <!--
+
+                <view class='usersname' >
+                <view wx:if = "{{appr}}">
+                <image class="massge-img" src="/images/uncomment.png" bindtap ="thumb"> </image>
+                </view>
+                <view wx:else>  
+                <image class="massge-img" src="/images/comment.png" > </image>
+                </view>
+                <image class="massge-img" src="/images/uncomment1.png"></image>
+                </view>
+
+            -->
+        </view>     
+         <view class = 'toppart'>
+            <view class='commentnum'><view class='usersname' >{{item.approveNames.length}}</view></view>
+        </view> 
+            </view>
+            <view wx:if = "{{subshow}}">
+                <view class='subcontent' bindtap = "removesub" >-收起子评论</view>
+                <view wx:if='{{boxshow}}' wx:for="{{subcomment}}" wx:for-item="list" wx:for-index='i' >
+                    <view class='subcontent' >{{list.userName}}:{{list.contents}}</view>
+                </view>
+            </view>
+            <view wx:else>
+                <view class='subcontent' bindtap = "viewsub" >+点击查看子评论</view>
+            </view>
+            
     </view>
         <view class = "bottomblock">
 

@@ -5,6 +5,13 @@
 
   font-size: 33rpx;
   }
+  .commentnum
+  {  width: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 80rpx;
+
+  }
 .contents
 {display: flex;
 
@@ -32,13 +39,28 @@ display: flex;
   margin-top: 0.5%;
   margin-left: 5%;
   width: 90%;
-  height: 400rpx;
+  height: 200rpx;
 display: flex;
+display:flex;
+flex-direction: column;
+}
+.smiddlepart
+{
+  margin-top: 0.5%;
+  margin-left: 5%;
+  width: 90%;
+  height: 300rpx;
+display: flex;
+
+}
+.subcontent
+{margin-left: 5%;
+font-size: 20rpx;
 
 }
 .right
 {
-  width: 80%;
+  width: 45%;
   display: flex;
   align-items: flex-end;
 }
@@ -58,7 +80,7 @@ display: flex;
 .msg-item{
   display:flex;
   flex-direction: column;
-  text-align: left;height: 550rpx;}
+  text-align: left;height: 450rpx;}
 .commentname{
   margin-top:10rpx;
 color: grey;
@@ -75,6 +97,14 @@ color: grey;
 {
   width: 100%;
 
+  text-align:right;
+  color: rgb(102, 102, 102);
+  font-size: 30rpx;
+}
+.likename
+{display: flex;
+  width: 100%;
+margin-left:83%;
   text-align:right;
   color: rgb(102, 102, 102);
   font-size: 30rpx;

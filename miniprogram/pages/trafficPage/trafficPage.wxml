@@ -8,7 +8,7 @@
         <view class="traffictitle" >{{list.trafficInfo.name}}</view>
         <view class="time" >持续时间：{{list.trafficInfo.beginTime}}--{{list.trafficInfo.endTime}}</view>
       </view>
-      <view class="notice" >{{list.trafficInfo.message}}{{list.trafficInfo.message}}{{list.trafficInfo.message}}{{list.trafficInfo.message}}{{list.trafficInfo.message}}</view>
+      <view class="notice" >{{list.trafficInfo.message}}</view>
       <view class = 'text'><image class="iimg" src="../../images/bike_1.png"></image> 自行车预计时速：{{list.trafficInfo.bikeSpeed}}</view>
       <view class = 'text'><image class="iimg" src="../../images/motor.png"></image>  电动车预计时速：{{list.trafficInfo.motorSpeed}}</view>
       <view class = 'text'><image class="iimg" src="../../images/car.png"></image>    汽车预计时速：{{list.trafficInfo.carSpeed}}</view>

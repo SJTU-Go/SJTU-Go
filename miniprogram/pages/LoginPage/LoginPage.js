@@ -10,15 +10,27 @@ Page({
   jumpaccountLogin:function(){wx.navigateTo({url: '../accountLoginPage/accountLoginPage', })
   },
   checkUserInfo: function()
-  {wx.login({
+  {var dataset = {}
+    wx.login({
     success (res) {
       if (res.code) {
+        dataset.code = res.code
         console.log(res.code)
 
+        wx.getUserInfo({
+          success: function(res) {
+            console.log(res.userInfo)
+            dataset.name = res.userInfo.nickName
+     
+        console.log(dataset)
         //发起网络请求
         wx.request({
-          url: 'https://api.ltzhou.com/user/login?code='+res.code,
+          url: 'https://api.ltzhou.com/user/login',
           method:'POST',
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          data:dataset,
           success(res){console.log("returningcode");console.log(res.data)
         wx.setStorage({
           data:res.data.userID,
@@ -83,7 +95,13 @@ wx.request({
 wx.switchTab({url: '../index/index', })
         }
         })
-      } else {
+      
+      
+      }
+    })
+      }// if res
+      
+      else {
         console.log('登录失败！' + res.errMsg)
         wx.showToast({ 
           title: '登录失败', 

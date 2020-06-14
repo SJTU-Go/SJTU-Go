@@ -226,13 +226,13 @@ display: flex;
 }
 .right
 {
-  width: 80%;
+  width: 45%;
   display: flex;
   align-items: flex-end;
 }
 .titlename
 {text-align:right;
-  font-size: 34rpx;
+  font-size: 32rpx;
 }
 .emptyblock
 {width: 70%;

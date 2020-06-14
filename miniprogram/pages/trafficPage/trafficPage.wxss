@@ -4,11 +4,11 @@
 margin-left: 10%;
 }
 .traffictitle
-{font-size: 40rpx;
+{font-size: 36rpx;
 }
 .time
 { margin-left: 20rpx;margin-top: 15rpx;
- font-size:30rpx;
+ font-size:25rpx;
 }
 .notice
 {font-size: 24rpx;

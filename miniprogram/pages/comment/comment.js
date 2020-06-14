@@ -18,10 +18,13 @@ Page({
 onLoad:function(e){
   var that = this
   wx.request({
-  url: 'https://api.ltzhou.com/comments/getcomments/loc?location=POINT(121.437600%2031.025940)',
+  //url: 'https://api.ltzhou.com/comments/getcomments/loc?location=POINT(121.437600 31.025940)',
+  url: 'https://api.ltzhou.com/comments/getcomments/loc?location=POINT (121.44344818099999 31.029707975899999)',
   method: 'POST',
   header: {'Content-type': 'application/x-www-form-urlencoded'},
   success: function (res) {
+    console.log("daing back")
+    console.log(res.data)
       wx.setStorage({
         data: res.data,
         key: 'test',

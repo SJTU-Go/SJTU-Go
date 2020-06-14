@@ -1,3 +1,4 @@
+<!--
 <view class="page">
   <view class="page__bd">
      <view class = 'mid'>
@@ -16,12 +17,12 @@
 
   </view>
 </view>
-
+-->
 
 
     <view wx:if='{{boxshow}}' wx:for="{{reslist}}" wx:for-item="item" class="msg-item" bindtap="viewcomment"  wx:for-index='i'   data-ind="{{i}}">
          <view class = 'toppart'>
-            <view class='titlename' >{{item.relatedPlace}}</view>
+            <view class='titlename' >{{item.parkingName}}</view>
             <view class='right'>
             <view class='distancename' >{{item.distance|Int}}米</view></view>
         </view>
@@ -29,7 +30,7 @@
             <view class='commentname' >{{item.title}}</view>
         </view> 
          <view class = 'toppart'>
-            <view class='rightt'><view class='usersname' >{{item.userID}} {{item.commentTime}}</view></view>
+            <view class='rightt'><view class='usersname' >{{item.userName}} {{item.commentTime}}</view></view>
         </view> 
     </view>
         <view class = "bottomblock">

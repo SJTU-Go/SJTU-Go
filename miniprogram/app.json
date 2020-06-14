@@ -1,12 +1,13 @@
 
 {
-  "pages": [     
+  "pages": [    
+    "pages/comment/comment",   
       "pages/LoginPage/LoginPage",       
       "pages/setPreferencePage/setPreferencePage",
       "pages/index/index",
       "pages/trafficPage/trafficPage",
       "pages/extendsearch/arrive/arrive",
-      "pages/comment/comment",    
+  
       "pages/searchindex/searchindex",
       "pages/addcomment/addcomment", 
       "pages/preferencePage/preferencePage",

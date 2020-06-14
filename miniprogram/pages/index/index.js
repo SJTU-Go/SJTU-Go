@@ -67,10 +67,10 @@ Page({
           height: 50,
           name:'',
           bikeCount:''}
-            marker.latitude=res.data[x].vertexInfo.location.coordinates[1]
-            marker.longitude=res.data[x].vertexInfo.location.coordinates[0] 
-            marker.name=res.data[x].vertexInfo.vertexName 
-            marker.bikeCount=res.data[x].bikeCount
+            marker.latitude=res.data[x].location.coordinates[1]
+            marker.longitude=res.data[x].location.coordinates[0] 
+            marker.name=res.data[x].vertexName 
+            marker.bikeCount=res.data[x].bikeCount + res.data[x].motorCount //CHANG 1
             marker.iconPath = "/mark/"+res.data[x].bikeCount+".png"
  
             markers.push(marker) 
@@ -189,7 +189,8 @@ Page({
       data:{"lat":"31.021807" ,"lng":"121.429846"},
       success(res){
         var x
-
+        console.log("nearby/parking")
+        console.log(res.data)
         var markers=new Array();
         var q = 0
         for (x in res.data)
@@ -203,14 +204,16 @@ Page({
           height: 50,
           name:'',
           bikeCount:''}
-            marker.latitude=res.data[x].vertexInfo.location.coordinates[1]
-            marker.longitude=res.data[x].vertexInfo.location.coordinates[0] 
-            marker.name=res.data[x].vertexInfo.vertexName 
-            marker.bikeCount=res.data[x].bikeCount
+
+            marker.latitude=res.data[x].location.coordinates[1]
+            marker.longitude=res.data[x].location.coordinates[0] 
+            marker.name=res.data[x].vertexName 
+            marker.bikeCount=res.data[x].bikeCount + res.data[x].motorCount //CHANG 1
             marker.iconPath = "/mark/"+res.data[x].bikeCount+".png"
  
             markers.push(marker) 
 
+            
            q =q +1}}
            wx.setStorage({
              data: markers,
@@ -289,6 +292,8 @@ Page({
         url: 'https://api.ltzhou.com/map/nearby/bikes',
         data:{"lat":"31.021807" ,"lng":"121.429846"},
         success(res){
+          console.log("nearby/bikes")
+          console.log(res.data)
           var x
           var markers=new Array();
           var q = 0
@@ -324,7 +329,10 @@ Page({
         wx.request({
           url: 'https://api.ltzhou.com/map/nearby/cars',
           data:{"lat":"31.021807" ,"lng":"121.429846"},
-          success(res){
+         
+          success(res){          
+            console.log("nearby/cars")
+          console.log(res.data)
             var x
             var markers=new Array();
             var q = 0
@@ -358,6 +366,8 @@ Page({
             url: 'https://api.ltzhou.com/map/nearby/mobike',
             data:{"lat":"31.021807" ,"lng":"121.429846"},
             success(res){
+              console.log("nearby/mobike")
+              console.log(res.data)
               var x
               var markers=new Array();
               var q = 0
