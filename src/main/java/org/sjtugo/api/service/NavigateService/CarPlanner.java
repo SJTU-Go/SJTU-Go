@@ -32,7 +32,7 @@ public class CarPlanner extends AbstractPlanner{
     }
 
     @Override
-    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
+    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime, Boolean avoidTraffic){
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
 
@@ -50,7 +50,8 @@ public class CarPlanner extends AbstractPlanner{
         // 驾车
         try {
             CarRoute driveCar = planCar(
-                    mapVertexInfoRepository.getOne(Integer.parseInt(objectCar.getClusterPoint())), parkCar);
+                    mapVertexInfoRepository.getOne(Integer.parseInt(objectCar.getClusterPoint())),
+                    parkCar,avoidTraffic);
             routeList.add(driveCar);
             result.setCost(driveCar.getCost());
         } catch (ParseException e) {
@@ -60,7 +61,11 @@ public class CarPlanner extends AbstractPlanner{
         result.setArrive(end.getPlaceName());
         result.setDepart(start.getPlaceName());
         result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
-        result.setPreference(new ArrayList<>()); //TODO
+        if (avoidTraffic){
+            result.setPreference(List.of("避开拥堵"));
+        } else{
+            result.setPreference(new ArrayList<>());
+        }
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(routeList
                 .stream().mapToInt(Route::getRouteTime).sum()));
@@ -84,7 +89,7 @@ public class CarPlanner extends AbstractPlanner{
     }
 
     @SuppressWarnings("unchecked")
-    private CarRoute planCar(MapVertexInfo begin, MapVertexInfo end) throws ParseException {
+    private CarRoute planCar(MapVertexInfo begin, MapVertexInfo end, Boolean avoidTraffic) throws ParseException {
         Integer beginID = begin.getVertexID();
         Integer endID = end.getVertexID();
         HttpHeaders headers = new HttpHeaders();
@@ -102,7 +107,11 @@ public class CarPlanner extends AbstractPlanner{
         bindVars.put("f","vertex/"+ beginID);
         bindVars.put("to","vertex/"+endID);
         bindVars.put("edge","caredge");
-        bindVars.put("attribute","normalCarTime"); //TODO TRAFFIC
+        if (avoidTraffic){
+            bindVars.put("attribute","avoidCarTime");
+        } else{
+            bindVars.put("attribute","normalCarTime");
+        }
         params.put("bindVars",bindVars);
 //        System.out.println(bindVars);
         params.put("count",true);

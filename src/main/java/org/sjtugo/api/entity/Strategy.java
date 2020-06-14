@@ -50,6 +50,7 @@ public class Strategy {
         pass.add(this.arrive);
         arrive = nextStrategy.getArrive();
         travelTime = travelTime.plus(nextStrategy.travelTime);
+        preference = nextStrategy.preference;
         distance += nextStrategy.distance;
         cost += nextStrategy.cost;
         routeplan.addAll(nextStrategy.routeplan);

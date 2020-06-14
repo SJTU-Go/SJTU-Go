@@ -20,7 +20,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TrafficService {
-    // TODO check 是否当前时间
     protected final RestTemplate restTemplate;
     protected final TrafficInfoRepository trafficInfoRepository;
     protected final MapVertexInfoRepository mapVertexInfoRepository;

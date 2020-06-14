@@ -60,7 +60,8 @@ public abstract class AbstractPlanner {
      * @param departTime 预设出发时间
      * @return planner对应的方案
      */
-    public abstract Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime);
+    public abstract Strategy planOne(String beginPlace, String endPlace,
+                                     LocalDateTime departTime, Boolean avoidTraffic);
 
 
     /**
@@ -76,14 +77,16 @@ public abstract class AbstractPlanner {
         String endPlace = navigateRequest.getArrivePlace();
         String nextPlace = passPlaces.length>0 ? passPlaces[0] : endPlace;
         int i;
-        Strategy resultStrategy = planOne(currentPlace,nextPlace,departTime);
+        Strategy resultStrategy = planOne(currentPlace,nextPlace,departTime,
+                navigateRequest.getAvoidTraffic());
         for (i=0; i<passPlaces.length; i++) {
             currentPlace = nextPlace;
             nextPlace = i+1<passPlaces.length ? passPlaces[i+1] : endPlace;
 //            System.out.print(currentPlace);
 //            System.out.println(nextPlace);
             Strategy currentStrategy = planOne(currentPlace,nextPlace,
-                                               departTime.plus(resultStrategy.getTravelTime()));
+                                               departTime.plus(resultStrategy.getTravelTime()),
+                                               navigateRequest.getAvoidTraffic());
             resultStrategy.merge(currentStrategy);
         }
         return resultStrategy;

@@ -31,7 +31,7 @@ public class BusPlanner extends AbstractPlanner {
     }
 
     @Override
-    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
+    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime, Boolean avoidTraffic){
         // 匹配公交站
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
@@ -61,7 +61,11 @@ public class BusPlanner extends AbstractPlanner {
         result.setCost(0);
         result.setDepart(start.getPlaceName());
         result.setDistance(toBus.getDistance()+fromBus.getDistance());
-        result.setPreference(new ArrayList<>()); //TODO
+        if (avoidTraffic){
+            result.setPreference(List.of("避开拥堵"));
+        } else{
+            result.setPreference(new ArrayList<>());
+        }
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(toBus.getRouteTime()
                                 + busRoute.getRouteTime()

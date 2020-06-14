@@ -34,7 +34,7 @@ public class BikePlanner extends AbstractPlanner {
     }
 
     @Override
-    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
+    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime, Boolean avoidTraffic){
         // 匹配地点
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
@@ -80,7 +80,7 @@ public class BikePlanner extends AbstractPlanner {
             parkbike = mapVertexInfoRepository.findById(end.getPlaceID()).orElseThrow();
         }
         try{
-            routeList.add(planBike(pickup,parkbike));
+            routeList.add(planBike(pickup,parkbike,avoidTraffic));
         } catch (ParseException e){
             throw new StrategyNotFoundException("bike route not found");
         }
@@ -115,7 +115,11 @@ public class BikePlanner extends AbstractPlanner {
         result.setCost(150);
         result.setDepart(start.getPlaceName());
         result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
-        result.setPreference(new ArrayList<>()); //TODO
+        if (avoidTraffic){
+            result.setPreference(List.of("避开拥堵"));
+        } else{
+            result.setPreference(new ArrayList<>());
+        }
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(routeList
                 .stream().mapToInt(Route::getRouteTime).sum()));
@@ -124,7 +128,7 @@ public class BikePlanner extends AbstractPlanner {
     }
 
     @SuppressWarnings("unchecked")
-    private BikeRoute planBike(MapVertexInfo begin, MapVertexInfo end) throws ParseException {
+    private BikeRoute planBike(MapVertexInfo begin, MapVertexInfo end, Boolean avoidTraffic) throws ParseException {
         Integer beginID = begin.getVertexID();
         Integer endID = end.getVertexID();
         HttpHeaders headers = new HttpHeaders();
@@ -142,7 +146,11 @@ public class BikePlanner extends AbstractPlanner {
         bindVars.put("f","vertex/"+ beginID);
         bindVars.put("to","vertex/"+endID);
         bindVars.put("edge","bikeedge");
-        bindVars.put("attribute","normalBikeTime"); //TODO TRAFFIC
+        if (avoidTraffic){
+            bindVars.put("attribute","avoidBikeTime");
+        } else{
+            bindVars.put("attribute","normalBikeTime");
+        }
         params.put("bindVars",bindVars);
         params.put("count",true);
         params.put("batchSize",1);

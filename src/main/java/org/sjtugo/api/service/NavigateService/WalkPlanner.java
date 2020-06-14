@@ -22,7 +22,7 @@ public class WalkPlanner extends AbstractPlanner {
 
 
     @Override
-    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime){
+    public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime, Boolean avoidTraffic){
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
         WalkRoute walkRoute = planWalkTencent(start,end);
@@ -32,7 +32,11 @@ public class WalkPlanner extends AbstractPlanner {
         result.setCost(0);
         result.setDepart(start.getPlaceName());
         result.setDistance(walkRoute.getDistance());
-        result.setPreference(new ArrayList<>()); //TODO
+        if (avoidTraffic){
+            result.setPreference(List.of("避开拥堵"));
+        } else{
+            result.setPreference(new ArrayList<>());
+        }
         result.setPass(new ArrayList<>());
         result.setTravelTime(Duration.ofSeconds(walkRoute.getRouteTime()));
         ArrayList<Route> routePlans = new ArrayList<>();
