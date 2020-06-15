@@ -13,8 +13,9 @@ Page({
    */
   data: {
     admin:'',
+    adminID:1,
     hislist:{},
-    hisNotice:{}
+    hisNotice:[]
   },
 
   /**
@@ -30,6 +31,14 @@ Page({
         
       }
     })
+    wx.getStorage({
+      key: 'adminID',
+      success:function(res){
+        console.log(res.data)
+        that.setData({adminID:res.data})
+        
+      }
+    })
     wx.request({
       url: 'https://api.ltzhou.com/notice/request',
       method:'POST',
@@ -40,16 +49,22 @@ Page({
   
      success (res){
       console.log(res)
-      var mm= new Object();
+      var mm= new Array();
       var count=0;
       for (var i in res.data){
-        if  (res.data[i].publisherID==1){
+        if  (res.data[i].publisherID==that.data.adminID){
           mm[count]=res.data[i]
           count+=1
         }
       }
       console.log(mm)
-      that.setData({hisNotice :mm})
+      var tr=new Array()
+      var cccc=0
+      for( var i=mm.length-1;i>=0;--i){
+        tr[cccc]=mm[i]
+        cccc+=1
+      }
+      that.setData({hisNotice :tr})
       
       
       

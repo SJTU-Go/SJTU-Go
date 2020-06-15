@@ -102,7 +102,13 @@ Page({
         }
       }
       console.log(mm)*/
-      that.setData({hislist :res.data})
+      var tr=new Array()
+      var cccc=0
+      for( var i=res.data.length-1;i>=0;--i){
+        tr[cccc]=res.data[i]
+        cccc+=1
+      }
+      that.setData({hislist :tr})
       console.log(that.data.hislist)
       
     }

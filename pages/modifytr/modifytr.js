@@ -9,7 +9,7 @@ Page({
     twoVertex:[],
     markers: [
       {
-        iconPath: "/images/mark.PNG",
+        iconPath: "/images/showres1.png",
         id: 0,
         latitude: 31.025940,//31.029236,
         longitude: 121.437600,//121.452591,
@@ -202,13 +202,13 @@ Page({
         var lon=ll.strategy.routeplan[1].routePath.coordinates[n][0]
         
         var lat=ll.strategy.routeplan[1].routePath.coordinates[n][1]
-        var marker ={iconPath: "/images/mark.PNG",
+        var marker ={iconPath: "/images/showres1.PNG",
         id: 0,
         vertexid:0,
         latitude: 31.025940,//31.029236,
         longitude: 121.437600,//121.452591,
-        width: 20,
-        height: 20,}
+        width: 8,
+        height: 8,}
         marker.longitude=lon
         marker.latitude=lat
         marker.id=q

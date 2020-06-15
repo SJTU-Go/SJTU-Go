@@ -55,7 +55,7 @@
 flex-direction: row;
 text-align: center;
 align-items: center;
-width:20%;
+width:30%;
 }
 .largeblock
 {    
@@ -63,7 +63,7 @@ width:20%;
 flex-direction: row;
 text-align: center;
 align-items: center;
-width:60%;}
+width:50%;}
 .block
 { width:70%;
   height: 50rpx;

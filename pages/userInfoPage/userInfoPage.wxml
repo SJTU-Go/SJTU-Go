@@ -61,7 +61,7 @@
        <text style="margin-top:22rpx;"><text style="color:#00a278">起始时间：</text><text class="font-color-c24e4e font-size-15">{{list.beginTime}}</text><text style="margin-left:40rpx; color:#00a278">终止时间:</text> {{list.endTime}}</text>
         <text style="margin-top:22rpx;"><text style="color:#00a278">开始日期：</text><text class="font-color-c24e4e font-size-15">{{list.beginDay}}</text><text style="margin-left:40rpx; color:#00a278">单车速度:</text> {{list.bikeSpeed}}</text>
         <text style="margin-top:22rpx;"><text style="color:#00a278">电动车速度：</text><text class="font-color-c24e4e font-size-15">{{list.motorSpeed}}</text><text style="margin-left:40rpx; color:#00a278">汽车速度:</text> {{list.carSpeed}}</text>
-        
+        <text style="margin-top:22rpx;"><text style="color:#00a278">重复次数：</text><text class="font-color-c24e4e font-size-15">{{list.repeatTime}}</text><text style="margin-left:40rpx; color:#00a278"></text></text>
         <text style="margin-top:22rpx;" ><text style="color:#00a278" class="font-color-c24e4e font-size-15">详细描述：</text></text>
         <text style="margin-top:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.message}}</text></text></text>
 

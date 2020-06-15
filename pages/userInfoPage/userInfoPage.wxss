@@ -29,7 +29,7 @@ page {
 .center_top {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 90%;
   height: 80px;
   margin: 0 auto;
   margin-top: 20rpx;
@@ -73,14 +73,14 @@ page {
 .center_down {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 90%;
   height: 35px;
   margin: 0 auto;
   margin-top: 20rpx;
 }
 
 .center_rank {
-  font-size: 14px;
+  font-size: 13px;
   width: 33%;
   height: 35px;
   display: flex;
@@ -96,12 +96,12 @@ page {
 }
 
 .center_rank image {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 .center_score {
-  font-size: 14px;
+  font-size: 13px;
   width: 33%;
   height: 35px;
   display: flex;
@@ -109,8 +109,8 @@ page {
 }
 
 .center_score image {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 .gif-wave {
