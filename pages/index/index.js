@@ -59,7 +59,7 @@ Page({
         var q = 0
         for ( x in res.data)
         {
-          if (res.data[x].vertexInfo.vertexID)
+          if (res.data[x].vertexID)
           {         var marker ={iconPath: "/mark/19.PNG",
           id: q,
           parkid: 123,
@@ -70,13 +70,13 @@ Page({
           name:'',
           bikeCount:'',
           info:''}
-            marker.latitude=res.data[x].vertexInfo.location.coordinates[1]
-            marker.longitude=res.data[x].vertexInfo.location.coordinates[0] 
-            marker.name=res.data[x].vertexInfo.vertexName 
+            marker.latitude=res.data[x].location.coordinates[1]
+            marker.longitude=res.data[x].location.coordinates[0] 
+            marker.name=res.data[x].vertexName 
             marker.bikeCount=res.data[x].bikeCount
-            marker.parkid=res.data[x].vertexInfo.vertexID
+            marker.parkid=res.data[x].vertexID
             marker.iconPath = "/mark/"+res.data[x].bikeCount+".png"
-            marker.info = res.data[x].vertexInfo.parkInfo
+            marker.info = res.data[x].parkInfo
             console.log(marker)
             markers.push(marker) 
             console.log("adding")
