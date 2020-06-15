@@ -38,7 +38,7 @@ public class UserControl {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/login")
-    public ResponseEntity<?> userLogin(@RequestParam LoginRequest loginRequest){
+    public ResponseEntity<?> userLogin(@RequestBody LoginRequest loginRequest){
         UserService userser = new UserService(userRepository);
         return userser.userLogin(loginRequest.getCode(),loginRequest.getName());
     }

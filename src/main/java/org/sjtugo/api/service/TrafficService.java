@@ -65,7 +65,8 @@ public class TrafficService {
         return trafficInfoRepository
                 .findAllByBeginTimeIsBeforeAndEndTimeIsAfter(LocalTime.now(),LocalTime.now())
                 .stream().filter(traffic ->
-                        traffic.getRepeatTime() == 0 ||
+                        traffic.getRepeatTime() == 0 && LocalDate.now().isEqual(traffic.getBeginDay()) ||
+                        traffic.getRepeatTime() != 0 &&
                         Period.between(traffic.getBeginDay(), LocalDate.now()).getDays()
                                 % traffic.getRepeatTime() == 0)
                 .map(this::makeResponse)

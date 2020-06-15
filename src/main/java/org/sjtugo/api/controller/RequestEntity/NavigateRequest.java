@@ -25,7 +25,7 @@ public class NavigateRequest {
             example = "[\"学生服务中心\"]")
     private List<String> passPlaces = Collections.emptyList();
     @ApiModelProperty(value = "是否避开拥堵,默认为否，仅对单车、汽车有效",
-            example = "1/0")
+            example = "true or false")
     private Boolean avoidTraffic = false;
 
 
