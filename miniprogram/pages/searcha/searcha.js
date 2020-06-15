@@ -92,17 +92,17 @@ success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data
   pass:function(){
     console.log("pass")
     wx.navigateTo({
-      url: '../extendsearcha/pass/pass',
+      url: '../extendsearch/pass/pass',
     })
         },
         depart:function(e){
           wx.navigateTo({
-            url: '../extendsearcha/depart/depart',
+            url: '../extendsearch/depart/depart',
           })
         },
         arrive:function(e){
           wx.navigateTo({
-            url: '../extendsearcha/arrive/arrive',
+            url: '../extendsearch/arrive/arrive',
           })
         },
 

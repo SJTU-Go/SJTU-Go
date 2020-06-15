@@ -9,6 +9,7 @@ var ee = 0.00669342162296594323;
 Page({
 
   data: {
+    id:0,
     latitude: 31.020502,//31.029236,
     longitude: 121.434009,//121.452591,
     hasmarkers:true,
@@ -76,10 +77,32 @@ wx.setStorage({
   key: 'depart',
 })
 }
-    wx.navigateTo({
-      url: '../../searchindex/searchindex',
-    })
-  },
+//    wx.navigateTo({navigateurl: '../../searchindex/searchindex', })
+
+let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+ 
+let prevPage = pages[ pages.length - 2 ];  
+ 
+//prevPage 是获取上一个页面的js里面的pages的所有信息。 -2 是上一个页面，-3是上上个页面以此类推。
+ 
+if (this.data.inputVal.substring(0, 4)=='POIN'){
+  prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
+   
+      depart:this.data.inputVal,
+      departid:"DT404"
+  
+  })}
+  else{prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
+   
+    depart:this.data.inputVal,
+    departid:this.data.id,  
+  })}
+wx.navigateBack({
+ 
+  delta: 1  // 返回上一级页面。
+
+})  
+},
   // 清除搜索框值
   clearInput: function () {
     this.setData({
