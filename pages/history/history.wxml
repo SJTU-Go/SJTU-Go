@@ -1,8 +1,5 @@
 <!--pages/history/history.wxml-->
-<view class ='tool'>
-      <view class ='blocklleft'>当前账号：</view>
-      <view class ='blockright'>{{admin}}</view>
-    </view>
+
     
     
 <view class="divLine"></view>

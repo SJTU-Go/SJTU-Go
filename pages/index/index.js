@@ -25,7 +25,7 @@ Page({
     datares: new Array(),
     markers: [
     {
-      iconPath: "/mark/7.PNG",
+      iconPath: "/mark/7.png",
       id: 0,
       parkid: 0,
       info:'',
@@ -60,7 +60,7 @@ Page({
         for ( x in res.data)
         {
           if (res.data[x].vertexID)
-          {         var marker ={iconPath: "/mark/19.PNG",
+          {         var marker ={iconPath: "/mark/19.png",
           id: q,
           parkid: 123,
           latitude: 31.021807,//31.029236,

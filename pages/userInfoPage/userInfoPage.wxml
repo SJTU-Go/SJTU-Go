@@ -1,20 +1,39 @@
 <!--index.wxml-->
-<view class ='tool'>
-      <view class ='blocklleft'>当前账号：</view>
-      <view class ='blockright'>{{admin}}</view>
-    </view>
-    <view class ='tool'>
-      <view class ='blocklleft'>修改条目：</view>
-      <view class ='blockright'>{{num}}</view>
-    </view>
-    <view class='textdiv'>
-          <text style="font-size-20"  bindtap="history">[地点修改记录</text>
-          <text style="font-size-20"  >]         [</text>          
-          <text style="font-size-20"  bindtap="hisNotice"> 通知记录</text>          
-                  <text style="font-size-20"  >]         [</text>
-        <text style="font-size-20"  bindtap="trhistory">交通修改记录]</text>
-        </view>
-<view class="divLine"></view>
+<view>
+		<view class="top">
+			<view class="center">
+				<view class="center_top">
+					<view class="center_img" >
+						<!-- <image src="../../static/info_img.jpg"></image> -->
+						<open-data type="userAvatarUrl" class="user_head"></open-data>
+					</view>
+					<view class="center_info" bindtap="toBaseInfo">
+						<view class="center_name">{{admin}}</view>
+						<!-- <view class="center_phone">phone:{{phone}}</view> -->
+						<view class="center_phone">未提交修改数：{{num}}</view>
+					</view>
+				</view>
+				<view class="center_down">
+					<view class="center_rank" bindtap="history">
+						<image class="rank_icon" src="../../images/his1.png"></image>
+						<text class="rank_text" bindtap="history">地点记录</text>
+					</view>
+					<view class="center_score" bindtap="trhistory">
+						<image class="rank_icon" src="../../images/his2.png"></image>
+						<text class="rank_text" bindtap="trhistory">交通记录</text>
+					</view>
+          <view class="center_score" bindtap="hisNotice">
+						<image class="rank_icon" src="../../images/his3.png"></image>
+						<text class="rank_text" bindtap="hisNotice">通知记录</text>
+					</view>
+				</view>
+			</view>
+			<image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
+		</view>
+	</view>
+
+
+
 <view class="container">
     <view class="massge" wx:for="{{List.hia}}" wx:for-index="idx" wx:for-item="list" >
       <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改对象：{{list.name}} <text style="color:#6495ED">[{{list.type}}]</text></view></view>
@@ -24,9 +43,11 @@
         <text style="margin-top:22rpx;"><text style="color:#00a278">新备注：</text></text>
         <text style="margin-top:22rpx;" class="font-color-c24e4e font-size-15">{{list.newInfo}}</text>
         <view class='textdiv1'>
-          <text style="font-size-20" data-index="{{idx}}" bindtap="deletePage">删除></text>
-                    
+          <text style="font-size-20" data-index="{{idx}}" bindtap="deletePage">删除></text>                    
         </view>
+        <button class='btnd' data-index="{{idx}}" bindtap='deletePage'>
+    <view>删除</view>
+    </button>
        </view>
     </view>
 

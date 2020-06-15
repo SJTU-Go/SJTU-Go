@@ -12,10 +12,8 @@
 <button class ="navigatebutton"bindtap="setnavigatePage">设为目的地</button>
     </view>-->
 </view>
-<view class="divLine"></view>
-<view><text style="color:#6495ED">选中两个节点以确定修改的路径</text></view>
-
-<view class="divLine"></view>
+<view class="massge">
+<view class = 'line'><text style="color:#6495ED">[选中两个节点以确定修改的路径]</text></view>
 <view class = 'line'><text style="color:#00a278">出发点：</text>{{cuTripDetail.strategy.arrive}}</view>
 <view class = 'line'><text style="color:#00a278">终点：</text>{{cuTripDetail.strategy.depart}}</view>
 <view class = 'line'><text style="color:#00a278">出行方式：</text>{{cuTripDetail.strategy.type}}</view>
@@ -23,4 +21,5 @@
   <button class='btn2' bindtap='modifytraffic'>
     <view>修改交通</view>
     </button>
+    </view>
     </view>

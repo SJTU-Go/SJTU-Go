@@ -1,5 +1,6 @@
 <!--pages/settr/settr.wxml-->
-<view class="head"><view class="massge-hd"><image class="massge-img" src="../../images/traf.png"></image><text color="#B4DCFF">请对以下交通属性进行修改（整数）</text></view></view>
+<view class="massge">
+<view class="head"><view class="massge-hd"><image class="massge-img" src="../../images/traf.png"></image><text color="#B4DCFF">请对以下交通属性进行修改（m/s）</text></view></view>
 <form class="form" bindsubmit="formSubmit">
 <view class="container1">
   <view class="line">
@@ -12,7 +13,7 @@
   </view>
   <view class="line">
     <text style="color:#00a278"> 汽车速度</text>
-    <input class="small" name="carSpeed" placeholder="点击填写" />
+    <input class="small1" name="carSpeed" placeholder="点击填写" />
   </view>
   
 </view>
@@ -48,17 +49,23 @@
   </picker>
 </view>
 </view>
+<view class="line">
+ <text style="color:#00a278"> 重复次数</text>
+    <input class="small1" name="repeat" placeholder="点击填写" />
+  </view>
 </view>
 <view class="head"><view class="massge-hd"><image class="massge-img" src="../../images/text.png"></image><text color="#B4DCFF">文字信息</text></view></view>
 <view class="container1">
 <view class="line">
     <text style="color:#00a278"> 为本次修改命名:</text>
-    <input  name="name" placeholder="X路段X时" />
+    <input  class="ccc" name="name" placeholder="X路段X时" />
   </view>
-<view class="line"><text style="color:#00a278">添加详细描述：</text></view>
-<textarea class="big" placeholder="XXX路段XXX时刻由于XXX拥堵" auto-height auto-focus name="message"/>
-
+<view  style="  margin-top: 40rpx; margin-left: 70rpx; color:#00a278">添加详细描述：</view>
+<view class="center">
+<textarea  placeholder="XXX路段XXX时刻由于XXX拥堵" auto-height auto-focus name="message"/>
+</view>
 </view>
 <view class ='containerbutton'>
 <button class="btn2" formType="submit">提交</button></view>
 </form>
+</view>

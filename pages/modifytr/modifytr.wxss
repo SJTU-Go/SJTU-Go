@@ -5,6 +5,19 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+.massge{
+ 
+  overflow: hidden;
+  width: 93%;
+  background-color: #ffffff;
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  line-height: 1;
+  border-radius: 7px;
+  box-shadow:6rpx 6rpx 6rpx 6rpx rgba(241, 243, 242, 0.71) 
+}
 .containerbutton
 {
   height: 150rpx;
@@ -29,19 +42,20 @@ page {
 { font-size: 28rpx;
   text-align: left;
 margin-left: 20rpx;
-
+margin-top: 30rpx;
 }
 .viewmore{margin-top: 40rpx;margin-left: 20rpx;font-size: 24rpx;color:grey;text-decoration: dashed;}
 
 .commodity_attr_box {
   height: 200rpx;
   width: 100%;
+  border-radius: 7px;
   overflow: hidden;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 2000;
-  background: rgb(208, 236, 212);
+  background: rgb(221, 244, 224);
   padding-top: 20rpx;
 }
 .btn2 {

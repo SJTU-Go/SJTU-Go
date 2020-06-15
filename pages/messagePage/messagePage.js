@@ -66,11 +66,25 @@ filter:function(e){
               console.log(res)
               var mm= new Object();
               var count=0;
-              for (var i in res.data){
+
+              for (var i= res.data.length-1;i>=0;i--){
                 if  (!res.data[i].adminID){
+
                   mm[count]=res.data[i]
+                  for (var j=count;j>0;--j){
+                    console.log(j,yes,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
+                    if (mm[j].time>mm[j-1].time){
+                      console.log(yes,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
+                      var temp=mm[j-1]
+                      mm[j-1]=mm[j]
+                      mm[j]=temp
+
+                    }
+                    else{break}
+                  }
                   count+=1
                 }
+                console.log(mm)
               }
               console.log(mm)
               that.setData({message :mm})
@@ -129,7 +143,30 @@ filter:function(e){
   
       success (res){
         console.log(res)
-        that.setData({message:res.data})
+              var mm= new Object();
+              var count=0;
+
+              for (var i= res.data.length-1;i>=0;i--){
+                if  (res.data[i].time){
+
+                  mm[count]=res.data[i]
+                  for (var j=count;j>0;--j){
+                    //console.log(j,1,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
+                    if (mm[j].time>mm[j-1].time){
+                      //console.log(1,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
+                      var temp=mm[j-1]
+                      mm[j-1]=mm[j]
+                      mm[j]=temp
+
+                    }
+                    else{break}
+                  }
+                  count+=1
+                }
+                //console.log(mm)
+              }
+              console.log(mm)
+              that.setData({message :mm})
         
       }
        

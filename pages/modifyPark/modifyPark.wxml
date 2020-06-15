@@ -1,4 +1,5 @@
 <!--pages/modifyPark/modifyPark.wxml-->
+<view class="massge">
 <view class = 'title' style="color:#6495ED">{{parkname}}</view>
 
 
@@ -16,6 +17,9 @@
     <text style="color:#00a278"> 新备注信息：</text>
    
   </view>
+  <view class="center">
 <textarea style="margin-left: 20rpx" placeholder="点击输入新备注" auto-height auto-focus name="textarea"/>
+</view>
 <button class='btn2' formType="submit">保存</button>
 </form>
+</view>

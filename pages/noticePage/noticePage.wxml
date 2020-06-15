@@ -1,19 +1,19 @@
 <!--pages/noticePage/noticePage.wxml-->
-
-  <view class="line"><text style="color:#00a278">请输入通知：</text></view>
+<view class="massge" >
+  <view class="line"><text class="t" style="color:#00a278">请输入通知：</text></view>
 <form class="form" bindsubmit="formSubmit">
 
   <view class="line">
-
+<view class="center">
 <textarea style="margin-left: 15rpx;" placeholder="点击输入内容" auto-height auto-focus name="textarea"/>
 </view>
-
+</view>
   <view class="line">
 <view class="tui-picker-content">
   <view class="tui-picker-name"></view>
   <picker mode="multiSelector" value="{{dateTime}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range="{{dateTimeArray}}">
     <view class="tui-picker-detail">
-      <text style="color:#00a278">选择开始时间:</text> {{dateTimeArray[0][dateTime[0]]}}-{{dateTimeArray[1][dateTime[1]]}}-{{dateTimeArray[2][dateTime[2]]}} {{dateTimeArray[3][dateTime[3]]}}:{{dateTimeArray[4][dateTime[4]]}}
+      <text class="t" style="color:#00a278">选择开始时间:</text> {{dateTimeArray[0][dateTime[0]]}}-{{dateTimeArray[1][dateTime[1]]}}-{{dateTimeArray[2][dateTime[2]]}} {{dateTimeArray[3][dateTime[3]]}}:{{dateTimeArray[4][dateTime[4]]}}
     </view>
   </picker>
 </view>
@@ -23,7 +23,7 @@
   <view class="tui-picker-name"></view>
   <picker mode="multiSelector" value="{{dateTime1}}" bindchange="changeDateTime1" bindcolumnchange="changeDateTimeColumn1" range="{{dateTimeArray1}}">
     <view class="tui-picker-detail">
-      <text style="color:#00a278">选择结束时间:</text> {{dateTimeArray1[0][dateTime1[0]]}}-{{dateTimeArray1[1][dateTime1[1]]}}-{{dateTimeArray1[2][dateTime1[2]]}} {{dateTimeArray1[3][dateTime1[3]]}}:{{dateTimeArray1[4][dateTime1[4]]}}
+      <text class="t" style="color:#00a278">选择结束时间:</text> {{dateTimeArray1[0][dateTime1[0]]}}-{{dateTimeArray1[1][dateTime1[1]]}}-{{dateTimeArray1[2][dateTime1[2]]}} {{dateTimeArray1[3][dateTime1[3]]}}:{{dateTimeArray1[4][dateTime1[4]]}}
     </view>
   </picker>
 </view>
@@ -31,3 +31,4 @@
 <view class ='containerbutton'>
 <button class='btn2' formType="submit">发布</button></view>
 </form>
+</view>

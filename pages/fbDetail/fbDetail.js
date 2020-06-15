@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    adminID:1,
     cuFB:0,
 cuFeedback:{}
   },
@@ -22,6 +23,12 @@ cuFeedback:{}
   onLoad: function (options) {
     var that=this
     console.log(that.data)
+    wx.getStorage({
+      key: 'admnID',
+      success:function(res){
+        console.log(res.data)
+        var ll=res.data
+        that.setData({adminID:ll})}})
     wx.getStorage({
       key: 'cuFB',
       success:function(res){
@@ -37,7 +44,7 @@ cuFeedback:{}
       'content-type': 'application/x-www-form-urlencoded'
       },
      data:json2Form({
-       adminID:1,
+       adminID:that.data.adminID,
        feedbackID:that.data.cuFB
      }),
   

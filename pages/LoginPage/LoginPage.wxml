@@ -1,4 +1,4 @@
-<view class="title">SJTU-GO 
+<view class="title">
 </view>
 <view class="block">
 </view>
@@ -12,7 +12,10 @@
 
 </view>
 !-->
-<view class="containerbutton">
+
+<image class='background' src="../../images/login.png" mode="aspectFill"></image>
+
+<view class="containerbutton" >
   <button class='btn2' bindtap='jumpaccountLogin'>
     <view>管理员登录</view>
     </button>

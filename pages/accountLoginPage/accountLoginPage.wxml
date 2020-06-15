@@ -1,5 +1,8 @@
 <view class="title">
 </view>
+<image class='background' src="../../images/login2.png" mode="aspectFill"></image>
+<view class='center'>
+<view class='center_top'>
 <view class="block">
   <view class="smallblock">账号
   </view>
@@ -8,6 +11,7 @@
     bindinput="adminNameInput"/>
   </view>
 </view>
+</view><view class='center_down'>
 <view class="block">
   <view class="smallblock">密码
   </view>
@@ -16,11 +20,13 @@
     bindinput="passwordInput"/>
   </view>
 </view>
-<view class="block">
+</view>
+</view>
+
   <view>
     <button class="submit"  open-type="getUserInfo" bindgetuserinfo="onClickSubmit">登录</button>
   </view>
-</view>
+
 <!--
 <view class="block">
   <view>

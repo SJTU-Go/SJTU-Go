@@ -1,9 +1,15 @@
 /* pages/noticePage/noticePage.wxss */
-
+page{
+  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592222744139&di=7453565b60c4e2bfc98c66d6d8afa536&imgtype=0&src=http%3A%2F%2Fimg.jk51.com%2Fimg_jk51%2F359235329.jpeg");
+  background-repeat:no-repeat;
+  background-size: 100% 100%;
+  
+  background-attachment: fixed;
+}
 .line
 {
   margin-left: 15rpx;
-  margin-bottom: 15rpx;
+  margin-top: 45rpx;
   }
 .btn2 {
   width: 80%;
@@ -22,4 +28,31 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.center {
+  border:1px solid;
+  border-color: rgb(0, 140, 255);
+  width: 95%;
+  height: 150px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border-radius: 7px;
+}
+.massge{
+ 
+  overflow: hidden;
+  width: 93%;
+  background-color: #ffffff;
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  line-height: 1;
+  border-radius: 7px;
+  box-shadow:6rpx 6rpx 6rpx 6rpx rgba(241, 243, 242, 0.71) 
+}
+.t{
+  margin-top: 20rpx; 
 }

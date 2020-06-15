@@ -60,7 +60,7 @@ Page({
       name: e.detail.value.name,
       
       relatedVertex: that.data.relatedVertex,
-      repeatTime: 0
+      repeatTime: e.detail.value.repeat
       
     }
     console.log(mod)

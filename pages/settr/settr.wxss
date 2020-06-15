@@ -7,6 +7,26 @@
   border-width: 1px solid;
   background-color: rgb(180,220,255);
 }
+page{background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592222744139&di=7453565b60c4e2bfc98c66d6d8afa536&imgtype=0&src=http%3A%2F%2Fimg.jk51.com%2Fimg_jk51%2F359235329.jpeg");
+background-repeat:no-repeat;
+background-size: 100% 100%;
+
+background-attachment: fixed;}
+.center {
+  border:1px solid;
+  border-color: rgb(0, 140, 255);
+  width: 90%;
+  height: 150px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 15px;
+  border-radius: 7px;
+}
+.ccc{
+  margin-left: 30px;
+  }
 .btn2 {
   width: 80%;
   background-color: rgba(6, 202, 59, 0.53);
@@ -26,17 +46,24 @@
   align-items: center;
 }
 .small{
-  border-radius: 15px;
-  border-color: lightslategray;
+  
+  
   margin: 0 0 3px 18px;
   width: 70px;
-  position: absolute; /*要约束所在位置的子元素的位置要设置成绝对*/
-  right: 0; /*调节靠右*/
+  position: relative; /*要约束所在位置的子元素的位置要设置成绝对*/
+  right: 0; 
 }
-
+.small1{
+  
+  
+  margin: 0 0 3px 18px;
+  width: 70px;
+  position: relative; /*要约束所在位置的子元素的位置要设置成绝对*/
+  right: 0; 
+}
 .line{
   /* height: 100px; */
-  margin-top: 70rpx;
+  margin-top: 40rpx;
   margin-left: 70rpx;
   display:flex;
   flex-direction: row;
@@ -45,7 +72,19 @@
 .remark{
   margin-top:70rpx ;
 }
-
+.massge{
+ 
+  overflow: hidden;
+  width: 93%;
+  background-color: #ffffff;
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  line-height: 1;
+  border-radius: 7px;
+  box-shadow:6rpx 6rpx 6rpx 6rpx rgba(241, 243, 242, 0.71) 
+}
 .big{
   /* border-width: 10px; */
   border-radius: 15px;

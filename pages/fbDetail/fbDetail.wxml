@@ -1,5 +1,5 @@
 <!--pages/fbDetail/fbDetail.wxml-->
-<view class="container">
+<view class="massge">
   
       <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户ID：{{cuFeedback.userID}} </view></view>
      <view class="massge-bd font-color-666">
