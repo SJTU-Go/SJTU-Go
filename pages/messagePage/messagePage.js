@@ -157,8 +157,7 @@ filter:function(e){
         console.log(res.data)
         that.setData({adminID:res.data})
         
-      }
-    })
+      
     console.log(that.data)
     
     wx.request({
@@ -209,7 +208,8 @@ filter:function(e){
        
     })
   
-  
+  }
+})
 
 
   },

@@ -5,11 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    state:"请选择第二个点",
     currentdata:new Array(),
     twoVertex:[],
     markers: [
       {
-        iconPath: "/images/showres1.png",
+        iconPath: "/images/orange.png",
         id: 0,
         latitude: 31.025940,//31.029236,
         longitude: 121.437600,//121.452591,
@@ -21,7 +22,7 @@ Page({
       hasmarkers:false,
     center:[121.437600,31.025940],
     cuTripDetail:{},
-    polyline:[{color: "#FFCC33",points:[{longitude: 121.431054957, latitude: 31.0194978596},{longitude: 121.43106347, latitude: 31.0196696911}],width: 4}]
+    polyline:[{color: "#00BFFF",points:[{longitude: 121.431054957, latitude: 31.0194978596},{longitude: 121.43106347, latitude: 31.0196696911}],width: 4}]
   },
 
   /**
@@ -86,6 +87,7 @@ Page({
           console.log(two)}  
         }
         if(two.length==2){
+          that.setData({state:"路线已选中，可重新点选"})
           var pol=that.data.polyline
          var nn={color: "#6D003A",points:[{longitude: 121.431054957, latitude: 31.0194978596},{longitude: 121.43106347, latitude: 31.0196696911}],width: 10} 
          var llll=new Array()
@@ -121,6 +123,7 @@ Page({
           }
       })      
     }
+    
     console.log(two)
         wx.setStorage({
           data: two,
@@ -191,7 +194,7 @@ Page({
         var pList =new Array()
     
       var line= new Object()
-      line.color="#FFCC33"
+      line.color="#00BFFF"
       var co=new Array()
       wx.setStorage({
         data: ll.strategy.routeplan[1].passingVertex,
@@ -203,7 +206,7 @@ Page({
         var lon=ll.strategy.routeplan[1].routePath.coordinates[n][0]
         
         var lat=ll.strategy.routeplan[1].routePath.coordinates[n][1]
-        var marker ={iconPath: "/images/showres1.PNG",
+        var marker ={iconPath: "/images/orange.PNG",
         id: 0,
         vertexid:0,
         latitude: 31.025940,//31.029236,

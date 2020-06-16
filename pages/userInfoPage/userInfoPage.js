@@ -178,7 +178,7 @@ wx.request({
   'content-type': 'application/json'
   },
   data:{
-    "adminID": that.data.tList[i].adminID,
+    "adminID": that.data.adminID,
     "beginDay":  that.data.tList[i].beginDay,
     "beginTime": that.data.tList[i].beginTime,
     "bikeSpeed": that.data.tList[i].bikeSpeed,

@@ -53,8 +53,7 @@ Page({
         console.log(res.data)
         that.setData({adminID:res.data})
         
-      }
-    })
+      
     wx.request({
       url: 'https://api.ltzhou.com/modification/view/traffic',
       method:'POST',
@@ -114,6 +113,8 @@ Page({
     }
        
     })
+  }
+})
   },
   deletePage:function(e){
     var that= this

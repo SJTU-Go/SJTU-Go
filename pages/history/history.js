@@ -37,8 +37,7 @@ Page({
         console.log(res.data)
         that.setData({adminID:res.data})
         
-      }
-    })
+      
     wx.request({
       url: 'https://api.ltzhou.com/modification/view/map',
       method:'POST',
@@ -62,6 +61,8 @@ Page({
     }
        
     })
+  }
+})
     
   },
 
