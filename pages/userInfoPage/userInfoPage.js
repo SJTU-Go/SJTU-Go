@@ -94,7 +94,7 @@ Page({
     //var route = 'routeList['+index+']'
     console.log(that.data.List)
  
-    
+   that.onShow() 
 
 
 
@@ -123,7 +123,7 @@ deletePage2:function(e){
  //var route = 'routeList['+index+']'
  console.log(that.data.tList)
 
- 
+ that.onShow()
 
 
 
