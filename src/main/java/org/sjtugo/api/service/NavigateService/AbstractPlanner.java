@@ -130,36 +130,60 @@ public abstract class AbstractPlanner {
         try { // 读取坐标
             Point loc = (Point) new WKTReader().read(place);
             result.setLocation(loc);
-            result.setPlaceName(loc.toString()+"附近的位置");
+            result.setPlaceName(nearbyTencentPlace(loc) + "(" +String.format("%.3f",loc.getX())
+                    +","+String.format("%.3f",loc.getY())+"附近的位置)");
             result.setPlaceType(NavigatePlace.PlaceType.point);
             return result;
-        } catch (ParseException e) { // 调用外部地图API定位
-            Map<String,String> params=new HashMap<>();
-            params.put("keyword",place);
-            params.put("boundary","rectangle(31.016309,121.423743,31.033088,121.449057)");
-            params.put("key",tokenPool.getToken());
-            params.put("page_index","1");
-            params.put("page_size","10");
-            ResponseEntity<PlaceResponse> tencentResponse;
-            tencentResponse =
-                    restTemplate.getForEntity("https://apis.map.qq.com/ws/place/v1/search?keyword={keyword}" +
-                                    "&boundary={boundary}&key={key}&page_index={page_index}&page_size={page_size}",
-                            PlaceResponse.class,params);
-//            System.out.println("-----Finding Place------");
-//            System.out.println(params);
-//            System.out.println(tencentResponse);
-            result.setLocation(Objects.requireNonNull(Objects.requireNonNull(tencentResponse.getBody(),
-                    "Search Place Result Not Found").getLocation(),
-                    "Place Location Not Found"));
-            result.setPlaceName(Objects.requireNonNull(tencentResponse.getBody(),
-                    "Place Name Not Found").getTitle());
-            result.setPlaceType(NavigatePlace.PlaceType.point);
-
-//            System.out.println(result);
-            return result;
+        } catch (ParseException e) {
+            return tencentPlace(place);
         }
     }
 
+    protected String nearbyTencentPlace (Point a){
+        Map<String,String> params=new HashMap<>();
+        params.put("boundary","nearby("+a.getY()+","+a.getX()+",200)");
+        params.put("key",tokenPool.getToken());
+        params.put("page_index","1");
+        params.put("page_size","10");
+        ResponseEntity<PlaceResponse> tencentResponse;
+        tencentResponse =
+                restTemplate.getForEntity("https://apis.map.qq.com/ws/place/v1/search?" +
+                                "&boundary={boundary}&key={key}&page_index={page_index}&page_size={page_size}",
+                        PlaceResponse.class,params);
+//            System.out.println("-----Finding Place------");
+//            System.out.println(params);
+//            System.out.println(tencentResponse);
+        return (Objects.requireNonNull(tencentResponse.getBody(),
+                "Place Name Not Found").getTitle());
+    }
+
+
+    protected NavigatePlace tencentPlace (String place){// 调用外部地图API定位
+        NavigatePlace result = new NavigatePlace();
+        Map<String,String> params=new HashMap<>();
+        params.put("keyword",place);
+        params.put("boundary","rectangle(31.016309,121.423743,31.033088,121.449057)");
+        params.put("key",tokenPool.getToken());
+        params.put("page_index","1");
+        params.put("page_size","10");
+        ResponseEntity<PlaceResponse> tencentResponse;
+        tencentResponse =
+                restTemplate.getForEntity("https://apis.map.qq.com/ws/place/v1/search?keyword={keyword}" +
+                                "&boundary={boundary}&key={key}&page_index={page_index}&page_size={page_size}",
+                        PlaceResponse.class,params);
+//            System.out.println("-----Finding Place------");
+//            System.out.println(params);
+//            System.out.println(tencentResponse);
+        result.setLocation(Objects.requireNonNull(Objects.requireNonNull(tencentResponse.getBody(),
+                "Search Place Result Not Found").getLocation(),
+                "Place Location Not Found"));
+        result.setPlaceName(Objects.requireNonNull(tencentResponse.getBody(),
+                "Place Name Not Found").getTitle());
+        result.setPlaceType(NavigatePlace.PlaceType.point);
+
+//            System.out.println(result);
+        return result;
+    }
 
     /**
      * 调用腾讯地图，规划步行路径，用于纯步行方案和校园巴士方案

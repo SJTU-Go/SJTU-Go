@@ -2,9 +2,13 @@ package org.sjtugo.api.service;
 
 import org.sjtugo.api.DAO.AdminRepository;
 import org.sjtugo.api.DAO.FeedbackRepository;
+import org.sjtugo.api.DAO.TripRepository;
+import org.sjtugo.api.DAO.UserRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Admin;
 import org.sjtugo.api.entity.Feedback;
+import org.sjtugo.api.entity.Trip;
+import org.sjtugo.api.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -13,10 +17,14 @@ import java.time.LocalDateTime;
 public class FeedbackService {
     private final FeedbackRepository feedbackRepository;
     private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
+    private final TripRepository tripRepository;
 
-    public FeedbackService(FeedbackRepository feedbackRepository, AdminRepository adminRepository){
+    public FeedbackService(FeedbackRepository feedbackRepository, AdminRepository adminRepository, UserRepository userRepository, TripRepository tripRepository){
         this.feedbackRepository = feedbackRepository;
         this.adminRepository = adminRepository;
+        this.userRepository = userRepository;
+        this.tripRepository = tripRepository;
     }
 
     public ResponseEntity<?> addFeedback(Integer userID, Integer tripID, Integer pickupFB, Integer trafficFB,
@@ -33,6 +41,9 @@ public class FeedbackService {
         newFeedback.setServiceFB(serviceFB);
         newFeedback.setContents(contents);
         newFeedback.setTime(LocalDateTime.now());
+        newFeedback.setUserName(userRepository.findById(userID).orElse(new User()).getName());
+        newFeedback.setBeginPlace((String) tripRepository.findById(tripID).orElse(new Trip()).getStrategy().get("depart"));
+        newFeedback.setEndPlace((String) tripRepository.findById(tripID).orElse(new Trip()).getStrategy().get("arrive"));
         feedbackRepository.save(newFeedback);
 
         return new ResponseEntity<>(newFeedback, HttpStatus.OK);

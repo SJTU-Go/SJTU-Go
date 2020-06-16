@@ -140,7 +140,7 @@ public class BikePlanner extends AbstractPlanner {
                             "@f TO @to  @edge OPTIONS  {weightAttribute: @attribute}  LIMIT 1 " +
                             "RETURN {  vertex: p.vertices[*]._key, " +
                                       "locations: p.vertices[*].location ," +
-                                      "total_time: SUM(p.edges[*].@attribute)," +
+                                      "total_time: SUM(p.edges[*].normalBikeTime)," +
                                       "total_distance: SUM(p.edges[*].distance)  }");
         Map<String,String> bindVars = new HashMap<>();
         bindVars.put("f","vertex/"+ beginID);

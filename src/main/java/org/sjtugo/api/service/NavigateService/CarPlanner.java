@@ -45,8 +45,8 @@ public class CarPlanner extends AbstractPlanner{
         // 步行取车
         WalkRoute findCar = planWalkTencent(start,new NavigatePlace(objectCar));
         routeList.add(findCar);
-
         Strategy result = new Strategy();
+        result.setDistance(findCar.getDistance());
         // 驾车
         try {
             CarRoute driveCar = planCar(
@@ -60,7 +60,6 @@ public class CarPlanner extends AbstractPlanner{
         result.setType("旋风E100");
         result.setArrive(end.getPlaceName());
         result.setDepart(start.getPlaceName());
-        result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
         if (avoidTraffic){
             result.setPreference(List.of("避开拥堵"));
         } else{
@@ -101,7 +100,7 @@ public class CarPlanner extends AbstractPlanner{
                 "@f TO @to  @edge OPTIONS  {weightAttribute: @attribute}  LIMIT 1 " +
                 "RETURN {  vertex: p.vertices[*]._key, " +
                 "locations: p.vertices[*].location ," +
-                "total_time: SUM(p.edges[*].@attribute)," +
+                "total_time: SUM(p.edges[*].normalCarTime)," +
                 "total_distance: SUM(p.edges[*].distance)  }");
         Map<String,String> bindVars = new HashMap<>();
         bindVars.put("f","vertex/"+ beginID);
@@ -133,7 +132,7 @@ public class CarPlanner extends AbstractPlanner{
         result.setArriveID("PK"+end.getVertexID());
 //        System.out.println(arrangoResult.get("total_distance"));
 //        System.out.println(arrangoResult.get("total_distance").getClass());
-        result.setDistance(((Double) arrangoResult.get("total_distance")).intValue());
+        result.setDriveDistance(((Double) arrangoResult.get("total_distance")).intValue());
         result.setRouteTime(((Double) arrangoResult.get("total_time")).intValue());
         result.setCost(300+15*(result.getRouteTime()/60 + 1));
 //        System.out.println(arrangoResult.get("vertex").getClass());
