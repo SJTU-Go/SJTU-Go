@@ -59,7 +59,8 @@ Page({
         for (x in res.data)
         {
           if (res.data[x].bikeCount)
-          {         var marker ={iconPath: "/mark/19.PNG",
+          {       if(res.data[x].bikeCount+ res.data[x].motorCount <21){
+             var marker ={iconPath: "/mark/19.PNG",
           id: q,
           latitude: 31.021807,//31.029236,
           longitude: 121.429846,//121.452591,
@@ -76,6 +77,7 @@ Page({
             markers.push(marker) 
   
            q =q +1}}
+          }
            if (c==3){that.setData({"markers":markers})}
            wx.setStorage({
              data: markers,
@@ -196,7 +198,9 @@ Page({
         for (x in res.data)
         {
           if (res.data[x].bikeCount)
-          {         var marker ={iconPath: "/mark/19.PNG",
+          { if(res.data[x].bikeCount+ res.data[x].motorCount <21){       
+            
+            var marker ={iconPath: "/mark/19.PNG",
           id: q,
           latitude: 31.021807,//31.029236,
           longitude: 121.429846,//121.452591,
@@ -214,7 +218,7 @@ Page({
             markers.push(marker) 
 
             
-           q =q +1}}
+           q =q +1}}} 
            wx.setStorage({
              data: markers,
              key: "cluster",

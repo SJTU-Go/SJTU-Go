@@ -212,6 +212,36 @@ wx.navigateBack({
       }
     });
   },
+  SearchForPoint: function (e) {
+    var llat = e.latitude
+    var llon = e.longitude
+    this.setData({
+      boxshow:true
+    })
+    var that = this;
+    that.setData({
+      viewShowed: false,
+    });
+    wx.request({
+      url: 'https://api.ltzhou.com/map/nearby/parking?lat='+llat+'&lng='+llon,
+      method: 'GET',
+      header: {
+        'Content-type': 'application/json'
+      },
+      success: function (res) {
+        var x
+        var markers=new Array(0)
+  
+        console.log(res.data)
+        that.setData({
+          carList: res.data
+        })
+
+      }
+    });
+  },
+
+
   // 获取选中推荐列表中的值
   btn_name: function (res) {
      console.log(res.currentTarget.dataset.index, res.currentTarget.dataset.name);
@@ -387,6 +417,7 @@ wx.navigateBack({
               type: 'gcj02',
       
               success: function(res) {
+        that.SearchForPoint(res)
       console.log('location')
       console.log(that.data)
                 console.log(res, 11111)
@@ -437,6 +468,8 @@ wx.navigateBack({
               }
       
             })}
+
+
         },
 
         gcj02towgs84(lng, lat) {
