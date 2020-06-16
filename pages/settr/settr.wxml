@@ -4,15 +4,15 @@
 <form class="form" bindsubmit="formSubmit">
 <view class="container1">
   <view class="line">
-    <text style="color:#00a278"> 自行车速度</text>
+    <text style="color:#00a278"> 自行车速度：</text>
     <input class="small" name="bikeSpeed" placeholder="点击填写" />
   </view>
   <view class="line">
-    <text style="color:#00a278"> 电动车速度</text>
+    <text style="color:#00a278"> 电动车速度：</text>
     <input class="small" name="motorSpeed" placeholder="点击填写" />
   </view>
   <view class="line">
-    <text style="color:#00a278"> 汽车速度</text>
+    <text style="color:#00a278"> 汽车速度：</text>
     <input class="small1" name="carSpeed" placeholder="点击填写" />
   </view>
   
@@ -50,7 +50,7 @@
 </view>
 </view>
 <view class="line">
- <text style="color:#00a278"> 重复次数</text>
+ <text style="color:#00a278"> 重复次数：</text>
     <input class="small1" name="repeat" placeholder="点击填写" />
   </view>
 </view>

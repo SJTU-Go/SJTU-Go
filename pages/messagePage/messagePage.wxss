@@ -67,10 +67,23 @@ page {
 .massge{
   overflow: hidden;
   width: 100%;
-  background-color: #ffffff;
+  background: #fcfbf5;
   margin-top: 20rpx;
   position: relative;
   line-height: 1;
+  
+  padding-top: 15px;
+  
+}
+.gif-wave {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;
+  height: 100rpx;
+ 
 }
 .massge-img{
   width: 80rpx;

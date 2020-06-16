@@ -6,7 +6,7 @@
 <view class="container">
     <view class="massge" wx:for="{{hislist}}" wx:for-index="idx" wx:for-item="list" >
       <view class="massge-hd"><image class="massge-img" src="../../images/change.png"></image><view>修改ID：{{list.modificationID}} </view></view>
-      <view class="massge-bd font-color-666">
+      <view class="massge-bd font-color-666" style=" margin-bottom:80rpx;">
        <text style="margin-top:22rpx;"><text style="color:#00a278">交通ID：</text><text class="font-color-c24e4e font-size-15">{{list.contents.trafficID}}</text><text style="margin-left:40rpx; color:#00a278"></text> </text>
        <text style="margin-top:22rpx;"><text style="color:#00a278">修改名称：</text><text class="font-color-c24e4e font-size-15">{{list.contents.name}}</text><text style="margin-left:40rpx; color:#00a278"></text> </text>
        <text style="margin-top:22rpx;"><text style="color:#00a278">起始时间：</text><text class="font-color-c24e4e font-size-15">{{list.contents.beginTime}}</text><text style="margin-left:40rpx; color:#00a278">终止时间:</text> {{list.contents.endTime}}</text>
@@ -20,6 +20,7 @@
                    
         </view>
         </view>
+        <image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
        </view>
     </view>
 

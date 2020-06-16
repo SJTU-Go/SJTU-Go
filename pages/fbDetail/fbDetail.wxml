@@ -1,13 +1,19 @@
 <!--pages/fbDetail/fbDetail.wxml-->
-<view class="massge">
+<view class="massge" style=" margin-top:80rpx;">
   
-      <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户ID：{{cuFeedback.userID}} </view></view>
-     <view class="massge-bd font-color-666">
-      <text style="margin-top:12rpx;"> <text style="color:#00a278">行程ID：</text><text >{{cuFeedback.tripID}}</text></text><text style="margin-top:12rpx;"><text style= "color:#00a278">时间:</text> <text>{{cuFeedback.time}}</text></text>
-      <text style="margin-top:22rpx; "><text style="color:#00a278">起点：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.depart}}</text><text style="margin-left:40rpx; color:#00a278">终点:</text> {{cuFeedback.arrive}}</text>
+      <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户名：{{cuFeedback.userName}} </view></view>
+     <view class="massge-bd font-color-666" >
+     
+      <view ><text style="margin-top:12rpx; "><text style="color:#00a278">起点：</text><text ></text><text style=" color:#00a278"></text> {{cuFeedback.depart}}</text></view>
+       <text style="margin-top:12rpx;"> <text style="color:#00a278">终点：</text><text >{{cuFeedback.arrive}}</text></text><text style="margin-top:12rpx;"><text style= "color:#00a278"></text> <text></text></text>
+      <text style="margin-top:12rpx;"> <text style="color:#00a278">出行方式：</text><text >{{cuFeedback.type}}</text></text><text style="margin-top:12rpx;"><text style= "color:#00a278">时间:</text> <text>{{cuFeedback.time}}</text></text>
         <text style="margin-top:12rpx; "><text style=" color:#00a278">路况评分：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.trafficFB}}</text><text style="margin-left:40rpx; color:#00a278">寻车评分:</text> {{cuFeedback.pickupFB}}</text>
         <text style="margin-top:12rpx; "><text style=" color:#00a278">停车评分：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.parkFB}}</text><text style="margin-left:40rpx; color:#00a278">服务评分:</text> {{cuFeedback.serviceFB}}</text>
-
+        <text style="margin-top:12rpx;"> <text style="color:#00a278">总用时：</text><text >{{cuFeedback.time4}}</text></text><text style="margin-top:12rpx;"><text style= "color:#00a278"></text> <text></text></text>
+        <text style="margin-top:12rpx; color:#00a278" >分段用时：</text>
+        <text style="margin-top:12rpx; "><text style=" color:#FF8000">{{cuFeedback.d1}}→{{cuFeedback.a1}} ：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.time1}}</text><text style="margin-left:40rpx; color:#00a278"></text></text>
+        <text style="margin-top:12rpx; "><text style=" color:#FF8000">{{cuFeedback.d2}}→{{cuFeedback.a2}} ：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.time2}}</text><text style="margin-left:40rpx; color:#00a278"></text></text>
+        <text style="margin-top:12rpx; "><text style=" color:#FF8000">{{cuFeedback.d3}}→{{cuFeedback.a3}} ：</text><text class="font-color-c24e4e font-size-15">{{cuFeedback.time3}}</text><text style="margin-left:40rpx; color:#00a278"></text></text>
         <text style="margin-top:12rpx; color:#00a278" >评论：</text>
         <text style="margin-top:12rpx;"><text class="font-color-c24e4e font-size-15">{{cuFeedback.contents}}</text></text>
          </view>

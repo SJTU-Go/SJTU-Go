@@ -5,7 +5,7 @@
 <view class="container">
     <view class="massge" wx:for="{{trafficInfo}}"  wx:for-item="list" wx:for-index="idx">
       
-        <view class="massge-hd"><image class="massge-img" src="../../images/traf.png"></image><view class="traffictitle" style="color:#6495ED">{{list.trafficInfo.name}}</view></view>
+        <view class="massge-hd" ><image class="massge-img" src="../../images/traf.png"></image><view class="traffictitle" style="color:#6495ED">{{list.trafficInfo.name}}</view></view>
         <view class="time" ><text style="margin-top:15rpx;"><text style="color:#00a278">持续时间：</text>{{list.trafficInfo.beginTime}}--{{list.trafficInfo.endTime}}</text></view>
         <view class="time" ><text style="margin-top:15rpx;"><text style="color:#00a278">详细信息：</text></text></view>
     

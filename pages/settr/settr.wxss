@@ -21,7 +21,8 @@ background-attachment: fixed;}
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  margin-left: 15px;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 7px;
 }
 .ccc{

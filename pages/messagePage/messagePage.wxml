@@ -18,18 +18,21 @@
 
 <view class="container">
     <view class="massge" wx:for="{{message}}" wx:for-index="idx" wx:for-item="list" >
-      <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户ID：{{list.userID}} </view></view>
-      <view class="massge-bd font-color-666">
-      
+      <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户名：{{list.userName}} </view></view>
+      <view class="massge-bd font-color-666" style=" margin-bottom:80rpx;" >
+      <text style="margin-top:22rpx; "><text style="color:#00a278">用户ID:</text><text class="font-color-c24e4e font-size-15">{{list.userID}}</text><text style="margin-left:40rpx; color:#00a278"></text> </text>
+      <text style="margin-top:22rpx; "><text style="color:#00a278">起点：</text><text class="font-color-c24e4e font-size-15">{{list.beginPlace}}</text><text style="margin-left:40rpx; color:#00a278"></text> </text>
+       <text style="margin-top:22rpx; "><text style="color:#00a278">终点:</text><text class="font-color-c24e4e font-size-15">{{list.endPlace}}</text><text style="margin-left:40rpx; color:#00a278"></text> </text>
       <text style="margin-top:22rpx; "><text style="color:#00a278">行程ID：</text><text class="font-color-c24e4e font-size-15">{{list.tripID}}</text><text style="margin-left:40rpx; color:#00a278">时间:</text> {{list.time}}</text>
-       <text style="margin-top:22rpx; "><text style="color:#00a278">起点：</text><text class="font-color-c24e4e font-size-15">{{list.depart}}</text><text style="margin-left:40rpx; color:#00a278">终点:</text> {{list.arrive}}</text>
+       
         <text style="margin-top:22rpx; "><text style="color:#00a278">路况评分：</text><text class="font-color-c24e4e font-size-15">{{list.trafficFB}}</text><text style="margin-left:40rpx; color:#00a278">寻车评分:</text> {{list.pickupFB}}</text>
         <text style="margin-top:22rpx; "><text style="color:#00a278">停车评分：</text><text class="font-color-c24e4e font-size-15">{{list.parkFB}}</text><text style="margin-left:40rpx; color:#00a278">服务评分:</text> {{list.serviceFB}}</text>
 
         <view class='textdiv'>
-          <text style="font-size-20" data-index="{{idx}}" bindtap="detail">查看详情></text>
+          <text style="font-size-20; margin-bottom:180rpx;" data-index="{{idx}}" bindtap="detail">查看详情></text>
                     
         </view>
        </view>
+        <image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
     </view>
     </view>

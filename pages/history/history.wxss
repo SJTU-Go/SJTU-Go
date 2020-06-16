@@ -2,7 +2,7 @@
 /**index.wxss**/
 
 page {
-  background: #f6f6f6;
+  background: #f7f2db;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -25,10 +25,23 @@ page {
 .massge{
   overflow: hidden;
   width: 100%;
-  background-color: #ffffff;
+  background: #fcfbf5;
   margin-top: 20rpx;
   position: relative;
   line-height: 1;
+  
+  padding-top: 15px;
+  
+}
+.gif-wave {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;
+  height: 100rpx;
+ 
 }
 .massge-img{
   width: 60rpx;

@@ -10,11 +10,13 @@
 }
 .title
 {font-size: 35rpx;
+  margin-top: 20rpx;
   margin-bottom: 30rpx;
   text-align: center;}
 
   .remark
 {
+  margin-top: 30rpx;
   margin-left: 20rpx;
   margin-bottom: 15rpx;
   }
@@ -34,6 +36,7 @@
     }
   .btn2 {
     width: 80%;
+    margin-bottom: 35rpx;
     background-color: rgba(6, 202, 59, 0.53);
     color: white;
     border-radius: 15rpx;
@@ -52,13 +55,16 @@
   }
   .center {
     border:1px solid;
+    margin-top: 35rpx;
+    margin-bottom: 35rpx;
     border-color: rgb(0, 140, 255);
     width: 95%;
-    height: 150px;
+    height: 200px;
     background: white;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin-left: auto;
+margin-right: auto;
     border-radius: 7px;
   }
   .massge{

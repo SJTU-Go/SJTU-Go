@@ -43,6 +43,7 @@ page {
   text-align: left;
 margin-left: 20rpx;
 margin-top: 30rpx;
+
 }
 .viewmore{margin-top: 40rpx;margin-left: 20rpx;font-size: 24rpx;color:grey;text-decoration: dashed;}
 

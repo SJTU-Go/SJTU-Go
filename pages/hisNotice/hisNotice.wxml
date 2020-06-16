@@ -11,9 +11,10 @@
        <text style="margin-top:22rpx;"><text style="color:#00a278">起始时间：</text><text class="font-color-c24e4e font-size-15"> {{list.validBeginTime}}</text><text style="margin-left:40rpx; color:#00a278"></text></text>
        <text style="margin-top:22rpx;"><text style="color:#00a278">结束时间：</text><text class="font-color-c24e4e font-size-15"> {{list.validEndTime}}</text><text style="margin-left:40rpx; color:#00a278"></text></text>  
        <text style="margin-top:22rpx;"> <text style="color:#00a278">通知内容：<text class="font-color-c24e4e font-size-15"></text></text></text>
-        <text style="margin-top:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.contents}}</text></text></text>
+        <text style="margin-top:22rpx;margin-bottom:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.contents}}</text></text></text>
 
         </view>
+         <image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
        </view>
     </view>
 

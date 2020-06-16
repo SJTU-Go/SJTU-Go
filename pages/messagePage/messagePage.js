@@ -49,26 +49,9 @@ filter:function(e){
       
                     for (var i= res.data.length-1;i>=0;i--){
                       if  (res.data[i].time){
-                        var tripid= res.data[i].tripID
-                        var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
-          wx.request({
-            url: u,
-            method:'GET',
-            header: {
-            'content-type': 'application/json'
-            },
-           //data:{
-             //id:that.data.cuFeedback.tripID
-           //},
-        
-            success (res1){
-              console.log(res1)
-              var from=res1.data.strategy.depart
-              var to=res1.data.strategy.arrive
-            
-                        mm[count]=res.data[i]
-                        mm[count].depart=from
-                        mm[count].arrive=to
+                        var a=res.data[i]
+                       
+              mm[count]=a
                       
                         for (var j=count;j>0;--j){
                           //console.log(j,1,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
@@ -82,9 +65,7 @@ filter:function(e){
                           else{break}
                         }
                         count+=1
-                      }
-             
-                    })
+                      
                       }
                       //console.log(mm)
                     }
@@ -114,26 +95,9 @@ filter:function(e){
 
               for (var i= res.data.length-1;i>=0;i--){
                 if  (!res.data[i].adminID){
-                  var tripid= res.data[i].tripID
-                  var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
-    wx.request({
-      url: u,
-      method:'GET',
-      header: {
-      'content-type': 'application/json'
-      },
-     //data:{
-       //id:that.data.cuFeedback.tripID
-     //},
-  
-      success (res1){
-        console.log(res1)
-        var from=res1.data.strategy.depart
-        var to=res1.data.strategy.arrive
-      
-                  mm[count]=res.data[i]
-                  mm[count].depart=from
-                  mm[count].arrive=to
+                  var a=res.data[i]
+                  
+        mm[count]=a
                   
                   for (var j=count;j>0;--j){
                     console.log(j,yes,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
@@ -147,9 +111,7 @@ filter:function(e){
                     else{break}
                   }
                   count+=1
-                }
-       
-              })
+              
                 }
                 console.log(mm)
               }
@@ -180,6 +142,7 @@ filter:function(e){
    */
   onShow: function () {
     var that=this
+    
     wx.getStorage({
       key: 'admin',
       success:function(res){
@@ -217,28 +180,7 @@ filter:function(e){
                 if  (res.data[i].time){
                   var a=res.data[i]
                   var tripid= res.data[i].tripID
-                  var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
-    wx.request({
-      url: u,
-      method:'GET',
-      header: {
-      'content-type': 'application/json'
-      },
-     //data:{
-       //id:that.data.cuFeedback.tripID
-     //},
-  
-      success (res1){
-        console.log(res1)
-        var from=res1.data.strategy.depart
-        
-        var to=res1.data.strategy.arrive
-        console.log(arrive,from)        
-                a.depart=from
-                  a.arrive=to
-                }
-       
-              })
+                  
                   mm[count]=a
                   
                 
@@ -254,12 +196,14 @@ filter:function(e){
                     else{break}
                   }
                   count+=1
-               
+                 
+                
                 }
                 //console.log(mm)
-              }
-              console.log(mm)
-              that.setData({message :mm})
+              } console.log(mm)
+              that.setData({message :mm}) 
+              
+                
         
       }
        

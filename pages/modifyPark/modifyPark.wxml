@@ -1,5 +1,5 @@
 <!--pages/modifyPark/modifyPark.wxml-->
-<view class="massge">
+<view class="massge" style=" margin-top:80rpx;">
 <view class = 'title' style="color:#6495ED">{{parkname}}</view>
 
 

@@ -10,8 +10,9 @@
        <text style="margin-top:22rpx;"><text style="color:#00a278">修改时间：</text><text class="font-color-c24e4e font-size-15">{{list.modification.time}}</text><text style="margin-left:40rpx; color:#00a278"></text> </text>
        <text style="margin-top:22rpx;"><text style="color:#00a278">地点：</text><text class="font-color-c24e4e font-size-15"> {{list.mapVertexInfo.vertexName}}</text><text style="margin-left:40rpx; color:#00a278"></text></text> 
        <text style="margin-top:22rpx;"> <text style="color:#00a278">备注信息：<text class="font-color-c24e4e font-size-15"></text></text></text>
-        <text style="margin-top:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.modification.contents.message}}</text></text></text>
+        <text style="margin-top:22rpx;margin-bottom:22rpx;"><text><text class="font-color-c24e4e font-size-15">{{list.modification.contents.message}}</text></text></text>
        
         </view>
+        <image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
        </view>
     </view>
