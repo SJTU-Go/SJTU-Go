@@ -9,9 +9,10 @@ var ee = 0.00669342162296594323;
 Page({
 
   data: {
+    coordinateview:false,
     id:0,
-    latitude: 31.020502,//31.029236,
-    longitude: 121.434009,//121.452591,
+    latitude: 31.021807,//31.029236,
+    longitude: 121.429846,//121.452591,
     hasmarkers:true,
     markers:new Array(0),
     boxshow:true,
@@ -29,6 +30,31 @@ Page({
     startX: "", //收支触摸开始滑动的位置
     inputmessage:"输入目的地",
   },
+  chooselocate:function()
+  {var cor = this.data.coordinateview
+    this.setData({coordinateview:true})
+    var llatitude = this.data.latitude
+    var llongitude = this.data.longitude
+    var q = []
+    q.push({iconPath: "../../../images/crosses.png",
+    id:1,
+    latitude:     llatitude,
+    longitude:llongitude,
+    width: 40,
+    height: 40,
+    name:'',
+    bikeCount:''})   
+    this.setData({markers:q})
+  },
+  chooseback:function()
+  { this.setData({coordinateview:false})
+    this.setData({markers:[]});
+    this.setData({inputVal:""})
+  },
+
+    chooseclick:function()
+  {this.searchout()},
+  
   returnresult:function(e){
     var  ress ={}
     console.log(e)
@@ -339,6 +365,8 @@ wx.navigateBack({
   },
 
   regionchange:function(e){
+    var con = this.data.coordinateview
+    if (con){
     var llatitude
     var llongitude
     console.log(e)
@@ -367,8 +395,8 @@ wx.navigateBack({
       id:1,
       latitude:     llatitude,
       longitude:llongitude,
-      width: 30,
-      height: 30,
+      width: 40,
+      height: 40,
       name:'',
       bikeCount:''})   
       that.setData({markers:q})
@@ -401,10 +429,7 @@ wx.navigateBack({
    
               }
       
-            })
-          
-
-
+            })}
         },
 
         gcj02towgs84(lng, lat) {

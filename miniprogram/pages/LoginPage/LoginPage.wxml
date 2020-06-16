@@ -1,7 +1,6 @@
-<view class="title">SJTU-GO
-</view>
-<view class="block">
-</view>
+
+<image class='background' src="../../images/login.png" mode="aspectFill"></image>
+
 <view class="containerbutton">
   <button class='btn1' bindtap='checkUserInfo'>
     <image class='btnImg' src='../../images/wechat.png'></image>

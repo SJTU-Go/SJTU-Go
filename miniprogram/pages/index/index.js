@@ -92,12 +92,12 @@ Page({
           for (x in res.data)
           {
             if (1)
-            {var marker ={iconPath: "../../images/showres1.png",
+            {var marker ={iconPath: "../../images/hebike.png",
             id: q,
             latitude: 31.021807,//31.029236,
             longitude: 121.429846,//121.452591,
-            width: 10,
-            height: 10,
+            width: 25,
+            height: 30,
             name:'',}
               marker.latitude=res.data[x].lat
               marker.longitude=res.data[x].lng
@@ -123,12 +123,12 @@ Page({
             for (x in res.data)
             {
               if (1)
-              {var marker ={iconPath: "../../images/showres2.png",
+              {var marker ={iconPath: "../../images/Ecar.png",
               id: q,
               latitude: 31.021807,//31.029236,
               longitude: 121.429846,//121.452591,
-              width: 10,
-              height: 10,
+              width: 25,
+              height: 30,
               name:'',}
                 marker.latitude=res.data[x].latitude
                 marker.longitude=res.data[x].longitude
@@ -153,12 +153,12 @@ Page({
               for (x in res.data)
               {
                 if (1)
-                {var marker ={iconPath: "../../images/showres.png",
+                {var marker ={iconPath: "../../images/mobike.png",
                 id: q,
                 latitude: 31.021807,//31.029236,
                 longitude: 121.429846,//121.452591,
-                width: 10,
-                height: 10,
+                width: 25,
+                height: 30,
                 name:'',}
                   marker.latitude=res.data[x].lat
                   marker.longitude=res.data[x].lng
@@ -300,12 +300,12 @@ Page({
           for (x in res.data)
           {
             if (1)
-            {var marker ={iconPath: "../../images/showres1.png",
+            {var marker ={iconPath: "../../images/hebike.png",
             id: q,
             latitude: 31.021807,//31.029236,
             longitude: 121.429846,//121.452591,
-            width: 10,
-            height: 10,
+            width: 25,
+            height: 30,
             name:'',}
               marker.latitude=res.data[x].lat
               marker.longitude=res.data[x].lng
@@ -339,12 +339,12 @@ Page({
             for (x in res.data)
             {
               if (1)
-              {var marker ={iconPath: "../../images/showres2.png",
+              {var marker ={iconPath: "../../images/Ecar.png",
               id: q,
               latitude: 31.021807,//31.029236,
               longitude: 121.429846,//121.452591,
-              width: 10,
-              height: 10,
+              width: 25,
+              height: 30,
               name:'',}
                 marker.latitude=res.data[x].latitude
                 marker.longitude=res.data[x].longitude
@@ -374,12 +374,12 @@ Page({
               for (x in res.data)
               {
                 if (1)
-                {var marker ={iconPath: "../../images/showres.png",
+                {var marker ={iconPath: "../../images/mobike.png",
                 id: q,
                 latitude: 31.021807,//31.029236,
                 longitude: 121.429846,//121.452591,
-                width: 10,
-                height: 10,
+                width: 25,
+                height: 30,
                 name:'',}
                   marker.latitude=res.data[x].lat
                   marker.longitude=res.data[x].lng

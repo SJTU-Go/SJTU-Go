@@ -9,9 +9,10 @@ var ee = 0.00669342162296594323;
 Page({
 
   data: {
+    coordinateview:false,
     id:0,
-    latitude: 31.020502,//31.029236,
-    longitude: 121.434009,//121.452591,
+    latitude: 31.021807,//31.029236,
+    longitude: 121.429846,//121.452591,
     hasmarkers:true,
     markers:new Array(0),
     boxshow:true,
@@ -29,6 +30,31 @@ Page({
     startX: "", //收支触摸开始滑动的位置
     inputmessage:"输入出发点",
   },
+  chooselocate:function()
+  {var cor = this.data.coordinateview
+    this.setData({coordinateview:true})
+    var llatitude = this.data.latitude
+    var llongitude = this.data.longitude
+    var q = []
+    q.push({iconPath: "../../../images/crosses.png",
+    id:1,
+    latitude:     llatitude,
+    longitude:llongitude,
+    width: 40,
+    height: 40,
+    name:'',
+    bikeCount:''})   
+    this.setData({markers:q})
+  },
+  chooseback:function()
+  { this.setData({coordinateview:false})
+    this.setData({markers:[]});
+    this.setData({inputVal:""})
+  },
+
+    chooseclick:function()
+  {this.searchout()},
+  
   returnresult:function(e){
     var  ress ={}
     console.log(e)
@@ -43,7 +69,7 @@ Page({
       ress.name = this.data.markers[res].name
       console.log(ress)
       wx.setStorage({
-        key: 'depart',
+        key: 'arrive',
         data: ress,
       })}}
   },
@@ -77,31 +103,35 @@ wx.setStorage({
   key: 'depart',
 })
 }
-//    wx.navigateTo({navigateurl: '../../searchindex/searchindex', })
+//    wx.navigateTo({url: '../../searchindex/searchindex',})
 
 let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
  
 let prevPage = pages[ pages.length - 2 ];  
  
 //prevPage 是获取上一个页面的js里面的pages的所有信息。 -2 是上一个页面，-3是上上个页面以此类推。
- 
 if (this.data.inputVal.substring(0, 4)=='POIN'){
-  prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
-   
-      depart:this.data.inputVal,
-      departid:"DT404"
-  
-  })}
-  else{prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
-   
-    depart:this.data.inputVal,
-    departid:'DT'+this.data.id,  
-  })}
+prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
+ 
+    depart :this.data.inputVal,
+    departid:"DT404"
+
+})}
+else{prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
+ 
+  depart:this.data.inputVal,
+  departid:'DT'+this.data.id,
+
+})}
+
+
 wx.navigateBack({
  
   delta: 1  // 返回上一级页面。
 
 })  
+
+
 },
   // 清除搜索框值
   clearInput: function () {
@@ -335,6 +365,8 @@ wx.navigateBack({
   },
 
   regionchange:function(e){
+    var con = this.data.coordinateview
+    if (con){
     var llatitude
     var llongitude
     console.log(e)
@@ -363,8 +395,8 @@ wx.navigateBack({
       id:1,
       latitude:     llatitude,
       longitude:llongitude,
-      width: 30,
-      height: 30,
+      width: 40,
+      height: 40,
       name:'',
       bikeCount:''})   
       that.setData({markers:q})
@@ -397,10 +429,7 @@ wx.navigateBack({
    
               }
       
-            })
-          
-
-
+            })}
         },
 
         gcj02towgs84(lng, lat) {
