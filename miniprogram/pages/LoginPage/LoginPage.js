@@ -97,7 +97,22 @@ wx.switchTab({url: '../index/index', })
         })
       
       
-      }
+      },
+      fail: function () {
+        //获取用户信息失败后。请跳转授权页面
+        wx.showModal({
+         title: '警告',
+         content: '尚未进行授权，请点击确定跳转到授权页面进行授权。',
+         success: function (res) {
+          if (res.confirm) {
+           console.log('用户点击确定')
+           wx.navigateTo({
+            url: '../tologin/tologin',
+           })
+          }
+         }
+        })
+       }
     })
       }// if res
       
