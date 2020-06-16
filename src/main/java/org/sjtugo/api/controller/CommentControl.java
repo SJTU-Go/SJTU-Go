@@ -33,7 +33,7 @@ public class CommentControl {
 
     @ApiOperation(value = "get comments by place ID", notes = "给定地点ID，返回该处用户的评论，地点ID不存在则返回空列表")
     @GetMapping("/getcomments/place={placeID}")
-    public @ResponseBody List<CommentResponse> getCommentByID(@PathVariable("placeID") Integer placeID) {
+    public @ResponseBody List<CommentResponse> getCommentByID(@PathVariable("placeID") Integer placeID) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa, mapVertexInfoRepository, userRepository);
         Point loc;
         try{
@@ -60,7 +60,7 @@ public class CommentControl {
             @ApiResponse(code = 200, message = "OK", response = Comment.class),
             @ApiResponse(code = 404, message = "[2]Comment Not Found\n[3]FatherID Not Found", response = ErrorResponse.class)
     })
-    public @ResponseBody ResponseEntity<?> getSubCommentList(@RequestParam Integer fatherID) {
+    public @ResponseBody ResponseEntity<?> getSubCommentList(@RequestParam Integer fatherID) throws ParseException {
         CommentService commentser = new CommentService(commentRepositoryJpa, mapVertexInfoRepository, userRepository);
         return commentser.getSubCommentList(fatherID);
     }

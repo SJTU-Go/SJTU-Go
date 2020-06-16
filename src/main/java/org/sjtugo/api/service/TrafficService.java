@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.*;
@@ -61,7 +62,7 @@ public class TrafficService {
             trafficInfoRepository.deleteById(id);
             return new ErrorResponse(0,"删除Arango交通信息成功");
         } else{
-            return new ErrorResponse(4,"删除traffic数据库失败，"+arangoResponse.getMessage());
+            return new ErrorResponse(4,"删除traffic数据库失败或，"+arangoResponse.getMessage());
         }
     }
 
@@ -193,14 +194,14 @@ public class TrafficService {
             tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/update"+trafficID,
                     delete_request);
         } catch (Exception e) {
-            return new ErrorResponse(3,"删除UpdateArango交通Task失败");
+//            return new ErrorResponse(3,"删除UpdateArango交通Task失败");
         }
 
         try {
             tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/restore"+trafficID,
                     delete_request);
         }catch (Exception e) {
-            return new ErrorResponse(3,"删除RestoreArango交通Task失败");
+//            return new ErrorResponse(3,"删除RestoreArango交通Task失败");
         }
         Map<String,Object> restore_params = new HashMap<>();
         Map<String,Object> collections_map = new HashMap<>();

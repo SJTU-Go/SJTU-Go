@@ -31,7 +31,7 @@ public class CommentService {
 
     private final UserRepository userRepository;
 
-    static double r = 0.005;
+    static double r = 2;
 
     public CommentService(CommentRepositoryJpa commentRepositoryJpa,
                           MapVertexInfoRepository mapVertexInfoRepository,
@@ -47,7 +47,7 @@ public class CommentService {
      * @param fatherID:父评论id
      * @return (x-r y+r)~(x+r y-r)范围内的评论列表
      */
-    public List<CommentResponse> getCommentList(Point loc, Integer fatherID){
+    public List<CommentResponse> getCommentList(Point loc, Integer fatherID) {
 
         double x = loc.getX();
         double y = loc.getY();
@@ -148,7 +148,7 @@ public class CommentService {
      * @param fatherID:父评论ID
      * @return 子评论列表
      */
-    public ResponseEntity<?> getSubCommentList(Integer fatherID){
+    public ResponseEntity<?> getSubCommentList(Integer fatherID) throws ParseException {
         Comment fatherComment;
         try {
             fatherComment = commentRepositoryJpa.findById(fatherID).orElseThrow();

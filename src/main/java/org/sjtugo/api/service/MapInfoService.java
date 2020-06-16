@@ -136,4 +136,8 @@ public class MapInfoService {
                         (int) bikeInfo.get("biketype")))
                 .collect(Collectors.toList()));
     }
+
+    public List<Destination> nearbyDestination(Point a) {
+        return destinationRepository.findNearbyPoint(a.getX(), a.getY());
+    }
 }

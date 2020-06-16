@@ -91,6 +91,24 @@ public class MapInfoControl {
                     HttpStatus.OK);
     }
 
+    @ApiOperation(value = "附近的停车点信息",
+            notes = "给定经纬度，查询校园内停车点信息，一般用于主页地图")
+    @GetMapping("/nearby/destination")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Destination[].class)
+    })
+    public ResponseEntity<List<Destination>> nearbyDestination(@ApiParam(value = "经度", example = "121.438324171")
+                                                             @RequestParam double lng,
+                                                             @ApiParam(value = "纬度", example = "31.020556617")
+                                                             @RequestParam double lat) {
+        MapInfoService mapInfoService = new MapInfoService(mapVertexInfoRepository,
+                destinationRepository,helloBikeRepository, carInfoRepository, restTemplate);
+        return new ResponseEntity<>(
+                mapInfoService.nearbyDestination
+                        (new GeometryFactory().createPoint(new Coordinate(lng,lat))),
+                HttpStatus.OK);
+    }
+
 
 
     @ApiOperation(value = "附近的车辆信息",
