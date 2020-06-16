@@ -69,9 +69,10 @@ Page({
       ress.name = this.data.markers[res].name
       console.log(ress)
       wx.setStorage({
-        key: 'arrive',
+        key: 'depart',
         data: ress,
       })}}
+      this.searchout()
   },
   onLoad: function () {
     var that = this;
@@ -88,8 +89,9 @@ Page({
   },
   inputreturn:function(event)
   {     this.setData({inputVal:event.currentTarget.dataset.name,
-    boxshow:false})
-
+    boxshow:false,
+    id:event.currentTarget.dataset.id,})
+    this.searchout()
     wx.setStorage({
     key: 'depart',
     data: event.currentTarget.dataset,

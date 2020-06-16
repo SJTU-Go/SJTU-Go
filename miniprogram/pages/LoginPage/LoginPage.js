@@ -68,12 +68,12 @@ Page({
             key: 'banned',
           })}
         }
-        else{x.setStorage({
-          data:null, 
+        else{wx.setStorage({
+          data:[], 
           key: 'banned',
         })
         wx.setStorage({
-          data: null,
+          data:[],
           key: 'preference',
         })
       }

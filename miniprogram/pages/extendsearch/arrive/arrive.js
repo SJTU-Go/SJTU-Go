@@ -46,6 +46,7 @@ Page({
     bikeCount:''})   
     this.setData({markers:q})
   },
+
   chooseback:function()
   { this.setData({coordinateview:false})
     this.setData({markers:[]});
@@ -72,6 +73,7 @@ Page({
         key: 'arrive',
         data: ress,
       })}}
+      this.searchout()
   },
   onLoad: function () {
     var that = this;
@@ -87,9 +89,12 @@ Page({
     });
   },
   inputreturn:function(event)
-  {     this.setData({inputVal:event.currentTarget.dataset.name,
-    boxshow:false})
-
+  { 
+    this.setData({inputVal:event.currentTarget.dataset.name,
+    boxshow:false,
+    id:event.currentTarget.dataset.id,
+  })
+  this.searchout()
     wx.setStorage({
     key: 'arrive',
     data: event.currentTarget.dataset,
@@ -117,7 +122,9 @@ prevPage.setData({  // 将我们想要传递的参数在这里直接setData。�
     arriveid:"DT404"
 
 })}
-else{prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
+else{console.log("findingid")
+console.log(this.data.id)
+  prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
  
   arrive:this.data.inputVal,
   arriveid:'DT'+this.data.id,
