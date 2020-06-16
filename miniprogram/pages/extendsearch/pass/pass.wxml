@@ -51,6 +51,7 @@
 
 <!--wx:if="{{hasmarkers}}"!-->
     <view wx:if='{{boxshow}}' wx:for="{{carList}}" wx:key="{{index}}" class="msg-item">
-         <view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.placeName}}</view>
+         <view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}' wx:if="{{item.placeName}}">{{item.placeName}}</view>
+         <view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}' wx:if="{{item.vertexName}}">{{item.vertexName}}</view>
     </view>
 

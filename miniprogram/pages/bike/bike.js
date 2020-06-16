@@ -12,6 +12,8 @@ Page({
     tmproute:[],
     tmpplan:[],
     storage:'',
+    lon:0,
+    lat:0,
   },
 
   onLoad: function(options){
@@ -27,6 +29,7 @@ Page({
       var points = [];
       var item = d[j];
       for(var i of item.routePath.coordinates){
+        this.setData({lon:i[0],lat:i[1]})
         var cor = {};
         cor['longitude']=i[0];
         cor['latitude']=i[1];

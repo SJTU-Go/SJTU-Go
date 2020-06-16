@@ -46,6 +46,7 @@ Page({
     bikeCount:''})   
     this.setData({markers:q})
   },
+
   chooseback:function()
   { this.setData({coordinateview:false})
     this.setData({markers:[]});
@@ -88,10 +89,12 @@ Page({
     });
   },
   inputreturn:function(event)
-  {     this.setData({inputVal:event.currentTarget.dataset.name,
+  { 
+    this.setData({inputVal:event.currentTarget.dataset.name,
     boxshow:false,
-    id:event.currentTarget.dataset.id,})
-    this.searchout()
+    id:event.currentTarget.dataset.id,
+  })
+  this.searchout()
     wx.setStorage({
     key: 'pass',
     data: event.currentTarget.dataset,
@@ -119,7 +122,9 @@ prevPage.setData({  // 将我们想要传递的参数在这里直接setData。�
     passid:"DT404"
 
 })}
-else{prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
+else{console.log("findingid")
+console.log(this.data.id)
+  prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
  
   pass:this.data.inputVal,
   passid:'DT'+this.data.id,
@@ -207,6 +212,37 @@ wx.navigateBack({
       }
     });
   },
+  SearchForPoint: function (e) {
+    var llat = e.latitude
+    var llon = e.longitude
+    this.setData({
+      boxshow:true
+    })
+    var that = this;
+    that.setData({
+      viewShowed: false,
+    });
+    wx.request({
+      url: 'https://api.ltzhou.com/map/nearby/destination',
+      data: {lat:llat,lng:llon} ,
+      method: 'GET',
+      header: {
+        'Content-type': 'application/json'
+      },
+      success: function (res) {
+        var x
+        var markers=new Array(0)
+  
+        console.log(res.data)
+        that.setData({
+          carList: res.data
+        })
+
+      }
+    });
+  },
+
+
   // 获取选中推荐列表中的值
   btn_name: function (res) {
      console.log(res.currentTarget.dataset.index, res.currentTarget.dataset.name);
@@ -382,6 +418,7 @@ wx.navigateBack({
               type: 'gcj02',
       
               success: function(res) {
+        that.SearchForPoint(res)
       console.log('location')
       console.log(that.data)
                 console.log(res, 11111)
@@ -432,6 +469,8 @@ wx.navigateBack({
               }
       
             })}
+
+
         },
 
         gcj02towgs84(lng, lat) {

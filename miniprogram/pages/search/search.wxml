@@ -1,5 +1,5 @@
 <!--pages/search/search.wxml-->
-<scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="15" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
+<scroll-view><map id="map" longitude="{{lon}}" latitude="{{lat}}" scale="15" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
 
 
 

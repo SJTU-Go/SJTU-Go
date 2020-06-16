@@ -2,6 +2,8 @@
 
 Page({
   data: {
+    lat:0,
+    lon:0,
     routeplan:[],
     polyline:[],
     time:0,
@@ -26,6 +28,7 @@ Page({
       var points = [];
       var item = d[j];
       for(var i of item.routePath.coordinates){
+        this.setData({lon:i[0],lat:i[1]})
         var cor = {};
         cor['longitude']=i[0];
         cor['latitude']=i[1];

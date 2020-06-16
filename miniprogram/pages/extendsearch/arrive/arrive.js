@@ -223,7 +223,8 @@ wx.navigateBack({
       viewShowed: false,
     });
     wx.request({
-      url: 'https://api.ltzhou.com/map/nearby/parking?lat='+llat+'&lng='+llon,
+      url: 'https://api.ltzhou.com/map/nearby/destination',
+      data: {lat:llat,lng:llon} ,
       method: 'GET',
       header: {
         'Content-type': 'application/json'

@@ -2,6 +2,8 @@
 
 Page({
   data: {
+    lon:0,
+    lat:0,
     routeplan:[],
     polyline:[],
     time:0,
@@ -15,7 +17,6 @@ Page({
   },
 
   onLoad: function(options){
-
     var d = JSON.parse(options.RT)
     this.setData({
       routeplan: JSON.parse(options.RT),
@@ -28,6 +29,7 @@ Page({
       var points = [];
       var item = d[j];
       for(var i of item.routePath.coordinates){
+        this.setData({lon:i[0],lat:i[1]})
         var cor = {};
         cor['longitude']=i[0];
         cor['latitude']=i[1];
