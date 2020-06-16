@@ -50,11 +50,34 @@ cuFeedback:{}
   
       success (res){
         console.log(res)
-        that.setData({cuFeedback:res.data})
+        var tripid= res.data.tripID
+                        var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
+          wx.request({
+            url: u,
+            method:'GET',
+            header: {
+            'content-type': 'application/json'
+            },
+           //data:{
+             //id:that.data.cuFeedback.tripID
+           //},
+        
+            success (res1){
+              console.log(res1)
+              var from=res1.data.strategy.depart
+              var to=res1.data.strategy.arrive
+            
+                        var mm=res.data
+                        mm.depart=from
+                        mm.arrive=to
+        that.setData({cuFeedback:mm})
         
       }
-       
+    
     })
+  }
+    
+})
   }})},
 
   /**

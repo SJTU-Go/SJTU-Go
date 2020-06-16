@@ -32,23 +32,68 @@ filter:function(e){
         console.log(e) 
         if (!e.detail.value){
           console.log(1+11111111)
-    wx.request({
-      url: 'https://api.ltzhou.com/feedback/inbox',
-      method:'POST',
-      header: {
-      'content-type': 'application/x-www-form-urlencoded'
-      },
-     data:json2Form({
-       adminID:that.data.adminID
-     }),
-  
-      success (res){
-        console.log(res)
-        that.setData({message:res.data})
+          wx.request({
+            url: 'https://api.ltzhou.com/feedback/inbox',
+            method:'POST',
+            header: {
+            'content-type': 'application/x-www-form-urlencoded'
+            },
+           data:json2Form({
+             adminID:that.data.adminID
+           }),
         
-      }
-       
-    })
+            success (res){
+              console.log(res)
+                    var mm= new Object();
+                    var count=0;
+      
+                    for (var i= res.data.length-1;i>=0;i--){
+                      if  (res.data[i].time){
+                        var tripid= res.data[i].tripID
+                        var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
+          wx.request({
+            url: u,
+            method:'GET',
+            header: {
+            'content-type': 'application/json'
+            },
+           //data:{
+             //id:that.data.cuFeedback.tripID
+           //},
+        
+            success (res1){
+              console.log(res1)
+              var from=res1.data.strategy.depart
+              var to=res1.data.strategy.arrive
+            
+                        mm[count]=res.data[i]
+                        mm[count].depart=from
+                        mm[count].arrive=to
+                      
+                        for (var j=count;j>0;--j){
+                          //console.log(j,1,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
+                          if (mm[j].time>mm[j-1].time){
+                            //console.log(1,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
+                            var temp=mm[j-1]
+                            mm[j-1]=mm[j]
+                            mm[j]=temp
+      
+                          }
+                          else{break}
+                        }
+                        count+=1
+                      }
+             
+                    })
+                      }
+                      //console.log(mm)
+                    }
+                    console.log(mm)
+                    that.setData({message :mm})
+              
+            }
+             
+          })
         }
         else{
           console.log(1+1)
@@ -69,8 +114,27 @@ filter:function(e){
 
               for (var i= res.data.length-1;i>=0;i--){
                 if  (!res.data[i].adminID){
-
+                  var tripid= res.data[i].tripID
+                  var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
+    wx.request({
+      url: u,
+      method:'GET',
+      header: {
+      'content-type': 'application/json'
+      },
+     //data:{
+       //id:that.data.cuFeedback.tripID
+     //},
+  
+      success (res1){
+        console.log(res1)
+        var from=res1.data.strategy.depart
+        var to=res1.data.strategy.arrive
+      
                   mm[count]=res.data[i]
+                  mm[count].depart=from
+                  mm[count].arrive=to
+                  
                   for (var j=count;j>0;--j){
                     console.log(j,yes,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
                     if (mm[j].time>mm[j-1].time){
@@ -83,6 +147,9 @@ filter:function(e){
                     else{break}
                   }
                   count+=1
+                }
+       
+              })
                 }
                 console.log(mm)
               }
@@ -148,8 +215,33 @@ filter:function(e){
 
               for (var i= res.data.length-1;i>=0;i--){
                 if  (res.data[i].time){
-
-                  mm[count]=res.data[i]
+                  var a=res.data[i]
+                  var tripid= res.data[i].tripID
+                  var u="https://api.ltzhou.com/trip/get/id=".concat(tripid)
+    wx.request({
+      url: u,
+      method:'GET',
+      header: {
+      'content-type': 'application/json'
+      },
+     //data:{
+       //id:that.data.cuFeedback.tripID
+     //},
+  
+      success (res1){
+        console.log(res1)
+        var from=res1.data.strategy.depart
+        
+        var to=res1.data.strategy.arrive
+        console.log(arrive,from)        
+                a.depart=from
+                  a.arrive=to
+                }
+       
+              })
+                  mm[count]=a
+                  
+                
                   for (var j=count;j>0;--j){
                     //console.log(j,1,mm[j].time,mm[j-1].time,mm[j].time>mm[j-1].time)
                     if (mm[j].time>mm[j-1].time){
@@ -162,6 +254,7 @@ filter:function(e){
                     else{break}
                   }
                   count+=1
+               
                 }
                 //console.log(mm)
               }

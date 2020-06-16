@@ -22,9 +22,10 @@
       <view class="massge-bd font-color-666">
       
       <text style="margin-top:22rpx; "><text style="color:#00a278">行程ID：</text><text class="font-color-c24e4e font-size-15">{{list.tripID}}</text><text style="margin-left:40rpx; color:#00a278">时间:</text> {{list.time}}</text>
+       <text style="margin-top:22rpx; "><text style="color:#00a278">起点：</text><text class="font-color-c24e4e font-size-15">{{list.depart}}</text><text style="margin-left:40rpx; color:#00a278">终点:</text> {{list.arrive}}</text>
         <text style="margin-top:22rpx; "><text style="color:#00a278">路况评分：</text><text class="font-color-c24e4e font-size-15">{{list.trafficFB}}</text><text style="margin-left:40rpx; color:#00a278">寻车评分:</text> {{list.pickupFB}}</text>
         <text style="margin-top:22rpx; "><text style="color:#00a278">停车评分：</text><text class="font-color-c24e4e font-size-15">{{list.parkFB}}</text><text style="margin-left:40rpx; color:#00a278">服务评分:</text> {{list.serviceFB}}</text>
-       
+
         <view class='textdiv'>
           <text style="font-size-20" data-index="{{idx}}" bindtap="detail">查看详情></text>
                     
