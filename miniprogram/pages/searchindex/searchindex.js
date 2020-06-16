@@ -49,7 +49,9 @@ Page({
       wx.getStorage({
         key: 'arrive',
       success:function(res){
-        if(res.data.id){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})}
+        if(res.data.id){
+          if(res.data.id[0]=='P' && res.data.id[1]=='K'){that.setData({arrive:res.data.name,arriveid :res.data.id})}
+          else{that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})}}
       
         else{that.setData({arrive:res.data.name,arriveid :res.data.name})}
       

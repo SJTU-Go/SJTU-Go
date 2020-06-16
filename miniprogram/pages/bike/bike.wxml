@@ -4,10 +4,11 @@
 
 <scroll-view scroll-y style="display: flex; height: 415px;">
 <view  class='subtitle'>
-  <text>
+  <text style="font-size:34rpx">
 哈罗单车方案 · 用时{{time/60|int}}分钟 · 免费
   </text>
 </view>
+    <view class="line1"/>  
 <view class='routeplan' wx:for="{{routeplan}}" wx:for-item="itema" wx:key="strategy" wx:for-index="idx">
   <view class='route'>
     <view class = 'leftpart'>

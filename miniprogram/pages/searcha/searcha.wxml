@@ -92,7 +92,7 @@
 
 <view wx:if="{{currentData==0}}">
   <view class="container">
-    <view class="massge" wx:for="{{preferencelist}}"  wx:for-item="list">
+    <view class="massge" wx:for="{{preferencelist}}"  wx:for-item="list" wx:if="{{list.type}}">
       <view class="massge-hd">
         <view wx:if="{{list.type==method[0]}}"><image class="massge-img" src="../../images/foot.png"></image>
         </view>
@@ -124,7 +124,7 @@
 </view>
 <view wx:if="{{currentData==1}}">
   <view class="container">
-    <view class="massge" wx:for="{{value}}"  wx:for-item="list">
+    <view class="massge" wx:for="{{value}}"  wx:for-item="list" wx:if="{{list.type}}">
       <view class="massge-hd">
         <view wx:if="{{list.type==method[0]}}"><image class="massge-img" src="../../images/foot.png"></image>
         </view>

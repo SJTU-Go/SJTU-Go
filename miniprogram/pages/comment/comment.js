@@ -2,6 +2,7 @@
 
 Page({
   data: {
+
     boxshow:true,
     datapass:'',
     // 搜索框状态

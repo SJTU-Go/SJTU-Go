@@ -101,12 +101,18 @@ page {
   justify-content: flex-start;
 }
 .route{
-  margin-left: 40rpx;
+  margin-left: 10%;
   display: flex;
   flex-direction: row;
 
 }
-
+.line1{
+  margin-top: 25rpx;
+  margin-left: 10%;
+    width: 80%;
+    height: 5rpx;
+    border-top: 2rpx solid rgba(129, 129, 129, 0.6);
+   }
 .verticalline1{
   margin-top: 25rpx;
     width: 40rpx;
@@ -114,9 +120,9 @@ page {
     border-right: 20rpx dotted rgba(0, 0, 0, 0.6);
    }
    .verticalline2{
+     width: 1%;
     margin-top: 14rpx;
-    width: 30rpx;
-    height: 100%;
+    height: 150%;
     border-right: 6rpx dotted  rgba(0, 0, 0, 0.3);
    }
   
@@ -124,6 +130,8 @@ page {
 
 .leftpart
 {width: 15%;
+  display: flex;
+  flex-direction: column;
 }
 .upper
 {height: 20%;
@@ -222,8 +230,9 @@ margin-left: 40rpx;
 .subtitle
 {height: 80rpx;
 width: 100%;
+margin-left: 10%;
 font-size:  28rpx;
-margin-left: 40rpx;
+
 }
 .downblock
 { margin-left: 5%;
@@ -232,6 +241,8 @@ margin-left: 40rpx;
   display: flex;
   height: 30%;
   margin-bottom: 40rpx;
+  align-items: center;
+  justify-content: center;
 
 }
 .btnblk{width: 20%;}

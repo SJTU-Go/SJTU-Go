@@ -1,12 +1,14 @@
 
 {
-  "pages": [            
+  "pages": [     
+    "pages/index/index",    
+    "pages/searchindex/searchindex",       
     "pages/LoginPage/LoginPage",  
-    "pages/searchindex/searchindex",
+
     "pages/extendsearch/arrive/arrive",
     "pages/comment/comment",   
       "pages/setPreferencePage/setPreferencePage",
-      "pages/index/index",
+
       "pages/trafficPage/trafficPage",
 
   

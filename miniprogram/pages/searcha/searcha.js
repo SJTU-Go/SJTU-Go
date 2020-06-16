@@ -82,9 +82,19 @@ success:function(res){
 wx.getStorage({
   key: 'pass',
 success:function(res){if(res.data.name){that.setData({pass:res.data.name,passid :'DT'+res.data.id})}} })
+
 wx.getStorage({
   key: 'arrive',
-success:function(res){that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})} })
+success:function(res){
+
+    if(res.data.id[0]=='P' && res.data.id[1]=='K'){that.setData({arrive:res.data.name,arriveid :res.data.id})}
+    else{that.setData({arrive:res.data.name,arriveid :'DT'+res.data.id})}
+
+}
+
+
+})
+
 
 
   },

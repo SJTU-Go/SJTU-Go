@@ -73,7 +73,7 @@ Page({
             marker.name=res.data[x].vertexName 
             marker.bikeCount=res.data[x].bikeCount + res.data[x].motorCount //CHANG 1
             marker.iconPath = "/mark/"+res.data[x].bikeCount+".png"
- 
+            marker.vertexid = res.data[x].vertexID
             markers.push(marker) 
   
            q =q +1}}
@@ -214,7 +214,7 @@ Page({
             marker.name=res.data[x].vertexName 
             marker.bikeCount=res.data[x].bikeCount + res.data[x].motorCount //CHANG 1
             marker.iconPath = "/mark/"+res.data[x].bikeCount+".png"
- 
+            marker.vertexid = res.data[x].vertexID
             markers.push(marker) 
 
             
@@ -527,7 +527,7 @@ Page({
   setnavigatePage:function()
   { wx.setStorage({
     data:{name:this.data.markers[this.data.currentdata].name,
-        
+      id:"PK"+this.data.markers[this.data.currentdata].vertexid,
     },
     key: 'arrive',
   })  
