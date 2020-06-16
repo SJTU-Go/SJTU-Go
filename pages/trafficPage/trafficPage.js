@@ -4,6 +4,8 @@
 
 Page({
   data: {
+    lon:0,
+    lat:0,
     routeplan:[],
     polyline:[],
     trafficInfo:[],
@@ -30,12 +32,13 @@ for(var j=0;j<d.length;j++){
   var points = [];
   var item = d[j];
   for(var i of item.pointList.coordinates){
+    that.setData({lat:i[1],lon:i[0]})
     var cor = {};
     cor['longitude']=i[0];
     cor['latitude']=i[1];
     points.push(cor);
   }
-  line['color']='#808080'
+  line['color']='#ff0000'
   line['points']=points;
   //line['color']='#808080';
   line['width']=4;

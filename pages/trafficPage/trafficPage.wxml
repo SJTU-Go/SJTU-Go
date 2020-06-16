@@ -1,4 +1,4 @@
-<scroll-view><map id="map" longitude="121.437600" latitude="31.025940" scale="16" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
+<scroll-view><map id="map" longitude="{{lon}}" latitude="{{lat}}" scale="16" polyline="{{polyline}}" style="width: 100%; height: 45vh;"></map></scroll-view>
 
 
 <scroll-view scroll-y style="display: flex; height: 415px;  align-items: center;">
@@ -14,7 +14,7 @@
       <view class = 'text'><image class="iimg1" src="../../images/bike_1.png"></image> <text style="color:#00a278">自行车预计时速：</text>{{list.trafficInfo.bikeSpeed}}</view>
       <view class = 'text'><image class="iimg" src="../../images/motor.png"></image> <text style="color:#00a278"> 电动车预计时速：</text>{{list.trafficInfo.motorSpeed}}</view>
       <view class = 'text'><image class="iimg" src="../../images/car.png"></image>    <text style="color:#00a278">汽车预计时速：</text>{{list.trafficInfo.carSpeed}}</view>
-      <switch class="sw" data-index="{{idx}}" bindchange="switchChange">显示路段</switch>
+      <switch class="sw" data-index="{{idx}}" bindchange="switchChange" checked="true">显示路段</switch>
     </view>
      </view>
 </scroll-view>
