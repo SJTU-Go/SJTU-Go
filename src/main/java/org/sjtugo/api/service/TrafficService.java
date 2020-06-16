@@ -2,6 +2,7 @@ package org.sjtugo.api.service;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
@@ -23,6 +24,10 @@ public class TrafficService {
     protected final RestTemplate restTemplate;
     protected final TrafficInfoRepository trafficInfoRepository;
     protected final MapVertexInfoRepository mapVertexInfoRepository;
+
+    private static final double normalCarSpeed = 8;
+    private static final double normalBikeSpeed = 2.5;
+    private static final double normalMotorSpeed = 5.5;
 
     public TrafficService(RestTemplate restTemplate, TrafficInfoRepository trafficInfoRepository, MapVertexInfoRepository mapVertexInfoRepository) {
         this.restTemplate = restTemplate;
@@ -51,12 +56,12 @@ public class TrafficService {
         if (todelete.isEmpty()) {
             return new ErrorResponse(4, "Traffic Info by id Not Found in Repository");
         }
-        ErrorResponse arangoResponse = removeArango(id);
+        ErrorResponse arangoResponse = removeArango(todelete.get());
         if (arangoResponse.getCode() == 0) {
             trafficInfoRepository.deleteById(id);
             return new ErrorResponse(0,"删除Arango交通信息成功");
         } else{
-            return new ErrorResponse(0,"删除traffic数据库失败，"+arangoResponse.getMessage());
+            return new ErrorResponse(4,"删除traffic数据库失败，"+arangoResponse.getMessage());
         }
     }
 
@@ -97,25 +102,28 @@ public class TrafficService {
         // update traffic
         bindVars.put("offset", Duration.between(LocalDateTime.now(),
                 task.getBeginTime().atDate(task.getBeginDay())).toSeconds());
-        bindVars.put("command","(function(params) {var arrayLength = relatedVertex.length;\n" +
-                "for (var i = 0; i < arrayLength - 1; i++) {\n" +
-                "    var caredge = db.caredge.byExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}).toArray();\n" +
-                "    if (caredge.length != 0) {\n" +
-                "        var distance = caredge[0].distance;\n" +
-                "    }\n" +
-                "    db.caredge.updateByExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}, {avoidCarTime : 999999999, normalCarTime : distance / carspeed });\n" +
-                "\n" +
-                "    var bikeedge = db.bikeedge.byExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}).toArray();\n" +
-                "    if (bikeedge.length != 0) {\n" +
-                "        var distance = bikeedge[0].distance;\n" +
-                "    }\n" +
-                "    db.bikeedge.updateByExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}, {avoidBikeTime : 999999999, normalBikeTime : distance / bikespeed, avoidMotorTime : 999999999, normalMotorTime : distance / motorspeed });\n" +
-                "}}) (params)");
+        bindVars.put("command","  (function(params) {var arrayLength = params.relatedVertex.length;\n" +
+                "    var db = require('@arangodb').db;\n" +
+                "    for (var i = 0; i < arrayLength - 1; i++) { \n" +
+                "        var caredge = db.caredge.byExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}).toArray(); \n" +
+                "        if (caredge.length != 0) { \n" +
+                "            var distance = caredge[0].distance; \n" +
+                "        } \n" +
+                "        var newcartime = distance/params.carspeed;\n" +
+                "        db.caredge.updateByExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}, {avoidCarTime : 888888888, normalCarTime : newcartime }); \n" +
+                "        var bikeedge = db.bikeedge.byExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}).toArray(); \n" +
+                "        if (bikeedge.length != 0) { \n" +
+                "            var distance = bikeedge[0].distance; \n" +
+                "        }\n" +
+                "        var newmotortime = distance/params.motorspeed;\n" +
+                "        var newbiketime = distance/params.bikespeed;\n" +
+                "        db.bikeedge.updateByExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}, {avoidBikeTime : 888888888, normalBikeTime : newbiketime, avoidMotorTime : 888888888, normalMotorTime : newmotortime });\n" +
+                "    }}) (params)");
         Map<String,Object> update_params = new HashMap<>();
         update_params.put("relatedVertex",task.getRelatedVertex());
-        update_params.put("motorSpeed",task.getMotorSpeed());
-        update_params.put("bikeSpeed",task.getBikeSpeed());
-        update_params.put("carSpeed",task.getCarSpeed());
+        update_params.put("motorspeed",task.getMotorSpeed());
+        update_params.put("bikespeed",task.getBikeSpeed());
+        update_params.put("carspeed",task.getCarSpeed());
         bindVars.put("params",update_params);
 
 //        System.out.println(bindVars);
@@ -131,25 +139,27 @@ public class TrafficService {
                 task.getEndTime().atDate(task.getBeginDay())).toSeconds());
         Map<String,Object> restore_params = new HashMap<>();
         restore_params.put("relatedVertex",task.getRelatedVertex());
+        restore_params.put("motorspeed",normalMotorSpeed);
+        restore_params.put("bikespeed",normalBikeSpeed);
+        restore_params.put("carspeed",normalCarSpeed);
         bindVars.replace("params",restore_params);
-        bindVars.replace("command","(function(params) {var carspeed = 16;\n" +
-                "var bikespeed = 6;\n" +
-                "var motorspeed = 8;\n" +
-                "var arrayLength = relatedVertex.length;\n" +
-                "for (var i = 0; i < arrayLength - 1; i++) {\n" +
-                "    var caredge = db.caredge.byExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}).toArray();\n" +
-                "    if (caredge.length != 0) {\n" +
-                "        var distance = caredge[0].distance;\n" +
-                "    }\n" +
-                "    db.caredge.updateByExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}, {avoidCarTime : distance / carspeed, normalCarTime : distance / carspeed });\n" +
-                "\n" +
-                "    var bikeedge = db.bikeedge.byExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}).toArray();\n" +
-                "    if (bikeedge.length != 0) {\n" +
-                "        var distance = bikeedge[0].distance;\n" +
-                "    }\n" +
-                "    db.bikeedge.updateByExample({ _from: \"vertex/\" + relatedVertex[i], _to:\"vertex/\" + relatedVertex[i+1]}, {avoidBikeTime : distance / bikespeed, normalBikeTime : distance / bikespeed, avoidMotorTime : distance / motorspeed, normalMotorTime : distance / motorspeed });\n" +
-                "\n" +
-                "}}) (params)");
+        bindVars.replace("command","(function(params) {var arrayLength = params.relatedVertex.length;\n" +
+                "  var db = require('@arangodb').db;\n" +
+                "  for (var i = 0; i < arrayLength - 1; i++) { \n" +
+                "      var caredge = db.caredge.byExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}).toArray(); \n" +
+                "      if (caredge.length != 0) { \n" +
+                "          var distance = caredge[0].distance; \n" +
+                "      } \n" +
+                "      var newcartime = distance/params.carspeed;\n" +
+                "      db.caredge.updateByExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}, {avoidCarTime : newcartime, normalCarTime : newcartime }); \n" +
+                "      var bikeedge = db.bikeedge.byExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}).toArray(); \n" +
+                "      if (bikeedge.length != 0) { \n" +
+                "          var distance = bikeedge[0].distance; \n" +
+                "      }\n" +
+                "      var newmotortime = distance/params.motorspeed;\n" +
+                "      var newbiketime = distance/params.bikespeed;\n" +
+                "      db.bikeedge.updateByExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}, {avoidBikeTime : newbiketime, normalBikeTime : newbiketime, avoidMotorTime : newmotortime, normalMotorTime : newmotortime });\n" +
+                "  }}) (params)");
         HttpEntity<Object> restore_request = new HttpEntity<>(bindVars,headers);
         restTemplate.put("http://47.92.147.237:8529/_api/tasks/"+bindVars.get("id"),
                 restore_request);
@@ -169,7 +179,8 @@ public class TrafficService {
         return response;
     }
 
-    private ErrorResponse removeArango(Integer trafficID) {
+    private ErrorResponse removeArango(TrafficInfo traffic) {
+        Integer trafficID = traffic.getTrafficID();
         MultiValueMap<String,String> headers = new HttpHeaders();
         headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
 
@@ -182,16 +193,56 @@ public class TrafficService {
             tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/update"+trafficID,
                     delete_request);
         } catch (Exception e) {
-            return new ErrorResponse(3,"删除UpdateArango交通信息失败");
+            return new ErrorResponse(3,"删除UpdateArango交通Task失败");
         }
 
         try {
             tempRestTemplate.delete("http://47.92.147.237:8529/_api/tasks/restore"+trafficID,
                     delete_request);
-            return new ErrorResponse(0,"Success");
         }catch (Exception e) {
-            return new ErrorResponse(3,"删除RestoreArango交通信息成功");
+            return new ErrorResponse(3,"删除RestoreArango交通Task失败");
         }
-
+        Map<String,Object> restore_params = new HashMap<>();
+        Map<String,Object> collections_map = new HashMap<>();
+        Map<String,Object> func_params = new HashMap<>();
+        collections_map.put("write", new String[]{"bikeedge","caredge"});
+        restore_params.put("collections",collections_map);
+        func_params.put("motorspeed",normalMotorSpeed);
+        func_params.put("bikespeed",normalBikeSpeed);
+        func_params.put("carspeed",normalCarSpeed);
+        func_params.put("relatedVertex",traffic.getRelatedVertex());
+        restore_params.put("params",func_params);
+        restore_params.put("action","(function(params) {var arrayLength = params.relatedVertex.length;\n" +
+                        "  var db = require('@arangodb').db;\n" +
+                        "  for (var i = 0; i < arrayLength - 1; i++) { \n" +
+                        "      var caredge = db.caredge.byExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}).toArray(); \n" +
+                        "      if (caredge.length != 0) { \n" +
+                        "          var distance = caredge[0].distance; \n" +
+                        "      } \n" +
+                        "      var newcartime = distance/params.carspeed;\n" +
+                        "      db.caredge.updateByExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}, {avoidCarTime : newcartime, normalCarTime : newcartime }); \n" +
+                        "      var bikeedge = db.bikeedge.byExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}).toArray(); \n" +
+                        "      if (bikeedge.length != 0) { \n" +
+                        "          var distance = bikeedge[0].distance; \n" +
+                        "      }\n" +
+                        "      var newmotortime = distance/params.motorspeed;\n" +
+                        "      var newbiketime = distance/params.bikespeed;\n" +
+                        "      db.bikeedge.updateByExample({ _from: \"vertex/\" + params.relatedVertex[i], _to:\"vertex/\" + params.relatedVertex[i+1]}, {avoidBikeTime : newbiketime, normalBikeTime : newbiketime, avoidMotorTime : newmotortime, normalMotorTime : newmotortime });\n" +
+                        "  }})"
+                );
+        HttpEntity<?> restore_request = new HttpEntity<>(restore_params,headers);
+        try {
+            JSONObject response = tempRestTemplate.postForObject("http://47.92.147.237:8529/_api/transaction",restore_request, JSONObject.class);
+//            System.out.println(response);
+//            return null;
+            assert response != null;
+            if ((Integer) response.get("code") == 200) {
+                return new ErrorResponse(0,"Success");
+            } else {
+                throw new Exception();
+            }
+        }catch (Exception e) {
+            return new ErrorResponse(3,"执行Restore任务失败");
+        }
     }
 }
