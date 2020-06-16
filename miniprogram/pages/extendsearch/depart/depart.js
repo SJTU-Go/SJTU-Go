@@ -36,7 +36,7 @@ Page({
     for(res in this.data.markers){
   if (e.markerId==this.data.markers[res].id){
     this.setData({inputVal:this.data.markers[res].name,
-  
+      id:this.data.markers[res].id,
       boxshow:false,
     hasmarkers:false,})
       ress.id = this.data.markers[res].id
@@ -95,7 +95,7 @@ if (this.data.inputVal.substring(0, 4)=='POIN'){
   else{prevPage.setData({  // 将我们想要传递的参数在这里直接setData。上个页面就会执行这里的操作。
    
     depart:this.data.inputVal,
-    departid:this.data.id,  
+    departid:'DT'+this.data.id,  
   })}
 wx.navigateBack({
  

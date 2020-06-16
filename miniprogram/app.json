@@ -1,10 +1,10 @@
 
 {
-  "pages": [    
+  "pages": [       "pages/LoginPage/LoginPage",  
     "pages/comment/comment",   
     "pages/searchindex/searchindex",
 
-      "pages/LoginPage/LoginPage",       
+        
       "pages/setPreferencePage/setPreferencePage",
       "pages/index/index",
       "pages/trafficPage/trafficPage",

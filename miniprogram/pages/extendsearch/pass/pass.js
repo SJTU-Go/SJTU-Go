@@ -36,7 +36,7 @@ Page({
     for(res in this.data.markers){
   if (e.markerId==this.data.markers[res].id){
     this.setData({inputVal:this.data.markers[res].name,
-  
+      id:this.data.markers[res].id,
       boxshow:false,
     hasmarkers:false,})
       ress.id = this.data.markers[res].id
