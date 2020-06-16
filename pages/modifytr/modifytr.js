@@ -197,6 +197,7 @@ Page({
         data: ll.strategy.routeplan[1].passingVertex,
         key: 'verlist',
       })
+      var cen=[1,1]
       for (var n=0;n<ll.strategy.routeplan[1].routePath.coordinates.length;++n){
         
         var lon=ll.strategy.routeplan[1].routePath.coordinates[n][0]
@@ -219,11 +220,14 @@ Page({
         coo.longitude=lon
         coo.latitude=lat
         co.push(coo)
+        cen[0]=lon
+        cen[1]=lat
       }
       line.points=co
       line.width= 4
       poly.push(line)
     
+      that.setData({center:cen})
     that.setData({polyline:poly})
     that.setData({markers:amarkers})
     wx.setStorage({
