@@ -37,7 +37,6 @@ Page({
           key: 'userID',
         })
 
-
         wx.request({
           url: 'https://api.ltzhou.com/user/preference/get?userID='+res.data.userID,
           method:'POST',
@@ -69,6 +68,15 @@ Page({
             key: 'banned',
           })}
         }
+        else{x.setStorage({
+          data:null, 
+          key: 'banned',
+        })
+        wx.setStorage({
+          data: null,
+          key: 'preference',
+        })
+      }
         }})
 
         wx.request({

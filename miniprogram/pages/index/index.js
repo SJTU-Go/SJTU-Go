@@ -277,6 +277,7 @@ Page({
       }
 
       if(that.data.preferencelist.length==0&&that.data.banned.length==0){
+  
         that.setData({preferencelist:that.data.preference1})
     
         wx.setStorage({ key:'preference',
