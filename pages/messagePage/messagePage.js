@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    custate:0,
     isChecked1: false,
     message:{},
     adminID:1,
@@ -69,6 +70,12 @@ filter:function(e){
                       }
                       //console.log(mm)
                     }
+                    if(JSON.stringify(mm) == '{}'){
+                      that.setData({custate:1})
+                    }
+                    else{
+                      that.setData({custate:0})
+                    }
                     console.log(mm)
                     that.setData({message :mm})
               
@@ -115,6 +122,14 @@ filter:function(e){
                 }
                 console.log(mm)
               }
+              console.log(!mm,mm=={},mm==0)
+              if(JSON.stringify(mm) == '{}'){
+                console.log(!mm,mm=={},mm==0)
+                that.setData({custate:1})
+              }
+              else{
+                that.setData({custate:0})
+              }
               console.log(mm)
               that.setData({message :mm})
               
@@ -142,7 +157,7 @@ filter:function(e){
    */
   onShow: function () {
     var that=this
-    
+    that.setData({isChecked1:0})
     wx.getStorage({
       key: 'admin',
       success:function(res){
@@ -200,6 +215,12 @@ filter:function(e){
                 }
                 //console.log(mm)
               } console.log(mm)
+              if(JSON.stringify(mm) == '{}'){
+                that.setData({custate:1})
+              }
+              else{
+                that.setData({custate:0})
+              }
               that.setData({message :mm}) 
               
                 

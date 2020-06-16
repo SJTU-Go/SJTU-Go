@@ -1,6 +1,8 @@
 <!--pages/history/history.wxml-->
 
-    
+<view class="massge" wx:if="{{custate}}">    
+ <view class = 'title' style="color:#6495ED">暂无记录</view>
+ </view>    
     
 <view class="divLine"></view>
 <view class="container">

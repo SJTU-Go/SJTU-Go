@@ -32,7 +32,9 @@
 		</view>
 	</view>
 
-
+<view class="massge1" wx:if="{{custate}}">    
+ <view class = 'title' style="color:#6495ED">暂无记录</view>
+ </view>
 
 <view class="container">
     <view class="massge" wx:for="{{List.hia}}" wx:for-index="idx" wx:for-item="list" >

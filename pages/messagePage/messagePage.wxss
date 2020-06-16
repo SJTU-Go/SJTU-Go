@@ -64,6 +64,9 @@ page {
   color: rgb(6, 207, 22);
   font-size: 20;
 }
+.title
+{font-size: 32rpx;margin-top:40rpx ;margin-bottom:40rpx ;
+  text-align: center;}
 .massge{
   overflow: hidden;
   width: 100%;

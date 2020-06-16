@@ -33,6 +33,9 @@ page {
   padding-top: 15px;
   
 }
+.title
+{font-size: 32rpx;margin-top:40rpx ;margin-bottom:40rpx ;
+  text-align: center;}
 .gif-wave {
   position: absolute;
   width: 100%;

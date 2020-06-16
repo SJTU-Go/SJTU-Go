@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    custate:0,
     admin:'',
     adminID:1,
     hislist:{},
@@ -51,6 +52,7 @@ Page({
       console.log(res)
       var mm= new Array();
       var count=0;
+      
       for (var i in res.data){
         if  (res.data[i].publisherID==that.data.adminID){
           mm[count]=res.data[i]
@@ -58,6 +60,12 @@ Page({
         }
       }
       console.log(mm)
+      if(mm.length==0){
+        that.setData({custate:1})
+      }
+      else{
+        that.setData({custate:0})
+      }
       var tr=new Array()
       var cccc=0
       for( var i=mm.length-1;i>=0;--i){

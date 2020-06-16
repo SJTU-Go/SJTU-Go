@@ -64,7 +64,9 @@ page {
 .center_name {
   font-size: 20px;
 }
-
+.title
+{font-size: 32rpx;margin-top:40rpx ;margin-bottom:40rpx ;
+  text-align: center;}
 .center_phone {
   font-size: 14px;
   color: rgb(5, 163, 111);
@@ -162,6 +164,16 @@ page {
 .massge{
   overflow: hidden;
   width: 93%;
+  background-color: #ffffff;
+  margin-top: 20rpx;
+  position: relative;
+  line-height: 1;
+  border-radius: 7px;
+  box-shadow:6rpx 6rpx 6rpx 6rpx rgba(241, 243, 242, 0.71) 
+}
+.massge1{
+  overflow: hidden;
+  width: 100%;
   background-color: #ffffff;
   margin-top: 20rpx;
   position: relative;

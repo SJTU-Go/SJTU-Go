@@ -3,6 +3,9 @@
     
     
 <view class="divLine"></view>
+<view class="massge" wx:if="{{custate}}">    
+ <view class = 'title' style="color:#6495ED">暂无记录</view>
+ </view>
 <view class="container">
     <view class="massge" wx:for="{{hisNotice}}" wx:for-index="idx" wx:for-item="list" >
       <view class="massge-hd"><image class="massge-img" src="../../images/notice.png"></image><view>通知ID：{{list.noticeID}} </view></view>

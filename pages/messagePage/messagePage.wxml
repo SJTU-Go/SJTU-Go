@@ -13,9 +13,11 @@
     </view>
     -->
     <view class="body-view">
-  <switch  bindchange="filter" > 仅显示未读信息 </switch></view>
+  <switch  checked="{{isChecked1}}" bindchange="filter" > 仅显示未读信息 </switch></view>
 <view class="divLine"></view>
-
+<view class="massge" wx:if="{{custate}}">    
+ <view class = 'title' style="color:#6495ED">暂无记录</view>
+ </view>
 <view class="container">
     <view class="massge" wx:for="{{message}}" wx:for-index="idx" wx:for-item="list" >
       <view class="massge-hd"><image class="massge-img" src="../../images/lmail(1).png"></image><view>用户名：{{list.userName}} </view></view>

@@ -3,17 +3,19 @@ const app = getApp()
 
 Page({
   data:{
-    adminID:1,
+    adminID:0,
     tList:{},
     List:{},
     admin:'',
-    num:0
-    
+    num:0,
+    custate:0
   },
   
 
   onShow:function(){
     var that=this
+    var non=0
+    var non2=0
     wx.getStorage({
       key: 'admin',
       success:function(res){
@@ -37,7 +39,9 @@ Page({
         var ll=res.data
         that.setData({List:ll})
         var l=0
+        
         for(var i in res.data.hia){l+=1}
+        if(l==0){non=1}
         that.setData({num:l})
         console.log(that.data)
       }
@@ -51,6 +55,13 @@ Page({
         console.log(res1.data)
         var ll=res1.data
         that.setData({tList:ll})
+        if(res1.data.length==0){non2=1}
+        if(non==1&&non2==1){
+          that.setData({custate:1})
+        }
+        else{
+          that.setData({custate:0})
+        }
         var l=0
         for(var i in res1.data){l+=1}
         that.setData({num:l+that.data.num})

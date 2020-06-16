@@ -154,7 +154,9 @@ width: 90%;
   align-items: top;
   justify-content: left;
 }
-
+.title
+{font-size: 32rpx;margin-top:40rpx ;margin-bottom:40rpx ;
+  text-align: center;}
 .extendblock
 {display: flex;
   flex-direction: row;
