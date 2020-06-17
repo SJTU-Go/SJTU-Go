@@ -20,18 +20,20 @@
 -->
 
 
-    <view wx:if='{{boxshow}}' wx:for="{{reslist}}" wx:for-item="item" class="msg-item" bindtap="viewcomment"  wx:for-index='i'   data-ind="{{i}}">
+    <view wx:if='{{boxshow}}' wx:for="{{reslist}}" wx:for-item="item" class="massge" bindtap="viewcomment"  wx:for-index='i'   data-ind="{{i}}">
          <view class = 'toppart'>
+         <image class="massge-img" src="../../images/crosses.png"></image>
             <view class='titlename' >{{item.parkingName}}</view>
             <view class='right'>
-            <view class='distancename' >{{item.distance|Int}}米</view></view>
+            <view class='distancename'style="color:#00a278"  >{{item.distance|Int}}米</view></view>
         </view>
          <view class = 'toppart'>
             <view class='commentname' >{{item.title}}</view>
         </view> 
-         <view class = 'toppart'>
+         <view class = 'toppart'style="margin-top:22rpx;margin-bottom:22rpx;">
             <view class='rightt'><view class='usersname' >{{item.userName}} {{item.commentTime}}</view></view>
         </view> 
+        <image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
     </view>
         <view class = "bottomblock">
         <button class = 'navigatebutton'bindtap="navigatePage">地图查看</button>

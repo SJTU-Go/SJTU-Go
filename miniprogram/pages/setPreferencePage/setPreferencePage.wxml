@@ -1,5 +1,7 @@
-
-<view style="font-size:40rpx">目前的偏好优先级为：</view>
+<view style="height:30rpx"></view>
+<view style="margin-left:5%;margin-right:10%;margin-top:30rpx">
+<view style="font-size:34rpx;font-weight:bold">目前偏好优先级：</view>
+<view style="height:40rpx"></view>
 <view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
   <view wx:if="{{i < preference.length}}">
    <view class="massge-hd">
@@ -13,6 +15,7 @@
       <view class="containerbutton">
         <button class='btn2' bindtap='addbanned' data-id="{{i}}"><view>设为禁止</view></button>
       </view>
+      <view style="width:5%"/>
       <view class = 'updownbox'>
         <image class="massge-img" src="../../images/up.png" bindtap="up" data-id="{{i}}"></image>
       </view>
@@ -22,7 +25,11 @@
     </view>
   </view>
 </view>
-<view style="font-size:40rpx">目前的禁止的出行方式有：</view>
+</view>
+<view style="height:50rpx"></view>
+<view style="margin-left:5%;margin-right:10%;margin-top:30rpx">
+<view style="font-size:34rpx;font-weight:bold">目前禁止的出行方式：</view>
+<view style="height:30rpx"></view>
 <view wx:for="{{[0, 1, 2, 3, 4, 5]}}" wx:for-item="i">
   <view wx:if="{{i < banned.length}}">
    <view class="massge-hd">
@@ -39,7 +46,8 @@
     </view>
   </view>
 </view>
-<view style="height:100rpx"></view> 
+</view>
+<view style="height:200rpx"></view> 
 <view class="containerbutton1">
   <button class='btn1' bindtap='setPreference'>
     <view>修改完毕</view>

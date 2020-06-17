@@ -1,20 +1,26 @@
 
 {
-  "pages": [     
+  "pages": [    
+    "pages/LoginPage/LoginPage",   
+    "pages/setPreferencePage/setPreferencePage", 
+    "pages/preferencePage/preferencePage",
     "pages/index/index",    
-    "pages/searchindex/searchindex",       
-    "pages/LoginPage/LoginPage",  
+
+    "pages/searchindex/searchindex",  
+
+     
+
 
     "pages/extendsearch/arrive/arrive",
     "pages/comment/comment",   
-      "pages/setPreferencePage/setPreferencePage",
+
 
       "pages/trafficPage/trafficPage",
 
   
   
       "pages/addcomment/addcomment", 
-      "pages/preferencePage/preferencePage",
+
       "pages/walk/walk",
       "pages/commentmap/commentmap",
       "pages/feedback/feedback",
@@ -86,5 +92,8 @@
     },
 
 "sitemapLocation": "sitemap.json",
-"style": "v2"
+"style": "v2",
+"useExtendedLib": {
+  "weui": true
+}
 }

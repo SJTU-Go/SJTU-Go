@@ -5,7 +5,7 @@
 <scroll-view scroll-y style="display: flex; height: 415px;">
 <view  class='subtitle'>
   <text style="font-size:34rpx">
-哈罗单车方案 · 用时{{time/60|int}}分钟 · 免费
+哈罗单车方案 · 用时{{time}}分钟 · 免费
   </text>
 </view>
     <view class="line1"/>  
@@ -21,7 +21,8 @@
     </view>
     <view class ='rightpart'>
       <view hidden="{{itema.hiddena}}">
-        <view style='fontsize=20rpx; color=grey'>({{itema.routeTime/60|int}}min)</view>
+        <view wx:if = "{{itema.routeTime/60|int}}" style='fontsize=20rpx; color=grey'>({{itema.routeTime/60|int}}min)</view>
+         <view wx:else style='fontsize=20rpx; color=grey'>(1min)</view>
         <view class = 'flexblock'>
           <view class = 'block'>  
             <view class='routeInfo'>
@@ -36,20 +37,29 @@
 </view>  
   <view class = 'emptyblock'></view>
 </view>
+<view style = "margin-left:20%">
+<input type="text"  class="search-bar__input" placeholder="输入评论" maxlength='40' value="{{inputVal}}" focus="{{inputShowed}}"   bindinput="inputTyping" />
+</view>
+<view style="display:flex">
+<view style="width:5%" />
 <view class = 'toolblock'>
-<view class = 'downblock'>
-  <view class = 'btnblk'>
-    <button class='btn2' bindtap='starttirp'>
-      <view>开始行程</view>
-      </button>
-  </view>
-  <view class = 'btnblk2'>
-    <button class='btn1' bindtap='viewcomment'>
-      <view>查看评论</view>
-    </button>
-  </view>
-</view>
-</view>
-</scroll-view>
+  <view class = 'downblock'>
 
+      <button class='btn1' bindtap='updateComment'>
+        <view>提交评论</view>
+        </button>
+  </view>
+</view>
+
+<view class = 'toolblock'>
+  <view class = 'downblock'>
+
+      <button class='btn2' bindtap='starttirp'>
+        <view>开始行程</view>
+        </button>
+  </view>
+</view>
+</view>
+
+</scroll-view>
 

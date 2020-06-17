@@ -1,43 +1,47 @@
 <!--index.wxml-->
-<view class='block'>
-  <view class ='blockleft'>
-    <open-data type="userAvatarUrl"></open-data>
-  </view>
-  <view class ='smallblock'></view>
-  <view class = 'verticaltool'>
-    <view class ='tool'>
-      <view class ='blocklleft'>用户名：</view>
-      <view class ='blockright'>
-        <open-data type="userNickName"></open-data>
-      </view>
-    </view>
-    <view class ='tool'>
-      <view class ='blocklleft'>手机号：</view>
-      <view class ='blockright'>
-        未绑定
-      </view>
-    </view>
-    <view class ='tool'>
-      <view class ='blocklleft'>邮箱：</view>
-      <view class ='blockright'>未绑定</view>
-    </view>
 
-  </view>
+<view>
+		<view class="top">
+			<view class="center">
+				<view class="center_top">
+					<view class="center_img" >
+						<!-- <image src="../../static/info_img.jpg"></image> -->
+						<open-data type="userAvatarUrl" class="user_head"></open-data>
+					</view>
+					<view class="center_info" bindtap="toBaseInfo">
+						<view class="center_name"><open-data type="userNickName"></open-data></view>
+						<!-- <view class="center_phone">phone:{{phone}}</view> -->
+						<view class="center_phone">普通用户</view>
+					</view>
+				</view>
+				<!-- <view class="center_down">
+					<view class="center_rank" bindtap="history">
+          <image class="rank_icon" src="../../images/his1.png"></image>
+						<text class="rank_text" bindtap="history">出行总记录</text>
+					</view>
+					<view class="center_score" bindtap="trhistory">
+          <image class="rank_icon" src="../../images/his2.png"></image>
+						<text class="rank_text" bindtap="trhistory">已评价记录</text>
+					</view>
+          <view class="center_score" bindtap="hisNotice">
+          <image class="rank_icon" src="../../images/his3.png"></image>
+						<text class="rank_text" bindtap="hisNotice">待评价记录</text>
+					</view>
+				</view> -->
+			</view>
+			<image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
+		</view>
+	</view>
+<view>
+<view class="page__hd">
+  <mp-cells ext-class="my-cells" title="系统设置">
+            <mp-cell value="个人偏好" footer="个人偏好" bindtap="preferenceNavigate"></mp-cell>
+  </mp-cells>
+  <mp-cells ext-class="my-cells" title="个人信息">
+            <mp-cell value="日程查看" footer="日程查看" bindtap="scheduleNavigate"></mp-cell>
+            <mp-cell value="历史记录" footer="历史记录" bindtap="historyNavigate"></mp-cell>
+  </mp-cells>
 </view>
-<view class="divLine"></view>
-<view class='blocksystem'>
-  <view class ='blockleft'>系统设置</view>
-  <view class ='smallblock'></view>
-  <view class = 'verticaltool'>
-    <view class ='tool'>
-      <view class ='extendblock'bindtap="preferenceNavigate">个人偏好></view>
-    </view>
-    <view class ='tool'>
-      <view class ='extendblock'bindtap="scheduleNavigate">日程查看></view>
-    </view>
-    <view class ='tool'>
-      <view class ='extendblock'bindtap="historyNavigate">历史记录></view>
-    </view>
 
-  </view>
+
 </view>

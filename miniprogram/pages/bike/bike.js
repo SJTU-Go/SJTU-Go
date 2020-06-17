@@ -2,6 +2,7 @@
 
 Page({
   data: {
+    input:'',
     routeplan:[],
     polyline:[],
     time:0,
@@ -15,12 +16,53 @@ Page({
     lon:0,
     lat:0,
   },
+updateComment(){
+var text = this.data.input
+wx.getStorage({
+  key: 'bike',
+  success(res)
+  {var object = res.data.routeplan
+    var related = object[object.length-1].parkID
+    var update = {}
+    update.fatherID = 0
+    update.relatedPlace = related
+    update.contents = text
+    wx.getStorage({
+      key: 'userID',
+      success(res)
+      {
+        update.userID = res.data
+        console.log("updating")
+        console.log(update)
+        wx.request({
+          url: 'https://api.ltzhou.com/comments/addcomment',
+          data:update,
+          method:"POST",
+         success(res){console.log(res.data)
+          wx.showToast({ 
+            title: '评价成功', 
+            icon: 'success', 
+            duration: 2000 
+            }) 
+        
+        }
+        })
+      }
+    })
 
+  }
+})
+},
+inputTyping(e){
+var text = e.detail.value
+this.setData({input:text})
+},
   onLoad: function(options){
     var d = JSON.parse(options.RT)
+   var T= Math.ceil(options.travelTime/60)
     this.setData({
       routeplan: JSON.parse(options.RT),
-      time:options.travelTime,
+      time:T,
     })
     var polyline = [];
     console.log(options.travelTime);

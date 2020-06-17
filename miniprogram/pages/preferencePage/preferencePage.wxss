@@ -97,13 +97,13 @@ page {
   flex-direction: row;
   align-content: space-between;}
   .massge-hd{
-    padding:20rpx 0rpx 30rpx 20rpx;
+    padding:13rpx 0rpx 20rpx 20rpx;
     display: flex;
     flex-direction: row;
     align-items: center;
   }
   .massge-bd,.massge-ft{
-    padding:0rpx 0rpx 30rpx 40rpx;
+    padding:0rpx 0rpx 20rpx 27rpx;
   }
   .massge-bd{
     display: flex;

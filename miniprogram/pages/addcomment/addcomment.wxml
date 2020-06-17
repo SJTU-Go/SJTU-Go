@@ -1,13 +1,14 @@
 
 
-    <view wx:if='{{boxshow}}' wx:for="{{lista}}" wx:for-item="item" class="msg-item" wx:for-index='i'  >
+    <view wx:if='{{boxshow}}' wx:for="{{lista}}" wx:for-item="item" class="massge" style=" margin-top:50rpx;" wx:for-index='i'  >
      <view wx:if='{{i==0}}' >
          <!--<view class='user-name' bindtap = 'inputreturn' data-Name = '{{item.placeName}}' data-ID = '{{item.placeID}}'>{{item.location.coordinates}}</view>
          <view class='contents'>{{item.contents}}</view>!-->
          <view class = 'toppart'>
-            <view class='titlename' >{{item.parkingName}}</view>
+         <image class="massge-img" src="../../images/crosses.png"></image>
+            <view class='titlename' style="color:#6495ED">{{item.parkingName}}</view>
             <view class='right'>
-            <view class='distancename' >{{item.distance|Int}}米</view></view>
+            <view class='distancename' style="color:#00a278">{{item.distance|Int}}米</view></view>
         </view>
          <view class = 'middlepart'>
             <view class = 'smiddlepart'>
@@ -23,12 +24,12 @@
 
                 <view class='likename' >
                     <view wx:if = '{{appr}}'>
-                        <image class="massge-img" src="/images/uncomment.png" bindtap ="thumb"> </image>
+                        <image class="massge-img1" src="/images/uncomment.png" bindtap ="thumb"> </image>
                     </view>
                     <view wx:else>  
-                        <image class="massge-img" src="/images/comment.png" > </image>
+                        <image class="massge-img1" src="/images/comment.png" > </image>
                     </view>
-                    <image class="massge-img" src="/images/uncomment1.png"></image>
+                    <image class="massge-img1" src="/images/uncomment1.png"></image>
                 </view>
             </view>
             <!--
@@ -45,23 +46,28 @@
 
             -->
         </view>     
-         <view class = 'toppart'>
+         <view class = 'toppart1'>
             <view class='commentnum'><view class='usersname' >{{item.approveNames.length}}</view></view>
         </view> 
             </view>
+            </view>
+         <view class="massge1">
             <view wx:if = "{{subshow}}">
-                <view class='subcontent' bindtap = "removesub" >-收起子评论</view>
+                <view class='subcontent' style="color:#6495ED; margin-top:12rpx; margin-bottom:12rpx;"  bindtap = "removesub" >-收起子评论</view>
                 <view wx:if='{{boxshow}}' wx:for="{{subcomment}}" wx:for-item="list" wx:for-index='i' >
-                    <view class='subcontent' >{{list.userName}}:{{list.contents}}</view>
+                    <view class='subcontent' ><text style="color:#00a278">{{list.userName}}:</text><text style="margin-left:12rpx;">{{list.contents}}</text></view>
                 </view>
+                 <image src='https://6661-fatdown-wxapp-sg2p1-1300398887.tcb.qcloud.la/wave.gif?sign=045605c672f482a8c3d428abed669aa7&t=1570674356' mode='scaleToFill' class='gif-wave'></image>
             </view>
             <view wx:else>
-                <view class='subcontent' bindtap = "viewsub" >+点击查看子评论</view>
+                <view class='subcontent' style="color:#6495ED; margin-top:12rpx; margin-bottom:12rpx;" bindtap = "viewsub" >+点击查看子评论</view>
             </view>
-            
-    </view>
+      </view>       
+    
+
         <view class = "bottomblock">
 
-            <input class="input" text-align="center" name="userName" placeholder="回复评论"
-    bindinput="commentInput"/>        <button class = 'navigatebutton'bindtap="updataInput">提交</button>
+       
+            <input class="input" text-align="center" name="userName" placeholder="回复评论" bindinput="commentInput"/>        
+            <button class = 'navigatebutton' bindtap="updataInput">提交</button>
     </view>
