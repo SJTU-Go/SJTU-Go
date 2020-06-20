@@ -32,9 +32,6 @@
 
 
     "pages/extendsearch/pass/pass",
-    "pages/extendsearcha/depart/depart",
-    "pages/extendsearcha/arrive/arrive",
-    "pages/extendsearcha/pass/pass",
 
     "index/index",
 
@@ -45,10 +42,8 @@
     "pages/schedulePage/schedulePage",
     "pages/HistoryPage/HistoryPage",
 
-    "pages/userInfoPage/userInfoPage",
+    "pages/userInfoPage/userInfoPage"
 
-    "pages/registrationPage/registrationPage",
-    "pages/accountLoginPage/accountLoginPage"
 
   ],
 
