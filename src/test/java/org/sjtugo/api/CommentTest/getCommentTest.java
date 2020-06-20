@@ -32,7 +32,5 @@ public class getCommentTest {
                 .andExpect(content().json(Files.readString(Paths.get("./testcase/comment/getCommentByLocExpect.json"))));
     }
 
-    @Test
-    public void testGetCommentByPlaceID() throws Exception
 
 }
