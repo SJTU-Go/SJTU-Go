@@ -1,18 +1,35 @@
-
 <view class="container">
     <view class="massge" wx:for="{{orderList}}" wx:for-index="idx" wx:for-item="list" >
-      <view class="massge-hd"><image class="massge-img" src="../../images/search.png"></image><view>搜索结果</view></view>
+      <view class="massge-hd"><image class="massge-img" src="../../images/search.png"></image>
+      <view class="search-head"> {{list.strategy.depart}} 到 {{list.strategy.arrive}}</view></view>
+      <view class="message-info">
+        <view class="message-key">路线类型</view> <view class="message-value">{{list.strategy.type}}</view>
+      </view>
+      <view class="message-info">
+        <view class="message-key">出发时间</view> <view class="message-value">{{list.departTime}}</view>
+      </view>
+      <view class="message-info">
+        <view class="message-key">路线用时</view> <view class="message-value">{{(list.strategy.travelTime/60|0)}} 分钟 {{(list.strategy.travelTime%60)}} 秒 </view>
+      </view>
+      <view class="message-info">
+        <view class="message-key">步行总距离</view> <view class="message-value">{{list.strategy.distance}} 米</view>
+      </view>
+      <!-- <view class="message-info">
+        <view class="message-key">途径地点</view> <view class="message-value">{{list.passPlaces}}</view>
+      </view> -->
       <view class="massge-bd font-color-666">
-        <text>出发点：<text class="font-color-c24e4e font-size-15">{{list.arrive}}</text><text style="margin-left:40rpx;">路线用时:</text> {{list.routetime}}</text>
-        <text style="margin-top:22rpx;"><text>目的地：<text class="font-color-c24e4e font-size-15">{{list.depart}}</text></text><text style="margin-left:40rpx;">途径地点:</text> {{list.passPlaces}}</text>
+       <!--  <text>出发点：<text class="font-color-c24e4e font-size-15">{{list.arrive}}</text><text style="margin-left:40rpx;">路线用时:</text> {{list.routetime}}</text>
+        <text style="margin-top:22rpx;"><text>目的地：<text class="font-color-c24e4e font-size-15">{{list.depart}}</text></text><text style="margin-left:40rpx;">途径地点:</text> {{list.passPlaces}}</text> -->
         <view class='textdiv'>
-          <text style="font-size-20" data-index="{{idx}}" bindtap="searchPage">评价></text>
-                    <text style="font-size-20" data-index="{{idx}}" bindtap="showRoute">                   路线></text>
+        <button class="mini-btn" type="primary" size="mini" bindtap="searchPage" data-index="{{idx}}">评价</button>
+        <button class="mini-btn" type="default" size="mini" bindtap="showRoute">查看路线</button>
         </view>
-       </view>
+       </view> 
     </view>
-<view class = 'downblock'>
 
+
+
+<view class = 'downblock'>
   <button class='btn1' bindtap='indexback'>
     <view>回到主页</view>
     </button>

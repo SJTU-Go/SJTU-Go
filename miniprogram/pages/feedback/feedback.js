@@ -6,10 +6,10 @@ Page({
   data: {
     userID:1,
     tripid:1,
-    road:"",
-    vehicle:"",
-    congestion:"",
-    service:"",
+    road:"4",
+    vehicle:"4",
+    congestion:"4",
+    service:"4",
     comment:"",
     polyline:[]
   },

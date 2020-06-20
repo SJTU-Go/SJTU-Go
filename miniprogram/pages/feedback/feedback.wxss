@@ -36,3 +36,33 @@
   margin: 0 0 3px 18px;
   height: 100px;
 }
+
+.section__title{
+  margin-left: 2em;
+  font-weight: 400;
+}
+
+.body-view {
+  margin-left: 1em;
+  margin-right: 2em;
+}
+
+.section_gap{
+  margin-top: 1em;
+}
+.section__title{
+  font-size: large;
+}
+.my-inbox{
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+
+.hd_text{
+  margin-left: 2.5em;
+  margin-right: 1.5em;
+  font-weight: 200;
+  font-size: small;
+  margin-top:1em;
+  color: gray;
+}

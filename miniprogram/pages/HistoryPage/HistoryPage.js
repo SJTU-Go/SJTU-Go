@@ -12,7 +12,7 @@ Page({
    //var list=new Array()
     // 页面初始化 options为页面跳转所带来的参数
     wx.getStorage({
-      key: 'history',
+      key: 'historygained',
       success:function(res){
         console.log(res.data)
         that.setData({orderList:res.data})

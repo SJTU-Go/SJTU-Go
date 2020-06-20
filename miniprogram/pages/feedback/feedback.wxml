@@ -1,4 +1,51 @@
 <!--pages/feedback/feedback.wxml-->
+
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <view class="page__bd">
+    <view class="hd_text">请对本次出行进行评价</view>
+        <mp-form id="form" bindsubmit="formSubmit">
+        <view class="section section_gap">
+            <text class="section__title">实际路况是否符合规划路况</text>
+            <view class="body-view">
+                <slider bindchange="roadInput" left-icon="cancel" right-icon="success_no_circle" min="0" max="5" step="1" show-value value="4" />
+            </view>
+        </view>
+        <view class="section section_gap">
+            <text class="section__title">按指示停车点拥挤程度</text>
+            <view class="body-view">
+                <slider bindchange="congestionInput" left-icon="cancel" right-icon="success_no_circle" min="0" max="5" step="1" show-value value="4" />
+            </view>
+        </view>
+        <view class="section section_gap">
+            <text class="section__title">按指示寻车顺利程度</text>
+            <view class="body-view">
+                <slider bindchange="vehicleInput" left-icon="cancel" right-icon="success_no_circle" min="0" max="5" step="1" show-value value="4" />
+            </view>
+        </view>
+        <view class="section section_gap">
+            <text class="section__title">对本次出行服务满意程度</text>
+            <view class="body-view">
+                <slider bindchange="serviceInput" left-icon="cancel" right-icon="success_no_circle" min="0" max="5" step="1" show-value value="4" />
+            </view>
+        </view>
+        <view class="weui-cells__title my-inbox">其他评价或建议</view>
+        <view class="weui-cells weui-cells_after-title my-inbox">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea name="comment" class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" bindinput="commentInput" />
+                    <view class="weui-textarea-counter">0/200</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="formSubmit">提交</button>
+        </view>
+        
+        </mp-form>
+    </view>
+</view>
+
+<!-- 
 <view class="head"><text color="#F0F8FF">请对本次出行进行评价及打分</text></view>
 <form class="form" bindsubmit="formSubmit">
 <view class="container1">
@@ -23,4 +70,4 @@
 <view class="remark">您对本次出行还有什么评价与建议？</view>
 <input class="big" name="comment" placeholder="输入评论" bindinput="commentInput" />
 <button formType="submit">Submit</button>
-</form>
+</form> -->

@@ -4,8 +4,30 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+.message-info {
+  display: flex;
+  flex-direction: row;
+}
+.message-key{
+  margin-left: 2em;
+  margin-bottom: 1em;
+  font-weight: 500;
+  width: 30%;
+}
+.message-value{
+  width: 70%;
+  font-weight: 300;
+}
+.search-head{
+  font-weight: 600;
+  font-size: larger;
+}
+.mini-btn{
+  margin-right: 10rpx;
+  font-weight: 300;
+}
 .textdiv{
-  margin-top:30rpx;
+  margin-top:5rpx;
   color: blue;
   font-size: 20;
 }
@@ -31,7 +53,8 @@ page {
   align-items: center;
 }
 .massge-bd,.massge-ft{
-  padding:0rpx 0rpx 30rpx 40rpx;
+  align-items: baseline;
+  padding:0rpx 0rpx 1em 2em;
 }
 .massge-bd{
   display: flex;
