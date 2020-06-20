@@ -8,44 +8,58 @@ AdoptOpenJDK 11(LTS)
 相关依赖包可通过pom.xml文件导入
 
 ## 目录说明
+服务器端代码位于SJTU-Go文件夹中，其中
+- arango文件夹中的脚本运行在本地设备，用于初始化配置图数据库的数据。
+- crawler文件夹中的脚本中，部分脚本运行在本地设备，用于初始化配置关系型数据库，另一部分脚本需要在服务器后台持续运行，见start-crawler.sh脚本中的说明。
+- src文件夹中包含所有服务端API服务的源代码。开发环境为AdoptOpenJDK 11(LTS)，采用SpringBoot框架，相关包可以通过Maven工具根据pom.xml文件导入。建议在本地编译成jar包后部署到服务器运行。
 ```
 SJTU-Go
-│  .gitignore
-│  LICENSE
-│  mvnw
-│  mvnw.cmd
-│  pom.xml     // 包管理配置文件
-│  README.md
-│  SJTU-Go.iml
+│  pom.xml   // 包管理配置文件
 │
-├─arango      // ArangoDB和MySQL数据库中地图信息的导入脚本
-│      addedge.py       // 向ArangoDB图数据库导入地图边和建筑物信息
-│      addvertex.py     // 向ArangoDB图数据库导入地图节点
-│      changeedge.py    // 根据基础图在ArangoDB中建立不同子地图
-│      mysqledge.py     // 在MySQL数据库里导入边信息
-│      mysqlrelation.py // 在MySQL数据库中导入建筑物信息，并建立建筑和最近停车点的关系表
-│      mysqlvertex.py   // 在MySQL数据库里导入节点信息
+├─arango  // ArangoDB和MySQL数据库中地图信息的导入脚本
 │
-├─crawler    // 交通信息导入
-│  │  crawler_script_e100.py   // 持续运行更新共享汽车数据库
-│  │  crawler_script_hello.py  // 持续运行更新哈罗单车数据库
-│  │
-│  │
-│  └─WriteBus                  // 写入校园巴士位置、时刻表
-│          busStopWrite.py     // MySQL写入校园巴士位置脚本
-│          busTimeWrite.py     // MySQL写入校园巴士时刻表脚本
+├─crawler  // 交通信息导入
 │
-└─src
-    ├─main.java.org.sjtugo.api
-    │  │   │  ApiApplication.java
-    │  │   ├─config  // 配置类
-    │  │   ├─controller  // 请求控制类
-    │  │   ├─DAO      // 数据服务接口
-    │  │   ├─entity   // 实体类
-    │  │   └─service   // 控制类
-    │  └─resources
-    │      │  api.jks
-    │      └─ application.properties // 配置文件
-    └─test.java.org.sjtugo.api               // 测试代码
-          ApiApplicationTests.java
+├─src
+│  ├─main
+│  │  ├─java
+│  │  │  └─org
+│  │  │      └─sjtugo
+│  │  │          └─api
+│  │  │              │  ApiApplication.java
+│  │  │              │
+│  │  │              ├─config            // 配置类
+│  │  │              │
+│  │  │              ├─controller    // 处理HTTP请求的控制类
+│  │  │              │  │
+│  │  │              │  ├─RequestEntity
+│  │  │              │  │
+│  │  │              │  └─ResponseEntity
+│  │  │              │
+│  │  │              ├─DAO          // 数据服务接口
+│  │  │              │  │
+│  │  │              │  ├─Entity
+│  │  │              │  │
+│  │  │              │  └─Exception
+│  │  │              │
+│  │  │              ├─entity   // 实体类
+│  │  │              │
+│  │  │              └─service   // 负责业务逻辑的控制类
+│  │  │                  │
+│  │  │                  ├─Exception
+│  │  │                  │
+│  │  │                  └─NavigateService  // 导航服务的控制类
+│  │  │
+│  │  └─resources
+│  │      │  application.properties  // 配置文件
+│  │      │
+│  │      ├─static
+│  │      └─templates
+│  └─test
+│      └─java
+│          └─org
+│              └─sjtugo
+│                  └─api   // 单元测试代码
+│
+└─testcase   // 单元测试需用到的数据
 ```
