@@ -18,29 +18,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-@SpringBootTest
-@AutoConfigureMockMvc
-public class PreferenceTest {
-
+public class HistoryTest {
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    public void testGetPreferenceNormal() throws Exception{
-        this.mockMvc.perform(post("/user/preference/get")
-                .param("userID","123"))
+    public void testGetHistoryNormal() throws Exception{
+        this.mockMvc.perform(post("/user/history/get")
+                .param("userID","147"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("preferencelist")))
-                .andExpect(content().string(containsString("banlist")));
-    }
-
-    @Test
-    public void testGetPreferenceNull() throws Exception {
-        this.mockMvc.perform(post("/user/preference/get")
-                .param("userID", "123333"))
-                .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(content().string(containsString("tripID")));
     }
 }

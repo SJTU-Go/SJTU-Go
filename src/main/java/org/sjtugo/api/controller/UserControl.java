@@ -105,7 +105,7 @@ public class UserControl {
 
     @Data
     static class LoginRequest{
-        @ApiModelProperty(value = "登陆凭证")
+        @ApiModelProperty(value = "登陆凭证", example = "123f334d")
         private String code;
         @ApiModelProperty(value = "用户名", example = "nicolas")
         private String name;
