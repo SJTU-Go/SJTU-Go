@@ -59,9 +59,10 @@ if __name__=="__main__":
     cursor = conn.cursor()
 
     data = crawler_e100()
-    write_db_e100(data)
 
-    cluster_sql = 'SELECT cluster_point,count(*) num FROM e100_info GROUP BY cluster_point'
-    cursor.execute(cluster_sql)
-    result = cursor.fetchall()
-    print(result)
+    print(len(data))
+
+    for car in data:
+        print(car['title'])
+    
+    print(data)

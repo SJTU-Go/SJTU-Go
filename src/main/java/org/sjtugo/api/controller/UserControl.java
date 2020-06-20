@@ -38,7 +38,7 @@ public class UserControl {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/login")
-    public ResponseEntity<?> userLogin(@RequestParam LoginRequest loginRequest){
+    public ResponseEntity<?> userLogin(@RequestBody LoginRequest loginRequest){
         UserService userser = new UserService(userRepository);
         return userser.userLogin(loginRequest.getCode(),loginRequest.getName());
     }
@@ -105,7 +105,7 @@ public class UserControl {
 
     @Data
     static class LoginRequest{
-        @ApiModelProperty(value = "登陆凭证")
+        @ApiModelProperty(value = "登陆凭证", example = "123f334d")
         private String code;
         @ApiModelProperty(value = "用户名", example = "nicolas")
         private String name;
