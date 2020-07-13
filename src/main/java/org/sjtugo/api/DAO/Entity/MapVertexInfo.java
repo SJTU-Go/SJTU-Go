@@ -52,4 +52,9 @@ public class MapVertexInfo {
     @Column(name="motor_count")
     @ApiModelProperty(value = "实时筋斗云车辆数")
     private Integer motorCount;
+
+    @Column(name = "popularity")
+    @ApiModelProperty(value = "停车点热度")
+    private int popularity;
+
 }
