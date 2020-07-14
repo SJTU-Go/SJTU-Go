@@ -6,7 +6,7 @@ public interface UserConstant {
     // 小程序appid
     public static final String WX_LOGIN_APPID = "wxde82431f805562ef";
     // 密匙
-    public static final String WX_LOGIN_SECRET = "9410fc63d3e65d3f100ffdeecc91dff0";
+    public static final String WX_LOGIN_SECRET = "40fb5700a5742cdf2d744ef87df8da98";
     // 固定参数
     public static final String WX_LOGIN_GRANT_TYPE = "authorization_code";
 }
