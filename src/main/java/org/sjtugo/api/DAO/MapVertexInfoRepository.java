@@ -44,4 +44,17 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
             "LIMIT 1", nativeQuery = true)
     List<MapVertexInfo> findNearbyParking(@Param("lng") double lng, @Param("lat") double lat);
 
+/*
+    @Query( value = "SELECT *, ST_LENGTH(LineString(POINT(longitude,latitude),POINT(:lng,:lat))) AS distance" +
+            " ORDER BY distance LIMIT 1" +  "FROM map_vertex_info",
+            nativeQuery = true)*/
+    @Query( value = "SELECT vertex_infos.* " +
+        "FROM (SELECT ST_LENGTH(LineString(location, POINT(:lng, :lat))) AS distance, map_vertex_info.*" +
+        " FROM map_vertex_info WHERE vertex_name IS NOT NULL) vertex_infos " +
+        " ORDER BY vertex_infos.distance LIMIT 1",
+        nativeQuery = true)
+
+
+    List<MapVertexInfo> findNearest(@Param("lng") double lng, @Param("lat") double lat);
+
 }
