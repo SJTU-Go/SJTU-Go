@@ -35,5 +35,12 @@ public class Punishment {
 
     @ApiModelProperty(value = "出行工具类型")
     private Integer type;
+
+
+    @ApiModelProperty(value = "惩罚值")
+    private Integer punish;
+
+
     public Punishment() {}
+
 }
