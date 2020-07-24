@@ -50,7 +50,7 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
             nativeQuery = true)*/
     @Query( value = "SELECT vertex_infos.* " +
         "FROM (SELECT ST_LENGTH(LineString(location, POINT(:lng, :lat))) AS distance, map_vertex_info.*" +
-        " FROM map_vertex_info WHERE vertex_name IS NOT NULL) vertex_infos " +
+        " FROM map_vertex_info ) vertex_infos " +
         " ORDER BY vertex_infos.distance LIMIT 1",
         nativeQuery = true)
 

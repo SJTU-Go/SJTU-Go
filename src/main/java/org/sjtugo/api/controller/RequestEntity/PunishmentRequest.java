@@ -17,10 +17,10 @@ import java.util.List;
 public class PunishmentRequest {
     @ApiModelProperty(value = "行程开始记录时间", required = true,
             example = "")
-    private int beginRecordTime;
+    private long beginRecordTime;
     @ApiModelProperty(value = "路线开始记录时间", required = true,
             example = "")
-    private int beginRouteTime;
+    private long beginRouteTime;
     @ApiModelProperty(value = "经过路线",
             example = "[[121.33416748046875, 31.156105041503906, 0, 298],[121.33415985107422, 31.156110763549805, 0, 299]]")
     private List<List<Double>>punishlist;

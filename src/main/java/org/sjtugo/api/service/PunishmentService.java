@@ -3,9 +3,11 @@ import net.sf.json.JSONArray;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-
+import net.sf.json.JSONObject;
 
 import org.sjtugo.api.entity.Punishment;
 import org.sjtugo.api.entity.TimeStamp;
@@ -39,37 +41,43 @@ public class PunishmentService {
         this.tripRepository = tripRepository;
         this.restTemplate = restTemplate;
     }
-    public ResponseEntity<?> addpunishment(List<List<Double>> punishment,int tripid,int beginRouteTime, int type,int segindex){
+    public ResponseEntity<?> addpunishment(List<List<Double>> punishment,int tripid,long beginRouteTime, int type,int segindex){
         Trip usedtrip = tripRepository.findByTripID(tripid);
         //待完成
         int Typ = 0;
         List<TimeStamp> timecop = this.findTripExpectTime(tripid,segindex,type);
         List<TimeStampMerge> timecomputed = new ArrayList<TimeStampMerge>();
-        Integer timerecorded = beginRouteTime;
+        Long timerecorded = beginRouteTime;
         //已完成
         List<TimeStamp> timres = new ArrayList<TimeStamp>();
         List<TimeStamp> timfilter = new ArrayList<TimeStamp>();
         List<TimeStampMerge> timMerge = new ArrayList<TimeStampMerge>();
-
+        System.out.println("cop");
+        System.out.println(timecop);
 
         for (int j = 0; j < punishment.size(); j++){
+            System.out.println("pun");
+            System.out.println(punishment.get(j));
             int timest = (int) Math.round((punishment.get(j)).get(3));
             TimeStamp timeStamp = new TimeStamp();
             timeStamp.setStamp(timest);
-            List<MapVertexInfo> vertexlis1 = mapVertexInfoRepository.findNearest((double) (punishment.get(j)).get(0), (double) (punishment.get(j)).get(1));
-            int verid =vertexlis1.get(0).getVertexID();
+            System.out.println((mapVertexInfoRepository.findNearest((double) (punishment.get(j)).get(0), (double) (punishment.get(j)).get(1))).get(0));
+            int verid = ((mapVertexInfoRepository.findNearest((double) (punishment.get(j)).get(0), (double) (punishment.get(j)).get(1))).get(0)).getVertexID();
+            //int verid =vertexlis1.get(0).getVertexID();
             timeStamp.setVertexid(verid);
             timres.add(timeStamp);
         }
-
+        System.out.println("res");
+        System.out.println(timres);
         for (int j=0; j<timecop.size();j++){
             for(int i=0; i < timres.size();i++) {
-                if ((timres.get(i).getVertexid()==timecop.get(j).getVertexid()))
+                if ((timres.get(i).getVertexid().equals(timecop.get(j).getVertexid())))
                     {timfilter.add(timres.get(i));break;}
                 if (i == timres.size()-1){return new ResponseEntity<>("userInfo", HttpStatus.OK);}
             }
         }
-
+        System.out.println("filter");
+        System.out.println(timfilter);
         for (int j=0; j<timfilter.size()-1;j++) {
             TimeStampMerge timstmerge = new TimeStampMerge();
             timstmerge.setVertexid1(timfilter.get(j).getVertexid());
@@ -88,6 +96,7 @@ public class PunishmentService {
         }
 
         for (int j=0; j<timMerge.size();j++){
+
             Punishment pus = new Punishment();
             if(timMerge.get(j).getStampgap()<timecomputed.get(j).getStampgap()){pus.setPunish(-1);}
             if(timMerge.get(j).getStampgap().equals(timecomputed.get(j).getStampgap())){pus.setPunish(0);}
@@ -98,24 +107,27 @@ public class PunishmentService {
             timerecorded = timerecorded +timMerge.get(j).getStampgap();
             LocalDateTime loc;
             String date = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date(timerecorded * 1000));
-            loc = LocalDateTime.parse(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            loc = LocalDateTime.parse(date, formatter);
             pus.setTime(loc);
+            System.out.println(pus);
             punishmentRepository.save(pus);
         }
 
         return new ResponseEntity<>("userInfo", HttpStatus.OK);
     }
 
-    private static final List<String> recordTrafficType = Arrays.asList("BIKE", "E100", "MOTOR");
+    private static final List<String> recordTrafficType = Arrays.asList("HELLOBIKE", "E100", "MOTOR");
 
     @SuppressWarnings("unchecked")
     private List<TimeStamp> findTripExpectTime(Integer tripID, Integer segIndex,Integer type){
         Trip curTrip = tripRepository.findById(tripID).orElseThrow();
-        List<List<Integer>> curRoutes = ((List<LinkedHashMap<String,Object>>) curTrip.getStrategy().get("routeplan"))
-                .stream().filter(item -> recordTrafficType.contains((String) item.get("type")))
-                .map(item -> (List<Integer>) item.get("passingVertex")).collect(Collectors.toList());
-
-        List<Integer> curRoute = curRoutes.get(segIndex);
+        List<List<String>> curRoutes = ((List<JSONObject>) curTrip.getStrategy().get("routeplan"))
+                .stream().filter(item -> recordTrafficType.contains(item.get("type")))
+                .map(item -> (List<String>) item.get("passingVertex")).collect(Collectors.toList());
+        List<String> curRoute = curRoutes.get(segIndex);
+//        System.out.println(curRoute.get(0));
+//        System.out.println(curRoute.get(0).getClass());
         List<TimeStamp> result = new ArrayList<>();
         int stamp = 0;
         for (int j = 0; j < curRoute.size()-1; j++) {
@@ -123,37 +135,37 @@ public class PunishmentService {
             stamp += findEdgeTime(curRoute.get(j), curRoute.get(j + 1),type);
             // TODO: updateType
             tmpStamp.setStamp(stamp);
-            tmpStamp.setVertexid(curRoute.get(j));
+            tmpStamp.setVertexid(Integer.valueOf(curRoute.get(j)));
             result.add(tmpStamp);
         }
         return result;
     }
-
-    private Double findEdgeTime(Integer startID, Integer endID, Integer updateType){
+    @SuppressWarnings("unchecked")
+    private Double findEdgeTime(String startID, String endID, Integer updateType){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
+        headers.set("Authorization","bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTk1NTcwNzkyODQ4MDg0ZSs2LCJleHAiOjE1OTgxNjI3OTIsImlzcyI6ImFyYW5nb2RiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9vdCJ9.oi9cVga6WYD8EprNyzdlwWcXv7pzuKbmOaClUaD6nHU=");
 
         String query = "";
         switch (updateType){
             case 0:
                 query = "FOR edge IN bikeedge\n" +
-                        "FILTER edge._from == \"vertex/" + startID.toString() +"\"\n" +
-                        "AND edge._to == \"vertex/" + endID.toString() +"\"\n" +
+                        "FILTER edge._from == \"vertex/" + startID +"\"\n" +
+                        "AND edge._to == \"vertex/" + endID +"\"\n" +
                         "COLLECT t = edge.normalBikeTime\n" +
                         "RETURN t";
                 break;
             case 1:
                 query = "FOR edge IN bikeedge\n" +
-                        "FILTER edge._from == \"vertex/" + startID.toString() +"\"\n" +
-                        "AND edge._to == \"vertex/" + endID.toString() +"\"\n" +
+                        "FILTER edge._from == \"vertex/" + startID +"\"\n" +
+                        "AND edge._to == \"vertex/" + endID +"\"\n" +
                         "COLLECT t = edge.normalMotorTime\n" +
                         "RETURN t";
                 break;
             case 2:
                 query = "FOR edge IN caredge\n" +
-                        "FILTER edge._from == \"vertex/" + startID.toString() +"\"\n" +
-                        "AND edge._to == \"vertex/" + endID.toString() +"\"\n" +
+                        "FILTER edge._from == \"vertex/" + startID +"\"\n" +
+                        "AND edge._to == \"vertex/" + endID +"\"\n" +
                         "COLLECT t = edge.normalCarTime\n" +
                         "RETURN t";
             default:

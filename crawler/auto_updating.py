@@ -19,6 +19,7 @@ import datetime
 #modify操作，参考api
 #最后封装打点
 def read(data):
+    datetime.datetime.strptime(t_str, "%Y-%m-%d %H:%M")
     conn = pymysql.connect( host='ltzhou.com',
                     port=3306,
                     user='pguser',
@@ -32,7 +33,6 @@ def read(data):
 
 if __name__=="__main__":
     requests.packages.urllib3.disable_warnings()
-
     conn = pymysql.connect( host='ltzhou.com',
                         port=3306,
                         user='pguser',
