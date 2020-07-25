@@ -82,7 +82,7 @@ public class TrafficService {
     private ErrorResponse scheduleArango(TrafficInfo task) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
+        headers.set("Authorization","bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTk1NTcwNzkyODQ4MDg0ZSs2LCJleHAiOjE1OTgxNjI3OTIsImlzcyI6ImFyYW5nb2RiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9vdCJ9.oi9cVga6WYD8EprNyzdlwWcXv7pzuKbmOaClUaD6nHU=");
         Map<String,Object> bindVars = new HashMap<>();
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
@@ -183,7 +183,7 @@ public class TrafficService {
     private ErrorResponse removeArango(TrafficInfo traffic) {
         Integer trafficID = traffic.getTrafficID();
         MultiValueMap<String,String> headers = new HttpHeaders();
-        headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
+        headers.set("Authorization","bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTk1NTcwNzkyODQ4MDg0ZSs2LCJleHAiOjE1OTgxNjI3OTIsImlzcyI6ImFyYW5nb2RiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9vdCJ9.oi9cVga6WYD8EprNyzdlwWcXv7pzuKbmOaClUaD6nHU=");
 
 
         RestTemplate tempRestTemplate = new RestTemplateBuilder()

@@ -34,6 +34,7 @@ public class TripService {
         LocalDateTime arriveTime = LocalDateTime.now().plusSeconds(difftime);
         trip.setArriveTime(arriveTime);
 
+        trip.setStatus(Trip.TripStatus.STARTED);
         tripRepository.save(trip);
         return new ResponseEntity<>(trip.getTripID(), HttpStatus.OK);
     }
