@@ -20,18 +20,18 @@ public class TripService {
         this.tripRepository = tripRepository;
     }
 
-    public ResponseEntity<?> startTrip(JSONObject strategy, Integer userID){
+    public ResponseEntity<?> startTrip(JSONObject strategy, Integer userID, LocalDateTime departTime){
         Trip trip = new Trip();
 
         trip.setStrategy(strategy);
         trip.setUserID(userID);
-        trip.setDepartTime(LocalDateTime.now());
+        trip.setDepartTime(departTime);
 
         Integer difftime = (Integer) strategy.get("travelTime");
         if(difftime==null) {
             return new ResponseEntity<>(new ErrorResponse(5,"travelTime miss"), HttpStatus.BAD_REQUEST);
         }
-        LocalDateTime arriveTime = LocalDateTime.now().plusSeconds(difftime);
+        LocalDateTime arriveTime = departTime.plusSeconds(difftime);
         trip.setArriveTime(arriveTime);
 
         tripRepository.save(trip);

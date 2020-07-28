@@ -1,5 +1,6 @@
 package org.sjtugo.api.controller;
 
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.*;
 import lombok.Data;
 import net.sf.json.JSONObject;
@@ -14,7 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -34,7 +39,7 @@ public class TripControl {
     public ResponseEntity<?> startTrip(@RequestBody StrategyRequest strategyRequest){
         TripService tripService = new TripService(tripRepository);
         return tripService.startTrip(strategyRequest.getStrategy(),
-                    strategyRequest.getUserID());
+                    strategyRequest.getUserID(),strategyRequest.getDepartTime());
     }
 
     @ApiOperation(value = "查询行程", notes = "输入行程ID，返回详细信息")
@@ -58,6 +63,10 @@ public class TripControl {
     @Data
     static class StrategyRequest {
         private JSONObject strategy;
-        private Integer userID; //前端
+        private Integer userID;
+        @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy/MM/dd HH:mm:ss", timezone="GMT+8")
+        @JsonSerialize(using = LocalDateTimeSerializer.class)
+        private LocalDateTime departTime = LocalDateTime.now();//前端
     }
 }
