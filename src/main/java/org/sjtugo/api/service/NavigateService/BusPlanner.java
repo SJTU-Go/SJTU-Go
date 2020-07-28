@@ -75,6 +75,9 @@ public class BusPlanner extends AbstractPlanner {
         routePlans.add(busRoute);
         routePlans.add(fromBus);
         result.setRouteplan(routePlans);
+        result.setPassDetail(new ArrayList<>());
+        result.setBeginDetail(start);
+        result.setEndDetail(end);
         return result;
     }
 

@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.sjtugo.api.service.NavigateService.NavigatePlace;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.Duration;
@@ -39,6 +40,15 @@ public class Strategy {
     @ApiModelProperty(value = "路线方案详情")
     private List<Route> routeplan;
 
+    @ApiModelProperty(value = "起始点详情")
+    private NavigatePlace beginDetail;
+
+    @ApiModelProperty(value = "终点详情")
+    private NavigatePlace endDetail;
+
+    @ApiModelProperty(value = "途径点详情")
+    private List<NavigatePlace> passDetail;
+
     /**
      * 拼接另一个Strategy到当前Strategy
      * @param nextStrategy 另一个Strategy，要求该Strategy不存在途经点，且出发点与当前实例的到达点一致，允许包含多条Route。
@@ -48,12 +58,15 @@ public class Strategy {
 //        System.out.println(nextStrategy);
 //        System.out.println(this);
         pass.add(this.arrive);
+        passDetail.add(this.endDetail);
         arrive = nextStrategy.getArrive();
+        endDetail = nextStrategy.beginDetail;
         travelTime = travelTime.plus(nextStrategy.travelTime);
         preference = nextStrategy.preference;
         distance += nextStrategy.distance;
         cost += nextStrategy.cost;
         routeplan.addAll(nextStrategy.routeplan);
+
     }
 
 

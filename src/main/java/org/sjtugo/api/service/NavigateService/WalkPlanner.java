@@ -42,6 +42,9 @@ public class WalkPlanner extends AbstractPlanner {
         ArrayList<Route> routePlans = new ArrayList<>();
         routePlans.add(walkRoute);
         result.setRouteplan(routePlans);
+        result.setPassDetail(new ArrayList<>());
+        result.setBeginDetail(start);
+        result.setEndDetail(end);
         return result;
     }
 }
