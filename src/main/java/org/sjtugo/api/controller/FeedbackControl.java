@@ -10,6 +10,7 @@ import org.sjtugo.api.DAO.UserRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.entity.Feedback;
 import org.sjtugo.api.service.FeedbackService;
+import org.sjtugo.api.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,8 @@ public class FeedbackControl {
     })
     public ResponseEntity<?> addFeedback(@RequestBody FeedbackRequest feedbackRequest){
         FeedbackService feedbackser = new FeedbackService(feedbackRepository,null, userRepository, tripRepository);
+        TripService tripService = new TripService(tripRepository);
+        tripService.commentedTrip(feedbackRequest.getTripID());
         return feedbackser.addFeedback(feedbackRequest.getUserID(),
                 feedbackRequest.getTripID(),
                 feedbackRequest.getPickupFB(),

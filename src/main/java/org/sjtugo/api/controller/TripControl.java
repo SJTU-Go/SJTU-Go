@@ -55,6 +55,42 @@ public class TripControl {
         }
     }
 
+    @ApiOperation(value = "行程记录失败", notes = "输入行程ID，返回修改后的行程信息")
+    @GetMapping("/fail")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Trip.class),
+            @ApiResponse(code = 404, message = "[4]Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> failTrip(@RequestParam("tripID") Integer tripID){
+        TripService tripService = new TripService(tripRepository);
+        Optional<Trip> result = tripService.failTrip(tripID);
+        if (result.isPresent()){
+            return new ResponseEntity<Trip>(result.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<ErrorResponse>(
+                    new ErrorResponse(4,"Not Found"),
+                    HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @ApiOperation(value = "用户取消记录行程", notes = "输入行程ID，返回修改后的行程信息")
+    @GetMapping("/cancel")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Trip.class),
+            @ApiResponse(code = 404, message = "[4]Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> cancelTrip(@RequestParam("tripID") Integer tripID){
+        TripService tripService = new TripService(tripRepository);
+        Optional<Trip> result = tripService.cancelTrip(tripID);
+        if (result.isPresent()){
+            return new ResponseEntity<Trip>(result.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<ErrorResponse>(
+                    new ErrorResponse(4,"Not Found"),
+                    HttpStatus.NOT_FOUND);
+        }
+    }
+
     @Data
     static class StrategyRequest {
         private JSONObject strategy;

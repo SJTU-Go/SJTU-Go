@@ -42,4 +42,40 @@ public class TripService {
     public Optional<Trip> findTrip (Integer tripID) {
         return tripRepository.findById(tripID);
     }
+
+    public Optional<Trip> cancelTrip (Integer tripID) {
+        return tripRepository.findById(tripID)
+                .map(trip -> {
+                    trip.setStatus(Trip.TripStatus.CANCELLED);
+                    return Optional.of(tripRepository.save(trip));
+                })
+                .orElseGet(Optional::empty);
+    }
+
+    public Optional<Trip> failTrip (Integer tripID) {
+        return tripRepository.findById(tripID)
+                .map(trip -> {
+                    trip.setStatus(Trip.TripStatus.ABORTED);
+                    return Optional.of(tripRepository.save(trip));
+                })
+                .orElseGet(Optional::empty);
+    }
+
+    public Optional<Trip> endTrip (Integer tripID) {
+        return tripRepository.findById(tripID)
+                .map(trip -> {
+                    trip.setStatus(Trip.TripStatus.FINISHED);
+                    return Optional.of(tripRepository.save(trip));
+                })
+                .orElseGet(Optional::empty);
+    }
+
+    public Optional<Trip> commentedTrip (Integer tripID) {
+        return tripRepository.findById(tripID)
+                .map(trip -> {
+                    trip.setStatus(Trip.TripStatus.COMMENTED);
+                    return Optional.of(tripRepository.save(trip));
+                })
+                .orElseGet(Optional::empty);
+    }
 }
