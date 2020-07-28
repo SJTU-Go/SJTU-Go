@@ -15,7 +15,7 @@ public class ScheduleService {
     }
 
     public ResponseEntity<?> addSchedule(Integer userID, String yearMonth, String selectDay,
-                                         String timehour, String timeminute, String schedulename, String place){
+                                         String timehour, String timeminute, String schedulename, String depart, String arrive, String departShow, String arriveShow){
         Schedule newSchedule = new Schedule();
         newSchedule.setUserID(userID);
         newSchedule.setYearMonh(yearMonth);
@@ -23,7 +23,10 @@ public class ScheduleService {
         newSchedule.setTimeHour(timehour);
         newSchedule.setTimeMinute(timeminute);
         newSchedule.setScheduleName(schedulename);
-        newSchedule.setPlaceName(place);
+        newSchedule.setDepart(depart);
+        newSchedule.setArrive(arrive);
+        newSchedule.setDepartShow(departShow);
+        newSchedule.setArriveShow(arriveShow);
         scheduleRepository.save(newSchedule);
 
         return new ResponseEntity<>(newSchedule, HttpStatus.OK);

@@ -37,8 +37,17 @@ public class Schedule {
     @ApiModelProperty(value = "日程名称", example="年纪大会")
     private String scheduleName;
 
-    @ApiModelProperty(value = "地点", example="电院群楼三号楼")
-    private String placeName;
+    @ApiModelProperty(value = "起点", example="信息楼")
+    private String departShow;
+
+    @ApiModelProperty(value = "终点", example="激光楼E楼")
+    private String arriveShow;
+
+    @ApiModelProperty(value = "起点编码", example="DT137348")
+    private String depart;
+
+    @ApiModelProperty(value = "终点编码", example="DT137224")
+    private String arrive;
 
     public Schedule() {}
 }
