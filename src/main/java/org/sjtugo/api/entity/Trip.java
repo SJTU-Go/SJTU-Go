@@ -52,5 +52,18 @@ public class Trip {
     @ApiModelProperty(value = "行程反馈ID")
     private Integer tripFeedback;
 
+    @ApiModelProperty(hidden = true)
+    private TripStatus status;
+
+    public enum TripStatus {
+        STARTED,
+        ABORTED,
+        CANCELLED,
+        FINISHED,
+        COMMENTED,
+    }
+
     public Trip() {}
+
+
 }

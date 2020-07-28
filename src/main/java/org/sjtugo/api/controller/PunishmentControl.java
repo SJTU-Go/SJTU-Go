@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
+import org.sjtugo.api.controller.RequestEntity.PunishmentRequest;
 import java.util.List;
+
 
 @Api(value="惩罚记录系统")
 @RestController
@@ -29,14 +30,10 @@ public class PunishmentControl {
 
     @ApiOperation(value = "记录惩罚")
     @PostMapping("/punish")
-    public ResponseEntity<?> punishmentadd(@RequestBody PunishmentRequest punishmentRequest){
+    public ResponseEntity<?> punishmentadd(@RequestBody List<PunishmentRequest>punishmentRequest,@RequestParam Integer tripid){
         PunishmentService punisher = new PunishmentService(mapVertexInfoRepository,punishmentRepository, tripRepository, restTemplate);
-        return punisher.addpunishment(punishmentRequest.getPunishment());
-    }
-    @Data
-    static class PunishmentRequest{
-        @ApiModelProperty(value = "传入列表", example="[ [121.33415985107422, 31.156110763549805, 0, 299], [121.33418273925781, 31.156063079833984, 0, 293]]")
-        private List<List<Double>> punishment;
+        //todo:延伸到n个的情况
+        return punisher.addpunishment(punishmentRequest.get(0).getPunishlist(),tripid,punishmentRequest.get(0).getBeginRouteTime(),punishmentRequest.get(0).getType(),0);
     }
 
 
