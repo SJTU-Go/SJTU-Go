@@ -5,10 +5,7 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import org.sjtugo.api.DAO.*;
-import org.sjtugo.api.DAO.Entity.CarInfo;
-import org.sjtugo.api.DAO.Entity.Destination;
-import org.sjtugo.api.DAO.Entity.MapVertexInfo;
-import org.sjtugo.api.DAO.Entity.HelloBikeInfo;
+import org.sjtugo.api.DAO.Entity.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -23,17 +20,20 @@ public class MapInfoService {
     private final DestinationRepository destinationRepository;
     private final HelloBikeRepository helloBikeRepository;
     private final CarInfoRepository carInfoRepository;
+    private final JindouyunRepository jindouyunRepository;
     private final RestTemplate restTemplate;
 
     public MapInfoService(MapVertexInfoRepository mapVertexInfoRepository,
                           DestinationRepository destinationRepository,
                           HelloBikeRepository helloBikeRepository,
                           CarInfoRepository carInfoRepository,
+                          JindouyunRepository jindouyunRepository,
                           RestTemplate restTemplate){
         this.mapVertexInfoRepository = mapVertexInfoRepository;
         this.destinationRepository = destinationRepository;
         this.helloBikeRepository = helloBikeRepository;
         this.carInfoRepository = carInfoRepository;
+        this.jindouyunRepository = jindouyunRepository;
         this.restTemplate = restTemplate;
     }
 
@@ -62,6 +62,13 @@ public class MapInfoService {
 
     public List<HelloBikeInfo> nearbyBikes (double lng,double lat){
         return helloBikeRepository.findNearbyBikes(lng,lat);
+        //        return helloBikeRepository.findAllByLngBetweenAndLatBetweenAndTimeAfter
+//                (lng-0.002, lng+0.002,
+//                lat -0.002, lat+0.002, LocalDateTime.now().minusMinutes(2));
+    }
+
+    public List<JindouyunInfo> nearbyElectroMobiles (double lng,double lat){
+        return jindouyunRepository.findNearbyBikes(lng,lat);
         //        return helloBikeRepository.findAllByLngBetweenAndLatBetweenAndTimeAfter
 //                (lng-0.002, lng+0.002,
 //                lat -0.002, lat+0.002, LocalDateTime.now().minusMinutes(2));
