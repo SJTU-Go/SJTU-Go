@@ -27,7 +27,8 @@ public class BusPlanner extends AbstractPlanner {
                       BusStopRepository busStopRepository,
                       VertexDestinationRepository vertexDestinationRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeRepository,busStopRepository,vertexDestinationRepository,null);
+                busTimeRepository,busStopRepository,vertexDestinationRepository,
+                null);
     }
 
     @Override
