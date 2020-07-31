@@ -1,5 +1,6 @@
 package org.sjtugo.api.DAO;
 
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, Integer> {
     List<MapVertexInfo> findByVertexNameLike(String kw);
+    MapVertexInfo findByLocation(Point point);
 
     @Query( value = "SELECT vertex_infos.* " +
             "FROM (SELECT ST_LENGTH(LineString(location, POINT(:lng, :lat))) AS distance, map_vertex_info.*" +

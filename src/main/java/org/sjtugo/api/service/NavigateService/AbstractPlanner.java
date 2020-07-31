@@ -7,6 +7,7 @@ import com.vividsolutions.jts.io.WKTReader;
 import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.DAO.Entity.Destination;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
+import org.sjtugo.api.DAO.Entity.SearchHistory;
 import org.sjtugo.api.controller.RequestEntity.NavigateRequest;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
@@ -70,6 +71,12 @@ public abstract class AbstractPlanner {
      * @return planner对应的方案
      */
     public Strategy planAll(NavigateRequest navigateRequest){
+        List<String> places = new ArrayList<>();
+        String beginPlace = navigateRequest.getBeginPlace();
+        String arrivePlace = navigateRequest.getArrivePlace();
+        places.add(beginPlace);
+        places.add(arrivePlace);
+
         String currentPlace = navigateRequest.getBeginPlace();
         String[] passPlaces =new String[navigateRequest.getPassPlaces().size()];
         passPlaces = navigateRequest.getPassPlaces().toArray(passPlaces);

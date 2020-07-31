@@ -28,7 +28,7 @@ public class CarPlanner extends AbstractPlanner{
                       VertexDestinationRepository vertexDestinationRepository,
                       CarInfoRepository carInfoRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeRepository,busStopRepository,vertexDestinationRepository,carInfoRepository);
+                busTimeRepository,busStopRepository,vertexDestinationRepository, carInfoRepository);
     }
 
     @Override
