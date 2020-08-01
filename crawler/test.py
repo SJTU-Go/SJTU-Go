@@ -17,6 +17,6 @@ sql_2 = "SELECT count(*) FROM motor_forbid_area where ST_Contains(shape,ST_POLYG
 cursor.execute(sql_2)
 
 a = cursor.fetchone()
-print(a[0])
+print(a)
 
 conn.commit()

@@ -65,13 +65,13 @@ cursor = conn.cursor()
 # 筋斗云禁停区
 # cursor.execute('CREATE TABLE `motor_forbid_area`(\
 #                 `areaID` INT NOT NULL AUTO_INCREMENT,\
-#                 `shape` geometry NOT NULL,\
+#                 `shape` POLYGON NOT NULL,\
 #                 PRIMARY KEY (`areaID`),\
 #                 INDEX `ID` USING BTREE (`areaID`))\
 #                 DEFAULT CHARACTER SET = utf8mb4')
 
 
-# sql_1 = "INSERT INTO `motor_forbid_area` (shape) VALUES ( ST_GEOMFROMTEXT('POLYGON((121.432159 31.034343, 121.432465 31.033554, 121.433812 31.033817, 121.434638 31.033291, 121.437297 31.033988, 121.436183 31.035798, 121.432159 31.034343))'))"
+#sql_1 = "INSERT INTO `motor_forbid_area` (shape) VALUES ( ST_GEOMFROMTEXT('POLYGON((121.432159 31.034343, 121.432465 31.033554, 121.433812 31.033817, 121.434638 31.033291, 121.437297 31.033988, 121.436183 31.035798, 121.432159 31.034343))'))"
 sql_2 = "INSERT INTO `motor_forbid_area` (shape) VALUES ( ST_GEOMFROMTEXT('POLYGON((121.433787 31.032409, 121.434402 31.030993, 121.437412 31.031937, 121.436792 31.033422, 121.433787 31.032409))'))"
 
 cursor.execute(sql_2)
