@@ -45,7 +45,6 @@ public class FeedbackService {
         newFeedback.setBeginPlace((String) tripRepository.findById(tripID).orElse(new Trip()).getStrategy().get("depart"));
         newFeedback.setEndPlace((String) tripRepository.findById(tripID).orElse(new Trip()).getStrategy().get("arrive"));
         feedbackRepository.save(newFeedback);
-
         return new ResponseEntity<>(newFeedback, HttpStatus.OK);
     }
 

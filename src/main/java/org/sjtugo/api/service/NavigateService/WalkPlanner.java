@@ -2,6 +2,7 @@ package org.sjtugo.api.service.NavigateService;
 
 import org.sjtugo.api.DAO.DestinationRepository;
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
+import org.sjtugo.api.DAO.SearchHistoryRepository;
 import org.sjtugo.api.entity.Route;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
@@ -42,6 +43,9 @@ public class WalkPlanner extends AbstractPlanner {
         ArrayList<Route> routePlans = new ArrayList<>();
         routePlans.add(walkRoute);
         result.setRouteplan(routePlans);
+        result.setPassDetail(new ArrayList<>());
+        result.setBeginDetail(start);
+        result.setEndDetail(end);
         return result;
     }
 }

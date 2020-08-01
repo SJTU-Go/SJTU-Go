@@ -27,7 +27,8 @@ public class BusPlanner extends AbstractPlanner {
                       BusStopRepository busStopRepository,
                       VertexDestinationRepository vertexDestinationRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeRepository,busStopRepository,vertexDestinationRepository,null);
+                busTimeRepository,busStopRepository,vertexDestinationRepository,
+                null);
     }
 
     @Override
@@ -75,6 +76,9 @@ public class BusPlanner extends AbstractPlanner {
         routePlans.add(busRoute);
         routePlans.add(fromBus);
         result.setRouteplan(routePlans);
+        result.setPassDetail(new ArrayList<>());
+        result.setBeginDetail(start);
+        result.setEndDetail(end);
         return result;
     }
 

@@ -30,7 +30,8 @@ public class BikePlanner extends AbstractPlanner {
                        BusStopRepository busStopRepository,
                        VertexDestinationRepository vertexDestinationRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
-                busTimeRepository,busStopRepository,vertexDestinationRepository,null);
+                busTimeRepository,busStopRepository,vertexDestinationRepository,
+                null);
     }
 
     @Override
@@ -124,6 +125,9 @@ public class BikePlanner extends AbstractPlanner {
         result.setTravelTime(Duration.ofSeconds(routeList
                 .stream().mapToInt(Route::getRouteTime).sum()));
         result.setRouteplan(routeList);
+        result.setPassDetail(new ArrayList<>());
+        result.setBeginDetail(start);
+        result.setEndDetail(end);
         return result;
     }
 

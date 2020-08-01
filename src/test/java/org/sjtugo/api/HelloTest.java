@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public class HelloTest {
 
     @Autowired
-    private MockMvc mockMvc;
+        private MockMvc mockMvc;
 
     @Test
     public void greetingShouldReturnDefaultMessage() throws Exception {

@@ -1,5 +1,6 @@
 package org.sjtugo.api.DAO;
 
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, Integer> {
     List<MapVertexInfo> findByVertexNameLike(String kw);
+    MapVertexInfo findByLocation(Point point);
 
     @Query( value = "SELECT vertex_infos.* " +
             "FROM (SELECT ST_LENGTH(LineString(location, POINT(:lng, :lat))) AS distance, map_vertex_info.*" +
@@ -31,17 +33,31 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
     @Query( value = "SELECT vertex_infos.*" +
             "  FROM (" +
             "     SELECT ST_LENGTH(LineString(location,POINT(:lng,:lat))) AS distance," +
-            "            location, vertexid, bike_count, motor_count, park_info, park_size, vertex_name, is_car_vertex " +
+            "            location, vertexid, bike_count, motor_count, park_info, park_size, vertex_name, is_car_vertex," +
+            "            popularity " +
             "       FROM map_vertex_info" +
             "      WHERE  MBRContains(" +
             "                GeomFromText(" +
             "                       CONCAT('LINESTRING('," +
             "                               :lng - 0.005,' ', :lat - 0.005, ','," +
             "                               :lng + 0.005,' ', :lat + 0.005, ')'))," +
-            "                location ) AND vertex_name IS NOT NULL" +
+            "                location ) AND vertex_name IS NOT NULL " +
             "       ) AS vertex_infos " +
-            "ORDER BY vertex_infos.distance " +
+            "ORDER BY LOG(bike_count + 1) * (20 - popularity) * distance  " +
             "LIMIT 1", nativeQuery = true)
     List<MapVertexInfo> findNearbyParking(@Param("lng") double lng, @Param("lat") double lat);
+
+/*
+    @Query( value = "SELECT *, ST_LENGTH(LineString(POINT(longitude,latitude),POINT(:lng,:lat))) AS distance" +
+            " ORDER BY distance LIMIT 1" +  "FROM map_vertex_info",
+            nativeQuery = true)*/
+    @Query( value = "SELECT vertex_infos.* " +
+        "FROM (SELECT ST_LENGTH(LineString(location, POINT(:lng, :lat))) AS distance, map_vertex_info.*" +
+        " FROM map_vertex_info ) vertex_infos " +
+        " ORDER BY vertex_infos.distance LIMIT 1",
+        nativeQuery = true)
+
+
+    List<MapVertexInfo> findNearest(@Param("lng") double lng, @Param("lat") double lat);
 
 }

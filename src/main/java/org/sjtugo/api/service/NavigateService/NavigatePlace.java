@@ -1,5 +1,9 @@
 package org.sjtugo.api.service.NavigateService;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
@@ -10,6 +14,9 @@ import org.sjtugo.api.DAO.Entity.CarInfo;
 @Data
 public class NavigatePlace {
     private String placeName;
+
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Point location;
     private PlaceType placeType;
     private Integer placeID = 0;

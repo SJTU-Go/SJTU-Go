@@ -7,16 +7,12 @@ import lombok.Data;
 import net.sf.json.JSONObject;
 import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.DAO.ScheduleInfoRepository;
-import org.sjtugo.api.entity.Preference;
-import org.sjtugo.api.entity.Schedule;
-import org.sjtugo.api.entity.ScheduleInfo;
-import org.sjtugo.api.entity.Trip;
+import org.sjtugo.api.entity.*;
 import org.sjtugo.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +26,8 @@ public class UserControl {
     private TripRepository tripRepository;
     @Autowired
     private PreferenceRepository preferenceRepository;
+    @Autowired
+    private VipRepository vipRepository;
     @Autowired
     private ScheduleRepository scheduleRepository;
     @Autowired
@@ -74,6 +72,22 @@ public class UserControl {
         return preferenceService.getPreference(userID);
     }
 
+    @ApiOperation(value = "上传月卡信息")
+    @PostMapping("/vip/add")
+    public ResponseEntity<?> addVip(@RequestBody VipRequest vipRequest){
+        VipService vipService = new VipService(vipRepository);
+        return vipService.addVip(vipRequest.getUserID(),
+                vipRequest.getViplist());
+    }
+
+    @ApiOperation(value = "获取用户月卡设定")
+    @PostMapping("/vip/get")
+    public @ResponseBody
+    Optional<Vip> getVip(@RequestParam Integer userID){
+        VipService vipService = new VipService(vipRepository);
+        return vipService.getVip(userID);
+    }
+
 
     @ApiOperation(value = "获取用户历史行程")
     @PostMapping("/history/get")
@@ -92,7 +106,10 @@ public class UserControl {
                 scheduleRequest.getTimehour(),
                 scheduleRequest.getTimeminute(),
                 scheduleRequest.getSchedulename(),
-                scheduleRequest.getPlace());
+                scheduleRequest.getDepartShow(),
+                scheduleRequest.getArriveShow(),
+                scheduleRequest.getDepart(),
+                scheduleRequest.getArrive());
     }
 
     @ApiOperation(value = "获取日程信息")
@@ -122,6 +139,15 @@ public class UserControl {
     }
 
     @Data
+    static class VipRequest{
+        @ApiModelProperty(value = "用户ID", example = "123")
+        private Integer userID;
+        @ApiModelProperty(value = "月卡列表", example="['哈罗单车']")
+        private String viplist;
+
+    }
+
+    @Data
     static class ScheduleInfoRequest{
         @ApiModelProperty(value = "用户ID", example = "123")
         private Integer userID;
@@ -143,8 +169,14 @@ public class UserControl {
         private String timeminute;
         @ApiModelProperty(value = "日程名称", example="年纪大会")
         private String schedulename;
-        @ApiModelProperty(value = "地点", example="电院群楼三号楼")
-        private String place;
+        @ApiModelProperty(value = "起点", example="信息楼")
+        private String departShow;
+        @ApiModelProperty(value = "终点", example="激光楼E楼")
+        private String arriveShow;
+        @ApiModelProperty(value = "起点编码", example="DT137348")
+        private String depart;
+        @ApiModelProperty(value = "终点编码", example="DT137224")
+        private String arrive;
     }
 
 

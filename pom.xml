@@ -115,6 +115,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.0.0.Alpha5</version>
         </dependency>
+        <dependency>
+            <groupId>org.abego.treelayout</groupId>
+            <artifactId>org.abego.treelayout.core</artifactId>
+            <version>1.0.3</version>
+        </dependency>
 
     </dependencies>
 
@@ -124,6 +129,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.6.RELEASE</version>
             </plugin>
         </plugins>
 

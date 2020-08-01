@@ -2,6 +2,7 @@ package org.sjtugo.api.controller;
 
 import java.util.NoSuchElementException;
 
+import com.vividsolutions.jts.io.ParseException;
 import org.sjtugo.api.DAO.*;
 import org.sjtugo.api.controller.RequestEntity.NavigateRequest;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
@@ -35,14 +36,15 @@ public class NavigateControl {
     @Autowired
     private CarInfoRepository carInfoRepository;
     @Autowired
+    private SearchHistoryRepository searchHistoryRepository;
+    @Autowired
     private MotorForbidAreaRepository motorForbidAreaRepository;
 
     @ApiOperation(value = "Walk Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回步行方案")
     @PostMapping("/walk")
     public ResponseEntity<?> navigateWalk(@RequestBody NavigateRequest navigateRequest) {
-        WalkPlanner planner = new WalkPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate);
+        WalkPlanner planner = new WalkPlanner(mapVertexInfoRepository,destinationRepository, restTemplate);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (StrategyNotFoundException e) {
@@ -64,7 +66,7 @@ public class NavigateControl {
         })
     public ResponseEntity<?> navigateBus(@RequestBody NavigateRequest navigateRequest) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository);
+                restTemplate, busTimeRepository,busStopRepository, vertexDestinationRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (NoSuchElementException e) {
@@ -85,7 +87,7 @@ public class NavigateControl {
     })
     public ResponseEntity<?> navigateBike(@RequestBody NavigateRequest navigateRequest) {
         BikePlanner planner = new BikePlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository);
+                restTemplate, busTimeRepository,busStopRepository, vertexDestinationRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (PlaceNotFoundException e) {
@@ -121,7 +123,7 @@ public class NavigateControl {
     })
     public ResponseEntity<?> navigateCar(@RequestBody NavigateRequest navigateRequest) {
         CarPlanner planner = new CarPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository,carInfoRepository);
+                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository, carInfoRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (PlaceNotFoundException e) {
@@ -141,7 +143,7 @@ public class NavigateControl {
     })
     public ResponseEntity<?> processPlace(@RequestBody String place) {
         BusPlanner planner = new BusPlanner(mapVertexInfoRepository, destinationRepository,
-                restTemplate, busTimeRepository, busStopRepository,vertexDestinationRepository);
+                restTemplate, busTimeRepository, busStopRepository, vertexDestinationRepository);
         try {
             return new ResponseEntity<>(planner.parsePlace(place).toString(),HttpStatus.OK);
         } catch (PlaceNotFoundException e) {
@@ -150,6 +152,12 @@ public class NavigateControl {
         }
     }
 
+    @ApiOperation(value = "开始搜索",notes = "输入参数格式与导航相同")
+    @PostMapping("/startnavigation")
+    public ResponseEntity<?> startNavigation(@RequestBody NavigateRequest navigateRequest) throws ParseException {
+        SearchHistory searchHistory = new SearchHistory(searchHistoryRepository,mapVertexInfoRepository);
+        return searchHistory.startNavigation(navigateRequest);
+    }
 //    @PostMapping(path="/bus/addRecord")
 //    public @ResponseBody String addNewBusStop (@RequestParam String stopName
 //            , @RequestParam String stopLoc) throws ParseException {
