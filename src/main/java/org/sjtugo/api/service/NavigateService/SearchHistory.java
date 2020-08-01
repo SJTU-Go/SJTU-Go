@@ -28,16 +28,16 @@ public class SearchHistory {
         String beginPlace = navigateRequest.getBeginPlace();
         String arrivePlace = navigateRequest.getArrivePlace();
 
-        if(beginPlace.startsWith("P")) {
-            Point loc = (Point) new WKTReader().read(beginPlace);
-            MapVertexInfo vertex = mapVertexInfoRepository.findByLocation(loc);
-            beginPlace = vertex.getVertexName();
-        }
-        if(arrivePlace.startsWith("P")) {
-            Point loc = (Point) new WKTReader().read(arrivePlace);
-            MapVertexInfo vertex = mapVertexInfoRepository.findByLocation(loc);
-            arrivePlace = vertex.getVertexName();
-        }
+//        if(beginPlace.startsWith("P")) {
+//            Point loc = (Point) new WKTReader().read(beginPlace);
+//            MapVertexInfo vertex = mapVertexInfoRepository.findByLocation(loc);
+//            beginPlace = vertex.getVertexName();
+//        }
+//        if(arrivePlace.startsWith("P")) {
+//            Point loc = (Point) new WKTReader().read(arrivePlace);
+//            MapVertexInfo vertex = mapVertexInfoRepository.findByLocation(loc);
+//            arrivePlace = vertex.getVertexName();
+//        }
         String places = beginPlace + ' ' + arrivePlace;
         searHis.setSearchNames(places);
         searchHistoryRepository.save(searHis);

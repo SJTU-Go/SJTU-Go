@@ -41,9 +41,9 @@ public interface MapVertexInfoRepository extends JpaRepository<MapVertexInfo, In
             "                       CONCAT('LINESTRING('," +
             "                               :lng - 0.005,' ', :lat - 0.005, ','," +
             "                               :lng + 0.005,' ', :lat + 0.005, ')'))," +
-            "                location ) AND vertex_name IS NOT NULL" +
+            "                location ) AND vertex_name IS NOT NULL " +
             "       ) AS vertex_infos " +
-            "ORDER BY vertex_infos.distance " +
+            "ORDER BY LOG(bike_count + 1) * (20 - popularity) * distance  " +
             "LIMIT 1", nativeQuery = true)
     List<MapVertexInfo> findNearbyParking(@Param("lng") double lng, @Param("lat") double lat);
 
