@@ -10,6 +10,7 @@ import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import org.sjtugo.api.DAO.Entity.BusStop;
 import org.sjtugo.api.DAO.Entity.CarInfo;
+import org.sjtugo.api.DAO.Entity.JindouyunInfo;
 
 @Data
 public class NavigatePlace {
@@ -35,6 +36,12 @@ public class NavigatePlace {
     public NavigatePlace(CarInfo carInfo){
         this.placeName = carInfo.getCarPlate()+"所在位置";
         this.location = new GeometryFactory().createPoint(new Coordinate(carInfo.getLongitude(),carInfo.getLatitude()));
+        this.placeType = PlaceType.car;
+    }
+
+    public NavigatePlace(JindouyunInfo jindouyunInfo){
+        this.placeName =  jindouyunInfo.getBikeID().toString() + "所在位置";
+        this.location = new GeometryFactory().createPoint(new Coordinate(jindouyunInfo.getLng(),jindouyunInfo.getLat()));
         this.placeType = PlaceType.car;
     }
 

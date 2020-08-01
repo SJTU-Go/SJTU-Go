@@ -1,14 +1,10 @@
 package org.sjtugo.api.service.NavigateService;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 import org.sjtugo.api.DAO.*;
-import org.sjtugo.api.DAO.Entity.MapVertexInfo;
-import org.sjtugo.api.DAO.Entity.VertexDestination;
-import org.sjtugo.api.DAO.Entity.VertexDestinationID;
+import org.sjtugo.api.DAO.Entity.*;
 import org.sjtugo.api.entity.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +20,7 @@ import java.util.stream.Collectors;
 public class JindouyunPlanner extends AbstractPlanner {
 
     private final MotorForbidAreaRepository motorForbidAreaRepository;
+    private final JindouyunRepository jindouyunRepository;
 
     public JindouyunPlanner(MapVertexInfoRepository mapVertexInfoRepository,
                        DestinationRepository destinationRepository,
@@ -31,94 +28,43 @@ public class JindouyunPlanner extends AbstractPlanner {
                        BusTimeRepository busTimeRepository,
                        BusStopRepository busStopRepository,
                        VertexDestinationRepository vertexDestinationRepository,
-                            MotorForbidAreaRepository motorForbidAreaRepository){
+                            MotorForbidAreaRepository motorForbidAreaRepository,
+                            JindouyunRepository jindouyunRepository){
         super(mapVertexInfoRepository,destinationRepository,restTemplate,
                 busTimeRepository,busStopRepository,vertexDestinationRepository,null);
         this.motorForbidAreaRepository = motorForbidAreaRepository;
+        this.jindouyunRepository = jindouyunRepository;
     }
 
     @Override
     public Strategy planOne(String beginPlace, String endPlace, LocalDateTime departTime, Boolean avoidTraffic){
-        // 匹配地点
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
+
+        JindouyunInfo objectCar = jindouyunRepository
+                .findNearbyBikes(start.getLocation().getCoordinate().x, start.getLocation().getCoordinate().y).get(0);
+        MapVertexInfo parkCar = mapVertexInfoRepository.findNearbyCarPoint(nearbyWindow(end.getLocation())).get(0);
+
         List<Route> routeList = new ArrayList<>();
-        MapVertexInfo pickup;
-        MapVertexInfo parkbike;
 
-        // PICK UP
-        if (start.getPlaceType() != NavigatePlace.PlaceType.parking) {
-            TransitionRoute startTransition = new TransitionRoute(true);
-            if (start.getPlaceType() == NavigatePlace.PlaceType.destination) {
-                VertexDestination transInfo = vertexDestinationRepository
-                        .findByPlaceid(start.getPlaceID());
-                startTransition.setRouteTime(transInfo.getReachtime());
-                pickup = mapVertexInfoRepository.findById(transInfo.getVertexid()).orElseThrow();
-            } else {
-                startTransition.setRouteTime(0);
-                pickup = nearsetParking(start);
-            }
-            startTransition.setParkID(String.valueOf(pickup.getVertexID()));
-            startTransition.setPlaceID(start.getPlaceType().toString() + start.getPlaceID());
-            startTransition.setDepartName(start.getPlaceName());
-            startTransition.setArriveName(pickup.getVertexName() + "（寻车点）");
-            startTransition.setRoutePath(new GeometryFactory().createLineString(
-                    new Coordinate[]{start.getLocation().getCoordinate(), pickup.getLocation().getCoordinate()}
-            ));
-            routeList.add(startTransition);
-        } else {
-            pickup = mapVertexInfoRepository.findById(start.getPlaceID()).orElseThrow();
-        }
-
-
-        // Shortest Path
-        if (end.getPlaceType() != NavigatePlace.PlaceType.parking) {
-            if (end.getPlaceType() == NavigatePlace.PlaceType.destination){
-                VertexDestination transInfo = vertexDestinationRepository
-                        .findByPlaceid(end.getPlaceID());
-                parkbike = mapVertexInfoRepository.findById(transInfo.getVertexid()).orElseThrow();
-            } else {
-                parkbike = nearsetParking(end);
-            }
-        } else {
-            parkbike = mapVertexInfoRepository.findById(end.getPlaceID()).orElseThrow();
-        }
-        try{
-            routeList.add(planJindouyun(pickup,parkbike,avoidTraffic));
-        } catch (ParseException e){
-            throw new StrategyNotFoundException("bike route not found");
-        }
-
-
-
-
-
-        // Parking
-        if (end.getPlaceType() != NavigatePlace.PlaceType.parking) {
-            TransitionRoute endTransition = new TransitionRoute(false);
-            if (end.getPlaceType() == NavigatePlace.PlaceType.destination) {
-                VertexDestination transInfo = vertexDestinationRepository
-                        .findById(new VertexDestinationID(end.getPlaceID(),parkbike.getVertexID())).orElseThrow();
-                endTransition.setRouteTime(transInfo.getReachtime());
-            } else {
-                endTransition.setRouteTime(0);
-            }
-            endTransition.setParkID(String.valueOf(parkbike.getVertexID()));
-            endTransition.setPlaceID(end.getPlaceType().toString() + end.getPlaceID());
-            endTransition.setArriveName(end.getPlaceName());
-            endTransition.setDepartName(parkbike.getVertexName() + "（停车点）");
-            endTransition.setRoutePath(new GeometryFactory().createLineString(
-                    new Coordinate[]{parkbike.getLocation().getCoordinate(), end.getLocation().getCoordinate()}
-            ));
-
-            routeList.add(endTransition);
-        }
+        // 步行取车
+        WalkRoute findCar = planWalkTencent(start,new NavigatePlace(objectCar));
+        routeList.add(findCar);
         Strategy result = new Strategy();
+        result.setDistance(findCar.getDistance());
+        // 驾车
+        try {
+            CarRoute driveCar = planCar(
+                    mapVertexInfoRepository.getOne(Integer.parseInt(objectCar.getClusterPoint())),
+                    parkCar,avoidTraffic);
+            routeList.add(driveCar);
+            result.setCost(driveCar.getCost());
+        } catch (ParseException e) {
+            throw new StrategyNotFoundException("Current Car unavailable");
+        }
         result.setType("筋斗云");
         result.setArrive(end.getPlaceName());
-        result.setCost(150);
         result.setDepart(start.getPlaceName());
-        result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
         if (avoidTraffic){
             result.setPreference(List.of("避开拥堵"));
         } else{
@@ -128,11 +74,29 @@ public class JindouyunPlanner extends AbstractPlanner {
         result.setTravelTime(Duration.ofSeconds(routeList
                 .stream().mapToInt(Route::getRouteTime).sum()));
         result.setRouteplan(routeList);
+        result.setPassDetail(new ArrayList<>());
+        result.setBeginDetail(start);
+        result.setEndDetail(end);
         return result;
     }
 
+    private Polygon nearbyWindow(Point t){
+        double lng_shift = 0.01;
+        double lat_shift = 0.01;
+        double x = t.getCoordinate().x;
+        double y = t.getCoordinate().y;
+        return new GeometryFactory().createPolygon(
+                new Coordinate[]{
+                        new Coordinate(x - lng_shift, y - lat_shift),
+                        new Coordinate(x-lng_shift,y+lat_shift),
+                        new Coordinate(x+lng_shift,y+lat_shift),
+                        new Coordinate(x+lng_shift,y-lat_shift),
+                        new Coordinate(x - lng_shift, y - lat_shift)
+                });
+    }
+
     @SuppressWarnings("unchecked")
-    private BikeRoute planJindouyun(MapVertexInfo begin, MapVertexInfo end, Boolean avoidTraffic) throws ParseException {
+    private CarRoute planCar(MapVertexInfo begin, MapVertexInfo end, Boolean avoidTraffic) throws ParseException {
         Integer beginID = begin.getVertexID();
         Integer endID = end.getVertexID();
         HttpHeaders headers = new HttpHeaders();
@@ -156,6 +120,7 @@ public class JindouyunPlanner extends AbstractPlanner {
             bindVars.put("attribute","normalMotorTime");
         }
         params.put("bindVars",bindVars);
+//        System.out.println(bindVars);
         params.put("count",true);
         params.put("batchSize",1);
 
@@ -165,26 +130,25 @@ public class JindouyunPlanner extends AbstractPlanner {
         LinkedHashMap<String,Object> arrangoResponse =
                 restTemplate.postForObject("http://47.92.147.237:8529/_api/cursor",request,LinkedHashMap.class);
         assert arrangoResponse != null;
+        System.out.println(arrangoResponse);
         LinkedHashMap<String,Object> arrangoResult =
                 ((List<LinkedHashMap<String,Object>>) arrangoResponse.get("result")).get(0);
 
 
-        BikeRoute result = new BikeRoute();
+        CarRoute result = new CarRoute();
         result.setDepartID("PK"+begin.getVertexID());
         result.setArriveID("PK"+end.getVertexID());
 //        System.out.println(arrangoResult.get("total_distance"));
 //        System.out.println(arrangoResult.get("total_distance").getClass());
-        result.setRideDistance(((Double) arrangoResult.get("total_distance")).intValue());
+        result.setDriveDistance(((Double) arrangoResult.get("total_distance")).intValue());
         result.setRouteTime(((Double) arrangoResult.get("total_time")).intValue());
-        Integer isForbid = motorForbidAreaRepository.isFobidArea(end.getLocation().getX(),end.getLocation().getY());
-        double routeTime = result.getRouteTime()/900.0;
-        int routeTimee = (int) routeTime;
-        result.setCost(100+200*(routeTimee)+50*isForbid);
-        result.setMethod("筋斗云");
+        //int forbid = motorForbidAreaRepository.isFobidArea(end.getLocation().getCoordinate().x, end.getLocation().getCoordinate().y);
+        int forbid = 0;
+        result.setCost(100+200*(result.getRouteTime()/900 + 1) + forbid*50);
 //        System.out.println(arrangoResult.get("vertex").getClass());
         result.setPassingVertex(((ArrayList<String>) arrangoResult.get("vertex")));
-        result.setDepartName(begin.getVertexName()+"（寻车点）");
-        result.setArriveName(end.getVertexName()+"（停车点）");
+        result.setDepartName("寻车点");
+        result.setArriveName("停车点");
 //        System.out.println(arrangoResult);
 //        System.out.println(arrangoResult.get("locations"));
 //        System.out.println("LINESTRING (" +
@@ -197,6 +161,4 @@ public class JindouyunPlanner extends AbstractPlanner {
                 +")"));
         return result;
     }
-
-
 }
