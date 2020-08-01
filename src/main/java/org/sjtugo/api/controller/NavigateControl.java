@@ -34,6 +34,8 @@ public class NavigateControl {
     private VertexDestinationRepository vertexDestinationRepository;
     @Autowired
     private CarInfoRepository carInfoRepository;
+    @Autowired
+    private MotorForbidAreaRepository motorForbidAreaRepository;
 
     @ApiOperation(value = "Walk Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回步行方案")
@@ -84,6 +86,24 @@ public class NavigateControl {
     public ResponseEntity<?> navigateBike(@RequestBody NavigateRequest navigateRequest) {
         BikePlanner planner = new BikePlanner(mapVertexInfoRepository,destinationRepository,
                 restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository);
+        try {
+            return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
+        } catch (PlaceNotFoundException e) {
+            return new ResponseEntity<>(new ErrorResponse(3,"Place Not Found"),
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ApiOperation(value = "Motor Navigate Service",
+            notes = "给定校园内地点ID或经纬度，返回哈罗单车出行方案")
+    @PostMapping("/jindouyun")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Strategy.class),
+            @ApiResponse(code = 404, message = "[3]Place Not Found", response = ErrorResponse.class)
+    })
+    public ResponseEntity<?> navigateMotor(@RequestBody NavigateRequest navigateRequest) {
+        JindouyunPlanner planner = new JindouyunPlanner(mapVertexInfoRepository,destinationRepository,
+                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository,motorForbidAreaRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (PlaceNotFoundException e) {
