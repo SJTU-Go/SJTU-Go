@@ -3,6 +3,7 @@ package org.sjtugo.api.DAO.Entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.geolatte.geom.Geometry;
+import org.geolatte.geom.Polygon;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,6 @@ public class MotorForbidArea {
 
     @Column(name = "shape")
     @ApiModelProperty(value = "禁停区域", example = "geometry polygon类型")
-    private Geometry shape;
+    private Polygon shape;
 
 }
