@@ -60,7 +60,7 @@ public class Strategy {
         pass.add(this.arrive);
         passDetail.add(this.endDetail);
         arrive = nextStrategy.getArrive();
-        endDetail = nextStrategy.beginDetail;
+        endDetail = nextStrategy.endDetail;
         travelTime = travelTime.plus(nextStrategy.travelTime);
         preference = nextStrategy.preference;
         distance += nextStrategy.distance;
