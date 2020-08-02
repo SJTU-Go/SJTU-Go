@@ -5,6 +5,7 @@ import json
 import sys
 import pymysql
 import time
+import config
 from calculate_cluster import calculate_cluster
 
 def print_ts(message):
@@ -21,7 +22,7 @@ def hello_nearby(lat,lon):
           "currentLng":"121.334864",
           "currentLat":"31.156389",
           "adCode": "310112",
-          "token": "4ed339e80dcc413483805901397df25d"
+          "token": "15f09ab9b2c649f1b84b50da5048a08b"
           }
     req = requests.post(url,json=headers,verify=False)
     data = json.loads(req.text)['data']
@@ -29,11 +30,11 @@ def hello_nearby(lat,lon):
 
 
 def write_db_hello(bike):
-    conn = pymysql.connect( host='ltzhou.com',
+    conn = pymysql.connect( host=config.host,
                     port=3306,
-                    user='pguser',
-                    passwd='pguser',
-                    db = 'playground',
+                    user=config.user,
+                    passwd=config.passwd,
+                    db = config.db,
                     charset = 'utf8')
     cursor = conn.cursor()
     lat = bike['lat']
@@ -63,11 +64,11 @@ def crawler_hello():
     print_ts(cnt)
 
 if __name__ == '__main__':
-    conn = pymysql.connect( host='ltzhou.com',
+    conn = pymysql.connect( host=config.host,
                         port=3306,
-                        user='pguser',
-                        passwd='pguser',
-                        db = 'playground',
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
                         charset = 'utf8')
     cursor = conn.cursor()
     bl_lat = 31.0163088100

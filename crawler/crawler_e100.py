@@ -3,7 +3,7 @@
 import json
 import requests
 import pymysql
-
+import config
 from calculate_cluster import calculate_cluster, calculate_car_cluster
 
 from coordTransform.coordTransform_utils import bd09_to_gcj02
@@ -29,12 +29,12 @@ def crawler_e100():
     return json.loads(req.text)
 
 def write_db_e100(data):
-    conn = pymysql.connect( host='ltzhou.com',
-                    port=3306,
-                    user='pguser',
-                    passwd='pguser',
-                    db = 'playground',
-                    charset = 'utf8')
+    conn = pymysql.connect( host=config.host,
+                        port=3306,
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
+                        charset = 'utf8')
     cursor = conn.cursor()
     clusters = dict()
 
@@ -56,11 +56,11 @@ def write_db_e100(data):
 if __name__=="__main__":
     requests.packages.urllib3.disable_warnings()
 
-    conn = pymysql.connect( host='ltzhou.com',
+    conn = pymysql.connect( host=config.host,
                         port=3306,
-                        user='pguser',
-                        passwd='pguser',
-                        db = 'playground',
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
                         charset = 'utf8')
     cursor = conn.cursor()
 

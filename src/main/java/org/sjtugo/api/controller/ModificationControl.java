@@ -5,10 +5,8 @@ import io.swagger.annotations.ApiOperation;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.Data;
 
 import net.sf.json.JSONObject;
-import org.sjtugo.api.DAO.Entity.CarInfo;
 
 import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.ModificationRepository;
@@ -21,14 +19,13 @@ import org.sjtugo.api.entity.TrafficInfo;
 import org.sjtugo.api.service.ModificationService;
 import org.sjtugo.api.service.TrafficService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.stringtemplate.v4.ST;
 
 import java.util.List;
-import java.util.Map;
 
 @Api(value="修改记录信息")
 @RestController
@@ -42,6 +39,8 @@ public class ModificationControl {
     private TrafficInfoRepository trafficInfoRepository;
     @Autowired
     private RestTemplate restTemplate;
+    @Value("${arango.authkey}")
+    private String arangoAuthKey;
 
     @ApiOperation(value = "管理员查看地图修改记录")
     @PostMapping("/view/map")
@@ -76,7 +75,7 @@ public class ModificationControl {
     })
     public ResponseEntity<ErrorResponse> modifyMap(@RequestParam Integer adminID, @RequestBody TrafficInfo trafficInfo) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
-        TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository);
+        TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository, arangoAuthKey);
 
         ErrorResponse performResponse = trafficService.newTraffic(trafficInfo);
         if (performResponse.getCode() == 0)
@@ -96,7 +95,7 @@ public class ModificationControl {
     })
     public ResponseEntity<ErrorResponse> deleteTraffic(@PathVariable("modiID") Integer modiID) {
         ModificationService modiService = new ModificationService(modificationRepository,mapVertexInfoRepository);
-        TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository);
+        TrafficService trafficService = new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository, arangoAuthKey);
         Integer trafficID;
         try {
             JSONObject trafficInfo = JSONObject.fromObject(modiService.getModificationById(modiID).orElseThrow().getContents());

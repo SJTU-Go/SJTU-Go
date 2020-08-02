@@ -6,6 +6,7 @@ import time
 import json
 import requests
 import pymysql
+import config
 
 from crawler_e100 import crawler_e100,write_db_e100
 from crawler_hello import crawler_hello
@@ -35,11 +36,11 @@ def run(interval):
 
 
 if __name__=="__main__":
-    conn = pymysql.connect( host='ltzhou.com',
+    conn = pymysql.connect( host=config.host,
                         port=3306,
-                        user='pguser',
-                        passwd='pguser',
-                        db = 'playground',
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
                         charset = 'utf8')
     cursor = conn.cursor()
 

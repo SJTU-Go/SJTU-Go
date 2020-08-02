@@ -8,10 +8,9 @@ import org.sjtugo.api.DAO.MapVertexInfoRepository;
 import org.sjtugo.api.DAO.TrafficInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.controller.ResponseEntity.TrafficInfoResponse;
-import org.sjtugo.api.entity.Strategy;
-import org.sjtugo.api.service.ModificationService;
 import org.sjtugo.api.service.TrafficService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +27,9 @@ public class TrafficControl {
     private TrafficInfoRepository trafficInfoRepository;
     @Autowired
     private MapVertexInfoRepository mapVertexInfoRepository;
+    @Value("${arango.authkey}")
+    private String arangoAuthKey;
+
 
     @ApiOperation(value = "查找当前交通情况")
     @GetMapping("/current")
@@ -37,7 +39,7 @@ public class TrafficControl {
     })
     public ResponseEntity<?> currentTraffic() {
         TrafficService trafficService =
-                new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository);
+                new TrafficService(restTemplate, trafficInfoRepository, mapVertexInfoRepository, arangoAuthKey);
 //        try {
             return new ResponseEntity<>(trafficService.currentTraffic(), HttpStatus.OK);
 //        } catch (Exception e) {

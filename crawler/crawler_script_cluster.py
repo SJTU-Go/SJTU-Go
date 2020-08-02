@@ -6,6 +6,7 @@ import time
 import json
 import requests
 import pymysql
+import config
 
 from crawler_e100 import crawler_e100,write_db_e100
 from crawler_hello import crawler_hello
@@ -16,12 +17,12 @@ def print_ts(message):
     print("[%s] %s"%(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), message))
 
 def update():
-    conn = pymysql.connect( host='ltzhou.com',
-                    port=3306,
-                    user='pguser',
-                    passwd='pguser',
-                    db = 'playground',
-                    charset = 'utf8')
+    conn = pymysql.connect( host=config.host,
+                        port=3306,
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
+                        charset = 'utf8')
     cursor = conn.cursor()
     cursor.execute("SET SQL_SAFE_UPDATES = 0")
     cursor.execute("UPDATE map_vertex_info SET bike_count = 0")

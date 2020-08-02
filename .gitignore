@@ -29,3 +29,5 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/java/saltTry.java
+/crawler/config.py
+/crawler/__pycache__

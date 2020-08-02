@@ -3,6 +3,7 @@
 import json
 import requests
 import pymysql
+import config
 
 from calculate_cluster import calculate_cluster
 
@@ -31,12 +32,12 @@ def jindouyun_nearby(lat,lon):
     return data
 
 def write_db_jindouyun(bike):
-    conn = pymysql.connect( host='ltzhou.com',
-                    port=3306,
-                    user='pguser',
-                    passwd='pguser',
-                    db = 'playground',
-                    charset = 'utf8')
+    conn = pymysql.connect( host=config.host,
+                        port=3306,
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
+                        charset = 'utf8')
     cursor = conn.cursor()
     lat = bike['bikeGpsDO']['lat']
     lon = bike['bikeGpsDO']['lng']
@@ -70,11 +71,11 @@ def crawler_jindouyun():
 
 
 if __name__ == '__main__':
-    conn = pymysql.connect( host='ltzhou.com',
+    conn = pymysql.connect( host=config.host,
                         port=3306,
-                        user='pguser',
-                        passwd='pguser',
-                        db = 'playground',
+                        user=config.user,
+                        passwd=config.passwd,
+                        db = config.db,
                         charset = 'utf8')
     cursor = conn.cursor()
     bl_lat = 31.0163088100

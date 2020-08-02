@@ -8,14 +8,11 @@ import org.sjtugo.api.DAO.TrafficInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.controller.ResponseEntity.TrafficInfoResponse;
 import org.sjtugo.api.entity.TrafficInfo;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.*;
@@ -26,18 +23,17 @@ public class TrafficService {
     protected final RestTemplate restTemplate;
     protected final TrafficInfoRepository trafficInfoRepository;
     protected final MapVertexInfoRepository mapVertexInfoRepository;
-
-    @Value("${arango.authkey}")
-    protected String arangoAuthKey;
+    private String arangoAuthKey;
 
     private static final double normalCarSpeed = 8;
     private static final double normalBikeSpeed = 2.5;
     private static final double normalMotorSpeed = 5.5;
 
-    public TrafficService(RestTemplate restTemplate, TrafficInfoRepository trafficInfoRepository, MapVertexInfoRepository mapVertexInfoRepository) {
+    public TrafficService(RestTemplate restTemplate, TrafficInfoRepository trafficInfoRepository, MapVertexInfoRepository mapVertexInfoRepository, String arangoAuthKey) {
         this.restTemplate = restTemplate;
         this.trafficInfoRepository = trafficInfoRepository;
         this.mapVertexInfoRepository = mapVertexInfoRepository;
+        this.arangoAuthKey = arangoAuthKey;
     }
 
     public ErrorResponse newTraffic(TrafficInfo trafficInfo) {
@@ -87,6 +83,7 @@ public class TrafficService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization",arangoAuthKey);
+//        System.out.println(headers);
         Map<String,Object> bindVars = new HashMap<>();
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
