@@ -54,7 +54,7 @@ public class JindouyunPlanner extends AbstractPlanner {
         result.setDistance(findCar.getDistance());
         // 驾车
         try {
-            CarRoute driveCar = planCar(
+            MotorRoute driveCar = planCar(
                     mapVertexInfoRepository.getOne(Integer.parseInt(objectCar.getClusterPoint())),
                     parkCar,avoidTraffic);
             routeList.add(driveCar);
@@ -96,7 +96,7 @@ public class JindouyunPlanner extends AbstractPlanner {
     }
 
     @SuppressWarnings("unchecked")
-    private CarRoute planCar(MapVertexInfo begin, MapVertexInfo end, Boolean avoidTraffic) throws ParseException {
+    private MotorRoute planCar(MapVertexInfo begin, MapVertexInfo end, Boolean avoidTraffic) throws ParseException {
         Integer beginID = begin.getVertexID();
         Integer endID = end.getVertexID();
         HttpHeaders headers = new HttpHeaders();
@@ -135,7 +135,7 @@ public class JindouyunPlanner extends AbstractPlanner {
                 ((List<LinkedHashMap<String,Object>>) arrangoResponse.get("result")).get(0);
 
 
-        CarRoute result = new CarRoute();
+        MotorRoute result = new MotorRoute();
         result.setDepartID("PK"+begin.getVertexID());
         result.setArriveID("PK"+end.getVertexID());
 //        System.out.println(arrangoResult.get("total_distance"));
