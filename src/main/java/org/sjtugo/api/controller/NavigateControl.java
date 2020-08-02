@@ -39,6 +39,8 @@ public class NavigateControl {
     private SearchHistoryRepository searchHistoryRepository;
     @Autowired
     private MotorForbidAreaRepository motorForbidAreaRepository;
+    @Autowired
+    private JindouyunRepository jindouyunRepository;
 
     @ApiOperation(value = "Walk Navigate Service",
             notes = "给定校园内地点ID或经纬度，返回步行方案")
@@ -105,7 +107,7 @@ public class NavigateControl {
     })
     public ResponseEntity<?> navigateMotor(@RequestBody NavigateRequest navigateRequest) {
         JindouyunPlanner planner = new JindouyunPlanner(mapVertexInfoRepository,destinationRepository,
-                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository,motorForbidAreaRepository);
+                restTemplate, busTimeRepository,busStopRepository,vertexDestinationRepository,motorForbidAreaRepository,jindouyunRepository);
         try {
             return new ResponseEntity<>(planner.planAll(navigateRequest), HttpStatus.OK);
         } catch (PlaceNotFoundException e) {

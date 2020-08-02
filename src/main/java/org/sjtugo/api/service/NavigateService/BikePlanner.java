@@ -113,7 +113,7 @@ public class BikePlanner extends AbstractPlanner {
         Strategy result = new Strategy();
         result.setType("共享单车");
         result.setArrive(end.getPlaceName());
-        result.setCost(150);
+        result.setCost(100);
         result.setDepart(start.getPlaceName());
         result.setDistance(routeList.stream().mapToInt(Route::getDistance).sum());
         if (avoidTraffic){
