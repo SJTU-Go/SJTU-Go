@@ -1,5 +1,6 @@
 package org.sjtugo.api.service;
 import org.sjtugo.api.DAO.Entity.MapVertexInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,6 +30,9 @@ public class PunishmentService {
     private final MapVertexInfoRepository mapVertexInfoRepository;
     private final TripRepository tripRepository;
     private final RestTemplate restTemplate;
+
+    @Value("${arango.authkey}")
+    protected String arangoAuthKey;
 
     public PunishmentService(MapVertexInfoRepository mapVertexInfoRepository, PunishmentRepository punishmentRepository, TripRepository tripRepository, RestTemplate restTemplate){
         this.punishmentRepository = punishmentRepository;
@@ -138,8 +142,7 @@ public class PunishmentService {
     private Double findEdgeTime(String startID, String endID, Integer updateType){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization","bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTk1NTcwNzkyODQ4MDg0ZSs2LCJleHAiOjE1OTgxNjI3OTIsImlzcyI6ImFyYW5nb2RiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9vdCJ9.oi9cVga6WYD8EprNyzdlwWcXv7pzuKbmOaClUaD6nHU=");
-
+        headers.set("Authorization",arangoAuthKey);
         String query = "";
         switch (updateType){
             case 0:
@@ -201,8 +204,7 @@ public class PunishmentService {
     private Double findEdgeTime(Integer startID, Integer endID, Integer updateType){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization","bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTkxNTI5OTc2NDQ5Nzc1M2UrNiwiZXhwIjoxNTk0MTIxOTc2LCJpc3MiOiJhcmFuZ29kYiIsInByZWZlcnJlZF91c2VybmFtZSI6InJvb3QifQ==.UElwRx6Iy9yvT2gvX2rdCjlLnc73E56RfV6hEQd1sLA=");
-
+        headers.set("Authorization",arangoAuthKey);
         String query = "";
         switch (updateType){
             case 0:

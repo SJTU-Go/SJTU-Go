@@ -11,6 +11,7 @@ import org.sjtugo.api.DAO.Entity.SearchHistory;
 import org.sjtugo.api.controller.RequestEntity.NavigateRequest;
 import org.sjtugo.api.entity.Strategy;
 import org.sjtugo.api.entity.WalkRoute;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 

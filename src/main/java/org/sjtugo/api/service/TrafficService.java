@@ -8,6 +8,7 @@ import org.sjtugo.api.DAO.TrafficInfoRepository;
 import org.sjtugo.api.controller.ResponseEntity.ErrorResponse;
 import org.sjtugo.api.controller.ResponseEntity.TrafficInfoResponse;
 import org.sjtugo.api.entity.TrafficInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,9 @@ public class TrafficService {
     protected final RestTemplate restTemplate;
     protected final TrafficInfoRepository trafficInfoRepository;
     protected final MapVertexInfoRepository mapVertexInfoRepository;
+
+    @Value("${arango.authkey}")
+    protected String arangoAuthKey;
 
     private static final double normalCarSpeed = 8;
     private static final double normalBikeSpeed = 2.5;
@@ -82,7 +86,7 @@ public class TrafficService {
     private ErrorResponse scheduleArango(TrafficInfo task) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization","bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTk1NTcwNzkyODQ4MDg0ZSs2LCJleHAiOjE1OTgxNjI3OTIsImlzcyI6ImFyYW5nb2RiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9vdCJ9.oi9cVga6WYD8EprNyzdlwWcXv7pzuKbmOaClUaD6nHU=");
+        headers.set("Authorization",arangoAuthKey);
         Map<String,Object> bindVars = new HashMap<>();
         bindVars.put("id","update"+task.getTrafficID());
         bindVars.put("name","update"+task.getName());
@@ -183,11 +187,9 @@ public class TrafficService {
     private ErrorResponse removeArango(TrafficInfo traffic) {
         Integer trafficID = traffic.getTrafficID();
         MultiValueMap<String,String> headers = new HttpHeaders();
-        headers.set("Authorization","bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjEuNTk1NTcwNzkyODQ4MDg0ZSs2LCJleHAiOjE1OTgxNjI3OTIsImlzcyI6ImFyYW5nb2RiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9vdCJ9.oi9cVga6WYD8EprNyzdlwWcXv7pzuKbmOaClUaD6nHU=");
-
+        headers.set("Authorization",arangoAuthKey);
 
         RestTemplate tempRestTemplate = new RestTemplateBuilder()
-                .basicAuthentication("root", "sjtugo")
                 .build();
         HttpEntity<?> delete_request = new HttpEntity<>(null,headers);
         try {
