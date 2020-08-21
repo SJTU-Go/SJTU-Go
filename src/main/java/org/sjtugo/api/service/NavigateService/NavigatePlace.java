@@ -50,7 +50,7 @@ public class NavigatePlace {
         return placeName + location.toString() + placeType.toString() + placeID;
     }
 
-    enum PlaceType {
+    public enum PlaceType {
         destination,
         parking,
         point,

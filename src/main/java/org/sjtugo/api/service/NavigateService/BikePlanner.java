@@ -40,31 +40,31 @@ public class BikePlanner extends AbstractPlanner {
         NavigatePlace start = parsePlace(beginPlace);
         NavigatePlace end = parsePlace(endPlace);
         List<Route> routeList = new ArrayList<>();
-        MapVertexInfo pickup;
-        MapVertexInfo parkbike;
+        List<MapVertexInfo> pickups;
+        MapVertexInfo fstPickup;
+//        List<MapVertexInfo> parkbikes;
+        MapVertexInfo fstParkbike;
 
         // PICK UP
         if (start.getPlaceType() != NavigatePlace.PlaceType.parking) {
-            TransitionRoute startTransition = new TransitionRoute(true);
+//
             if (start.getPlaceType() == NavigatePlace.PlaceType.destination) {
+                TransitionRoute startTransition = new TransitionRoute(true);
                 VertexDestination transInfo = vertexDestinationRepository
                         .findByPlaceid(start.getPlaceID());
                 startTransition.setRouteTime(transInfo.getReachtime());
-                pickup = mapVertexInfoRepository.findById(transInfo.getVertexid()).orElseThrow();
+                fstPickup = mapVertexInfoRepository
+                        .findById(transInfo.getVertexid()).orElseThrow();
+                routeList.add(startTransition);
             } else {
-                startTransition.setRouteTime(0);
-                pickup = nearsetParking(start);
+                pickups = nearsetParking(start);
+                TransitionRoute startTransition = new TransitionRoute(true, start, pickups);
+                routeList.add(startTransition);
+                fstPickup = pickups.get(0);
             }
-            startTransition.setParkID(String.valueOf(pickup.getVertexID()));
-            startTransition.setPlaceID(start.getPlaceType().toString() + start.getPlaceID());
-            startTransition.setDepartName(start.getPlaceName());
-            startTransition.setArriveName(pickup.getVertexName() + "（寻车点）");
-            startTransition.setRoutePath(new GeometryFactory().createLineString(
-                    new Coordinate[]{start.getLocation().getCoordinate(), pickup.getLocation().getCoordinate()}
-            ));
-            routeList.add(startTransition);
-        } else {
-            pickup = mapVertexInfoRepository.findById(start.getPlaceID()).orElseThrow();
+        }
+        else {
+            fstPickup = mapVertexInfoRepository.findById(start.getPlaceID()).orElseThrow();
         }
 
 
@@ -73,15 +73,15 @@ public class BikePlanner extends AbstractPlanner {
             if (end.getPlaceType() == NavigatePlace.PlaceType.destination){
                 VertexDestination transInfo = vertexDestinationRepository
                         .findByPlaceid(end.getPlaceID());
-                parkbike = mapVertexInfoRepository.findById(transInfo.getVertexid()).orElseThrow();
+                fstParkbike = mapVertexInfoRepository.findById(transInfo.getVertexid()).orElseThrow();
             } else {
-                parkbike = nearsetParking(end);
+                fstParkbike = nearsetParking(end).get(0);
             }
         } else {
-            parkbike = mapVertexInfoRepository.findById(end.getPlaceID()).orElseThrow();
+            fstParkbike = mapVertexInfoRepository.findById(end.getPlaceID()).orElseThrow();
         }
         try{
-            routeList.add(planBike(pickup,parkbike,avoidTraffic));
+            routeList.add(planBike(fstPickup,fstParkbike,avoidTraffic));
         } catch (ParseException e){
             throw new StrategyNotFoundException("bike route not found");
         }
@@ -95,19 +95,18 @@ public class BikePlanner extends AbstractPlanner {
             TransitionRoute endTransition = new TransitionRoute(false);
             if (end.getPlaceType() == NavigatePlace.PlaceType.destination) {
                 VertexDestination transInfo = vertexDestinationRepository
-                        .findById(new VertexDestinationID(end.getPlaceID(),parkbike.getVertexID())).orElseThrow();
+                        .findById(new VertexDestinationID(end.getPlaceID(),fstParkbike.getVertexID())).orElseThrow();
                 endTransition.setRouteTime(transInfo.getReachtime());
             } else {
                 endTransition.setRouteTime(0);
             }
-            endTransition.setParkID(String.valueOf(parkbike.getVertexID()));
+            endTransition.setParkID(String.valueOf(fstParkbike.getVertexID()));
             endTransition.setPlaceID(end.getPlaceType().toString() + end.getPlaceID());
             endTransition.setArriveName(end.getPlaceName());
-            endTransition.setDepartName(parkbike.getVertexName() + "（停车点）");
+            endTransition.setDepartName(fstParkbike.getVertexName() + "（停车点）");
             endTransition.setRoutePath(new GeometryFactory().createLineString(
-                    new Coordinate[]{parkbike.getLocation().getCoordinate(), end.getLocation().getCoordinate()}
+                    new Coordinate[]{fstParkbike.getLocation().getCoordinate(), end.getLocation().getCoordinate()}
             ));
-
             routeList.add(endTransition);
         }
         Strategy result = new Strategy();

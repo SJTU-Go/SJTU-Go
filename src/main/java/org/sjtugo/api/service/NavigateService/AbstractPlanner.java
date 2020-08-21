@@ -228,9 +228,9 @@ public abstract class AbstractPlanner {
         return walkRoute;
     }
 
-    protected MapVertexInfo nearsetParking (NavigatePlace point){
+    protected List<MapVertexInfo> nearsetParking (NavigatePlace point){
         Coordinate pointCoord = point.getLocation().getCoordinate();
-        return mapVertexInfoRepository.findNearbyParking(pointCoord.x,pointCoord.y).get(0);
+        return mapVertexInfoRepository.findNearbyParking(pointCoord.x,pointCoord.y);
     }
 
 
